@@ -43,39 +43,6 @@
             margin-bottom: 10px;
             border-radius: 5px;
         }
-        .phase-indicator {
-            display: flex;
-            margin-bottom: 15px;
-        }
-        .phase {
-            flex: 1;
-            text-align: center;
-            padding: 8px 5px;
-            background-color: #e9ecef;
-            border-right: 1px solid #fff;
-            position: relative;
-        }
-        .phase:first-child {
-            border-top-left-radius: 5px;
-            border-bottom-left-radius: 5px;
-        }
-        .phase:last-child {
-            border-right: none;
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;
-        }
-        .phase.active {
-            background-color: #0d6efd;
-            color: white;
-        }
-        .phase.completed {
-            background-color: #198754;
-            color: white;
-        }
-        .phase-icon {
-            font-size: 1.2em;
-            margin-right: 5px;
-        }
         .recording-pulse {
             display: inline-block;
             width: 12px;
@@ -208,21 +175,6 @@
                     <div class="card-body">
                         <h5 class="card-title">Microphone Visualizer</h5>
 
-                        <div class="phase-indicator" id="test-phases">
-                            <div class="phase active" id="phase-detect">
-                                <i class="bi bi-search phase-icon"></i>Detecting
-                            </div>
-                            <div class="phase" id="phase-record">
-                                <i class="bi bi-record-circle phase-icon"></i>Recording
-                            </div>
-                            <div class="phase" id="phase-analyze">
-                                <i class="bi bi-graph-up phase-icon"></i>Analyzing
-                            </div>
-                            <div class="phase" id="phase-complete">
-                                <i class="bi bi-check-circle phase-icon"></i>Complete
-                            </div>
-                        </div>
-
                         <div id="status-message" class="status-message alert alert-info mb-3">
                             <div class="status-step">
                                 <span class="status-icon"><i class="bi bi-arrow-right-circle-fill"></i></span>
@@ -252,15 +204,23 @@
                                 <i class="bi bi-info-circle-fill me-2"></i>
                                 Please say "Hello" or make some noise. The tester records the sound captured by your mic and you will be able to playback it after testing is complete.
                             </div>
-                            <button id="play-button" class="btn btn-secondary me-2" disabled>
-                                <i class="bi bi-play-fill me-1"></i>Play Recording
-                            </button>
-                            <button id="stop-button" class="btn btn-danger me-2">
-                                <i class="bi bi-stop-fill me-1"></i>Stop
-                            </button>
-                            <button id="share-button" class="btn btn-outline-primary me-2 d-none">
-                                <i class="bi bi-share-fill me-1"></i>Share Results
-                            </button>
+                            <div class="btn-toolbar">
+                                <button id="play-button" class="btn btn-secondary me-2" disabled>
+                                    <i class="bi bi-play-fill me-1"></i>Play Recording
+                                </button>
+                                <button id="pause-button" class="btn btn-warning me-2 d-none">
+                                    <i class="bi bi-pause-fill me-1"></i>Pause
+                                </button>
+                                <button id="stop-recording-button" class="btn btn-danger me-2">
+                                    <i class="bi bi-stop-fill me-1"></i>Stop Recording
+                                </button>
+                                <button id="restart-button" class="btn btn-outline-secondary me-2 d-none">
+                                    <i class="bi bi-arrow-repeat me-1"></i>Restart
+                                </button>
+                                <button id="share-button" class="btn btn-outline-primary me-2 d-none">
+                                    <i class="bi bi-share-fill me-1"></i>Share Results
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -498,7 +458,9 @@
             const testButton = document.getElementById('test-button');
             const recordingControls = document.getElementById('recording-controls');
             const playButton = document.getElementById('play-button');
-            const stopButton = document.getElementById('stop-button');
+            const pauseButton = document.getElementById('pause-button');
+            const stopRecordingButton = document.getElementById('stop-recording-button');
+            const restartButton = document.getElementById('restart-button');
             const shareButton = document.getElementById('share-button');
             const recordingProgress = document.getElementById('recording-progress');
             const browserMessage = document.getElementById('browser-message');
@@ -506,12 +468,6 @@
             const statusMessage = document.getElementById('status-message');
             const recordingInstructions = document.getElementById('recording-instructions');
             const amplitudeBars = document.querySelectorAll('.amplitude-bar');
-
-            // Test phase elements
-            const phaseDetect = document.getElementById('phase-detect');
-            const phaseRecord = document.getElementById('phase-record');
-            const phaseAnalyze = document.getElementById('phase-analyze');
-            const phaseComplete = document.getElementById('phase-complete');
 
             // Review form elements
             const addReviewBtn = document.getElementById('add-review-btn');
@@ -541,41 +497,15 @@
             let audioBlob;
             let audioUrl;
             let audioElement;
-            let testPhase = 'detect'; // detect, record, analyze, complete
-            let testingComplete = false;
+            let currentState = 'idle'; // idle, detecting, recording, analyzing, complete
+            let recordingStopped = false;
+            let recordingDuration = 5000; // Default recording duration in ms
 
             // Check if browser supports audio API
             if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                updateStatusMessage('error', 'Your browser does not support microphone access. Please use a modern browser like Chrome, Firefox, or Edge.');
+                updateStatusMessage('danger', 'Your browser does not support microphone access. Please use a modern browser like Chrome, Firefox, or Edge.');
                 testButton.disabled = true;
                 return;
-            }
-
-            function updatePhaseIndicator(phase) {
-                // Reset all phases
-                phaseDetect.className = 'phase';
-                phaseRecord.className = 'phase';
-                phaseAnalyze.className = 'phase';
-                phaseComplete.className = 'phase';
-
-                testPhase = phase;
-
-                // Set appropriate classes based on current phase
-                if (phase === 'detect') {
-                    phaseDetect.className = 'phase active';
-                } else if (phase === 'record') {
-                    phaseDetect.className = 'phase completed';
-                    phaseRecord.className = 'phase active';
-                } else if (phase === 'analyze') {
-                    phaseDetect.className = 'phase completed';
-                    phaseRecord.className = 'phase completed';
-                    phaseAnalyze.className = 'phase active';
-                } else if (phase === 'complete') {
-                    phaseDetect.className = 'phase completed';
-                    phaseRecord.className = 'phase completed';
-                    phaseAnalyze.className = 'phase completed';
-                    phaseComplete.className = 'phase active';
-                }
             }
 
             function updateStatusMessage(type, message) {
@@ -604,7 +534,7 @@
             }
 
             // Get available audio devices
-            updatePhaseIndicator('detect');
+            currentState = 'detecting';
             updateStatusMessage('info', 'Detecting your media devices. Please wait...');
 
             navigator.mediaDevices.enumerateDevices()
@@ -614,6 +544,7 @@
                     if (audioInputDevices.length === 0) {
                         updateStatusMessage('warning', 'No microphone detected. Please connect a microphone and refresh the page.');
                         testButton.disabled = true;
+                        currentState = 'idle';
                         return;
                     }
 
@@ -627,6 +558,7 @@
                     });
 
                     micSelect.disabled = false;
+                    currentState = 'idle';
 
                     if (audioInputDevices.length > 1) {
                         updateStatusMessage('success', `${audioInputDevices.length} microphones were detected. To check the functionality and supported properties of your microphone, select it from the list below and press "Test my mic".`);
@@ -637,6 +569,7 @@
                 .catch(error => {
                     console.error('Error enumerating devices:', error);
                     updateStatusMessage('danger', 'Error accessing media devices. Please ensure you have given permission to access your microphone.');
+                    currentState = 'idle';
                 });
 
             // Set up canvas for visualization
@@ -646,13 +579,7 @@
             testButton.addEventListener('click', function() {
                 if (microphone) {
                     stopMicrophone();
-                    testButton.textContent = 'Test my mic';
-                    testButton.innerHTML = '<i class="bi bi-mic-fill me-2"></i>Test my mic';
-                    recordingControls.classList.add('d-none');
-                    resetMicInfo();
-                    updatePhaseIndicator('detect');
-                    updateStatusMessage('info', 'Select your microphone from the dropdown and press "Test my mic" to begin.');
-                    shareButton.classList.add('d-none');
+                    resetUI();
                     return;
                 }
 
@@ -665,8 +592,8 @@
                     }
                 };
 
-                // Update phase and status
-                updatePhaseIndicator('detect');
+                // Update status
+                currentState = 'detecting';
                 updateStatusMessage('info', 'Requesting microphone access. Please allow access when prompted.');
 
                 // Request microphone access
@@ -675,8 +602,9 @@
                         // Create audio context
                         audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-                        // Update phase and status
-                        updatePhaseIndicator('record');
+                        // Update status
+                        currentState = 'recording';
+                        recordingStopped = false;
                         updateStatusMessage('recording', '<strong>Recording in progress: </strong> Testing your microphone and recording your voice.');
 
                         // Create analyzer
@@ -691,7 +619,7 @@
                         visualize();
 
                         // Update UI
-                        testButton.innerHTML = '<i class="bi bi-stop-fill me-2"></i>Stop test';
+                        testButton.innerHTML = '<i class="bi bi-x-circle-fill me-2"></i>Cancel test';
 
                         // Show recording controls
                         recordingControls.classList.remove('d-none');
@@ -708,7 +636,7 @@
                     .catch(error => {
                         console.error('Error accessing microphone:', error);
                         updateStatusMessage('danger', 'Error accessing your microphone. Please ensure you have given permission to use your microphone.');
-                        updatePhaseIndicator('detect');
+                        currentState = 'idle';
                     });
             });
 
@@ -786,31 +714,7 @@
                 };
 
                 mediaRecorder.onstop = function() {
-                    // Update phase and status
-                    updatePhaseIndicator('analyze');
-                    updateStatusMessage('info', 'Analyzing your microphone recording and properties...');
-
-                    setTimeout(() => {
-                        audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                        audioUrl = URL.createObjectURL(audioBlob);
-
-                        if (audioElement) {
-                            audioElement.remove();
-                        }
-
-                        audioElement = document.createElement('audio');
-                        audioElement.src = audioUrl;
-
-                        playButton.disabled = false;
-
-                        // Complete the test
-                        updatePhaseIndicator('complete');
-                        updateStatusMessage('success', 'Testing complete! Your microphone is working properly. You can now play back your recording or test again.');
-
-                        // Show share button
-                        shareButton.classList.remove('d-none');
-                        testingComplete = true;
-                    }, 1500); // Simulate analysis time
+                    finishRecording();
                 };
             }
 
@@ -818,28 +722,74 @@
             function startRecording() {
                 audioChunks = [];
                 playButton.disabled = true;
+                pauseButton.classList.add('d-none');
                 recordingStartTime = Date.now();
-                testingComplete = false;
+                recordingStopped = false;
 
                 mediaRecorder.start();
 
                 // Update progress bar
                 recordingTimer = setInterval(function() {
                     const elapsedTime = Date.now() - recordingStartTime;
-                    const progress = Math.min(100, (elapsedTime / 5000) * 100);
+                    const progress = Math.min(100, (elapsedTime / recordingDuration) * 100);
                     recordingProgress.style.width = progress + '%';
 
                     // Update percentage in status message if still in recording phase
-                    if (testPhase === 'record' && !testingComplete) {
+                    if (currentState === 'recording' && !recordingStopped) {
                         const progressLabel = Math.floor(progress);
                         updateStatusMessage('recording', `<strong>${progressLabel}.0% Recording in progress: </strong> Testing your microphone and recording your voice.`);
                     }
 
                     if (progress >= 100) {
                         clearInterval(recordingTimer);
-                        mediaRecorder.stop();
+                        stopRecording();
                     }
                 }, 50);
+            }
+
+            // Stop recording but keep the stream active
+            function stopRecording() {
+                if (mediaRecorder && mediaRecorder.state === 'recording') {
+                    mediaRecorder.stop();
+                    recordingStopped = true;
+                }
+
+                if (recordingTimer) {
+                    clearInterval(recordingTimer);
+                }
+            }
+
+            // Process the recording after it's stopped
+            function finishRecording() {
+                audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                audioUrl = URL.createObjectURL(audioBlob);
+
+                if (audioElement) {
+                    audioElement.remove();
+                }
+
+                audioElement = document.createElement('audio');
+                audioElement.src = audioUrl;
+
+                // Setup audio playback controls
+                playButton.disabled = false;
+                restartButton.classList.remove('d-none');
+                shareButton.classList.remove('d-none');
+
+                // Update state and status
+                currentState = 'complete';
+                updateStatusMessage('success', 'Recording complete! Your microphone is working properly. You can now play back your recording or test again.');
+            }
+
+            // Reset UI to initial state
+            function resetUI() {
+                testButton.innerHTML = '<i class="bi bi-mic-fill me-2"></i>Test my mic';
+                recordingControls.classList.add('d-none');
+                resetMicInfo();
+                currentState = 'idle';
+                updateStatusMessage('info', 'Select your microphone from the dropdown and press "Test my mic" to begin.');
+                shareButton.classList.add('d-none');
+                restartButton.classList.add('d-none');
             }
 
             // Stop microphone
@@ -937,18 +887,42 @@
             playButton.addEventListener('click', function() {
                 if (audioElement) {
                     audioElement.play();
+                    playButton.classList.add('d-none');
+                    pauseButton.classList.remove('d-none');
+
+                    audioElement.onended = function() {
+                        playButton.classList.remove('d-none');
+                        pauseButton.classList.add('d-none');
+                    };
                 }
             });
 
-            // Stop button click handler
-            stopButton.addEventListener('click', function() {
-                stopMicrophone();
-                testButton.innerHTML = '<i class="bi bi-mic-fill me-2"></i>Test my mic';
-                recordingControls.classList.add('d-none');
-                resetMicInfo();
-                updatePhaseIndicator('detect');
-                updateStatusMessage('info', 'Select your microphone from the dropdown and press "Test my mic" to begin.');
-                shareButton.classList.add('d-none');
+            // Pause button click handler
+            pauseButton.addEventListener('click', function() {
+                if (audioElement) {
+                    audioElement.pause();
+                    pauseButton.classList.add('d-none');
+                    playButton.classList.remove('d-none');
+                }
+            });
+
+            // Stop recording button click handler
+            stopRecordingButton.addEventListener('click', function() {
+                if (currentState === 'recording' && !recordingStopped) {
+                    stopRecording();
+                }
+            });
+
+            // Restart button click handler
+            restartButton.addEventListener('click', function() {
+                if (microphone && currentState === 'complete') {
+                    // Only restart the recording, keep the stream active
+                    startRecording();
+                    currentState = 'recording';
+                    updateStatusMessage('recording', '<strong>Recording in progress: </strong> Testing your microphone and recording your voice.');
+                    restartButton.classList.add('d-none');
+                    shareButton.classList.add('d-none');
+                }
             });
 
             // Share button click handler
