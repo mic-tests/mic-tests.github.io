@@ -175,7 +175,7 @@
         <div class="alert alert-info" id="browser-alert">
             <div id="browser-message">
                 <i class="bi bi-info-circle-fill me-2"></i>
-                A microphone was detected. Press "Test my mic" to check the functionality and supported properties of your microphone.
+                Press "Test my mic" to check the functionality and supported properties of your microphone.
             </div>
         </div>
 
@@ -192,7 +192,7 @@
                         <div id="status-message" class="status-message alert alert-info mb-3">
                             <div class="status-step">
                                 <span class="status-icon"><i class="bi bi-arrow-right-circle-fill"></i></span>
-                                <span>Select your microphone from the dropdown and press "Test my mic" to begin.</span>
+                                <span>Press "Test my mic" to begin testing your microphone.</span>
                             </div>
                         </div>
 
@@ -203,7 +203,7 @@
 
                         <div class="d-flex justify-content-between mt-3">
                             <select id="mic-select" class="form-select w-50 me-2" disabled>
-                                <option value="">Loading microphones...</option>
+                                <option value="">Click "Test my mic" to detect microphones</option>
                             </select>
                             <button id="test-button" class="btn btn-primary">
                                 <i class="bi bi-mic-fill me-2"></i>Test my mic
@@ -868,6 +868,7 @@
             let recordingStopped = false;
             let recordingDuration = 5000; // Default recording duration in ms
             let audioStream; // Store the audio stream for cleanup
+            let devicesEnumerated = false; // Track if devices have been enumerated
 
             // Check if browser supports audio API
             if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -901,53 +902,32 @@
                 }
             }
 
-            // Get available audio devices
-            currentState = 'detecting';
-            updateStatusMessage('info', 'Detecting your media devices. Please wait...');
+            // Modified device enumeration - only enumerate when user clicks test button
+            function enumerateAudioDevices() {
+                if (devicesEnumerated) {
+                    return Promise.resolve(); // Already enumerated
+                }
 
-            // Add device detection with label fallback for mobile
-            navigator.mediaDevices.enumerateDevices()
-                .then(devices => {
-                    const audioInputDevices = devices.filter(device => device.kind === 'audioinput');
+                return navigator.mediaDevices.enumerateDevices()
+                    .then(devices => {
+                        const audioInputDevices = devices.filter(device => device.kind === 'audioinput');
 
-                    if (audioInputDevices.length === 0) {
-                        updateStatusMessage('warning', 'No microphone detected. Please connect a microphone and refresh the page.');
-                        testButton.disabled = true;
-                        currentState = 'idle';
-                        return;
-                    }
+                        if (audioInputDevices.length === 0) {
+                            updateStatusMessage('warning', 'No microphone detected. Please connect a microphone and refresh the page.');
+                            testButton.disabled = true;
+                            return Promise.reject('No microphones found');
+                        }
 
-                    // If no labels are available (common on mobile), we need to request permission first
-                    const hasLabels = audioInputDevices.some(device => device.label);
-
-                    if (!hasLabels) {
-                        // Request temporary permission to get labels
-                        navigator.mediaDevices.getUserMedia({ audio: true })
-                            .then(tempStream => {
-                                // Stop the temporary stream immediately
-                                tempStream.getTracks().forEach(track => track.stop());
-
-                                // Now enumerate devices again to get labels
-                                navigator.mediaDevices.enumerateDevices()
-                                    .then(devicesWithLabels => {
-                                        populateMicSelect(devicesWithLabels.filter(device => device.kind === 'audioinput'));
-                                    });
-                            })
-                            .catch(err => {
-                                console.error('Error getting temporary permission:', err);
-                                // Fallback - still show devices without labels
-                                populateMicSelect(audioInputDevices);
-                            });
-                    } else {
-                        // Labels already available, proceed normally
                         populateMicSelect(audioInputDevices);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error enumerating devices:', error);
-                    updateStatusMessage('danger', 'Error accessing media devices. Please ensure you have given permission to access your microphone.');
-                    currentState = 'idle';
-                });
+                        devicesEnumerated = true;
+                        return Promise.resolve();
+                    })
+                    .catch(error => {
+                        console.error('Error enumerating devices:', error);
+                        updateStatusMessage('danger', 'Error accessing media devices. Please ensure you have given permission to access your microphone.');
+                        throw error;
+                    });
+            }
 
             function populateMicSelect(audioInputDevices) {
                 // Populate microphone select dropdown
@@ -960,19 +940,12 @@
                 });
 
                 micSelect.disabled = false;
-                currentState = 'idle';
-
-                if (audioInputDevices.length > 1) {
-                    updateStatusMessage('success', `${audioInputDevices.length} microphones were detected. To check the functionality and supported properties of your microphone, select it from the list below and press "Test my mic".`);
-                } else {
-                    updateStatusMessage('success', 'A microphone was detected. Press "Test my mic" to check the functionality and supported properties of your microphone.');
-                }
             }
 
             // Set up canvas for visualization
             const canvasCtx = visualizer.getContext('2d');
 
-            // Test button click handler
+            // Modified test button click handler
             testButton.addEventListener('click', function() {
                 if (microphone) {
                     stopMicrophone();
@@ -980,23 +953,54 @@
                     return;
                 }
 
+                // Update status - requesting permission
+                currentState = 'detecting';
+                updateStatusMessage('info', 'Requesting microphone access. Please allow access when prompted.');
+
                 const constraints = {
                     audio: {
-                        deviceId: micSelect.value ? { exact: micSelect.value } : undefined,
                         echoCancellation: true,
                         noiseSuppression: true,
                         autoGainControl: true
                     }
                 };
 
-                // Update status
-                currentState = 'detecting';
-                updateStatusMessage('info', 'Requesting microphone access. Please allow access when prompted.');
-
-                // Request microphone access
+                // Request microphone access first
                 navigator.mediaDevices.getUserMedia(constraints)
                     .then(stream => {
                         // Store the stream for cleanup
+                        audioStream = stream;
+
+                        // Now enumerate devices to get proper labels and populate dropdown
+                        return navigator.mediaDevices.enumerateDevices()
+                            .then(devices => {
+                                const audioInputDevices = devices.filter(device => device.kind === 'audioinput');
+                                populateMicSelect(audioInputDevices);
+                                devicesEnumerated = true;
+                                return stream;
+                            });
+                    })
+                    .then(stream => {
+                        // Check if user wants to use a specific microphone
+                        if (micSelect.value && micSelect.value !== stream.getAudioTracks()[0].getSettings().deviceId) {
+                            // Stop current stream and request the selected microphone
+                            stream.getTracks().forEach(track => track.stop());
+
+                            const newConstraints = {
+                                audio: {
+                                    deviceId: { exact: micSelect.value },
+                                    echoCancellation: true,
+                                    noiseSuppression: true,
+                                    autoGainControl: true
+                                }
+                            };
+
+                            return navigator.mediaDevices.getUserMedia(newConstraints);
+                        }
+                        return stream;
+                    })
+                    .then(stream => {
+                        // Store the final stream
                         audioStream = stream;
 
                         // Create audio context with mobile-friendly initialization
@@ -1292,9 +1296,14 @@
                 audioPlayerContainer.classList.add('d-none');
                 resetMicInfo();
                 currentState = 'idle';
-                updateStatusMessage('info', 'Select your microphone from the dropdown and press "Test my mic" to begin.');
+                updateStatusMessage('info', 'Press "Test my mic" to begin testing your microphone.');
                 shareButton.classList.add('d-none');
                 restartButton.classList.add('d-none');
+
+                // Reset microphone dropdown
+                micSelect.innerHTML = '<option value="">Click "Test my mic" to detect microphones</option>';
+                micSelect.disabled = true;
+                devicesEnumerated = false;
 
                 // Release audio resources
                 if (audioUrl) {
