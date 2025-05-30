@@ -2,252 +2,297 @@
 <html lang="en">
 <!-- Head and styles remain the same - no changes needed -->
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MicTest - Advanced Online Microphone Test | Free Mic Testing Tool</title>
-<meta name="description" content="Advanced online microphone test tool. Test your mic quality, check audio levels, and verify microphone functionality across all devices - PC, laptop, mobile, tablet. Free browser-based mic testing.">
-<meta name="keywords" content="microphone test, mic test online, audio test, microphone check, voice test, audio quality, microphone troubleshooting">
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>MicTest - Advanced Online Microphone Test | Free Mic Testing Tool</title>
+  <meta content="Advanced online microphone test tool. Test your mic quality, check audio levels, and verify microphone functionality across all devices - PC, laptop, mobile, tablet. Free browser-based mic testing."
+        name="description">
+  <meta content="microphone test, mic test online, audio test, microphone check, voice test, audio quality, microphone troubleshooting" name="keywords">
 
-  <link rel="canonical" href="https://mic-tests.github.io/">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <style>
-        canvas {
-            width: 100%;
-            height: 150px;
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-        }
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 8px;
-        }
-        .info-label {
-            font-weight: bold;
-        }
-        .footer {
-            margin-top: 50px;
-            padding: 20px 0;
-            background-color: #f8f9fa;
-            border-top: 1px solid #dee2e6;
-        }
-        .testimonial {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        .testimonial:last-child {
-            border-bottom: none;
-        }
-        .status-message {
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
-        .recording-pulse {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #dc3545;
-            margin-right: 8px;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
-            }
+  <link href="https://mic-tests.github.io/" rel="canonical">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <script async crossorigin="anonymous"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5426315045205785"></script>
+  <style>
+    canvas {
+      width: 100%;
+      height: 150px;
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+    }
 
-            70% {
-                transform: scale(1);
-                box-shadow: 0 0 0 8px rgba(220, 53, 69, 0);
-            }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 8px;
+    }
 
-            100% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
-            }
-        }
-        .quality-indicator {
-            display: inline-block;
-            font-weight: bold;
-        }
-        .quality-excellent {
-            color: #198754;
-        }
-        .quality-verygood {
-            color: #0d6efd;
-        }
-        .quality-good {
-            color: #6f42c1;
-        }
-        .quality-fair {
-            color: #fd7e14;
-        }
-        .quality-poor {
-            color: #dc3545;
-        }
-        .quality-unknown {
-            color: #6c757d;
-        }
-        #visualizer-container {
-            position: relative;
-        }
-        .amplitude-bars {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: flex-end;
-            padding: 0 5px;
-        }
-        .amplitude-bar {
-            flex: 1;
-            background-color: rgba(13, 110, 253, 0.5);
-            margin: 0 1px;
-            max-height: 100%;
-            transition: height 0.1s ease;
-        }
-        .review-form {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-            border: 1px solid #dee2e6;
-        }
-        .status-step {
-            display: flex;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-        .status-icon {
-            margin-right: 10px;
-            width: 20px;
-            text-align: center;
-        }
-        .mic-instructions {
-            margin-bottom: 15px;
-        }
-    </style>
-  <meta name="google-adsense-account" content="ca-pub-5426315045205785">
+    .info-label {
+      font-weight: bold;
+    }
+
+    .footer {
+      margin-top: 50px;
+      padding: 20px 0;
+      background-color: #f8f9fa;
+      border-top: 1px solid #dee2e6;
+    }
+
+    .testimonial {
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .testimonial:last-child {
+      border-bottom: none;
+    }
+
+    .status-message {
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    .recording-pulse {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #dc3545;
+      margin-right: 8px;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+      }
+
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 8px rgba(220, 53, 69, 0);
+      }
+
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+      }
+    }
+
+    .quality-indicator {
+      display: inline-block;
+      font-weight: bold;
+    }
+
+    .quality-excellent {
+      color: #198754;
+    }
+
+    .quality-verygood {
+      color: #0d6efd;
+    }
+
+    .quality-good {
+      color: #6f42c1;
+    }
+
+    .quality-fair {
+      color: #fd7e14;
+    }
+
+    .quality-poor {
+      color: #dc3545;
+    }
+
+    .quality-unknown {
+      color: #6c757d;
+    }
+
+    #visualizer-container {
+      position: relative;
+    }
+
+    .amplitude-bars {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 5px;
+    }
+
+    .amplitude-bar {
+      flex: 1;
+      background-color: rgba(13, 110, 253, 0.5);
+      margin: 0 1px;
+      max-height: 100%;
+      transition: height 0.1s ease;
+    }
+
+    .review-form {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      border: 1px solid #dee2e6;
+    }
+
+    .status-step {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+
+    .status-icon {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .mic-instructions {
+      margin-bottom: 15px;
+    }
+  </style>
+  <meta content="ca-pub-5426315045205785" name="google-adsense-account">
 </head>
 <body>
-    <!-- Nav and UI HTML remain the same - no changes needed -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="/">
-                <i class="bi bi-mic-fill me-2"></i>MicTest
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+<!-- Nav and UI HTML remain the same - no changes needed -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <i class="bi bi-mic-fill me-2"></i>MicTest
+    </a>
+    <button class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a aria-current="page" class="nav-link active" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/show-mic">Show My Mic</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/show-speakers">Show My Speakers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <div class="alert alert-info" id="browser-alert">
+    <div id="browser-message">
+      <i class="bi bi-info-circle-fill me-2"></i>
+      Press "Test my mic" to check the functionality and supported properties of your microphone.
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+
+      <h1><i class="bi bi-mic-fill me-2"></i>Advanced Online Microphone Test - Free Mic Testing Tool</h1>
+      <p class="lead">Test your microphone quality instantly with our comprehensive browser-based testing tool. Compatible with all devices - desktop computers, laptops, smartphones, tablets, and gaming headsets. No
+        downloads required.</p>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Microphone Visualizer</h5>
+
+          <div class="status-message alert alert-info mb-3" id="status-message">
+            <div class="status-step">
+              <span class="status-icon"><i class="bi bi-arrow-right-circle-fill"></i></span>
+              <span>Press "Test my mic" to begin testing your microphone.</span>
+            </div>
+          </div>
+
+          <div id="visualizer-container">
+            <canvas id="visualizer"></canvas>
+            <div class="amplitude-bars" id="amplitude-bars"></div>
+          </div>
+
+          <div class="d-flex justify-content-between mt-3">
+            <select class="form-select w-50 me-2" disabled id="mic-select">
+              <option value="">Click "Test my mic" to detect microphones</option>
+            </select>
+            <button class="btn btn-primary" id="test-button">
+              <i class="bi bi-mic-fill me-2"></i>Test my mic
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-<ul class="navbar-nav">
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="/">Home</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/show-mic">Show My Mic</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/show-speakers">Show My Speakers</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/about">About</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/contact">Contact</a>
-    </li>
-</ul>
+          </div>
+
+          <div class="mt-3 d-none" id="recording-controls">
+            <div class="progress mb-2">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" id="recording-progress" role="progressbar" style="width: 0%"></div>
             </div>
-        </div>
-    </nav>
-
-    <div class="container mt-4">
-        <div class="alert alert-info" id="browser-alert">
-            <div id="browser-message">
-                <i class="bi bi-info-circle-fill me-2"></i>
-                Press "Test my mic" to check the functionality and supported properties of your microphone.
+            <div class="mic-instructions alert alert-primary" id="recording-instructions">
+              <i class="bi bi-info-circle-fill me-2"></i>
+              Please say "Hello" or make some noise. The tester records the sound captured by your mic and you will be able to playback it after testing is complete.
             </div>
+            <div class="btn-toolbar">
+              <button class="btn btn-secondary me-2" disabled id="play-button">
+                <i class="bi bi-play-fill me-1"></i>Play Recording
+              </button>
+              <button class="btn btn-warning me-2 d-none" id="pause-button">
+                <i class="bi bi-pause-fill me-1"></i>Pause
+              </button>
+              <button class="btn btn-danger me-2" id="stop-recording-button">
+                <i class="bi bi-stop-fill me-1"></i>Stop Recording
+              </button>
+              <button class="btn btn-outline-secondary me-2 d-none" id="restart-button">
+                <i class="bi bi-arrow-repeat me-1"></i>Restart
+              </button>
+              <button class="btn btn-outline-primary me-2 d-none" id="share-button">
+                <i class="bi bi-share-fill me-1"></i>Share Results
+              </button>
+            </div>
+            <!-- Add audio player element -->
+            <div class="mt-3 d-none" id="audio-player-container">
+              <audio controls id="audio-player"></audio>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div class="row">
-            <div class="col-md-8">
 
-<h1><i class="bi bi-mic-fill me-2"></i>Advanced Online Microphone Test - Free Mic Testing Tool</h1>
-<p class="lead">Test your microphone quality instantly with our comprehensive browser-based testing tool. Compatible with all devices - desktop computers, laptops, smartphones, tablets, and gaming headsets. No downloads required.</p>
+      <div class="card mb-4">
+        <div class="card-header bg-light">
+          <i class="bi bi-star-fill me-2"></i>Advertisements:
+        </div>
+        <div class="card-body text-center">
+          <!-- mic test - 2 -->
+          <ins class="adsbygoogle"
+               data-ad-client="ca-pub-5426315045205785"
+               data-ad-format="auto"
+               data-ad-slot="7669795756"
+               data-full-width-responsive="true"
+               style="display:block"></ins>
+          <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+      </div>
 
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Microphone Visualizer</h5>
 
-                        <div id="status-message" class="status-message alert alert-info mb-3">
-                            <div class="status-step">
-                                <span class="status-icon"><i class="bi bi-arrow-right-circle-fill"></i></span>
-                                <span>Press "Test my mic" to begin testing your microphone.</span>
-                            </div>
-                        </div>
-
-                        <div id="visualizer-container">
-                            <canvas id="visualizer"></canvas>
-                            <div class="amplitude-bars" id="amplitude-bars"></div>
-                        </div>
-
-                        <div class="d-flex justify-content-between mt-3">
-                            <select id="mic-select" class="form-select w-50 me-2" disabled>
-                                <option value="">Click "Test my mic" to detect microphones</option>
-                            </select>
-                            <button id="test-button" class="btn btn-primary">
-                                <i class="bi bi-mic-fill me-2"></i>Test my mic
-                            </button>
-                        </div>
-
-                        <div id="recording-controls" class="mt-3 d-none">
-                            <div class="progress mb-2">
-                                <div id="recording-progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
-                            </div>
-                            <div class="mic-instructions alert alert-primary" id="recording-instructions">
-                                <i class="bi bi-info-circle-fill me-2"></i>
-                                Please say "Hello" or make some noise. The tester records the sound captured by your mic and you will be able to playback it after testing is complete.
-                            </div>
-                            <div class="btn-toolbar">
-                                <button id="play-button" class="btn btn-secondary me-2" disabled>
-                                    <i class="bi bi-play-fill me-1"></i>Play Recording
-                                </button>
-                                <button id="pause-button" class="btn btn-warning me-2 d-none">
-                                    <i class="bi bi-pause-fill me-1"></i>Pause
-                                </button>
-                                <button id="stop-recording-button" class="btn btn-danger me-2">
-                                    <i class="bi bi-stop-fill me-1"></i>Stop Recording
-                                </button>
-                                <button id="restart-button" class="btn btn-outline-secondary me-2 d-none">
-                                    <i class="bi bi-arrow-repeat me-1"></i>Restart
-                                </button>
-                                <button id="share-button" class="btn btn-outline-primary me-2 d-none">
-                                    <i class="bi bi-share-fill me-1"></i>Share Results
-                                </button>
-                            </div>
-                            <!-- Add audio player element -->
-                            <div id="audio-player-container" class="mt-3 d-none">
-                                <audio id="audio-player" controls></audio>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Rest of the HTML content remains the same -->
-<div class="card mb-4">
-    <div class="card-body">
-        <h5 class="card-title">Why Test Your Microphone?</h5>
-        <ul>
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Why Test Your Microphone?</h5>
+          <ul>
             <li>Verify new microphone purchases and installations work correctly</li>
             <li>Check if headset microphone is properly enabled and configured</li>
             <li>Ensure computer microphone doesn't distort your voice during calls</li>
@@ -258,1307 +303,1327 @@
             <li>Test Bluetooth and wireless microphone connectivity</li>
             <li>Measure microphone quality and technical specifications</li>
             <li>Educational purposes and audio engineering learning</li>
-        </ul>
-    </div>
-</div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        <i class="bi bi-info-circle-fill me-2"></i>Microphone Information
-                    </div>
-                    <div class="card-body">
-                        <div class="info-row">
-                            <span class="info-label">Quality Rating:</span>
-                            <span id="quality-rating" class="quality-indicator quality-unknown">—</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Microphone Name:</span>
-                            <span id="mic-name">Not selected</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Automatic Gain Control:</span>
-                            <span id="gain-control">—</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Number of Audio Channels:</span>
-                            <span id="channels">—</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Echo Cancellation:</span>
-                            <span id="echo-cancellation">—</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Estimated Latency:</span>
-                            <span id="latency">—</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Noise Suppression:</span>
-                            <span id="noise-suppression">—</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Sample Rate:</span>
-                            <span id="sample-rate">—</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Sample Size:</span>
-                            <span id="sample-size">—</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Volume:</span>
-                            <span id="volume">—</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card mt-4">
-                    <div class="card-header bg-primary text-white">
-                        <i class="bi bi-chat-quote-fill me-2"></i>User Testimonials
-                    </div>
-                    <div class="card-body">
-                        <div class="testimonial">
-                            <p class="mb-0">"Very good website I love it"</p>
-                            <small class="text-muted">— Bob Smith</small>
-                        </div>
-                        <div class="testimonial">
-                            <p class="mb-0">"I like this site"</p>
-                            <small class="text-muted">— John Doe</small>
-                        </div>
-                        <div class="testimonial">
-                            <p class="mb-0">"Good testing tool"</p>
-                            <small class="text-muted">— Jane Brown</small>
-                        </div>
-                        <div class="testimonial">
-                            <p class="mb-0">"Thank you"</p>
-                            <small class="text-muted">— King S</small>
-                        </div>
-                        <div class="mt-3">
-                            <button id="add-review-btn" class="btn btn-sm btn-outline-primary w-100">
-                                <i class="bi bi-plus-circle me-1"></i>Add Your Review
-                            </button>
-                        </div>
-                        <div class="review-form" id="review-form">
-                            <div class="mb-3">
-                                <label for="review-text" class="form-label">Your Review</label>
-                                <textarea class="form-control" id="review-text" rows="3" placeholder="Share your experience..."></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="reviewer-name" class="form-label">Your Name</label>
-                                <input type="text" class="form-control" id="reviewer-name" placeholder="John Doe">
-                            </div>
-                            <div class="d-grid gap-2">
-                                <button class="btn btn-primary" type="button" id="submit-review-btn">Submit Review</button>
-                                <button class="btn btn-outline-secondary" type="button" id="cancel-review-btn">Cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </ul>
         </div>
-
-      <div id="about" class="row mt-5">
-    <div class="col-md-12">
-        <h2><i class="bi bi-info-circle-fill me-2"></i>About Advanced Microphone Testing</h2>
-        <p>
-            MicTest is a comprehensive online microphone testing platform that enables users to verify microphone functionality,
-            measure audio quality parameters, and troubleshoot common microphone issues across all device types. Our browser-based
-            testing solution eliminates the need for third-party software installations while providing studio-grade audio analysis.
-        </p>
-        <p>
-            Whether you're using a built-in laptop microphone, USB condenser mic, wireless Bluetooth headset, gaming microphone,
-            or high-end XLR setup, our testing tool provides detailed technical insights including frequency response analysis,
-            latency measurements, noise floor detection, and real-time audio visualization.
-        </p>
-        <p>
-            The platform supports WebRTC technology for real-time audio processing and is compatible with all modern browsers
-            including Chrome, Firefox, Safari, and Edge across Windows, macOS, Linux, iOS, and Android operating systems.
-        </p>
+      </div>
     </div>
-</div>
 
-<div class="row mt-5">
-    <div class="col-md-12">
-        <h2><i class="bi bi-devices me-2"></i>Microphone Testing Across All Devices</h2>
-
-        <div class="row">
-            <div class="col-lg-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h4><i class="bi bi-laptop me-2"></i>Desktop & Laptop Testing</h4>
-                        <p><strong>Built-in Microphones:</strong> Modern laptops feature integrated microphone arrays with noise cancellation and beamforming technology. Test functionality, check for hardware conflicts, and verify audio driver compatibility.</p>
-
-                        <p><strong>USB Microphones:</strong> High-quality USB condenser mics, dynamic microphones, and podcast setups. Our tool measures sample rates up to 192kHz, bit depths to 32-bit, and  <a href="https://mic-tests.github.io/show-mic">latency performance for real-time monitoring</a>.</p>
-
-                        <p><strong>Common Issues:</strong></p>
-                        <ul>
-                            <li>Windows audio driver conflicts and exclusive mode settings</li>
-                            <li>macOS privacy permissions and Core Audio configuration</li>
-                            <li>Linux ALSA/PulseAudio compatibility and buffer size optimization</li>
-                            <li>Multiple audio interface management</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h4><i class="bi bi-phone me-2"></i>Mobile Device Testing</h4>
-                        <p><strong>Smartphone Microphones:</strong> Modern smartphones feature multiple microphones for noise cancellation, stereo recording, and spatial audio. Test primary mic, secondary noise-canceling mic, and telephony microphone functionality.</p>
-
-                        <p><strong>Tablet Audio Systems:</strong> iPad and Android tablet microphones with advanced signal processing. Verify landscape and portrait mode microphone switching and audio zoom functionality.</p>
-
-                        <p><strong>Mobile-Specific Considerations:</strong></p>
-                        <ul>
-                            <li>iOS Safari WebRTC limitations and permission handling</li>
-                            <li>Android Chrome audio focus management</li>
-                            <li>Bluetooth codec compatibility (aptX, LDAC, AAC)</li>
-                            <li>Background app audio interference</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <i class="bi bi-info-circle-fill me-2"></i>Microphone Information
         </div>
-
-        <div class="row">
-            <div class="col-lg-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h4><i class="bi bi-headphones me-2"></i>Gaming & Wireless Headsets</h4>
-                        <p><strong>Gaming Headsets:</strong> Test USB gaming headsets, wireless gaming microphones, and console-compatible devices. Verify surround sound microphone positioning and noise gate functionality.</p>
-
-                        <p><strong>Bluetooth Audio Devices:</strong> Wireless earbuds, over-ear headphones, and advanced Bluetooth microphones. Test connection stability, audio codec performance, and latency measurements.</p>
-
-                        <p><strong>Gaming-Specific Features:</strong></p>
-                        <ul>
-                            <li>Push-to-talk functionality testing</li>
-                            <li>Hardware mute button verification</li>
-                            <li>RGB lighting sync with audio levels</li>
-                            <li>Discord/TeamSpeak integration testing</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h4><i class="bi bi-broadcast me-2"></i>Studio & High-End Audio Equipment</h4>
-                        <p><strong>Audio Interfaces:</strong> Test multi-channel audio interfaces, preamp gain staging, and phantom power delivery. Verify ASIO driver performance and low-latency monitoring capabilities.</p>
-
-                        <p><strong>Studio Microphones:</strong> Condenser, dynamic, and ribbon microphones through high-quality preamps. Measure frequency response, self-noise, and maximum SPL handling.</p>
-
-                        <p><strong>Advanced Features:</strong></p>
-                        <ul>
-                            <li>XLR phantom power detection and testing</li>
-                            <li>Balanced vs unbalanced signal analysis</li>
-                            <li>High-resolution sample rate testing (44.1kHz to 192kHz)</li>
-                            <li>Multi-channel input testing and routing</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        <div class="card-body">
+          <div class="info-row">
+            <span class="info-label">Quality Rating:</span>
+            <span class="quality-indicator quality-unknown" id="quality-rating">—</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Microphone Name:</span>
+            <span id="mic-name">Not selected</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Automatic Gain Control:</span>
+            <span id="gain-control">—</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Number of Audio Channels:</span>
+            <span id="channels">—</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Echo Cancellation:</span>
+            <span id="echo-cancellation">—</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Estimated Latency:</span>
+            <span id="latency">—</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Noise Suppression:</span>
+            <span id="noise-suppression">—</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Sample Rate:</span>
+            <span id="sample-rate">—</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Sample Size:</span>
+            <span id="sample-size">—</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Volume:</span>
+            <span id="volume">—</span>
+          </div>
         </div>
+      </div>
+
+      <div class="card mt-4">
+        <div class="card-header bg-primary text-white">
+          <i class="bi bi-star-fill me-2"></i>Sponsored
+        </div>
+        <div class="card-body text-center">
+          <!-- Mic Test - 1 -->
+          <ins class="adsbygoogle"
+               data-ad-client="ca-pub-5426315045205785"
+               data-ad-format="auto"
+               data-ad-slot="6193062550"
+               data-full-width-responsive="true"
+               style="display:block; min-height:250px;"></ins>
+          <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+      </div>
+
+      <div class="card mt-4">
+        <div class="card-header bg-primary text-white">
+          <i class="bi bi-chat-quote-fill me-2"></i>User Testimonials
+        </div>
+        <div class="card-body">
+          <div class="testimonial">
+            <p class="mb-0">"Very good website I love it"</p>
+            <small class="text-muted">— Bob Smith</small>
+          </div>
+          <div class="testimonial">
+            <p class="mb-0">"I like this site"</p>
+            <small class="text-muted">— John Doe</small>
+          </div>
+          <div class="testimonial">
+            <p class="mb-0">"Good testing tool"</p>
+            <small class="text-muted">— Jane Brown</small>
+          </div>
+          <div class="testimonial">
+            <p class="mb-0">"Thank you"</p>
+            <small class="text-muted">— King S</small>
+          </div>
+          <div class="mt-3">
+            <button class="btn btn-sm btn-outline-primary w-100" id="add-review-btn">
+              <i class="bi bi-plus-circle me-1"></i>Add Your Review
+            </button>
+          </div>
+          <div class="review-form" id="review-form">
+            <div class="mb-3">
+              <label class="form-label" for="review-text">Your Review</label>
+              <textarea class="form-control" id="review-text" placeholder="Share your experience..." rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="reviewer-name">Your Name</label>
+              <input class="form-control" id="reviewer-name" placeholder="John Doe" type="text">
+            </div>
+            <div class="d-grid gap-2">
+              <button class="btn btn-primary" id="submit-review-btn" type="button">Submit Review</button>
+              <button class="btn btn-outline-secondary" id="cancel-review-btn" type="button">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 
-    <div class="row mt-5">
+  <div class="row mt-5" id="about">
     <div class="col-md-12">
-        <h2><i class="bi bi-graph-up me-2"></i>Advanced Microphone Analysis & Diagnostics</h2>
+      <h2><i class="bi bi-info-circle-fill me-2"></i>About Advanced Microphone Testing</h2>
+      <p>
+        MicTest is a comprehensive online microphone testing platform that enables users to verify microphone functionality,
+        measure audio quality parameters, and troubleshoot common microphone issues across all device types. Our browser-based
+        testing solution eliminates the need for third-party software installations while providing studio-grade audio analysis.
+      </p>
+      <p>
+        Whether you're using a built-in laptop microphone, USB condenser mic, wireless Bluetooth headset, gaming microphone,
+        or high-end XLR setup, our testing tool provides detailed technical insights including frequency response analysis,
+        latency measurements, noise floor detection, and real-time audio visualization.
+      </p>
+      <p>
+        The platform supports WebRTC technology for real-time audio processing and is compatible with all modern browsers
+        including Chrome, Firefox, Safari, and Edge across Windows, macOS, Linux, iOS, and Android operating systems.
+      </p>
+    </div>
+  </div>
 
-        <div class="card mb-4">
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h2><i class="bi bi-devices me-2"></i>Microphone Testing Across All Devices</h2>
+
+      <div class="row">
+        <div class="col-lg-6 mb-4">
+          <div class="card h-100">
             <div class="card-body">
-                <h3>Real-Time Audio Analysis</h3>
-                <p>Our microphone testing platform provides comprehensive real-time analysis of your audio input using advanced Web Audio API technologies:</p>
+              <h4><i class="bi bi-laptop me-2"></i>Desktop & Laptop Testing</h4>
+              <p><strong>Built-in Microphones:</strong> Modern laptops feature integrated microphone arrays with noise cancellation and beamforming technology. Test functionality, check for hardware conflicts, and verify
+                audio driver compatibility.</p>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <h5><i class="bi bi-wave-square me-2"></i>Frequency Response Analysis</h5>
-                        <p>Measure your microphone's frequency response across the audible spectrum (20Hz-20kHz). Identify frequency peaks, nulls, and rolloff characteristics. Essential for determining microphone suitability for different applications like vocals, instruments, or speech.</p>
+              <p><strong>USB Microphones:</strong> High-quality USB condenser mics, dynamic microphones, and podcast setups. Our tool measures sample rates up to 192kHz, bit depths to 32-bit, and <a
+                href="https://mic-tests.github.io/show-mic">latency performance for real-time monitoring</a>.</p>
 
-                        <h5><i class="bi bi-speedometer2 me-2"></i>Dynamic Range Testing</h5>
-                        <p>Evaluate your microphone's ability to handle quiet and <a href="https://mic-tests.github.io/show-speakers">loud sounds without distortion</a>. Measure signal-to-noise ratio (SNR), maximum SPL capacity, and noise floor characteristics for high-quality audio assessment.</p>
-                    </div>
-                    <div class="col-md-6">
-                        <h5><i class="bi bi-clock me-2"></i>Latency Measurement</h5>
-                        <p>Critical for real-time applications like live streaming, gaming, and video conferencing. Our tool measures round-trip latency, buffer sizes, and processing delays to ensure optimal performance for time-sensitive applications.</p>
-
-                        <h5><i class="bi bi-shield-check me-2"></i>Distortion Analysis</h5>
-                        <p>Detect harmonic distortion, clipping, and non-linear artifacts in your microphone signal chain. Essential for identifying hardware problems, gain staging issues, and audio driver conflicts.</p>
-                    </div>
-                </div>
+              <p><strong>Common Issues:</strong></p>
+              <ul>
+                <li>Windows audio driver conflicts and exclusive mode settings</li>
+                <li>macOS privacy permissions and Core Audio configuration</li>
+                <li>Linux ALSA/PulseAudio compatibility and buffer size optimization</li>
+                <li>Multiple audio interface management</li>
+              </ul>
             </div>
+          </div>
         </div>
-    </div>
-</div>
 
-      <div class="row mt-5">
-    <div class="col-md-12">
-        <h2><i class="bi bi-tools me-2"></i>Comprehensive Microphone Troubleshooting Guide</h2>
-
-        <div class="card mb-4">
+        <div class="col-lg-6 mb-4">
+          <div class="card h-100">
             <div class="card-body">
-                <h3>Platform-Specific Solutions</h3>
+              <h4><i class="bi bi-phone me-2"></i>Mobile Device Testing</h4>
+              <p><strong>Smartphone Microphones:</strong> Modern smartphones feature multiple microphones for noise cancellation, stereo recording, and spatial audio. Test primary mic, secondary noise-canceling mic, and
+                telephony microphone functionality.</p>
 
-                <div class="accordion" id="troubleshootingAccordion">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingWindows">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWindows">
-                                <i class="bi bi-windows me-2"></i>Windows Microphone Issues
-                            </button>
-                        </h2>
-                        <div id="collapseWindows" class="accordion-collapse collapse show" data-bs-parent="#troubleshootingAccordion">
-                            <div class="accordion-body">
-                                <h5>Common Windows Audio Problems:</h5>
-                                <ul>
-                                    <li><strong>Exclusive Mode Conflicts:</strong> Disable exclusive mode in Windows Sound settings to allow browser access</li>
-                                    <li><strong>Realtek Audio Driver Issues:</strong> Update to latest Realtek drivers or switch to Windows generic drivers</li>
-                                    <li><strong>Privacy Settings:</strong> Enable microphone access in Windows 10/11 Privacy & Security settings</li>
-                                    <li><strong>Sample Rate Mismatches:</strong> Set consistent sample rates across Windows audio settings and applications</li>
-                                    <li><strong>Multiple Audio Devices:</strong> Disable unused audio devices to prevent conflicts</li>
-                                </ul>
+              <p><strong>Tablet Audio Systems:</strong> iPad and Android tablet microphones with advanced signal processing. Verify landscape and portrait mode microphone switching and audio zoom functionality.</p>
 
-                                <h5>Advanced Windows Solutions:</h5>
-                                <p>Use Windows Audio Troubleshooter, check Device Manager for hardware conflicts, verify ASIO driver compatibility for audio interfaces, and configure Windows Audio Engine for optimal performance.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingMac">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMac">
-                                <i class="bi bi-apple me-2"></i>macOS Microphone Solutions
-                            </button>
-                        </h2>
-                        <div id="collapseMac" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
-                            <div class="accordion-body">
-                                <h5>macOS Audio Configuration:</h5>
-                                <ul>
-                                    <li><strong>System Preferences:</strong> Grant microphone access in Security & Privacy settings</li>
-                                    <li><strong>Core Audio Issues:</strong> Reset Core Audio using 'sudo killall coreaudiod' in Terminal</li>
-                                    <li><strong>Sample Rate Conflicts:</strong> Use Audio MIDI Setup to configure device sample rates</li>
-                                    <li><strong>Aggregate Devices:</strong> Create aggregate devices for complex multi-interface setups</li>
-                                    <li><strong>Background App Interference:</strong> Check which apps are using microphone access</li>
-                                </ul>
-
-                                <h5>Advanced macOS Setup:</h5>
-                                <p>Configure Audio Units for low-latency performance, optimize system for real-time audio processing, and manage Core Audio driver priorities for high-end audio interfaces.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingMobile">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMobile">
-                                <i class="bi bi-phone me-2"></i>Mobile Device Audio Issues
-                            </button>
-                        </h2>
-                        <div id="collapseMobile" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
-                            <div class="accordion-body">
-                                <h5>iOS Troubleshooting:</h5>
-                                <ul>
-                                    <li><strong>Safari Limitations:</strong> Use landscape mode for better WebRTC performance</li>
-                                    <li><strong>Silent Mode:</strong> Ensure device is not in silent mode which can affect microphone access</li>
-                                    <li><strong>Background App Refresh:</strong> Close apps that might be using microphone in background</li>
-                                    <li><strong>iOS Permissions:</strong> Check Settings > Privacy & Security > Microphone for browser permissions</li>
-                                </ul>
-
-                                <h5>Android Solutions:</h5>
-                                <ul>
-                                    <li><strong>Chrome Audio Focus:</strong> Ensure Chrome has audio focus and notification access</li>
-                                    <li><strong>Manufacturer Audio Enhancements:</strong> Disable Samsung/Xiaomi audio processing features</li>
-                                    <li><strong>Developer Options:</strong> Adjust audio codec settings and disable absolute volume</li>
-                                    <li><strong>Background Limitations:</strong> Check Android's background app restrictions</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              <p><strong>Mobile-Specific Considerations:</strong></p>
+              <ul>
+                <li>iOS Safari WebRTC limitations and permission handling</li>
+                <li>Android Chrome audio focus management</li>
+                <li>Bluetooth codec compatibility (aptX, LDAC, AAC)</li>
+                <li>Background app audio interference</li>
+              </ul>
             </div>
+          </div>
         </div>
-    </div>
-</div>
+      </div>
 
-      <div class="row mt-5">
+      <div class="row">
+        <div class="col-lg-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h4><i class="bi bi-headphones me-2"></i>Gaming & Wireless Headsets</h4>
+              <p><strong>Gaming Headsets:</strong> Test USB gaming headsets, wireless gaming microphones, and console-compatible devices. Verify surround sound microphone positioning and noise gate functionality.</p>
+
+              <p><strong>Bluetooth Audio Devices:</strong> Wireless earbuds, over-ear headphones, and advanced Bluetooth microphones. Test connection stability, audio codec performance, and latency measurements.</p>
+
+              <p><strong>Gaming-Specific Features:</strong></p>
+              <ul>
+                <li>Push-to-talk functionality testing</li>
+                <li>Hardware mute button verification</li>
+                <li>RGB lighting sync with audio levels</li>
+                <li>Discord/TeamSpeak integration testing</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h4><i class="bi bi-broadcast me-2"></i>Studio & High-End Audio Equipment</h4>
+              <p><strong>Audio Interfaces:</strong> Test multi-channel audio interfaces, preamp gain staging, and phantom power delivery. Verify ASIO driver performance and low-latency monitoring capabilities.</p>
+
+              <p><strong>Studio Microphones:</strong> Condenser, dynamic, and ribbon microphones through high-quality preamps. Measure frequency response, self-noise, and maximum SPL handling.</p>
+
+              <p><strong>Advanced Features:</strong></p>
+              <ul>
+                <li>XLR phantom power detection and testing</li>
+                <li>Balanced vs unbalanced signal analysis</li>
+                <li>High-resolution sample rate testing (44.1kHz to 192kHz)</li>
+                <li>Multi-channel input testing and routing</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
     <div class="col-md-12">
-        <h2><i class="bi bi-people-fill me-2"></i>Essential Use Cases for Microphone Testing</h2>
+      <h2><i class="bi bi-graph-up me-2"></i>Advanced Microphone Analysis & Diagnostics</h2>
 
-        <div class="row">
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h4><i class="bi bi-camera-video me-2"></i>Remote Work & Video Conferencing</h4>
-                        <p>Essential for remote workers and business users. Test microphone quality before important meetings, verify noise cancellation effectiveness, and ensure clear communication.</p>
-                        <ul>
-                            <li>Pre-meeting microphone verification</li>
-                            <li>Background noise assessment</li>
-                            <li>Echo cancellation testing</li>
-                            <li>Multiple platform compatibility</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3>Real-Time Audio Analysis</h3>
+          <p>Our microphone testing platform provides comprehensive real-time analysis of your audio input using advanced Web Audio API technologies:</p>
 
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h4><i class="bi bi-broadcast me-2"></i>Content Creation & Streaming</h4>
-                        <p>Critical for podcasters, YouTubers, and live streamers. Verify audio quality, test different microphone positions, and optimize settings for audience engagement.</p>
-                        <ul>
-                            <li>Podcast audio quality verification</li>
-                            <li>Streaming setup optimization</li>
-                            <li>YouTube content audio testing</li>
-                            <li>Live broadcast preparation</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+          <div class="row">
+            <div class="col-md-6">
+              <h5><i class="bi bi-wave-square me-2"></i>Frequency Response Analysis</h5>
+              <p>Measure your microphone's frequency response across the audible spectrum (20Hz-20kHz). Identify frequency peaks, nulls, and rolloff characteristics. Essential for determining microphone suitability for
+                different applications like vocals, instruments, or speech.</p>
 
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h4><i class="bi bi-music-note-beamed me-2"></i>Music Production & Recording</h4>
-                        <p>Musicians and producers need accurate microphone testing for studio work, home recording setups, and live performance preparation.</p>
-                        <ul>
-                            <li>Studio microphone calibration</li>
-                            <li>Home recording setup testing</li>
-                            <li>Live performance mic checks</li>
-                            <li>Multi-microphone array testing</li>
-                        </ul>
-                    </div>
-                </div>
+              <h5><i class="bi bi-speedometer2 me-2"></i>Dynamic Range Testing</h5>
+              <p>Evaluate your microphone's ability to handle quiet and <a href="https://mic-tests.github.io/show-speakers">loud sounds without distortion</a>. Measure signal-to-noise ratio (SNR), maximum SPL capacity,
+                and noise floor characteristics for high-quality audio assessment.</p>
             </div>
+            <div class="col-md-6">
+              <h5><i class="bi bi-clock me-2"></i>Latency Measurement</h5>
+              <p>Critical for real-time applications like live streaming, gaming, and video conferencing. Our tool measures round-trip latency, buffer sizes, and processing delays to ensure optimal performance for
+                time-sensitive applications.</p>
+
+              <h5><i class="bi bi-shield-check me-2"></i>Distortion Analysis</h5>
+              <p>Detect harmonic distortion, clipping, and non-linear artifacts in your microphone signal chain. Essential for identifying hardware problems, gain staging issues, and audio driver conflicts.</p>
+            </div>
+          </div>
         </div>
-
-        <div class="row">
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h4><i class="bi bi-controller me-2"></i>Gaming & Esports</h4>
-                        <p>Competitive gamers need reliable communication tools. Test gaming headset microphones, verify team communication clarity, and optimize for tournament play.</p>
-                        <ul>
-                            <li>Gaming headset verification</li>
-                            <li>Team communication testing</li>
-                            <li>Tournament preparation</li>
-                            <li>Streaming while gaming setup</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h4><i class="bi bi-mortarboard me-2"></i>Online Education & Training</h4>
-                        <p>Educators and trainers require clear audio for effective knowledge transfer. Test microphones for online courses, webinars, and virtual classroom environments.</p>
-                        <ul>
-                            <li>Online teaching preparation</li>
-                            <li>Webinar audio quality check</li>
-                            <li>Student interaction clarity</li>
-                            <li>Recording lecture audio</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h4><i class="bi bi-headset me-2"></i>Customer Service & Support</h4>
-                        <p>Call center agents and customer service representatives need reliable audio equipment for clear customer communication and service delivery.</p>
-                        <ul>
-                            <li>Call center headset testing</li>
-                            <li>Customer communication clarity</li>
-                            <li>Background noise suppression</li>
-                            <li>Extended use comfort verification</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-</div>
+  </div>
 
-      <div id="enhanced-faq" class="row mt-5">
+  <div class="row mt-5">
     <div class="col-md-12">
-        <h2><i class="bi bi-question-circle-fill me-2"></i>Comprehensive Microphone Testing FAQ</h2>
+      <h2><i class="bi bi-tools me-2"></i>Comprehensive Microphone Troubleshooting Guide</h2>
 
-        <div class="accordion" id="enhancedFaqAccordion">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3>Platform-Specific Solutions</h3>
+
+          <div class="accordion" id="troubleshootingAccordion">
             <div class="accordion-item">
-                <h2 class="accordion-header" id="headingAccuracy">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAccuracy">
-                        How accurate is online microphone testing compared to specialized equipment?
-                    </button>
-                </h2>
-                <div id="collapseAccuracy" class="accordion-collapse collapse show" data-bs-parent="#enhancedFaqAccordion">
-                    <div class="accordion-body">
-                        <p>Our online microphone testing tool provides studio-grade accuracy for most consumer and prosumer applications. While it cannot replace specialized audio analysis equipment costing thousands of dollars, it offers:</p>
-                        <ul>
-                            <li><strong>Frequency Response:</strong> Accurate to within ±3dB across the audible spectrum</li>
-                            <li><strong>Latency Measurement:</strong> Precise to within 1-2ms for browser-based testing</li>
-                            <li><strong>Dynamic Range:</strong> Reliable measurement of SNR and noise floor characteristics</li>
-                            <li><strong>Real-time Analysis:</strong> Instant feedback for practical troubleshooting and optimization</li>
-                        </ul>
-                        <p>For studio applications requiring sub-millisecond accuracy or detailed harmonic analysis, dedicated audio analyzers are recommended.</p>
-                    </div>
+              <h2 class="accordion-header" id="headingWindows">
+                <button class="accordion-button" data-bs-target="#collapseWindows" data-bs-toggle="collapse" type="button">
+                  <i class="bi bi-windows me-2"></i>Windows Microphone Issues
+                </button>
+              </h2>
+              <div class="accordion-collapse collapse show" data-bs-parent="#troubleshootingAccordion" id="collapseWindows">
+                <div class="accordion-body">
+                  <h5>Common Windows Audio Problems:</h5>
+                  <ul>
+                    <li><strong>Exclusive Mode Conflicts:</strong> Disable exclusive mode in Windows Sound settings to allow browser access</li>
+                    <li><strong>Realtek Audio Driver Issues:</strong> Update to latest Realtek drivers or switch to Windows generic drivers</li>
+                    <li><strong>Privacy Settings:</strong> Enable microphone access in Windows 10/11 Privacy & Security settings</li>
+                    <li><strong>Sample Rate Mismatches:</strong> Set consistent sample rates across Windows audio settings and applications</li>
+                    <li><strong>Multiple Audio Devices:</strong> Disable unused audio devices to prevent conflicts</li>
+                  </ul>
+
+                  <h5>Advanced Windows Solutions:</h5>
+                  <p>Use Windows Audio Troubleshooter, check Device Manager for hardware conflicts, verify ASIO driver compatibility for audio interfaces, and configure Windows Audio Engine for optimal performance.</p>
                 </div>
+              </div>
             </div>
 
             <div class="accordion-item">
-                <h2 class="accordion-header" id="headingCompatibility">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCompatibility">
-                        Which devices and browsers are fully supported for microphone testing?
-                    </button>
-                </h2>
-                <div id="collapseCompatibility" class="accordion-collapse collapse" data-bs-parent="#enhancedFaqAccordion">
-                    <div class="accordion-body">
-                        <p><strong>Fully Supported Browsers:</strong></p>
-                        <ul>
-                            <li>Google Chrome 88+ (Windows, macOS, Linux, Android)</li>
-                            <li>Mozilla Firefox 78+ (Windows, macOS, Linux)</li>
-                            <li>Microsoft Edge 88+ (Windows, macOS)</li>
-                            <li>Safari 14.1+ (macOS, iOS 14.3+)</li>
-                            <li>Opera 74+ (Windows, macOS, Linux)</li>
-                        </ul>
+              <h2 class="accordion-header" id="headingMac">
+                <button class="accordion-button collapsed" data-bs-target="#collapseMac" data-bs-toggle="collapse" type="button">
+                  <i class="bi bi-apple me-2"></i>macOS Microphone Solutions
+                </button>
+              </h2>
+              <div class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion" id="collapseMac">
+                <div class="accordion-body">
+                  <h5>macOS Audio Configuration:</h5>
+                  <ul>
+                    <li><strong>System Preferences:</strong> Grant microphone access in Security & Privacy settings</li>
+                    <li><strong>Core Audio Issues:</strong> Reset Core Audio using 'sudo killall coreaudiod' in Terminal</li>
+                    <li><strong>Sample Rate Conflicts:</strong> Use Audio MIDI Setup to configure device sample rates</li>
+                    <li><strong>Aggregate Devices:</strong> Create aggregate devices for complex multi-interface setups</li>
+                    <li><strong>Background App Interference:</strong> Check which apps are using microphone access</li>
+                  </ul>
 
-                        <p><strong>Device Compatibility:</strong></p>
-                        <ul>
-                            <li><strong>Desktop:</strong> Windows 10/11, macOS 10.15+, Ubuntu 18.04+</li>
-                            <li><strong>Mobile:</strong> iOS 14.3+, Android 8.0+ with Chrome 88+</li>
-                            <li><strong>Tablets:</strong> iPad OS 14.3+, Android tablets 8.0+</li>
-                            <li><strong>Chromebooks:</strong> Chrome OS 88+ with Android app support</li>
-                        </ul>
-
-                        <p><strong>Microphone Types:</strong> Built-in laptop mics, USB microphones, XLR interfaces, Bluetooth headsets, gaming headsets, condenser mics, dynamic microphones, and wireless microphone systems.</p>
-                    </div>
+                  <h5>Advanced macOS Setup:</h5>
+                  <p>Configure Audio Units for low-latency performance, optimize system for real-time audio processing, and manage Core Audio driver priorities for high-end audio interfaces.</p>
                 </div>
+              </div>
             </div>
 
             <div class="accordion-item">
-                <h2 class="accordion-header" id="headingSecurity">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSecurity">
-                        Is my audio data secure during microphone testing?
-                    </button>
-                </h2>
-                <div id="collapseSecurity" class="accordion-collapse collapse" data-bs-parent="#enhancedFaqAccordion">
-                    <div class="accordion-body">
-                        <p><strong>Complete Privacy Protection:</strong></p>
-                        <ul>
-                            <li><strong>Local Processing:</strong> All audio analysis occurs in your browser - no data sent to servers</li>
-                            <li><strong>No Recording Storage:</strong> Audio recordings are temporarily stored in browser memory and deleted when you close the page</li>
-                            <li><strong>No Data Transmission:</strong> Your voice and audio never leave your device</li>
-                            <li><strong>Encrypted Connections:</strong> All web traffic uses HTTPS encryption</li>
-                            <li><strong>No Tracking:</strong> We don't track or store any audio characteristics</li>
-                        </ul>
+              <h2 class="accordion-header" id="headingMobile">
+                <button class="accordion-button collapsed" data-bs-target="#collapseMobile" data-bs-toggle="collapse" type="button">
+                  <i class="bi bi-phone me-2"></i>Mobile Device Audio Issues
+                </button>
+              </h2>
+              <div class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion" id="collapseMobile">
+                <div class="accordion-body">
+                  <h5>iOS Troubleshooting:</h5>
+                  <ul>
+                    <li><strong>Safari Limitations:</strong> Use landscape mode for better WebRTC performance</li>
+                    <li><strong>Silent Mode:</strong> Ensure device is not in silent mode which can affect microphone access</li>
+                    <li><strong>Background App Refresh:</strong> Close apps that might be using microphone in background</li>
+                    <li><strong>iOS Permissions:</strong> Check Settings > Privacy & Security > Microphone for browser permissions</li>
+                  </ul>
 
-                        <p><strong>Technical Security Measures:</strong></p>
-                        <ul>
-                            <li>WebRTC local audio processing without external servers</li>
-                            <li>Browser sandbox security preventing unauthorized access</li>
-                            <li>Automatic memory cleanup when testing session ends</li>
-                            <li>No persistent storage of audio data or analysis results</li>
-                        </ul>
-                    </div>
+                  <h5>Android Solutions:</h5>
+                  <ul>
+                    <li><strong>Chrome Audio Focus:</strong> Ensure Chrome has audio focus and notification access</li>
+                    <li><strong>Manufacturer Audio Enhancements:</strong> Disable Samsung/Xiaomi audio processing features</li>
+                    <li><strong>Developer Options:</strong> Adjust audio codec settings and disable absolute volume</li>
+                    <li><strong>Background Limitations:</strong> Check Android's background app restrictions</li>
+                  </ul>
                 </div>
+              </div>
             </div>
-
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingEquipment">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEquipment">
-                        Can this tool replace specialized audio testing equipment?
-                    </button>
-                </h2>
-                <div id="collapseEquipment" class="accordion-collapse collapse" data-bs-parent="#enhancedFaqAccordion">
-                    <div class="accordion-body">
-                        <p><strong>Ideal Applications:</strong></p>
-                        <p>Our tool excels for:</p>
-                        <ul>
-                            <li>Pre-production microphone verification and setup</li>
-                            <li>Troubleshooting audio issues in home studios</li>
-                            <li>Quick quality checks for live streaming and content creation</li>
-                            <li>Educational purposes and audio engineering learning</li>
-                            <li>Remote work and video conferencing optimization</li>
-                        </ul>
-
-                        <p><strong>Limitations Compared to Specialized Equipment:</strong></p>
-                        <ul>
-                            <li>Cannot measure absolute SPL levels without calibrated measurement microphones</li>
-                            <li>Limited to browser audio engine sample rates and bit depths</li>
-                            <li>No THD+N (Total Harmonic Distortion + Noise) analysis</li>
-                            <li>Cannot generate standardized measurement tones for acoustic testing</li>
-                        </ul>
-
-                        <p><strong>Recommendation:</strong> Use our tool for 90% of everyday microphone testing needs, supplemented by specialized analyzers for critical applications requiring laboratory-grade precision.</p>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h2><i class="bi bi-people-fill me-2"></i>Essential Use Cases for Microphone Testing</h2>
+
+      <div class="row">
+        <div class="col-lg-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h4><i class="bi bi-camera-video me-2"></i>Remote Work & Video Conferencing</h4>
+              <p>Essential for remote workers and business users. Test microphone quality before important meetings, verify noise cancellation effectiveness, and ensure clear communication.</p>
+              <ul>
+                <li>Pre-meeting microphone verification</li>
+                <li>Background noise assessment</li>
+                <li>Echo cancellation testing</li>
+                <li>Multiple platform compatibility</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h4><i class="bi bi-broadcast me-2"></i>Content Creation & Streaming</h4>
+              <p>Critical for podcasters, YouTubers, and live streamers. Verify audio quality, test different microphone positions, and optimize settings for audience engagement.</p>
+              <ul>
+                <li>Podcast audio quality verification</li>
+                <li>Streaming setup optimization</li>
+                <li>YouTube content audio testing</li>
+                <li>Live broadcast preparation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h4><i class="bi bi-music-note-beamed me-2"></i>Music Production & Recording</h4>
+              <p>Musicians and producers need accurate microphone testing for studio work, home recording setups, and live performance preparation.</p>
+              <ul>
+                <li>Studio microphone calibration</li>
+                <li>Home recording setup testing</li>
+                <li>Live performance mic checks</li>
+                <li>Multi-microphone array testing</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h4><i class="bi bi-controller me-2"></i>Gaming & Esports</h4>
+              <p>Competitive gamers need reliable communication tools. Test gaming headset microphones, verify team communication clarity, and optimize for tournament play.</p>
+              <ul>
+                <li>Gaming headset verification</li>
+                <li>Team communication testing</li>
+                <li>Tournament preparation</li>
+                <li>Streaming while gaming setup</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h4><i class="bi bi-mortarboard me-2"></i>Online Education & Training</h4>
+              <p>Educators and trainers require clear audio for effective knowledge transfer. Test microphones for online courses, webinars, and virtual classroom environments.</p>
+              <ul>
+                <li>Online teaching preparation</li>
+                <li>Webinar audio quality check</li>
+                <li>Student interaction clarity</li>
+                <li>Recording lecture audio</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h4><i class="bi bi-headset me-2"></i>Customer Service & Support</h4>
+              <p>Call center agents and customer service representatives need reliable audio equipment for clear customer communication and service delivery.</p>
+              <ul>
+                <li>Call center headset testing</li>
+                <li>Customer communication clarity</li>
+                <li>Background noise suppression</li>
+                <li>Extended use comfort verification</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5" id="enhanced-faq">
+    <div class="col-md-12">
+      <h2><i class="bi bi-question-circle-fill me-2"></i>Comprehensive Microphone Testing FAQ</h2>
+
+      <div class="accordion" id="enhancedFaqAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingAccuracy">
+            <button class="accordion-button" data-bs-target="#collapseAccuracy" data-bs-toggle="collapse" type="button">
+              How accurate is online microphone testing compared to specialized equipment?
+            </button>
+          </h2>
+          <div class="accordion-collapse collapse show" data-bs-parent="#enhancedFaqAccordion" id="collapseAccuracy">
+            <div class="accordion-body">
+              <p>Our online microphone testing tool provides studio-grade accuracy for most consumer and prosumer applications. While it cannot replace specialized audio analysis equipment costing thousands of dollars,
+                it offers:</p>
+              <ul>
+                <li><strong>Frequency Response:</strong> Accurate to within ±3dB across the audible spectrum</li>
+                <li><strong>Latency Measurement:</strong> Precise to within 1-2ms for browser-based testing</li>
+                <li><strong>Dynamic Range:</strong> Reliable measurement of SNR and noise floor characteristics</li>
+                <li><strong>Real-time Analysis:</strong> Instant feedback for practical troubleshooting and optimization</li>
+              </ul>
+              <p>For studio applications requiring sub-millisecond accuracy or detailed harmonic analysis, dedicated audio analyzers are recommended.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingCompatibility">
+            <button class="accordion-button collapsed" data-bs-target="#collapseCompatibility" data-bs-toggle="collapse" type="button">
+              Which devices and browsers are fully supported for microphone testing?
+            </button>
+          </h2>
+          <div class="accordion-collapse collapse" data-bs-parent="#enhancedFaqAccordion" id="collapseCompatibility">
+            <div class="accordion-body">
+              <p><strong>Fully Supported Browsers:</strong></p>
+              <ul>
+                <li>Google Chrome 88+ (Windows, macOS, Linux, Android)</li>
+                <li>Mozilla Firefox 78+ (Windows, macOS, Linux)</li>
+                <li>Microsoft Edge 88+ (Windows, macOS)</li>
+                <li>Safari 14.1+ (macOS, iOS 14.3+)</li>
+                <li>Opera 74+ (Windows, macOS, Linux)</li>
+              </ul>
+
+              <p><strong>Device Compatibility:</strong></p>
+              <ul>
+                <li><strong>Desktop:</strong> Windows 10/11, macOS 10.15+, Ubuntu 18.04+</li>
+                <li><strong>Mobile:</strong> iOS 14.3+, Android 8.0+ with Chrome 88+</li>
+                <li><strong>Tablets:</strong> iPad OS 14.3+, Android tablets 8.0+</li>
+                <li><strong>Chromebooks:</strong> Chrome OS 88+ with Android app support</li>
+              </ul>
+
+              <p><strong>Microphone Types:</strong> Built-in laptop mics, USB microphones, XLR interfaces, Bluetooth headsets, gaming headsets, condenser mics, dynamic microphones, and wireless microphone systems.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingSecurity">
+            <button class="accordion-button collapsed" data-bs-target="#collapseSecurity" data-bs-toggle="collapse" type="button">
+              Is my audio data secure during microphone testing?
+            </button>
+          </h2>
+          <div class="accordion-collapse collapse" data-bs-parent="#enhancedFaqAccordion" id="collapseSecurity">
+            <div class="accordion-body">
+              <p><strong>Complete Privacy Protection:</strong></p>
+              <ul>
+                <li><strong>Local Processing:</strong> All audio analysis occurs in your browser - no data sent to servers</li>
+                <li><strong>No Recording Storage:</strong> Audio recordings are temporarily stored in browser memory and deleted when you close the page</li>
+                <li><strong>No Data Transmission:</strong> Your voice and audio never leave your device</li>
+                <li><strong>Encrypted Connections:</strong> All web traffic uses HTTPS encryption</li>
+                <li><strong>No Tracking:</strong> We don't track or store any audio characteristics</li>
+              </ul>
+
+              <p><strong>Technical Security Measures:</strong></p>
+              <ul>
+                <li>WebRTC local audio processing without external servers</li>
+                <li>Browser sandbox security preventing unauthorized access</li>
+                <li>Automatic memory cleanup when testing session ends</li>
+                <li>No persistent storage of audio data or analysis results</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingEquipment">
+            <button class="accordion-button collapsed" data-bs-target="#collapseEquipment" data-bs-toggle="collapse" type="button">
+              Can this tool replace specialized audio testing equipment?
+            </button>
+          </h2>
+          <div class="accordion-collapse collapse" data-bs-parent="#enhancedFaqAccordion" id="collapseEquipment">
+            <div class="accordion-body">
+              <p><strong>Ideal Applications:</strong></p>
+              <p>Our tool excels for:</p>
+              <ul>
+                <li>Pre-production microphone verification and setup</li>
+                <li>Troubleshooting audio issues in home studios</li>
+                <li>Quick quality checks for live streaming and content creation</li>
+                <li>Educational purposes and audio engineering learning</li>
+                <li>Remote work and video conferencing optimization</li>
+              </ul>
+
+              <p><strong>Limitations Compared to Specialized Equipment:</strong></p>
+              <ul>
+                <li>Cannot measure absolute SPL levels without calibrated measurement microphones</li>
+                <li>Limited to browser audio engine sample rates and bit depths</li>
+                <li>No THD+N (Total Harmonic Distortion + Noise) analysis</li>
+                <li>Cannot generate standardized measurement tones for acoustic testing</li>
+              </ul>
+
+              <p><strong>Recommendation:</strong> Use our tool for 90% of everyday microphone testing needs, supplemented by specialized analyzers for critical applications requiring laboratory-grade precision.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-    </div>
 
 
-
-    <footer class="footer">
-        <div class="container text-center">
-            <p>© 2025 MicTest. Test your microphone online.</p>
-        </div>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Create amplitude bars for the visualizer
-            const barsContainer = document.getElementById('amplitude-bars');
-            const barsCount = 50;
-            for (let i = 0; i < barsCount; i++) {
-                const bar = document.createElement('div');
-                bar.className = 'amplitude-bar';
-                bar.style.height = '0px';
-                barsContainer.appendChild(bar);
-            }
-
-            const visualizer = document.getElementById('visualizer');
-            const micSelect = document.getElementById('mic-select');
-            const testButton = document.getElementById('test-button');
-            const recordingControls = document.getElementById('recording-controls');
-            const playButton = document.getElementById('play-button');
-            const pauseButton = document.getElementById('pause-button');
-            const stopRecordingButton = document.getElementById('stop-recording-button');
-            const restartButton = document.getElementById('restart-button');
-            const shareButton = document.getElementById('share-button');
-            const recordingProgress = document.getElementById('recording-progress');
-            const browserMessage = document.getElementById('browser-message');
-            const browserAlert = document.getElementById('browser-alert');
-            const statusMessage = document.getElementById('status-message');
-            const recordingInstructions = document.getElementById('recording-instructions');
-            const amplitudeBars = document.querySelectorAll('.amplitude-bar');
-            const audioPlayerContainer = document.getElementById('audio-player-container');
-            const audioPlayer = document.getElementById('audio-player');
-
-            // Review form elements
-            const addReviewBtn = document.getElementById('add-review-btn');
-            const reviewForm = document.getElementById('review-form');
-            const submitReviewBtn = document.getElementById('submit-review-btn');
-            const cancelReviewBtn = document.getElementById('cancel-review-btn');
-
-            // Info elements
-            const micNameEl = document.getElementById('mic-name');
-            const gainControlEl = document.getElementById('gain-control');
-            const channelsEl = document.getElementById('channels');
-            const echoCancellationEl = document.getElementById('echo-cancellation');
-            const latencyEl = document.getElementById('latency');
-            const noiseSuppressionEl = document.getElementById('noise-suppression');
-            const sampleRateEl = document.getElementById('sample-rate');
-            const sampleSizeEl = document.getElementById('sample-size');
-            const volumeEl = document.getElementById('volume');
-            const qualityRatingEl = document.getElementById('quality-rating');
-
-            let audioContext;
-            let microphone;
-            let analyser;
-            let mediaRecorder;
-            let audioChunks = [];
-            let recordingStartTime;
-            let recordingTimer;
-            let audioBlob;
-            let audioUrl;
-            let audioElement;
-            let currentState = 'idle'; // idle, detecting, recording, analyzing, complete
-            let recordingStopped = false;
-            let recordingDuration = 5000; // Default recording duration in ms
-            let audioStream; // Store the audio stream for cleanup
-            let devicesEnumerated = false; // Track if devices have been enumerated
-
-            // Check if browser supports audio API
-            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                updateStatusMessage('danger', 'Your browser does not support microphone access. Please use a modern browser like Chrome, Firefox, or Edge.');
-                testButton.disabled = true;
-                return;
-            }
-
-            function updateStatusMessage(type, message) {
-                statusMessage.className = 'status-message alert alert-' + (type || 'info');
-
-                let iconClass = 'bi-info-circle-fill';
-                if (type === 'success') iconClass = 'bi-check-circle-fill';
-                if (type === 'warning') iconClass = 'bi-exclamation-triangle-fill';
-                if (type === 'danger') iconClass = 'bi-x-circle-fill';
-                if (type === 'recording') iconClass = 'recording-pulse';
-
-                let displayMessage = message;
-                if (type === 'recording') {
-                    displayMessage = `<span class="recording-pulse"></span>${message}`;
-                } else {
-                    displayMessage = `<div class="status-step"><span class="status-icon"><i class="bi ${iconClass}"></i></span><span>${message}</span></div>`;
-                }
-
-                statusMessage.innerHTML = displayMessage;
-
-                if (type === 'recording') {
-                    recordingInstructions.classList.remove('d-none');
-                } else {
-                    recordingInstructions.classList.add('d-none');
-                }
-            }
-
-            // Modified device enumeration - only enumerate when user clicks test button
-            function enumerateAudioDevices() {
-                if (devicesEnumerated) {
-                    return Promise.resolve(); // Already enumerated
-                }
-
-                return navigator.mediaDevices.enumerateDevices()
-                    .then(devices => {
-                        const audioInputDevices = devices.filter(device => device.kind === 'audioinput');
-
-                        if (audioInputDevices.length === 0) {
-                            updateStatusMessage('warning', 'No microphone detected. Please connect a microphone and refresh the page.');
-                            testButton.disabled = true;
-                            return Promise.reject('No microphones found');
-                        }
-
-                        populateMicSelect(audioInputDevices);
-                        devicesEnumerated = true;
-                        return Promise.resolve();
-                    })
-                    .catch(error => {
-                        console.error('Error enumerating devices:', error);
-                        updateStatusMessage('danger', 'Error accessing media devices. Please ensure you have given permission to access your microphone.');
-                        throw error;
-                    });
-            }
-
-            function populateMicSelect(audioInputDevices) {
-                // Populate microphone select dropdown
-                micSelect.innerHTML = '';
-                audioInputDevices.forEach((device, index) => {
-                    const option = document.createElement('option');
-                    option.value = device.deviceId;
-                    option.text = device.label || `Microphone ${index + 1}`;
-                    micSelect.appendChild(option);
-                });
-
-                micSelect.disabled = false;
-            }
-
-            // Set up canvas for visualization
-            const canvasCtx = visualizer.getContext('2d');
-
-            // Modified test button click handler
-            testButton.addEventListener('click', function() {
-                if (microphone) {
-                    stopMicrophone();
-                    resetUI();
-                    return;
-                }
-
-                // Update status - requesting permission
-                currentState = 'detecting';
-                updateStatusMessage('info', 'Requesting microphone access. Please allow access when prompted.');
-
-                const constraints = {
-                    audio: {
-                        echoCancellation: true,
-                        noiseSuppression: true,
-                        autoGainControl: true
-                    }
-                };
-
-                // Request microphone access first
-                navigator.mediaDevices.getUserMedia(constraints)
-                    .then(stream => {
-                        // Store the stream for cleanup
-                        audioStream = stream;
-
-                        // Now enumerate devices to get proper labels and populate dropdown
-                        return navigator.mediaDevices.enumerateDevices()
-                            .then(devices => {
-                                const audioInputDevices = devices.filter(device => device.kind === 'audioinput');
-                                populateMicSelect(audioInputDevices);
-                                devicesEnumerated = true;
-                                return stream;
-                            });
-                    })
-                    .then(stream => {
-                        // Check if user wants to use a specific microphone
-                        if (micSelect.value && micSelect.value !== stream.getAudioTracks()[0].getSettings().deviceId) {
-                            // Stop current stream and request the selected microphone
-                            stream.getTracks().forEach(track => track.stop());
-
-                            const newConstraints = {
-                                audio: {
-                                    deviceId: { exact: micSelect.value },
-                                    echoCancellation: true,
-                                    noiseSuppression: true,
-                                    autoGainControl: true
-                                }
-                            };
-
-                            return navigator.mediaDevices.getUserMedia(newConstraints);
-                        }
-                        return stream;
-                    })
-                    .then(stream => {
-                        // Store the final stream
-                        audioStream = stream;
-
-                        // Create audio context with mobile-friendly initialization
-                        initAudioContext();
-
-                        // Update status
-                        currentState = 'recording';
-                        recordingStopped = false;
-                        updateStatusMessage('recording', '<strong>Recording in progress: </strong> Testing your microphone and recording your voice.');
-
-                        // Create analyzer
-                        analyser = audioContext.createAnalyser();
-                        analyser.fftSize = 2048;
-
-                        // Connect microphone to analyzer
-                        microphone = audioContext.createMediaStreamSource(stream);
-                        microphone.connect(analyser);
-
-                        // Start visualization
-                        visualize();
-
-                        // Update UI
-                        testButton.innerHTML = '<i class="bi bi-x-circle-fill me-2"></i>Cancel test';
-
-                        // Show recording controls
-                        recordingControls.classList.remove('d-none');
-
-                        // Display microphone info
-                        displayMicrophoneInfo(stream);
-
-                        // Set up media recorder
-                        setupMediaRecorder(stream);
-
-                        // Start recording
-                        startRecording();
-                    })
-                    .catch(error => {
-                        console.error('Error accessing microphone:', error);
-                        updateStatusMessage('danger', 'Error accessing your microphone. Please ensure you have given permission to use your microphone.');
-                        currentState = 'idle';
-                    });
-            });
-
-            // Initialize audio context with mobile compatibility
-            function initAudioContext() {
-                // For mobile compatibility, create the AudioContext only on user interaction
-                if (!audioContext) {
-                    // Fix for Safari and older browsers
-                    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-                    audioContext = new AudioContext();
-
-                    // Resume context if it's suspended (needed for iOS Safari)
-                    if (audioContext.state === 'suspended') {
-                        audioContext.resume();
-                    }
-                }
-            }
-
-            // Visualize microphone input
-            function visualize() {
-                const bufferLength = analyser.frequencyBinCount;
-                const dataArray = new Uint8Array(bufferLength);
-
-                canvasCtx.clearRect(0, 0, visualizer.width, visualizer.height);
-
-                function draw() {
-                    if (!microphone) return;
-
-                    requestAnimationFrame(draw);
-
-                    analyser.getByteTimeDomainData(dataArray);
-
-                    // Update amplitude bars
-                    const barWidth = barsContainer.clientWidth / amplitudeBars.length;
-                    const step = Math.floor(bufferLength / amplitudeBars.length);
-
-                    for (let i = 0; i < amplitudeBars.length; i++) {
-                        const dataIndex = i * step;
-                        const value = Math.abs(dataArray[dataIndex] - 128) / 128;
-                        const height = Math.max(3, value * visualizer.height); // Minimum height of 3px
-                        amplitudeBars[i].style.height = height + 'px';
-                    }
-
-                    canvasCtx.fillStyle = 'rgb(248, 249, 250)';
-                    canvasCtx.fillRect(0, 0, visualizer.width, visualizer.height);
-
-                    canvasCtx.lineWidth = 2;
-                    canvasCtx.strokeStyle = 'rgb(13, 110, 253)';
-
-                    canvasCtx.beginPath();
-
-                    const sliceWidth = visualizer.width / bufferLength;
-                    let x = 0;
-
-                    for (let i = 0; i < bufferLength; i++) {
-                        const v = dataArray[i] / 128.0;
-                        const y = v * visualizer.height / 2;
-
-                        if (i === 0) {
-                            canvasCtx.moveTo(x, y);
-                        } else {
-                            canvasCtx.lineTo(x, y);
-                        }
-
-                        x += sliceWidth;
-                    }
-
-                    canvasCtx.lineTo(visualizer.width, visualizer.height / 2);
-                    canvasCtx.stroke();
-
-                    // Calculate volume
-                    let sum = 0;
-                    for (let i = 0; i < bufferLength; i++) {
-                        sum += Math.abs(dataArray[i] - 128);
-                    }
-                    const average = sum / bufferLength;
-                    const volume = Math.round((average / 128) * 100);
-                    volumeEl.textContent = volume + '%';
-                }
-
-                draw();
-            }
-
-            // Setup media recorder with mobile compatibility
-            function setupMediaRecorder(stream) {
-                // Check if MediaRecorder is available
-                if (typeof MediaRecorder === 'undefined') {
-                    updateStatusMessage('warning', 'Your browser does not support MediaRecorder. Audio recording and playback may not work.');
-                    return;
-                }
-
-                // Use a more widely supported MIME type for mobile
-                let mimeType = 'audio/webm';
-
-                // Check if the browser supports the preferred MIME type
-                if (MediaRecorder.isTypeSupported('audio/webm')) {
-                    mimeType = 'audio/webm';
-                } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
-                    mimeType = 'audio/mp4';
-                } else if (MediaRecorder.isTypeSupported('audio/ogg')) {
-                    mimeType = 'audio/ogg';
-                }
-
-                try {
-                    mediaRecorder = new MediaRecorder(stream, { mimeType });
-                } catch (e) {
-                    // Fallback if the specified MIME type isn't supported
-                    console.warn('Specified MIME type not supported, using default:', e);
-                    mediaRecorder = new MediaRecorder(stream);
-                }
-
-                mediaRecorder.ondataavailable = function(event) {
-                    if (event.data.size > 0) {
-                        audioChunks.push(event.data);
-                    }
-                };
-
-                mediaRecorder.onstop = function() {
-                    finishRecording();
-                };
-
-                // Add error handling
-                mediaRecorder.onerror = function(event) {
-                    console.error('MediaRecorder error:', event);
-                    updateStatusMessage('danger', 'An error occurred during recording. Please try again.');
-                };
-            }
-
-            // Start recording
-            function startRecording() {
-                audioChunks = [];
-                playButton.disabled = true;
-                pauseButton.classList.add('d-none');
-                audioPlayerContainer.classList.add('d-none');
-                recordingStartTime = Date.now();
-                recordingStopped = false;
-
-                // Make sure the audioContext is running (important for iOS)
-                if (audioContext && audioContext.state === 'suspended') {
-                    audioContext.resume();
-                }
-
-                try {
-                    mediaRecorder.start(100); // Collect data every 100ms for smoother processing
-                } catch (e) {
-                    console.error('Error starting MediaRecorder:', e);
-                    updateStatusMessage('danger', 'Failed to start recording. Please refresh and try again.');
-                    return;
-                }
-
-                // Update progress bar
-                recordingTimer = setInterval(function() {
-                    const elapsedTime = Date.now() - recordingStartTime;
-                    const progress = Math.min(100, (elapsedTime / recordingDuration) * 100);
-                    recordingProgress.style.width = progress + '%';
-
-                    // Update percentage in status message if still in recording phase
-                    if (currentState === 'recording' && !recordingStopped) {
-                        const progressLabel = Math.floor(progress);
-                        updateStatusMessage('recording', `<strong>${progressLabel}.0% Recording in progress: </strong> Testing your microphone and recording your voice.`);
-                    }
-
-                    if (progress >= 100) {
-                        clearInterval(recordingTimer);
-                        stopRecording();
-                    }
-                }, 50);
-            }
-
-            // Stop recording but keep the stream active
-            function stopRecording() {
-                if (mediaRecorder && mediaRecorder.state === 'recording') {
-                    try {
-                        mediaRecorder.stop();
-                        recordingStopped = true;
-                    } catch (e) {
-                        console.error('Error stopping MediaRecorder:', e);
-                    }
-                }
-
-                if (recordingTimer) {
-                    clearInterval(recordingTimer);
-                }
-            }
-
-            // Process the recording after it's stopped
-            function finishRecording() {
-                if (audioChunks.length === 0) {
-                    updateStatusMessage('warning', 'No audio was recorded. Please try again and make sure your microphone is working.');
-                    return;
-                }
-
-                try {
-                    // Choose MIME type based on browser support
-                    let mimeType = 'audio/webm';
-                    if (MediaRecorder.isTypeSupported('audio/webm')) {
-                        mimeType = 'audio/webm';
-                    } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
-                        mimeType = 'audio/mp4';
-                    } else if (MediaRecorder.isTypeSupported('audio/ogg')) {
-                        mimeType = 'audio/ogg';
-                    }
-
-                    audioBlob = new Blob(audioChunks, { type: mimeType });
-                    audioUrl = URL.createObjectURL(audioBlob);
-
-                    // Set source for the HTML5 audio element
-                    audioPlayer.src = audioUrl;
-                    audioPlayerContainer.classList.remove('d-none');
-
-                    // Also set source for the custom audio element for backward compatibility
-                    if (audioElement) {
-                        audioElement.remove();
-                    }
-
-                    audioElement = document.createElement('audio');
-                    audioElement.src = audioUrl;
-
-                    // Setup audio playback controls
-                    playButton.disabled = false;
-                    restartButton.classList.remove('d-none');
-                    shareButton.classList.remove('d-none');
-
-                    // Update state and status
-                    currentState = 'complete';
-                    updateStatusMessage('success', 'Recording complete! Your microphone is working properly. You can now play back your recording or test again.');
-
-                    // Add event listener to show play/pause toggle
-                    audioPlayer.onplay = function() {
-                        playButton.classList.add('d-none');
-                        pauseButton.classList.remove('d-none');
-                    };
-
-                    audioPlayer.onpause = function() {
-                        pauseButton.classList.add('d-none');
-                        playButton.classList.remove('d-none');
-                    };
-
-                    audioPlayer.onended = function() {
-                        pauseButton.classList.add('d-none');
-                        playButton.classList.remove('d-none');
-                    };
-                } catch (e) {
-                    console.error('Error creating audio blob:', e);
-                    updateStatusMessage('danger', 'An error occurred processing the recording. Please try again.');
-                }
-            }
-
-            // Reset UI to initial state
-            function resetUI() {
-                testButton.innerHTML = '<i class="bi bi-mic-fill me-2"></i>Test my mic';
-                recordingControls.classList.add('d-none');
-                audioPlayerContainer.classList.add('d-none');
-                resetMicInfo();
-                currentState = 'idle';
-                updateStatusMessage('info', 'Press "Test my mic" to begin testing your microphone.');
-                shareButton.classList.add('d-none');
-                restartButton.classList.add('d-none');
-
-                // Reset microphone dropdown
-                micSelect.innerHTML = '<option value="">Click "Test my mic" to detect microphones</option>';
-                micSelect.disabled = true;
-                devicesEnumerated = false;
-
-                // Release audio resources
-                if (audioUrl) {
-                    URL.revokeObjectURL(audioUrl);
-                    audioUrl = null;
-                }
-            }
-
-            // Stop microphone
-            function stopMicrophone() {
-                if (microphone) {
-                    microphone.disconnect();
-                    microphone = null;
-                }
-
-                // Clean up the AudioContext
-                if (audioContext) {
-                    // Don't close the context as it may be reused
-                    if (audioContext.state === 'running') {
-                        audioContext.suspend();
-                    }
-                }
-
-                // Properly stop all tracks in the stream
-                if (audioStream) {
-                    audioStream.getTracks().forEach(track => track.stop());
-                    audioStream = null;
-                }
-
-                if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-                    try {
-                        mediaRecorder.stop();
-                    } catch (e) {
-                        console.error('Error stopping MediaRecorder:', e);
-                    }
-                }
-
-                if (recordingTimer) {
-                    clearInterval(recordingTimer);
-                }
-
-                canvasCtx.clearRect(0, 0, visualizer.width, visualizer.height);
-
-                // Reset amplitude bars
-                for (let i = 0; i < amplitudeBars.length; i++) {
-                    amplitudeBars[i].style.height = '0px';
-                }
-            }
-
-            // Display microphone information
-            function displayMicrophoneInfo(stream) {
-                const track = stream.getAudioTracks()[0];
-                const settings = track.getSettings();
-
-                micNameEl.textContent = track.label || 'Unknown microphone';
-                gainControlEl.textContent = settings.autoGainControl ? 'Yes' : 'No';
-                channelsEl.textContent = settings.channelCount || '1';
-                echoCancellationEl.textContent = settings.echoCancellation ? 'Yes' : 'No';
-                latencyEl.textContent = settings.latency ? settings.latency + 'ms' : 'Unknown';
-                noiseSuppressionEl.textContent = settings.noiseSuppression ? 'Yes' : 'No';
-                sampleRateEl.textContent = settings.sampleRate ? settings.sampleRate + 'Hz' : 'Unknown';
-                sampleSizeEl.textContent = settings.sampleSize ? settings.sampleSize + 'bits' : 'Unknown';
-
-                // Calculate quality rating based on settings
-                let qualityScore = 0;
-
-                if (settings.channelCount && settings.channelCount >= 2) qualityScore += 1;
-                if (settings.sampleRate && settings.sampleRate >= 44100) qualityScore += 1;
-                if (settings.sampleSize && settings.sampleSize >= 24) qualityScore += 1;
-                if (settings.autoGainControl) qualityScore += 0.5;
-                if (settings.echoCancellation) qualityScore += 0.5;
-                if (settings.noiseSuppression) qualityScore += 0.5;
-                if (settings.latency && settings.latency < 50) qualityScore += 0.5;
-
-                let qualityRating;
-                let qualityClass;
-
-                if (qualityScore >= 4) {
-                    qualityRating = 'Excellent';
-                    qualityClass = 'quality-excellent';
-                }
-                else if (qualityScore >= 3) {
-                    qualityRating = 'Very Good';
-                    qualityClass = 'quality-verygood';
-                }
-                else if (qualityScore >= 2) {
-                    qualityRating = 'Good';
-                    qualityClass = 'quality-good';
-                }
-                else if (qualityScore >= 1) {
-                    qualityRating = 'Fair';
-                    qualityClass = 'quality-fair';
-                }
-                else {
-                    qualityRating = 'Poor';
-                    qualityClass = 'quality-poor';
-                }
-
-                qualityRatingEl.textContent = qualityRating;
-                qualityRatingEl.className = 'quality-indicator ' + qualityClass;
-            }
-
-            // Reset microphone information
-            function resetMicInfo() {
-                micNameEl.textContent = 'Not selected';
-                gainControlEl.textContent = '—';
-                channelsEl.textContent = '—';
-                echoCancellationEl.textContent = '—';
-                latencyEl.textContent = '—';
-                noiseSuppressionEl.textContent = '—';
-                sampleRateEl.textContent = '—';
-                sampleSizeEl.textContent = '—';
-                volumeEl.textContent = '—';
-                qualityRatingEl.textContent = '—';
-                qualityRatingEl.className = 'quality-indicator quality-unknown';
-            }
-
-            // Play button click handler
-            playButton.addEventListener('click', function() {
-                if (audioPlayer && audioPlayer.src) {
-                    // First try the HTML5 audio player
-                    try {
-                        audioPlayer.play()
-                        .then(() => {
-                            playButton.classList.add('d-none');
-                            pauseButton.classList.remove('d-none');
-                        })
-                        .catch(e => {
-                            console.error('Error playing audio:', e);
-                            // If HTML5 player fails, try the custom audio element
-                            if (audioElement) {
-                                audioElement.play();
-                                playButton.classList.add('d-none');
-                                pauseButton.classList.remove('d-none');
-                            }
-                        });
-                    } catch (e) {
-                        console.error('Error playing audio:', e);
-                        updateStatusMessage('warning', 'Error playing audio. This might be a browser limitation.');
-                    }
-                }
-            });
-
-            // Pause button click handler
-            pauseButton.addEventListener('click', function() {
-                // Try both the HTML5 player and the custom element
-                if (audioPlayer && !audioPlayer.paused) {
-                    audioPlayer.pause();
-                }
-
-                if (audioElement && !audioElement.paused) {
-                    audioElement.pause();
-                }
-
-                pauseButton.classList.add('d-none');
-                playButton.classList.remove('d-none');
-            });
-
-            // Stop recording button click handler
-            stopRecordingButton.addEventListener('click', function() {
-                if (currentState === 'recording' && !recordingStopped) {
-                    stopRecording();
-                }
-            });
-
-            // Restart button click handler
-            restartButton.addEventListener('click', function() {
-                if (audioStream && currentState === 'complete') {
-                    // Only restart the recording, keep the stream active
-                    startRecording();
-                    currentState = 'recording';
-                    updateStatusMessage('recording', '<strong>Recording in progress: </strong> Testing your microphone and recording your voice.');
-                    restartButton.classList.add('d-none');
-                    shareButton.classList.add('d-none');
-                }
-            });
-
-            // Share button click handler
-            shareButton.addEventListener('click', function() {
-                // Toggle review form
-                reviewForm.style.display = 'block';
-                this.disabled = true;
-            });
-
-            // Review form handlers
-            addReviewBtn.addEventListener('click', function() {
-                reviewForm.style.display = 'block';
-            });
-
-            cancelReviewBtn.addEventListener('click', function() {
-                reviewForm.style.display = 'none';
-                shareButton.disabled = false;
-            });
-
-            submitReviewBtn.addEventListener('click', function() {
-                const reviewText = document.getElementById('review-text').value;
-                const reviewerName = document.getElementById('reviewer-name').value;
-
-                if (reviewText && reviewerName) {
-                    // Create new testimonial
-                    const testimonialDiv = document.createElement('div');
-                    testimonialDiv.className = 'testimonial';
-
-                    const reviewPara = document.createElement('p');
-                    reviewPara.className = 'mb-0';
-                    reviewPara.textContent = `"${reviewText}"`;
-
-                    const nameSmall = document.createElement('small');
-                    nameSmall.className = 'text-muted';
-                    nameSmall.textContent = `— ${reviewerName}`;
-
-                    testimonialDiv.appendChild(reviewPara);
-                    testimonialDiv.appendChild(nameSmall);
-
-                    // Insert at the beginning of testimonials
-                    const testimonialsContainer = document.querySelector('.card-body');
-                    testimonialsContainer.insertBefore(testimonialDiv, testimonialsContainer.firstChild);
-
-                    // Reset form and hide it
-                    document.getElementById('review-text').value = '';
-                    document.getElementById('reviewer-name').value = '';
-                    reviewForm.style.display = 'none';
-                    shareButton.disabled = false;
-
-                    // Show success message
-                    alert('Thank you for your review!');
-                } else {
-                    alert('Please fill in both fields');
-                }
-            });
-
-            // Handle canvas resizing
-            function resizeCanvas() {
-                visualizer.width = visualizer.clientWidth;
-                visualizer.height = visualizer.clientHeight;
-            }
-
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
-
-            // Add event listeners for audio context state changes - important for mobile
-            document.addEventListener('touchstart', function() {
-                if (audioContext && audioContext.state === 'suspended') {
-                    audioContext.resume();
-                }
-            }, { once: true });
-
-            // Force audio to play on user interaction (for iOS)
-            document.addEventListener('touchend', function() {
-                if (audioPlayer && audioPlayer.src && audioPlayer.paused) {
-                    audioPlayer.play().catch(e => console.log('Play attempted but not allowed yet'));
-                }
-            }, { once: true });
+<footer class="footer">
+  <div class="container text-center">
+    <p>© 2025 MicTest. Test your microphone online.</p>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Create amplitude bars for the visualizer
+    const barsContainer = document.getElementById('amplitude-bars');
+    const barsCount = 50;
+    for (let i = 0; i < barsCount; i++) {
+      const bar = document.createElement('div');
+      bar.className = 'amplitude-bar';
+      bar.style.height = '0px';
+      barsContainer.appendChild(bar);
+    }
+
+    const visualizer = document.getElementById('visualizer');
+    const micSelect = document.getElementById('mic-select');
+    const testButton = document.getElementById('test-button');
+    const recordingControls = document.getElementById('recording-controls');
+    const playButton = document.getElementById('play-button');
+    const pauseButton = document.getElementById('pause-button');
+    const stopRecordingButton = document.getElementById('stop-recording-button');
+    const restartButton = document.getElementById('restart-button');
+    const shareButton = document.getElementById('share-button');
+    const recordingProgress = document.getElementById('recording-progress');
+    const browserMessage = document.getElementById('browser-message');
+    const browserAlert = document.getElementById('browser-alert');
+    const statusMessage = document.getElementById('status-message');
+    const recordingInstructions = document.getElementById('recording-instructions');
+    const amplitudeBars = document.querySelectorAll('.amplitude-bar');
+    const audioPlayerContainer = document.getElementById('audio-player-container');
+    const audioPlayer = document.getElementById('audio-player');
+
+    // Review form elements
+    const addReviewBtn = document.getElementById('add-review-btn');
+    const reviewForm = document.getElementById('review-form');
+    const submitReviewBtn = document.getElementById('submit-review-btn');
+    const cancelReviewBtn = document.getElementById('cancel-review-btn');
+
+    // Info elements
+    const micNameEl = document.getElementById('mic-name');
+    const gainControlEl = document.getElementById('gain-control');
+    const channelsEl = document.getElementById('channels');
+    const echoCancellationEl = document.getElementById('echo-cancellation');
+    const latencyEl = document.getElementById('latency');
+    const noiseSuppressionEl = document.getElementById('noise-suppression');
+    const sampleRateEl = document.getElementById('sample-rate');
+    const sampleSizeEl = document.getElementById('sample-size');
+    const volumeEl = document.getElementById('volume');
+    const qualityRatingEl = document.getElementById('quality-rating');
+
+    let audioContext;
+    let microphone;
+    let analyser;
+    let mediaRecorder;
+    let audioChunks = [];
+    let recordingStartTime;
+    let recordingTimer;
+    let audioBlob;
+    let audioUrl;
+    let audioElement;
+    let currentState = 'idle'; // idle, detecting, recording, analyzing, complete
+    let recordingStopped = false;
+    let recordingDuration = 5000; // Default recording duration in ms
+    let audioStream; // Store the audio stream for cleanup
+    let devicesEnumerated = false; // Track if devices have been enumerated
+
+    // Check if browser supports audio API
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      updateStatusMessage('danger', 'Your browser does not support microphone access. Please use a modern browser like Chrome, Firefox, or Edge.');
+      testButton.disabled = true;
+      return;
+    }
+
+    function updateStatusMessage(type, message) {
+      statusMessage.className = 'status-message alert alert-' + (type || 'info');
+
+      let iconClass = 'bi-info-circle-fill';
+      if (type === 'success') iconClass = 'bi-check-circle-fill';
+      if (type === 'warning') iconClass = 'bi-exclamation-triangle-fill';
+      if (type === 'danger') iconClass = 'bi-x-circle-fill';
+      if (type === 'recording') iconClass = 'recording-pulse';
+
+      let displayMessage = message;
+      if (type === 'recording') {
+        displayMessage = `<span class="recording-pulse"></span>${message}`;
+      } else {
+        displayMessage = `<div class="status-step"><span class="status-icon"><i class="bi ${iconClass}"></i></span><span>${message}</span></div>`;
+      }
+
+      statusMessage.innerHTML = displayMessage;
+
+      if (type === 'recording') {
+        recordingInstructions.classList.remove('d-none');
+      } else {
+        recordingInstructions.classList.add('d-none');
+      }
+    }
+
+    // Modified device enumeration - only enumerate when user clicks test button
+    function enumerateAudioDevices() {
+      if (devicesEnumerated) {
+        return Promise.resolve(); // Already enumerated
+      }
+
+      return navigator.mediaDevices.enumerateDevices()
+        .then(devices => {
+          const audioInputDevices = devices.filter(device => device.kind === 'audioinput');
+
+          if (audioInputDevices.length === 0) {
+            updateStatusMessage('warning', 'No microphone detected. Please connect a microphone and refresh the page.');
+            testButton.disabled = true;
+            return Promise.reject('No microphones found');
+          }
+
+          populateMicSelect(audioInputDevices);
+          devicesEnumerated = true;
+          return Promise.resolve();
+        })
+        .catch(error => {
+          console.error('Error enumerating devices:', error);
+          updateStatusMessage('danger', 'Error accessing media devices. Please ensure you have given permission to access your microphone.');
+          throw error;
         });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    }
+
+    function populateMicSelect(audioInputDevices) {
+      // Populate microphone select dropdown
+      micSelect.innerHTML = '';
+      audioInputDevices.forEach((device, index) => {
+        const option = document.createElement('option');
+        option.value = device.deviceId;
+        option.text = device.label || `Microphone ${index + 1}`;
+        micSelect.appendChild(option);
+      });
+
+      micSelect.disabled = false;
+    }
+
+    // Set up canvas for visualization
+    const canvasCtx = visualizer.getContext('2d');
+
+    // Modified test button click handler
+    testButton.addEventListener('click', function () {
+      if (microphone) {
+        stopMicrophone();
+        resetUI();
+        return;
+      }
+
+      // Update status - requesting permission
+      currentState = 'detecting';
+      updateStatusMessage('info', 'Requesting microphone access. Please allow access when prompted.');
+
+      const constraints = {
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+          autoGainControl: true
+        }
+      };
+
+      // Request microphone access first
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then(stream => {
+          // Store the stream for cleanup
+          audioStream = stream;
+
+          // Now enumerate devices to get proper labels and populate dropdown
+          return navigator.mediaDevices.enumerateDevices()
+            .then(devices => {
+              const audioInputDevices = devices.filter(device => device.kind === 'audioinput');
+              populateMicSelect(audioInputDevices);
+              devicesEnumerated = true;
+              return stream;
+            });
+        })
+        .then(stream => {
+          // Check if user wants to use a specific microphone
+          if (micSelect.value && micSelect.value !== stream.getAudioTracks()[0].getSettings().deviceId) {
+            // Stop current stream and request the selected microphone
+            stream.getTracks().forEach(track => track.stop());
+
+            const newConstraints = {
+              audio: {
+                deviceId: {exact: micSelect.value},
+                echoCancellation: true,
+                noiseSuppression: true,
+                autoGainControl: true
+              }
+            };
+
+            return navigator.mediaDevices.getUserMedia(newConstraints);
+          }
+          return stream;
+        })
+        .then(stream => {
+          // Store the final stream
+          audioStream = stream;
+
+          // Create audio context with mobile-friendly initialization
+          initAudioContext();
+
+          // Update status
+          currentState = 'recording';
+          recordingStopped = false;
+          updateStatusMessage('recording', '<strong>Recording in progress: </strong> Testing your microphone and recording your voice.');
+
+          // Create analyzer
+          analyser = audioContext.createAnalyser();
+          analyser.fftSize = 2048;
+
+          // Connect microphone to analyzer
+          microphone = audioContext.createMediaStreamSource(stream);
+          microphone.connect(analyser);
+
+          // Start visualization
+          visualize();
+
+          // Update UI
+          testButton.innerHTML = '<i class="bi bi-x-circle-fill me-2"></i>Cancel test';
+
+          // Show recording controls
+          recordingControls.classList.remove('d-none');
+
+          // Display microphone info
+          displayMicrophoneInfo(stream);
+
+          // Set up media recorder
+          setupMediaRecorder(stream);
+
+          // Start recording
+          startRecording();
+        })
+        .catch(error => {
+          console.error('Error accessing microphone:', error);
+          updateStatusMessage('danger', 'Error accessing your microphone. Please ensure you have given permission to use your microphone.');
+          currentState = 'idle';
+        });
+    });
+
+    // Initialize audio context with mobile compatibility
+    function initAudioContext() {
+      // For mobile compatibility, create the AudioContext only on user interaction
+      if (!audioContext) {
+        // Fix for Safari and older browsers
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioContext = new AudioContext();
+
+        // Resume context if it's suspended (needed for iOS Safari)
+        if (audioContext.state === 'suspended') {
+          audioContext.resume();
+        }
+      }
+    }
+
+    // Visualize microphone input
+    function visualize() {
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+
+      canvasCtx.clearRect(0, 0, visualizer.width, visualizer.height);
+
+      function draw() {
+        if (!microphone) return;
+
+        requestAnimationFrame(draw);
+
+        analyser.getByteTimeDomainData(dataArray);
+
+        // Update amplitude bars
+        const barWidth = barsContainer.clientWidth / amplitudeBars.length;
+        const step = Math.floor(bufferLength / amplitudeBars.length);
+
+        for (let i = 0; i < amplitudeBars.length; i++) {
+          const dataIndex = i * step;
+          const value = Math.abs(dataArray[dataIndex] - 128) / 128;
+          const height = Math.max(3, value * visualizer.height); // Minimum height of 3px
+          amplitudeBars[i].style.height = height + 'px';
+        }
+
+        canvasCtx.fillStyle = 'rgb(248, 249, 250)';
+        canvasCtx.fillRect(0, 0, visualizer.width, visualizer.height);
+
+        canvasCtx.lineWidth = 2;
+        canvasCtx.strokeStyle = 'rgb(13, 110, 253)';
+
+        canvasCtx.beginPath();
+
+        const sliceWidth = visualizer.width / bufferLength;
+        let x = 0;
+
+        for (let i = 0; i < bufferLength; i++) {
+          const v = dataArray[i] / 128.0;
+          const y = v * visualizer.height / 2;
+
+          if (i === 0) {
+            canvasCtx.moveTo(x, y);
+          } else {
+            canvasCtx.lineTo(x, y);
+          }
+
+          x += sliceWidth;
+        }
+
+        canvasCtx.lineTo(visualizer.width, visualizer.height / 2);
+        canvasCtx.stroke();
+
+        // Calculate volume
+        let sum = 0;
+        for (let i = 0; i < bufferLength; i++) {
+          sum += Math.abs(dataArray[i] - 128);
+        }
+        const average = sum / bufferLength;
+        const volume = Math.round((average / 128) * 100);
+        volumeEl.textContent = volume + '%';
+      }
+
+      draw();
+    }
+
+    // Setup media recorder with mobile compatibility
+    function setupMediaRecorder(stream) {
+      // Check if MediaRecorder is available
+      if (typeof MediaRecorder === 'undefined') {
+        updateStatusMessage('warning', 'Your browser does not support MediaRecorder. Audio recording and playback may not work.');
+        return;
+      }
+
+      // Use a more widely supported MIME type for mobile
+      let mimeType = 'audio/webm';
+
+      // Check if the browser supports the preferred MIME type
+      if (MediaRecorder.isTypeSupported('audio/webm')) {
+        mimeType = 'audio/webm';
+      } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
+        mimeType = 'audio/mp4';
+      } else if (MediaRecorder.isTypeSupported('audio/ogg')) {
+        mimeType = 'audio/ogg';
+      }
+
+      try {
+        mediaRecorder = new MediaRecorder(stream, {mimeType});
+      } catch (e) {
+        // Fallback if the specified MIME type isn't supported
+        console.warn('Specified MIME type not supported, using default:', e);
+        mediaRecorder = new MediaRecorder(stream);
+      }
+
+      mediaRecorder.ondataavailable = function (event) {
+        if (event.data.size > 0) {
+          audioChunks.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstop = function () {
+        finishRecording();
+      };
+
+      // Add error handling
+      mediaRecorder.onerror = function (event) {
+        console.error('MediaRecorder error:', event);
+        updateStatusMessage('danger', 'An error occurred during recording. Please try again.');
+      };
+    }
+
+    // Start recording
+    function startRecording() {
+      audioChunks = [];
+      playButton.disabled = true;
+      pauseButton.classList.add('d-none');
+      audioPlayerContainer.classList.add('d-none');
+      recordingStartTime = Date.now();
+      recordingStopped = false;
+
+      // Make sure the audioContext is running (important for iOS)
+      if (audioContext && audioContext.state === 'suspended') {
+        audioContext.resume();
+      }
+
+      try {
+        mediaRecorder.start(100); // Collect data every 100ms for smoother processing
+      } catch (e) {
+        console.error('Error starting MediaRecorder:', e);
+        updateStatusMessage('danger', 'Failed to start recording. Please refresh and try again.');
+        return;
+      }
+
+      // Update progress bar
+      recordingTimer = setInterval(function () {
+        const elapsedTime = Date.now() - recordingStartTime;
+        const progress = Math.min(100, (elapsedTime / recordingDuration) * 100);
+        recordingProgress.style.width = progress + '%';
+
+        // Update percentage in status message if still in recording phase
+        if (currentState === 'recording' && !recordingStopped) {
+          const progressLabel = Math.floor(progress);
+          updateStatusMessage('recording', `<strong>${progressLabel}.0% Recording in progress: </strong> Testing your microphone and recording your voice.`);
+        }
+
+        if (progress >= 100) {
+          clearInterval(recordingTimer);
+          stopRecording();
+        }
+      }, 50);
+    }
+
+    // Stop recording but keep the stream active
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state === 'recording') {
+        try {
+          mediaRecorder.stop();
+          recordingStopped = true;
+        } catch (e) {
+          console.error('Error stopping MediaRecorder:', e);
+        }
+      }
+
+      if (recordingTimer) {
+        clearInterval(recordingTimer);
+      }
+    }
+
+    // Process the recording after it's stopped
+    function finishRecording() {
+      if (audioChunks.length === 0) {
+        updateStatusMessage('warning', 'No audio was recorded. Please try again and make sure your microphone is working.');
+        return;
+      }
+
+      try {
+        // Choose MIME type based on browser support
+        let mimeType = 'audio/webm';
+        if (MediaRecorder.isTypeSupported('audio/webm')) {
+          mimeType = 'audio/webm';
+        } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
+          mimeType = 'audio/mp4';
+        } else if (MediaRecorder.isTypeSupported('audio/ogg')) {
+          mimeType = 'audio/ogg';
+        }
+
+        audioBlob = new Blob(audioChunks, {type: mimeType});
+        audioUrl = URL.createObjectURL(audioBlob);
+
+        // Set source for the HTML5 audio element
+        audioPlayer.src = audioUrl;
+        audioPlayerContainer.classList.remove('d-none');
+
+        // Also set source for the custom audio element for backward compatibility
+        if (audioElement) {
+          audioElement.remove();
+        }
+
+        audioElement = document.createElement('audio');
+        audioElement.src = audioUrl;
+
+        // Setup audio playback controls
+        playButton.disabled = false;
+        restartButton.classList.remove('d-none');
+        shareButton.classList.remove('d-none');
+
+        // Update state and status
+        currentState = 'complete';
+        updateStatusMessage('success', 'Recording complete! Your microphone is working properly. You can now play back your recording or test again.');
+
+        // Add event listener to show play/pause toggle
+        audioPlayer.onplay = function () {
+          playButton.classList.add('d-none');
+          pauseButton.classList.remove('d-none');
+        };
+
+        audioPlayer.onpause = function () {
+          pauseButton.classList.add('d-none');
+          playButton.classList.remove('d-none');
+        };
+
+        audioPlayer.onended = function () {
+          pauseButton.classList.add('d-none');
+          playButton.classList.remove('d-none');
+        };
+      } catch (e) {
+        console.error('Error creating audio blob:', e);
+        updateStatusMessage('danger', 'An error occurred processing the recording. Please try again.');
+      }
+    }
+
+    // Reset UI to initial state
+    function resetUI() {
+      testButton.innerHTML = '<i class="bi bi-mic-fill me-2"></i>Test my mic';
+      recordingControls.classList.add('d-none');
+      audioPlayerContainer.classList.add('d-none');
+      resetMicInfo();
+      currentState = 'idle';
+      updateStatusMessage('info', 'Press "Test my mic" to begin testing your microphone.');
+      shareButton.classList.add('d-none');
+      restartButton.classList.add('d-none');
+
+      // Reset microphone dropdown
+      micSelect.innerHTML = '<option value="">Click "Test my mic" to detect microphones</option>';
+      micSelect.disabled = true;
+      devicesEnumerated = false;
+
+      // Release audio resources
+      if (audioUrl) {
+        URL.revokeObjectURL(audioUrl);
+        audioUrl = null;
+      }
+    }
+
+    // Stop microphone
+    function stopMicrophone() {
+      if (microphone) {
+        microphone.disconnect();
+        microphone = null;
+      }
+
+      // Clean up the AudioContext
+      if (audioContext) {
+        // Don't close the context as it may be reused
+        if (audioContext.state === 'running') {
+          audioContext.suspend();
+        }
+      }
+
+      // Properly stop all tracks in the stream
+      if (audioStream) {
+        audioStream.getTracks().forEach(track => track.stop());
+        audioStream = null;
+      }
+
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        try {
+          mediaRecorder.stop();
+        } catch (e) {
+          console.error('Error stopping MediaRecorder:', e);
+        }
+      }
+
+      if (recordingTimer) {
+        clearInterval(recordingTimer);
+      }
+
+      canvasCtx.clearRect(0, 0, visualizer.width, visualizer.height);
+
+      // Reset amplitude bars
+      for (let i = 0; i < amplitudeBars.length; i++) {
+        amplitudeBars[i].style.height = '0px';
+      }
+    }
+
+    // Display microphone information
+    function displayMicrophoneInfo(stream) {
+      const track = stream.getAudioTracks()[0];
+      const settings = track.getSettings();
+
+      micNameEl.textContent = track.label || 'Unknown microphone';
+      gainControlEl.textContent = settings.autoGainControl ? 'Yes' : 'No';
+      channelsEl.textContent = settings.channelCount || '1';
+      echoCancellationEl.textContent = settings.echoCancellation ? 'Yes' : 'No';
+      latencyEl.textContent = settings.latency ? settings.latency + 'ms' : 'Unknown';
+      noiseSuppressionEl.textContent = settings.noiseSuppression ? 'Yes' : 'No';
+      sampleRateEl.textContent = settings.sampleRate ? settings.sampleRate + 'Hz' : 'Unknown';
+      sampleSizeEl.textContent = settings.sampleSize ? settings.sampleSize + 'bits' : 'Unknown';
+
+      // Calculate quality rating based on settings
+      let qualityScore = 0;
+
+      if (settings.channelCount && settings.channelCount >= 2) qualityScore += 1;
+      if (settings.sampleRate && settings.sampleRate >= 44100) qualityScore += 1;
+      if (settings.sampleSize && settings.sampleSize >= 24) qualityScore += 1;
+      if (settings.autoGainControl) qualityScore += 0.5;
+      if (settings.echoCancellation) qualityScore += 0.5;
+      if (settings.noiseSuppression) qualityScore += 0.5;
+      if (settings.latency && settings.latency < 50) qualityScore += 0.5;
+
+      let qualityRating;
+      let qualityClass;
+
+      if (qualityScore >= 4) {
+        qualityRating = 'Excellent';
+        qualityClass = 'quality-excellent';
+      } else if (qualityScore >= 3) {
+        qualityRating = 'Very Good';
+        qualityClass = 'quality-verygood';
+      } else if (qualityScore >= 2) {
+        qualityRating = 'Good';
+        qualityClass = 'quality-good';
+      } else if (qualityScore >= 1) {
+        qualityRating = 'Fair';
+        qualityClass = 'quality-fair';
+      } else {
+        qualityRating = 'Poor';
+        qualityClass = 'quality-poor';
+      }
+
+      qualityRatingEl.textContent = qualityRating;
+      qualityRatingEl.className = 'quality-indicator ' + qualityClass;
+    }
+
+    // Reset microphone information
+    function resetMicInfo() {
+      micNameEl.textContent = 'Not selected';
+      gainControlEl.textContent = '—';
+      channelsEl.textContent = '—';
+      echoCancellationEl.textContent = '—';
+      latencyEl.textContent = '—';
+      noiseSuppressionEl.textContent = '—';
+      sampleRateEl.textContent = '—';
+      sampleSizeEl.textContent = '—';
+      volumeEl.textContent = '—';
+      qualityRatingEl.textContent = '—';
+      qualityRatingEl.className = 'quality-indicator quality-unknown';
+    }
+
+    // Play button click handler
+    playButton.addEventListener('click', function () {
+      if (audioPlayer && audioPlayer.src) {
+        // First try the HTML5 audio player
+        try {
+          audioPlayer.play()
+            .then(() => {
+              playButton.classList.add('d-none');
+              pauseButton.classList.remove('d-none');
+            })
+            .catch(e => {
+              console.error('Error playing audio:', e);
+              // If HTML5 player fails, try the custom audio element
+              if (audioElement) {
+                audioElement.play();
+                playButton.classList.add('d-none');
+                pauseButton.classList.remove('d-none');
+              }
+            });
+        } catch (e) {
+          console.error('Error playing audio:', e);
+          updateStatusMessage('warning', 'Error playing audio. This might be a browser limitation.');
+        }
+      }
+    });
+
+    // Pause button click handler
+    pauseButton.addEventListener('click', function () {
+      // Try both the HTML5 player and the custom element
+      if (audioPlayer && !audioPlayer.paused) {
+        audioPlayer.pause();
+      }
+
+      if (audioElement && !audioElement.paused) {
+        audioElement.pause();
+      }
+
+      pauseButton.classList.add('d-none');
+      playButton.classList.remove('d-none');
+    });
+
+    // Stop recording button click handler
+    stopRecordingButton.addEventListener('click', function () {
+      if (currentState === 'recording' && !recordingStopped) {
+        stopRecording();
+      }
+    });
+
+    // Restart button click handler
+    restartButton.addEventListener('click', function () {
+      if (audioStream && currentState === 'complete') {
+        // Only restart the recording, keep the stream active
+        startRecording();
+        currentState = 'recording';
+        updateStatusMessage('recording', '<strong>Recording in progress: </strong> Testing your microphone and recording your voice.');
+        restartButton.classList.add('d-none');
+        shareButton.classList.add('d-none');
+      }
+    });
+
+    // Share button click handler
+    shareButton.addEventListener('click', function () {
+      // Toggle review form
+      reviewForm.style.display = 'block';
+      this.disabled = true;
+    });
+
+    // Review form handlers
+    addReviewBtn.addEventListener('click', function () {
+      reviewForm.style.display = 'block';
+    });
+
+    cancelReviewBtn.addEventListener('click', function () {
+      reviewForm.style.display = 'none';
+      shareButton.disabled = false;
+    });
+
+    submitReviewBtn.addEventListener('click', function () {
+      const reviewText = document.getElementById('review-text').value;
+      const reviewerName = document.getElementById('reviewer-name').value;
+
+      if (reviewText && reviewerName) {
+        // Create new testimonial
+        const testimonialDiv = document.createElement('div');
+        testimonialDiv.className = 'testimonial';
+
+        const reviewPara = document.createElement('p');
+        reviewPara.className = 'mb-0';
+        reviewPara.textContent = `"${reviewText}"`;
+
+        const nameSmall = document.createElement('small');
+        nameSmall.className = 'text-muted';
+        nameSmall.textContent = `— ${reviewerName}`;
+
+        testimonialDiv.appendChild(reviewPara);
+        testimonialDiv.appendChild(nameSmall);
+
+        // Insert at the beginning of testimonials
+        const testimonialsContainer = document.querySelector('.card-body');
+        testimonialsContainer.insertBefore(testimonialDiv, testimonialsContainer.firstChild);
+
+        // Reset form and hide it
+        document.getElementById('review-text').value = '';
+        document.getElementById('reviewer-name').value = '';
+        reviewForm.style.display = 'none';
+        shareButton.disabled = false;
+
+        // Show success message
+        alert('Thank you for your review!');
+      } else {
+        alert('Please fill in both fields');
+      }
+    });
+
+    // Handle canvas resizing
+    function resizeCanvas() {
+      visualizer.width = visualizer.clientWidth;
+      visualizer.height = visualizer.clientHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Add event listeners for audio context state changes - important for mobile
+    document.addEventListener('touchstart', function () {
+      if (audioContext && audioContext.state === 'suspended') {
+        audioContext.resume();
+      }
+    }, {once: true});
+
+    // Force audio to play on user interaction (for iOS)
+    document.addEventListener('touchend', function () {
+      if (audioPlayer && audioPlayer.src && audioPlayer.paused) {
+        audioPlayer.play().catch(e => console.log('Play attempted but not allowed yet'));
+      }
+    }, {once: true});
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

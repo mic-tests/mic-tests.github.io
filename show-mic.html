@@ -1,416 +1,454 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Show My Microphone Details - Advanced Mic Information & Specs | MicTest</title>
-<meta name="description" content="View detailed microphone specifications, technical capabilities, and real-time analysis. Discover connected microphones, check audio quality ratings, and test microphone functionality across all devices.">
-<meta name="keywords" content="microphone details, mic specifications, microphone information, audio device specs, microphone capabilities, mic test details, audio input analysis">
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Show My Microphone Details - Advanced Mic Information & Specs | MicTest</title>
+  <meta content="View detailed microphone specifications, technical capabilities, and real-time analysis. Discover connected microphones, check audio quality ratings, and test microphone functionality across all devices."
+        name="description">
+  <meta content="microphone details, mic specifications, microphone information, audio device specs, microphone capabilities, mic test details, audio input analysis" name="keywords">
 
-  <link rel="canonical" href="https://mic-tests.github.io/show-mic">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="https://mic-tests.github.io/show-mic" rel="canonical">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <script async crossorigin="anonymous"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5426315045205785"></script>
 
-    <style>
-        .feature-card {
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        .feature-icon {
-            font-size: 2rem;
-            color: #0d6efd;
-            margin-bottom: 15px;
-        }
-        .footer {
-            margin-top: 50px;
-            padding: 20px 0;
-            background-color: #f8f9fa;
-            border-top: 1px solid #dee2e6;
-        }
-        .device-card {
-            margin-bottom: 15px;
-            transition: transform 0.2s;
-            cursor: pointer;
-        }
-        .device-card:hover {
-            transform: translateY(-3px);
-        }
-        .device-card.selected {
-            border-color: #0d6efd;
-            border-width: 2px;
-        }
-        .device-detail-table {
-            font-size: 0.9rem;
-        }
-        .device-detail-table th {
-            width: 40%;
-        }
-        .btn-refresh {
-            position: absolute;
-            right: 15px;
-            top: 15px;
-        }
-        .status-dot {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-right: 5px;
-        }
-        .status-dot.connected {
-            background-color: #198754;
-        }
-        .status-dot.disconnected {
-            background-color: #dc3545;
-        }
-        .status-dot.default {
-            background-color: #ffc107;
-        }
-        #spectrogram-container {
-            position: relative;
-            height: 200px;
-            margin-top: 20px;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        canvas {
-            width: 100%;
-            height: 100%;
-        }
-        .no-microphones {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            text-align: center;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-            border: 1px solid #dee2e6;
-        }
-        .no-microphones i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #6c757d;
-        }
-    </style>
-    <meta name="google-adsense-account" content="ca-pub-5426315045205785">
+  <style>
+    .feature-card {
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      color: #0d6efd;
+      margin-bottom: 15px;
+    }
+
+    .footer {
+      margin-top: 50px;
+      padding: 20px 0;
+      background-color: #f8f9fa;
+      border-top: 1px solid #dee2e6;
+    }
+
+    .device-card {
+      margin-bottom: 15px;
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+
+    .device-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .device-card.selected {
+      border-color: #0d6efd;
+      border-width: 2px;
+    }
+
+    .device-detail-table {
+      font-size: 0.9rem;
+    }
+
+    .device-detail-table th {
+      width: 40%;
+    }
+
+    .btn-refresh {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+
+    .status-dot.connected {
+      background-color: #198754;
+    }
+
+    .status-dot.disconnected {
+      background-color: #dc3545;
+    }
+
+    .status-dot.default {
+      background-color: #ffc107;
+    }
+
+    #spectrogram-container {
+      position: relative;
+      height: 200px;
+      margin-top: 20px;
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    .no-microphones {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      border: 1px solid #dee2e6;
+    }
+
+    .no-microphones i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #6c757d;
+    }
+  </style>
+  <meta content="ca-pub-5426315045205785" name="google-adsense-account">
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="/">
-                <i class="bi bi-mic-fill me-2"></i>MicTest
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-<ul class="navbar-nav">
-    <li class="nav-item">
-        <a class="nav-link" href="/">Home</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="/show-mic">Show My Mic</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/show-speakers">Show My Speakers</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/about">About</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/contact">Contact</a>
-    </li>
-</ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="container mt-4">
-        <div class="alert alert-info" id="browser-alert">
-            <div id="browser-message">
-                <i class="bi bi-info-circle-fill me-2"></i>
-                Detecting your microphones. Please allow access when prompted.
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <h1><i class="bi bi-mic-fill me-2"></i>Show My Microphone Details</h1>
-                <p class="lead">Discover all connected microphones and their detailed specifications.</p>
-
-                <div class="card mb-4">
-                    <div class="card-header bg-primary text-white">
-                        <i class="bi bi-mic-fill me-2"></i>Connected Microphones
-                        <button id="refresh-button" class="btn btn-sm btn-light btn-refresh">
-                            <i class="bi bi-arrow-clockwise me-1"></i>Refresh
-                        </button>
-                    </div>
-                    <div class="card-body">
-                        <div id="devices-container" class="row">
-                            <!-- Microphone devices will be dynamically added here -->
-                        </div>
-                    </div>
-                </div>
-
-                <div id="device-details" class="card mb-4 d-none">
-                    <div class="card-header bg-primary text-white">
-                        <i class="bi bi-info-circle-fill me-2"></i><span id="selected-device-name">Microphone Details</span>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h5>Technical Specifications</h5>
-                                <table class="table table-striped device-detail-table">
-                                    <tbody>
-                                        <tr>
-                                            <th>Device ID</th>
-                                            <td id="device-id">-</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Group ID</th>
-                                            <td id="group-id">-</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Sample Rate</th>
-                                            <td id="sample-rate">-</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Sample Size</th>
-                                            <td id="sample-size">-</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Channel Count</th>
-                                            <td id="channel-count">-</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Latency</th>
-                                            <td id="latency">-</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Volume</th>
-                                            <td id="volume">-</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-md-6">
-                                <h5>Audio Processing Features</h5>
-                                <table class="table table-striped device-detail-table">
-                                    <tbody>
-                                        <tr>
-                                            <th>Auto Gain Control</th>
-                                            <td id="auto-gain">-</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Echo Cancellation</th>
-                                            <td id="echo-cancellation">-</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Noise Suppression</th>
-                                            <td id="noise-suppression">-</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Default Device</th>
-                                            <td id="is-default">-</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Device Status</th>
-                                            <td id="device-status">-</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Estimated Quality</th>
-                                            <td id="quality-rating">-</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-md-12">
-                                <h5>Microphone Visualization</h5>
-                                <p>Press the Test button to visualize the microphone input:</p>
-                                <button id="test-button" class="btn btn-primary">
-                                    <i class="bi bi-play-fill me-1"></i>Test Microphone
-                                </button>
-                                <button id="stop-button" class="btn btn-danger d-none">
-                                    <i class="bi bi-stop-fill me-1"></i>Stop Test
-                                </button>
-
-                                <div id="spectrogram-container">
-                                    <canvas id="spectrogram"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card mb-4">
-                    <div class="card-header bg-primary text-white">
-                        <i class="bi bi-gear-fill me-2"></i>Why Check Your Microphone Details?
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="feature-card text-center p-3">
-                                    <div class="feature-icon">
-                                        <i class="bi bi-headset"></i>
-                                    </div>
-                                    <h4>Compatibility Check</h4>
-                                    <p>Ensure your <a href="https://mic-tests.github.io">microphone meets the requirements</a> for your conferencing software, recording setup, or gaming needs.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="feature-card text-center p-3">
-                                    <div class="feature-icon">
-                                        <i class="bi bi-volume-up"></i>
-                                    </div>
-                                    <h4>Audio Quality Assessment</h4>
-                                    <p>Understand the technical capabilities of your microphone to determine if it's suitable for your specific audio requirements.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="feature-card text-center p-3">
-                                    <div class="feature-icon">
-                                        <i class="bi bi-tools"></i>
-                                    </div>
-                                    <h4>Troubleshooting</h4>
-                                    <p>Identify potential issues with your microphone settings that might be affecting your audio quality or performance.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <i class="bi bi-mic-fill me-2"></i>MicTest
+    </a>
+    <button class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a aria-current="page" class="nav-link active" href="/show-mic">Show My Mic</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/show-speakers">Show My Speakers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact</a>
+        </li>
+      </ul>
     </div>
+  </div>
+</nav>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container text-center">
-            <p>© 2025 MicTest. Test your microphone online.</p>
+<!-- Main Content -->
+<div class="container mt-4">
+  <div class="alert alert-info" id="browser-alert">
+    <div id="browser-message">
+      <i class="bi bi-info-circle-fill me-2"></i>
+      Detecting your microphones. Please allow access when prompted.
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h1><i class="bi bi-mic-fill me-2"></i>Show My Microphone Details</h1>
+      <p class="lead">Discover all connected microphones and their detailed specifications.</p>
+
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          <i class="bi bi-mic-fill me-2"></i>Connected Microphones
+          <button class="btn btn-sm btn-light btn-refresh" id="refresh-button">
+            <i class="bi bi-arrow-clockwise me-1"></i>Refresh
+          </button>
         </div>
-    </footer>
+        <div class="card-body">
+          <div class="row" id="devices-container">
+            <!-- Microphone devices will be dynamically added here -->
+          </div>
+        </div>
+      </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // DOM Elements
-            const browserAlert = document.getElementById('browser-alert');
-            const browserMessage = document.getElementById('browser-message');
-            const devicesContainer = document.getElementById('devices-container');
-            const deviceDetails = document.getElementById('device-details');
-            const refreshButton = document.getElementById('refresh-button');
-            const testButton = document.getElementById('test-button');
-            const stopButton = document.getElementById('stop-button');
-            const spectrogram = document.getElementById('spectrogram');
+      <div class="card mb-4 d-none" id="device-details">
+        <div class="card-header bg-primary text-white">
+          <i class="bi bi-info-circle-fill me-2"></i><span id="selected-device-name">Microphone Details</span>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h5>Technical Specifications</h5>
+              <table class="table table-striped device-detail-table">
+                <tbody>
+                <tr>
+                  <th>Device ID</th>
+                  <td id="device-id">-</td>
+                </tr>
+                <tr>
+                  <th>Group ID</th>
+                  <td id="group-id">-</td>
+                </tr>
+                <tr>
+                  <th>Sample Rate</th>
+                  <td id="sample-rate">-</td>
+                </tr>
+                <tr>
+                  <th>Sample Size</th>
+                  <td id="sample-size">-</td>
+                </tr>
+                <tr>
+                  <th>Channel Count</th>
+                  <td id="channel-count">-</td>
+                </tr>
+                <tr>
+                  <th>Latency</th>
+                  <td id="latency">-</td>
+                </tr>
+                <tr>
+                  <th>Volume</th>
+                  <td id="volume">-</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6">
+              <h5>Audio Processing Features</h5>
+              <table class="table table-striped device-detail-table">
+                <tbody>
+                <tr>
+                  <th>Auto Gain Control</th>
+                  <td id="auto-gain">-</td>
+                </tr>
+                <tr>
+                  <th>Echo Cancellation</th>
+                  <td id="echo-cancellation">-</td>
+                </tr>
+                <tr>
+                  <th>Noise Suppression</th>
+                  <td id="noise-suppression">-</td>
+                </tr>
+                <tr>
+                  <th>Default Device</th>
+                  <td id="is-default">-</td>
+                </tr>
+                <tr>
+                  <th>Device Status</th>
+                  <td id="device-status">-</td>
+                </tr>
+                <tr>
+                  <th>Estimated Quality</th>
+                  <td id="quality-rating">-</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
 
-            // Variables for audio handling
-            let audioContext;
-            let analyser;
-            let microphone;
-            let spectrogramCtx;
-            let activeDeviceId = null;
-            let audioStream = null;
-            let animationFrame = null;
+          <div class="row mt-3">
+            <div class="col-md-12">
+              <h5>Microphone Visualization</h5>
+              <p>Press the Test button to visualize the microphone input:</p>
+              <button class="btn btn-primary" id="test-button">
+                <i class="bi bi-play-fill me-1"></i>Test Microphone
+              </button>
+              <button class="btn btn-danger d-none" id="stop-button">
+                <i class="bi bi-stop-fill me-1"></i>Stop Test
+              </button>
 
-            // Initialize the canvas
-            spectrogramCtx = spectrogram.getContext('2d');
+              <div id="spectrogram-container">
+                <canvas id="spectrogram"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-            // Function to resize the canvas
-            function resizeCanvas() {
-                spectrogram.width = spectrogram.offsetWidth;
-                spectrogram.height = spectrogram.offsetHeight;
-            }
+      <div class="card mb-4">
+        <div class="card-header bg-light">
+          <i class="bi bi-star-fill me-2"></i>Advertisements:
+        </div>
+        <div class="card-body text-center">
+          <!-- Mic Test - 1 -->
+          <ins class="adsbygoogle"
+               data-ad-client="ca-pub-5426315045205785"
+               data-ad-format="auto"
+               data-ad-slot="6193062550"
+               data-full-width-responsive="true"
+               style="display:block"></ins>
+          <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+      </div>
 
-            // Call resize initially and on window resize
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          <i class="bi bi-gear-fill me-2"></i>Why Check Your Microphone Details?
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="feature-card text-center p-3">
+                <div class="feature-icon">
+                  <i class="bi bi-headset"></i>
+                </div>
+                <h4>Compatibility Check</h4>
+                <p>Ensure your <a href="https://mic-tests.github.io">microphone meets the requirements</a> for your conferencing software, recording setup, or gaming needs.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="feature-card text-center p-3">
+                <div class="feature-icon">
+                  <i class="bi bi-volume-up"></i>
+                </div>
+                <h4>Audio Quality Assessment</h4>
+                <p>Understand the technical capabilities of your microphone to determine if it's suitable for your specific audio requirements.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="feature-card text-center p-3">
+                <div class="feature-icon">
+                  <i class="bi bi-tools"></i>
+                </div>
+                <h4>Troubleshooting</h4>
+                <p>Identify potential issues with your microphone settings that might be affecting your audio quality or performance.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-            // Check browser compatibility for media devices
-            if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
-                browserMessage.innerHTML = `
+<!-- Footer -->
+<footer class="footer">
+  <div class="container text-center">
+    <p>© 2025 MicTest. Test your microphone online.</p>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // DOM Elements
+    const browserAlert = document.getElementById('browser-alert');
+    const browserMessage = document.getElementById('browser-message');
+    const devicesContainer = document.getElementById('devices-container');
+    const deviceDetails = document.getElementById('device-details');
+    const refreshButton = document.getElementById('refresh-button');
+    const testButton = document.getElementById('test-button');
+    const stopButton = document.getElementById('stop-button');
+    const spectrogram = document.getElementById('spectrogram');
+
+    // Variables for audio handling
+    let audioContext;
+    let analyser;
+    let microphone;
+    let spectrogramCtx;
+    let activeDeviceId = null;
+    let audioStream = null;
+    let animationFrame = null;
+
+    // Initialize the canvas
+    spectrogramCtx = spectrogram.getContext('2d');
+
+    // Function to resize the canvas
+    function resizeCanvas() {
+      spectrogram.width = spectrogram.offsetWidth;
+      spectrogram.height = spectrogram.offsetHeight;
+    }
+
+    // Call resize initially and on window resize
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Check browser compatibility for media devices
+    if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+      browserMessage.innerHTML = `
                     <i class="bi bi-exclamation-triangle-fill me-2 text-danger"></i>
                     Your browser doesn't support the required features to detect audio devices. Please use a modern browser like Chrome, Firefox, or Edge.
                 `;
-                browserAlert.classList.remove('alert-info');
-                browserAlert.classList.add('alert-danger');
-                return;
-            }
+      browserAlert.classList.remove('alert-info');
+      browserAlert.classList.add('alert-danger');
+      return;
+    }
 
-            // Function to fetch and display all audio input devices
-            function getAudioDevices() {
-                browserMessage.innerHTML = `
+    // Function to fetch and display all audio input devices
+    function getAudioDevices() {
+      browserMessage.innerHTML = `
                     <i class="bi bi-info-circle-fill me-2"></i>
                     Detecting your microphones. Please wait...
                 `;
 
-                // Clear existing devices
-                devicesContainer.innerHTML = '';
+      // Clear existing devices
+      devicesContainer.innerHTML = '';
 
-                // Flag to check if we need permission first
-                let needsPermission = true;
+      // Flag to check if we need permission first
+      let needsPermission = true;
 
-                // First, enumerate to check if we need permission
-                navigator.mediaDevices.enumerateDevices()
-                    .then(devices => {
-                        const mics = devices.filter(device => device.kind === 'audioinput');
+      // First, enumerate to check if we need permission
+      navigator.mediaDevices.enumerateDevices()
+        .then(devices => {
+          const mics = devices.filter(device => device.kind === 'audioinput');
 
-                        // If we already have labels, we don't need to request permission
-                        if (mics.length > 0 && mics.some(mic => mic.label)) {
-                            needsPermission = false;
-                            displayDevices(mics);
-                        } else if (mics.length === 0) {
-                            // No microphones found
-                            displayNoMicrophones();
-                            needsPermission = false;
-                        }
+          // If we already have labels, we don't need to request permission
+          if (mics.length > 0 && mics.some(mic => mic.label)) {
+            needsPermission = false;
+            displayDevices(mics);
+          } else if (mics.length === 0) {
+            // No microphones found
+            displayNoMicrophones();
+            needsPermission = false;
+          }
 
-                        // If we need permission, request it
-                        if (needsPermission) {
-                            browserMessage.innerHTML = `
+          // If we need permission, request it
+          if (needsPermission) {
+            browserMessage.innerHTML = `
                                 <i class="bi bi-info-circle-fill me-2"></i>
                                 Please allow access to your microphone when prompted.
                             `;
 
-                            return navigator.mediaDevices.getUserMedia({ audio: true })
-                                .then(stream => {
-                                    // Stop the stream immediately, we just needed permission
-                                    stream.getTracks().forEach(track => track.stop());
+            return navigator.mediaDevices.getUserMedia({audio: true})
+              .then(stream => {
+                // Stop the stream immediately, we just needed permission
+                stream.getTracks().forEach(track => track.stop());
 
-                                    // Now enumerate devices again with permission
-                                    return navigator.mediaDevices.enumerateDevices();
-                                })
-                                .then(devices => {
-                                    const mics = devices.filter(device => device.kind === 'audioinput');
-                                    displayDevices(mics);
-                                });
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error enumerating devices:', error);
-                        browserMessage.innerHTML = `
+                // Now enumerate devices again with permission
+                return navigator.mediaDevices.enumerateDevices();
+              })
+              .then(devices => {
+                const mics = devices.filter(device => device.kind === 'audioinput');
+                displayDevices(mics);
+              });
+          }
+        })
+        .catch(error => {
+          console.error('Error enumerating devices:', error);
+          browserMessage.innerHTML = `
                             <i class="bi bi-exclamation-triangle-fill me-2 text-danger"></i>
                             Error accessing your audio devices: ${error.message}. Please ensure you've granted permission to access your microphone.
                         `;
-                        browserAlert.classList.remove('alert-info');
-                        browserAlert.classList.add('alert-danger');
-                    });
-            }
+          browserAlert.classList.remove('alert-info');
+          browserAlert.classList.add('alert-danger');
+        });
+    }
 
-            // Function to display no microphones message
-            function displayNoMicrophones() {
-                devicesContainer.innerHTML = `
+    // Function to display no microphones message
+    function displayNoMicrophones() {
+      devicesContainer.innerHTML = `
                     <div class="col-12">
                         <div class="no-microphones">
                             <i class="bi bi-mic-mute"></i>
@@ -420,36 +458,36 @@
                     </div>
                 `;
 
-                browserMessage.innerHTML = `
+      browserMessage.innerHTML = `
                     <i class="bi bi-exclamation-triangle-fill me-2 text-warning"></i>
                     No microphones detected. Please connect a microphone and refresh.
                 `;
-                browserAlert.classList.remove('alert-info');
-                browserAlert.classList.add('alert-warning');
+      browserAlert.classList.remove('alert-info');
+      browserAlert.classList.add('alert-warning');
 
-                // Hide device details
-                deviceDetails.classList.add('d-none');
-            }
+      // Hide device details
+      deviceDetails.classList.add('d-none');
+    }
 
-            // Function to display found devices
-            function displayDevices(mics) {
-                if (mics.length === 0) {
-                    displayNoMicrophones();
-                    return;
-                }
+    // Function to display found devices
+    function displayDevices(mics) {
+      if (mics.length === 0) {
+        displayNoMicrophones();
+        return;
+      }
 
-                browserMessage.innerHTML = `
+      browserMessage.innerHTML = `
                     <i class="bi bi-check-circle-fill me-2 text-success"></i>
                     Found ${mics.length} microphone${mics.length > 1 ? 's' : ''}. Click on a microphone to view detailed information.
                 `;
-                browserAlert.classList.remove('alert-info');
-                browserAlert.classList.add('alert-success');
+      browserAlert.classList.remove('alert-info');
+      browserAlert.classList.add('alert-success');
 
-                // Create card for each device
-                mics.forEach((device, index) => {
-                    const deviceCard = document.createElement('div');
-                    deviceCard.className = 'col-md-4';
-                    deviceCard.innerHTML = `
+      // Create card for each device
+      mics.forEach((device, index) => {
+        const deviceCard = document.createElement('div');
+        deviceCard.className = 'col-md-4';
+        deviceCard.innerHTML = `
                         <div class="card device-card" data-device-id="${device.deviceId}">
                             <div class="card-body">
                                 <h5 class="card-title">
@@ -465,352 +503,348 @@
                             </div>
                         </div>
                     `;
-                    devicesContainer.appendChild(deviceCard);
-
-                    // Add click event to the card
-                    const card = deviceCard.querySelector('.device-card');
-                    card.addEventListener('click', () => {
-                        // Remove selected class from all cards
-                        document.querySelectorAll('.device-card').forEach(c => {
-                            c.classList.remove('selected');
-                        });
-
-                        // Add selected class to this card
-                        card.classList.add('selected');
-
-                        // Show device details
-                        showDeviceDetails(device);
-                    });
-                });
-            }
-
-            // Function to show device details
-            function showDeviceDetails(device) {
-                // Set active device ID
-                activeDeviceId = device.deviceId;
-
-                // Show the details card
-                deviceDetails.classList.remove('d-none');
-
-                // Update the device name
-                document.getElementById('selected-device-name').textContent = device.label || 'Unknown Microphone';
-
-                // Update basic info
-                document.getElementById('device-id').textContent = device.deviceId;
-                document.getElementById('group-id').textContent = device.groupId;
-                document.getElementById('is-default').textContent = 'Checking...';
-                document.getElementById('device-status').innerHTML = '<span class="status-dot connected"></span> Connected';
-
-                // Get detailed info about the device
-                getDeviceDetails(device.deviceId);
-            }
-
-            // Function to get detailed device information
-            function getDeviceDetails(deviceId) {
-                // Reset all fields first
-                document.getElementById('sample-rate').textContent = '—';
-                document.getElementById('sample-size').textContent = '—';
-                document.getElementById('channel-count').textContent = '—';
-                document.getElementById('latency').textContent = '—';
-                document.getElementById('auto-gain').textContent = '—';
-                document.getElementById('echo-cancellation').textContent = '—';
-                document.getElementById('noise-suppression').textContent = '—';
-                document.getElementById('volume').textContent = '—';
-                document.getElementById('quality-rating').textContent = '—';
-
-                // Request access to the specific device
-                navigator.mediaDevices.getUserMedia({
-                    audio: {
-                        deviceId: { exact: deviceId }
-                    }
-                })
-                .then(stream => {
-                    // Store the stream so we can stop it later
-                    if (audioStream) {
-                        audioStream.getTracks().forEach(track => track.stop());
-                    }
-                    audioStream = stream;
-
-                    // Get the audio track
-                    const track = stream.getAudioTracks()[0];
-
-                    // Get capabilities and settings
-                    const capabilities = track.getCapabilities ? track.getCapabilities() : {};
-                    const settings = track.getSettings ? track.getSettings() : {};
-
-                    // Update UI with settings
-                    if (settings.sampleRate) {
-                        document.getElementById('sample-rate').textContent = settings.sampleRate + ' Hz';
-                    }
-
-                    if (settings.sampleSize) {
-                        document.getElementById('sample-size').textContent = settings.sampleSize + ' bits';
-                    }
-
-                    if (settings.channelCount) {
-                        document.getElementById('channel-count').textContent = settings.channelCount + ' channel' + (settings.channelCount > 1 ? 's' : '');
-                    }
-
-                    if (settings.latency) {
-                        document.getElementById('latency').textContent = settings.latency + ' ms';
-                    }
-
-                    if (settings.autoGainControl !== undefined) {
-                        document.getElementById('auto-gain').textContent = settings.autoGainControl ? 'Enabled' : 'Disabled';
-                    }
-
-                    if (settings.echoCancellation !== undefined) {
-                        document.getElementById('echo-cancellation').textContent = settings.echoCancellation ? 'Enabled' : 'Disabled';
-                    }
-
-                    if (settings.noiseSuppression !== undefined) {
-                        document.getElementById('noise-suppression').textContent = settings.noiseSuppression ? 'Enabled' : 'Disabled';
-                    }
-
-                    // Check if this is the default device
-                    navigator.mediaDevices.enumerateDevices()
-                        .then(devices => {
-                            const audioInputs = devices.filter(d => d.kind === 'audioinput');
-
-                            if (audioInputs.length > 0 && audioInputs[0].deviceId === deviceId) {
-                                document.getElementById('is-default').innerHTML = '<span class="status-dot default"></span> Default Device';
-                            } else {
-                                document.getElementById('is-default').innerHTML = 'Not Default';
-                            }
-                        });
-
-                    // Calculate quality rating
-                    let qualityScore = 0;
-                    if (settings.channelCount && settings.channelCount >= 2) qualityScore += 1;
-                    if (settings.sampleRate && settings.sampleRate >= 44100) qualityScore += 1;
-                    if (settings.sampleSize && settings.sampleSize >= 24) qualityScore += 1;
-                    if (settings.autoGainControl) qualityScore += 0.5;
-                    if (settings.echoCancellation) qualityScore += 0.5;
-                    if (settings.noiseSuppression) qualityScore += 0.5;
-                    if (settings.latency && settings.latency < 50) qualityScore += 0.5;
-
-                    let qualityRating;
-                    let qualityClass;
-
-                    if (qualityScore >= 4) {
-                        qualityRating = 'Excellent';
-                        qualityClass = 'text-success';
-                    }
-                    else if (qualityScore >= 3) {
-                        qualityRating = 'Very Good';
-                        qualityClass = 'text-primary';
-                    }
-                    else if (qualityScore >= 2) {
-                        qualityRating = 'Good';
-                        qualityClass = 'text-info';
-                    }
-                    else if (qualityScore >= 1) {
-                        qualityRating = 'Fair';
-                        qualityClass = 'text-warning';
-                    }
-                    else {
-                        qualityRating = 'Basic';
-                        qualityClass = 'text-danger';
-                    }
-
-                    document.getElementById('quality-rating').innerHTML = `<span class="${qualityClass}">${qualityRating}</span>`;
-
-                    // Stop the stream after getting info
-                    stream.getTracks().forEach(track => track.stop());
-                    audioStream = null;
-                })
-                .catch(error => {
-                    console.error('Error getting device details:', error);
-                    document.getElementById('device-status').innerHTML = '<span class="status-dot disconnected"></span> Error: ' + error.message;
-                });
-            }
-
-            // Function to test the microphone
-            function testMicrophone() {
-                if (!activeDeviceId) {
-                    alert('Please select a microphone first');
-                    return;
-                }
-
-                // Swap buttons
-                testButton.classList.add('d-none');
-                stopButton.classList.remove('d-none');
-
-                // Initialize audio context (wait until user interaction)
-                if (!audioContext) {
-                    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-                    audioContext = new AudioContext();
-                }
-
-                // Request the selected device
-                navigator.mediaDevices.getUserMedia({
-                    audio: {
-                        deviceId: { exact: activeDeviceId }
-                    }
-                })
-                .then(stream => {
-                    // Store the stream
-                    audioStream = stream;
-
-                    // Create analyzer
-                    analyser = audioContext.createAnalyser();
-                    analyser.fftSize = 2048;
-
-                    // Connect microphone to analyser
-                    microphone = audioContext.createMediaStreamSource(stream);
-                    microphone.connect(analyser);
-
-                    // Start visualization
-                    visualize();
-
-                    // Start monitoring volume
-                    startVolumeMonitoring();
-                })
-                .catch(error => {
-                    console.error('Error accessing microphone:', error);
-                    alert('Error accessing microphone: ' + error.message);
-
-                    // Reset buttons
-                    stopButton.classList.add('d-none');
-                    testButton.classList.remove('d-none');
-                });
-            }
-
-            // Function to visualize audio
-            function visualize() {
-                if (!analyser) return;
-
-                // Get the canvas dimensions
-                const width = spectrogram.width;
-                const height = spectrogram.height;
-
-                // Set up the analyzer
-                const bufferLength = analyser.frequencyBinCount;
-                const dataArray = new Uint8Array(bufferLength);
-
-                // Clear the canvas
-                spectrogramCtx.clearRect(0, 0, width, height);
-                spectrogramCtx.fillStyle = 'rgb(248, 249, 250)';
-                spectrogramCtx.fillRect(0, 0, width, height);
-
-                function draw() {
-                    if (!analyser) {
-                        return;
-                    }
-
-                    // Request next frame
-                    animationFrame = requestAnimationFrame(draw);
-
-                    // Get frequency data
-                    analyser.getByteFrequencyData(dataArray);
-
-                    // Clear canvas
-                    spectrogramCtx.clearRect(0, 0, width, height);
-                    spectrogramCtx.fillStyle = 'rgb(248, 249, 250)';
-                    spectrogramCtx.fillRect(0, 0, width, height);
-
-                    // Draw frequency bars
-                    const barWidth = width / bufferLength * 2.5;
-                    let x = 0;
-
-                    for (let i = 0; i < bufferLength; i++) {
-                        const barHeight = dataArray[i] / 255 * height;
-
-                        // Create gradient
-                        const gradient = spectrogramCtx.createLinearGradient(0, height, 0, height - barHeight);
-                        gradient.addColorStop(0, 'rgb(13, 110, 253, 0.8)');
-                        gradient.addColorStop(1, 'rgb(13, 110, 253, 0.2)');
-
-                        spectrogramCtx.fillStyle = gradient;
-                        spectrogramCtx.fillRect(x, height - barHeight, barWidth, barHeight);
-
-                        x += barWidth + 1;
-
-                        // Only draw a subset of bars for performance
-                        if (i > bufferLength / 4) break;
-                    }
-                }
-
-                draw();
-            }
-
-            // Function to monitor volume
-            function startVolumeMonitoring() {
-                if (!analyser) return;
-
-                const bufferLength = analyser.frequencyBinCount;
-                const dataArray = new Uint8Array(bufferLength);
-
-                function checkVolume() {
-                    if (!analyser) {
-                        return;
-                    }
-
-                    // Get time domain data
-                    analyser.getByteTimeDomainData(dataArray);
-
-                    // Calculate volume
-                    let sum = 0;
-                    for (let i = 0; i < bufferLength; i++) {
-                        sum += Math.abs(dataArray[i] - 128);
-                    }
-
-                    const average = sum / bufferLength;
-                    const volume = Math.round((average / 128) * 100);
-
-                    // Update UI
-                    document.getElementById('volume').textContent = volume + '%';
-
-                    // Call again
-                    setTimeout(checkVolume, 100);
-                }
-
-                checkVolume();
-            }
-
-            // Function to stop microphone test
-            function stopMicTest() {
-                // Cancel animation frame
-                if (animationFrame) {
-                    cancelAnimationFrame(animationFrame);
-                    animationFrame = null;
-                }
-
-                // Stop the audio stream
-                if (audioStream) {
-                    audioStream.getTracks().forEach(track => track.stop());
-                    audioStream = null;
-                }
-
-                // Clean up audio nodes
-                if (microphone) {
-                    microphone.disconnect();
-                    microphone = null;
-                }
-
-                analyser = null;
-
-                // Reset buttons
-                stopButton.classList.add('d-none');
-                testButton.classList.remove('d-none');
-
-                // Clear canvas
-                spectrogramCtx.clearRect(0, 0, spectrogram.width, spectrogram.height);
-                spectrogramCtx.fillStyle = 'rgb(248, 249, 250)';
-                spectrogramCtx.fillRect(0, 0, spectrogram.width, spectrogram.height);
-
-                // Reset volume display
-                document.getElementById('volume').textContent = '—';
-            }
-
-            // Event listeners
-            refreshButton.addEventListener('click', getAudioDevices);
-            testButton.addEventListener('click', testMicrophone);
-            stopButton.addEventListener('click', stopMicTest);
-
-            // Initialize
-            getAudioDevices();
+        devicesContainer.appendChild(deviceCard);
+
+        // Add click event to the card
+        const card = deviceCard.querySelector('.device-card');
+        card.addEventListener('click', () => {
+          // Remove selected class from all cards
+          document.querySelectorAll('.device-card').forEach(c => {
+            c.classList.remove('selected');
+          });
+
+          // Add selected class to this card
+          card.classList.add('selected');
+
+          // Show device details
+          showDeviceDetails(device);
         });
-    </script>
+      });
+    }
+
+    // Function to show device details
+    function showDeviceDetails(device) {
+      // Set active device ID
+      activeDeviceId = device.deviceId;
+
+      // Show the details card
+      deviceDetails.classList.remove('d-none');
+
+      // Update the device name
+      document.getElementById('selected-device-name').textContent = device.label || 'Unknown Microphone';
+
+      // Update basic info
+      document.getElementById('device-id').textContent = device.deviceId;
+      document.getElementById('group-id').textContent = device.groupId;
+      document.getElementById('is-default').textContent = 'Checking...';
+      document.getElementById('device-status').innerHTML = '<span class="status-dot connected"></span> Connected';
+
+      // Get detailed info about the device
+      getDeviceDetails(device.deviceId);
+    }
+
+    // Function to get detailed device information
+    function getDeviceDetails(deviceId) {
+      // Reset all fields first
+      document.getElementById('sample-rate').textContent = '—';
+      document.getElementById('sample-size').textContent = '—';
+      document.getElementById('channel-count').textContent = '—';
+      document.getElementById('latency').textContent = '—';
+      document.getElementById('auto-gain').textContent = '—';
+      document.getElementById('echo-cancellation').textContent = '—';
+      document.getElementById('noise-suppression').textContent = '—';
+      document.getElementById('volume').textContent = '—';
+      document.getElementById('quality-rating').textContent = '—';
+
+      // Request access to the specific device
+      navigator.mediaDevices.getUserMedia({
+        audio: {
+          deviceId: {exact: deviceId}
+        }
+      })
+        .then(stream => {
+          // Store the stream so we can stop it later
+          if (audioStream) {
+            audioStream.getTracks().forEach(track => track.stop());
+          }
+          audioStream = stream;
+
+          // Get the audio track
+          const track = stream.getAudioTracks()[0];
+
+          // Get capabilities and settings
+          const capabilities = track.getCapabilities ? track.getCapabilities() : {};
+          const settings = track.getSettings ? track.getSettings() : {};
+
+          // Update UI with settings
+          if (settings.sampleRate) {
+            document.getElementById('sample-rate').textContent = settings.sampleRate + ' Hz';
+          }
+
+          if (settings.sampleSize) {
+            document.getElementById('sample-size').textContent = settings.sampleSize + ' bits';
+          }
+
+          if (settings.channelCount) {
+            document.getElementById('channel-count').textContent = settings.channelCount + ' channel' + (settings.channelCount > 1 ? 's' : '');
+          }
+
+          if (settings.latency) {
+            document.getElementById('latency').textContent = settings.latency + ' ms';
+          }
+
+          if (settings.autoGainControl !== undefined) {
+            document.getElementById('auto-gain').textContent = settings.autoGainControl ? 'Enabled' : 'Disabled';
+          }
+
+          if (settings.echoCancellation !== undefined) {
+            document.getElementById('echo-cancellation').textContent = settings.echoCancellation ? 'Enabled' : 'Disabled';
+          }
+
+          if (settings.noiseSuppression !== undefined) {
+            document.getElementById('noise-suppression').textContent = settings.noiseSuppression ? 'Enabled' : 'Disabled';
+          }
+
+          // Check if this is the default device
+          navigator.mediaDevices.enumerateDevices()
+            .then(devices => {
+              const audioInputs = devices.filter(d => d.kind === 'audioinput');
+
+              if (audioInputs.length > 0 && audioInputs[0].deviceId === deviceId) {
+                document.getElementById('is-default').innerHTML = '<span class="status-dot default"></span> Default Device';
+              } else {
+                document.getElementById('is-default').innerHTML = 'Not Default';
+              }
+            });
+
+          // Calculate quality rating
+          let qualityScore = 0;
+          if (settings.channelCount && settings.channelCount >= 2) qualityScore += 1;
+          if (settings.sampleRate && settings.sampleRate >= 44100) qualityScore += 1;
+          if (settings.sampleSize && settings.sampleSize >= 24) qualityScore += 1;
+          if (settings.autoGainControl) qualityScore += 0.5;
+          if (settings.echoCancellation) qualityScore += 0.5;
+          if (settings.noiseSuppression) qualityScore += 0.5;
+          if (settings.latency && settings.latency < 50) qualityScore += 0.5;
+
+          let qualityRating;
+          let qualityClass;
+
+          if (qualityScore >= 4) {
+            qualityRating = 'Excellent';
+            qualityClass = 'text-success';
+          } else if (qualityScore >= 3) {
+            qualityRating = 'Very Good';
+            qualityClass = 'text-primary';
+          } else if (qualityScore >= 2) {
+            qualityRating = 'Good';
+            qualityClass = 'text-info';
+          } else if (qualityScore >= 1) {
+            qualityRating = 'Fair';
+            qualityClass = 'text-warning';
+          } else {
+            qualityRating = 'Basic';
+            qualityClass = 'text-danger';
+          }
+
+          document.getElementById('quality-rating').innerHTML = `<span class="${qualityClass}">${qualityRating}</span>`;
+
+          // Stop the stream after getting info
+          stream.getTracks().forEach(track => track.stop());
+          audioStream = null;
+        })
+        .catch(error => {
+          console.error('Error getting device details:', error);
+          document.getElementById('device-status').innerHTML = '<span class="status-dot disconnected"></span> Error: ' + error.message;
+        });
+    }
+
+    // Function to test the microphone
+    function testMicrophone() {
+      if (!activeDeviceId) {
+        alert('Please select a microphone first');
+        return;
+      }
+
+      // Swap buttons
+      testButton.classList.add('d-none');
+      stopButton.classList.remove('d-none');
+
+      // Initialize audio context (wait until user interaction)
+      if (!audioContext) {
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioContext = new AudioContext();
+      }
+
+      // Request the selected device
+      navigator.mediaDevices.getUserMedia({
+        audio: {
+          deviceId: {exact: activeDeviceId}
+        }
+      })
+        .then(stream => {
+          // Store the stream
+          audioStream = stream;
+
+          // Create analyzer
+          analyser = audioContext.createAnalyser();
+          analyser.fftSize = 2048;
+
+          // Connect microphone to analyser
+          microphone = audioContext.createMediaStreamSource(stream);
+          microphone.connect(analyser);
+
+          // Start visualization
+          visualize();
+
+          // Start monitoring volume
+          startVolumeMonitoring();
+        })
+        .catch(error => {
+          console.error('Error accessing microphone:', error);
+          alert('Error accessing microphone: ' + error.message);
+
+          // Reset buttons
+          stopButton.classList.add('d-none');
+          testButton.classList.remove('d-none');
+        });
+    }
+
+    // Function to visualize audio
+    function visualize() {
+      if (!analyser) return;
+
+      // Get the canvas dimensions
+      const width = spectrogram.width;
+      const height = spectrogram.height;
+
+      // Set up the analyzer
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+
+      // Clear the canvas
+      spectrogramCtx.clearRect(0, 0, width, height);
+      spectrogramCtx.fillStyle = 'rgb(248, 249, 250)';
+      spectrogramCtx.fillRect(0, 0, width, height);
+
+      function draw() {
+        if (!analyser) {
+          return;
+        }
+
+        // Request next frame
+        animationFrame = requestAnimationFrame(draw);
+
+        // Get frequency data
+        analyser.getByteFrequencyData(dataArray);
+
+        // Clear canvas
+        spectrogramCtx.clearRect(0, 0, width, height);
+        spectrogramCtx.fillStyle = 'rgb(248, 249, 250)';
+        spectrogramCtx.fillRect(0, 0, width, height);
+
+        // Draw frequency bars
+        const barWidth = width / bufferLength * 2.5;
+        let x = 0;
+
+        for (let i = 0; i < bufferLength; i++) {
+          const barHeight = dataArray[i] / 255 * height;
+
+          // Create gradient
+          const gradient = spectrogramCtx.createLinearGradient(0, height, 0, height - barHeight);
+          gradient.addColorStop(0, 'rgb(13, 110, 253, 0.8)');
+          gradient.addColorStop(1, 'rgb(13, 110, 253, 0.2)');
+
+          spectrogramCtx.fillStyle = gradient;
+          spectrogramCtx.fillRect(x, height - barHeight, barWidth, barHeight);
+
+          x += barWidth + 1;
+
+          // Only draw a subset of bars for performance
+          if (i > bufferLength / 4) break;
+        }
+      }
+
+      draw();
+    }
+
+    // Function to monitor volume
+    function startVolumeMonitoring() {
+      if (!analyser) return;
+
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+
+      function checkVolume() {
+        if (!analyser) {
+          return;
+        }
+
+        // Get time domain data
+        analyser.getByteTimeDomainData(dataArray);
+
+        // Calculate volume
+        let sum = 0;
+        for (let i = 0; i < bufferLength; i++) {
+          sum += Math.abs(dataArray[i] - 128);
+        }
+
+        const average = sum / bufferLength;
+        const volume = Math.round((average / 128) * 100);
+
+        // Update UI
+        document.getElementById('volume').textContent = volume + '%';
+
+        // Call again
+        setTimeout(checkVolume, 100);
+      }
+
+      checkVolume();
+    }
+
+    // Function to stop microphone test
+    function stopMicTest() {
+      // Cancel animation frame
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+      }
+
+      // Stop the audio stream
+      if (audioStream) {
+        audioStream.getTracks().forEach(track => track.stop());
+        audioStream = null;
+      }
+
+      // Clean up audio nodes
+      if (microphone) {
+        microphone.disconnect();
+        microphone = null;
+      }
+
+      analyser = null;
+
+      // Reset buttons
+      stopButton.classList.add('d-none');
+      testButton.classList.remove('d-none');
+
+      // Clear canvas
+      spectrogramCtx.clearRect(0, 0, spectrogram.width, spectrogram.height);
+      spectrogramCtx.fillStyle = 'rgb(248, 249, 250)';
+      spectrogramCtx.fillRect(0, 0, spectrogram.width, spectrogram.height);
+
+      // Reset volume display
+      document.getElementById('volume').textContent = '—';
+    }
+
+    // Event listeners
+    refreshButton.addEventListener('click', getAudioDevices);
+    testButton.addEventListener('click', testMicrophone);
+    stopButton.addEventListener('click', stopMicTest);
+
+    // Initialize
+    getAudioDevices();
+  });
+</script>
 </body>
 </html>
