@@ -10,61 +10,187 @@
   <link rel="canonical" href="https://mic-tests.github.io/about">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="/css/common.css" rel="stylesheet">
 </head>
 <body>
-  <!-- Navbar (About active) -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-      <a class="navbar-brand" href="/">
-        <i class="bi bi-mic-fill me-2"></i>MicTest
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/show-mic">Show My Mic</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/show-speakers">Show My Speakers</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/contact">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <!-- Navbar Container -->
+  <div id="navbar-container"></div>
 
   <div class="container mt-5">
-    <h2><i class="bi bi-info-circle-fill me-2"></i>About MicTest</h2>
-    <p>
-      This website provides a simple online mic test that allows you to check if your microphone is working properly.
-      Since it's a browser microphone test, you don't have to download or install any third-party software.
-      Moreover, even if it may seem too simple, MicTest will test your microphone regardless of its type or
-      the device and operating system you are using.
-    </p>
-    <p>
-      And to surprise you even more, this mic test will display a lot of useful information about your
-      microphone (for example, its name, number of audio channels, latency, sample size and sample rate,
-      as well as if it supports echo cancellation or noise suppression). In addition, if the tester
-      detects any problems with your microphone, you will receive tips on how to fix them.
-    </p>
+    <div class="row">
+      <div class="col-lg-8">
+        <h1><i class="bi bi-info-circle-fill me-2"></i>About MicTest</h1>
+        <p class="lead">Your trusted platform for free online audio testing tools.</p>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="h4">What is MicTest?</h2>
+            <p>
+              MicTest is a comprehensive online platform that provides free, browser-based audio testing tools.
+              Our <a href="/" title="Online Microphone Test">microphone test</a> allows you to check if your microphone
+              is working properly without downloading or installing any third-party software.
+            </p>
+            <p>
+              Whether you're preparing for an important video call, setting up a podcast, or troubleshooting audio issues,
+              MicTest provides the tools you need. Our platform works with any microphone type - built-in laptop mics,
+              USB microphones, wireless Bluetooth headsets, and professional XLR setups.
+            </p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="h4">Our Audio Testing Tools</h2>
+            <p>MicTest offers a complete suite of audio testing and analysis tools:</p>
+
+            <h5><i class="bi bi-mic me-2 text-primary"></i>Audio Input Tools</h5>
+            <ul>
+              <li><a href="/" title="Online Microphone Test"><strong>Microphone Test</strong></a> - Test your mic with real-time visualization and recording</li>
+              <li><a href="/show-mic" title="View Mic Details"><strong>Show My Mic</strong></a> - View detailed microphone specifications and capabilities</li>
+              <li><a href="/mic-recorder" title="Online Voice Recorder"><strong>Mic Recorder</strong></a> - Record your voice and download as MP3/WAV</li>
+              <li><a href="/sound-level-meter" title="dB Meter"><strong>Sound Level Meter</strong></a> - Measure ambient sound levels in decibels</li>
+              <li><a href="/echo-test" title="Echo Detection"><strong>Echo Test</strong></a> - Detect and diagnose echo issues</li>
+              <li><a href="/background-noise-analyzer" title="Noise Analyzer"><strong>Background Noise Analyzer</strong></a> - Analyze ambient noise in your environment</li>
+              <li><a href="/voice-frequency-analyzer" title="Frequency Analyzer"><strong>Voice Frequency Analyzer</strong></a> - Real-time voice frequency spectrum analysis</li>
+              <li><a href="/audio-latency-test" title="Latency Test"><strong>Audio Latency Test</strong></a> - Measure microphone input latency</li>
+            </ul>
+
+            <h5><i class="bi bi-speaker me-2 text-primary"></i>Audio Output Tools</h5>
+            <ul>
+              <li><a href="/show-speakers" title="View Speaker Details"><strong>Show My Speakers</strong></a> - View speaker and audio output device information</li>
+              <li><a href="/tone-generator" title="Generate Test Tones"><strong>Tone Generator</strong></a> - Generate sine waves, white noise, and test tones</li>
+              <li><a href="/stereo-test" title="Left Right Test"><strong>Stereo Test</strong></a> - Test left and right speaker channels</li>
+              <li><a href="/bass-test" title="Low Frequency Test"><strong>Bass Test</strong></a> - Test subwoofer and low frequency response</li>
+              <li><a href="/speaker-volume-test" title="Volume Calibration"><strong>Speaker Volume Test</strong></a> - Calibrate speaker volume levels</li>
+            </ul>
+
+            <h5><i class="bi bi-headphones me-2 text-primary"></i>Device Testing</h5>
+            <ul>
+              <li><a href="/headphone-test" title="Test Headphones"><strong>Headphone Test</strong></a> - Comprehensive headphone audio testing</li>
+              <li><a href="/hearing-test" title="Online Audiometry"><strong>Hearing Test</strong></a> - Simple online hearing range test</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="h4">Key Features</h2>
+            <div class="row">
+              <div class="col-md-6">
+                <ul>
+                  <li><strong>No Downloads Required</strong> - Everything works in your browser</li>
+                  <li><strong>Privacy First</strong> - Audio is processed locally, never uploaded</li>
+                  <li><strong>Cross-Platform</strong> - Works on Windows, macOS, Linux, iOS, Android</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <ul>
+                  <li><strong>All Browsers</strong> - Chrome, Firefox, Safari, Edge compatible</li>
+                  <li><strong>Detailed Analysis</strong> - View technical specs and quality ratings</li>
+                  <li><strong>100% Free</strong> - All tools available at no cost</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="h4">How It Works</h2>
+            <p>
+              Our tools use the Web Audio API and WebRTC technology built into modern browsers. When you
+              <a href="/" title="Test Your Microphone">test your microphone</a>, the audio is captured and
+              analyzed entirely within your browser - no data is sent to our servers.
+            </p>
+            <p>
+              This approach ensures complete privacy while providing accurate, real-time audio analysis.
+              You can measure audio levels, visualize frequencies, detect latency, and diagnose common
+              audio issues all without installing any software.
+            </p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="h4">Need Help?</h2>
+            <p>
+              If you're experiencing issues with your microphone or speakers, check our
+              <a href="/troubleshooting" title="Audio Troubleshooting Guide">troubleshooting guide</a> for
+              step-by-step solutions to common audio problems.
+            </p>
+            <p>
+              Still need assistance? Feel free to <a href="/contact" title="Contact Us">contact us</a>
+              and we'll be happy to help.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-lightning-fill me-2"></i>Quick Links
+          </div>
+          <div class="card-body">
+            <div class="d-grid gap-2">
+              <a href="/" class="btn btn-outline-primary" title="Test Your Microphone">
+                <i class="bi bi-mic-fill me-2"></i>Test My Microphone
+              </a>
+              <a href="/show-speakers" class="btn btn-outline-primary" title="View Speaker Info">
+                <i class="bi bi-speaker-fill me-2"></i>Check My Speakers
+              </a>
+              <a href="/mic-recorder" class="btn btn-outline-primary" title="Record Audio">
+                <i class="bi bi-record-circle me-2"></i>Record My Voice
+              </a>
+              <a href="/troubleshooting" class="btn btn-outline-secondary" title="Get Help">
+                <i class="bi bi-question-circle me-2"></i>Troubleshooting
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-star-fill me-2"></i>Popular Tools
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <a href="/" class="text-decoration-none" title="Online Mic Test">Online Microphone Test</a>
+            </li>
+            <li class="list-group-item">
+              <a href="/mic-recorder" class="text-decoration-none" title="Voice Recorder">Voice Recorder</a>
+            </li>
+            <li class="list-group-item">
+              <a href="/stereo-test" class="text-decoration-none" title="Stereo Test">Stereo Speaker Test</a>
+            </li>
+            <li class="list-group-item">
+              <a href="/headphone-test" class="text-decoration-none" title="Headphone Test">Headphone Test</a>
+            </li>
+            <li class="list-group-item">
+              <a href="/tone-generator" class="text-decoration-none" title="Tone Generator">Tone Generator</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-envelope-fill me-2"></i>Contact
+          </div>
+          <div class="card-body">
+            <p class="small">Have questions or feedback about MicTest?</p>
+            <a href="/contact" class="btn btn-primary btn-sm" title="Contact Us">
+              <i class="bi bi-envelope me-2"></i>Contact Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <footer class="footer mt-5 py-3 bg-light text-center">
-    <div class="container">
-      <p>&copy; 2025 MicTest. Test your microphone online.</p>
-    </div>
-  </footer>
+  <!-- Footer Container -->
+  <div id="footer-container"></div>
 
+  <script src="/js/partials-loader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -11,6 +11,7 @@
   <link href="https://mic-tests.github.io/show-speakers" rel="canonical">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/common.css" rel="stylesheet">
   <script async crossorigin="anonymous"
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5426315045205785"></script>
   <style>
@@ -131,36 +132,8 @@
   <meta content="ca-pub-5426315045205785" name="google-adsense-account">
 </head>
 <body>
-<!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <i class="bi bi-mic-fill me-2"></i>MicTest
-    </a>
-    <button class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/show-mic">Show My Mic</a>
-        </li>
-        <li class="nav-item">
-          <a aria-current="page" class="nav-link active" href="/show-speakers">Show My Speakers</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/about">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/contact">Contact</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<!-- Navbar Container -->
+<div id="navbar-container"></div>
 
 <!-- Main Content -->
 <div class="container mt-4">
@@ -174,7 +147,7 @@
   <div class="row">
     <div class="col-md-12">
       <h1><i class="bi bi-speaker-fill me-2"></i>Show My Speaker Details</h1>
-      <p class="lead">Discover all connected speakers and audio output devices with their detailed specifications.</p>
+      <p class="lead">Discover all connected speakers and audio output devices with their detailed specifications. Test your speakers using our <a href="/tone-generator" title="Tone Generator">tone generator</a>, <a href="/stereo-test" title="Stereo Test">stereo channel test</a>, or <a href="/bass-test" title="Bass Test">bass frequency test</a>. Also check your <a href="/headphone-test" title="Headphone Test">headphones</a>.</p>
 
       <div class="card mb-4">
         <div class="card-header bg-primary text-white">
@@ -359,16 +332,79 @@
       </div>
     </div>
   </div>
+
+  <!-- Related Tools Section -->
+  <div class="row mt-5">
+    <div class="col-12">
+      <h2><i class="bi bi-tools me-2"></i>Related Speaker & Audio Tools</h2>
+      <p>Explore more audio output testing tools to verify your speaker and headphone performance.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 feature-card">
+        <div class="card-body">
+          <h5><i class="bi bi-activity me-2 text-primary"></i>Tone Generator</h5>
+          <p class="small">Generate test tones, sine waves, white noise, and pink noise at any frequency.</p>
+          <a href="/tone-generator" class="btn btn-outline-primary btn-sm" title="Generate Test Tones">Generate Tones</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 feature-card">
+        <div class="card-body">
+          <h5><i class="bi bi-badge-hd me-2 text-primary"></i>Stereo Test</h5>
+          <p class="small">Test left and right speaker channels separately to verify stereo configuration.</p>
+          <a href="/stereo-test" class="btn btn-outline-primary btn-sm" title="Test Stereo Channels">Test Stereo</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 feature-card">
+        <div class="card-body">
+          <h5><i class="bi bi-disc me-2 text-primary"></i>Bass Test</h5>
+          <p class="small">Test your subwoofer and speaker low frequency response with bass frequencies.</p>
+          <a href="/bass-test" class="btn btn-outline-primary btn-sm" title="Test Bass Response">Test Bass</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 feature-card">
+        <div class="card-body">
+          <h5><i class="bi bi-volume-up me-2 text-primary"></i>Speaker Volume Test</h5>
+          <p class="small">Calibrate and test your speaker volume levels with reference audio.</p>
+          <a href="/speaker-volume-test" class="btn btn-outline-primary btn-sm" title="Test Speaker Volume">Test Volume</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 feature-card">
+        <div class="card-body">
+          <h5><i class="bi bi-headphones me-2 text-primary"></i>Headphone Test</h5>
+          <p class="small">Comprehensive headphone testing for audio quality and channel balance.</p>
+          <a href="/headphone-test" class="btn btn-outline-primary btn-sm" title="Test Headphones">Test Headphones</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 feature-card">
+        <div class="card-body">
+          <h5><i class="bi bi-mic-fill me-2 text-primary"></i>Microphone Test</h5>
+          <p class="small">Test your microphone functionality and audio input quality.</p>
+          <a href="/" class="btn btn-outline-primary btn-sm" title="Test Your Microphone">Test Mic</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- Footer -->
-<footer class="footer">
-  <div class="container text-center">
-    <p>© 2025 MicTest. Test your microphone and speakers online.</p>
-  </div>
-</footer>
+<!-- Footer Container -->
+<div id="footer-container"></div>
 
 <!-- Scripts -->
+<script src="/js/partials-loader.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {

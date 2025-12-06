@@ -9,60 +9,126 @@
   <link rel="canonical" href="https://mic-tests.github.io/contact">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link href="/css/common.css" rel="stylesheet">
 </head>
 <body>
-  <!-- Navbar (Contact active) -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-      <a class="navbar-brand" href="/">
-        <i class="bi bi-mic-fill me-2"></i>MicTest
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/show-mic">Show My Mic</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/show-speakers">Show My Speakers</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/contact">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <!-- Navbar Container -->
+  <div id="navbar-container"></div>
 
   <div class="container mt-5">
-    <h2><i class="bi bi-envelope-fill me-2"></i>Contact Us</h2>
-    <p class="lead">Have questions or feedback about MicTest? We'd love to hear from you!</p>
+    <div class="row">
+      <div class="col-lg-8">
+        <h1><i class="bi bi-envelope-fill me-2"></i>Contact Us</h1>
+        <p class="lead">Have questions or feedback about MicTest? We'd love to hear from you!</p>
 
-    <div class="d-flex align-items-center mb-3">
-      <i class="bi bi-envelope-fill fs-4 me-3 text-primary"></i>
-      <div>
-        <h5 class="mb-0">Email</h5>
-        <p class="mb-0"><a href="mailto:vinithablog@gmail.com">vinithablog@gmail.com</a></p>
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="h5"><i class="bi bi-lightbulb me-2 text-warning"></i>Before You Contact Us</h2>
+            <p>
+              If you're experiencing issues with your microphone or audio devices, please check our
+              <a href="/troubleshooting" title="Troubleshooting Guide"><strong>Troubleshooting Guide</strong></a> first.
+              It covers solutions for the most common audio problems including:
+            </p>
+            <ul>
+              <li>Microphone not detected by browser</li>
+              <li>No audio input or low volume</li>
+              <li>Echo or feedback issues - try our <a href="/echo-test" title="Echo Test">echo test</a></li>
+              <li>High background noise - use our <a href="/background-noise-analyzer" title="Noise Analyzer">noise analyzer</a></li>
+              <li>Audio latency problems - check with <a href="/audio-latency-test" title="Latency Test">latency test</a></li>
+              <li>Speaker or headphone issues</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="h5"><i class="bi bi-envelope-fill me-2 text-primary"></i>Email Us</h2>
+            <p>For general inquiries, feedback, or support requests:</p>
+            <div class="d-flex align-items-center mb-3">
+              <i class="bi bi-envelope-fill fs-4 me-3 text-primary"></i>
+              <div>
+                <p class="mb-0"><a href="mailto:vinithablog@gmail.com" class="fs-5">vinithablog@gmail.com</a></p>
+              </div>
+            </div>
+            <p class="text-muted small">We typically respond to all inquiries within 24-48 hours during business days.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="h5"><i class="bi bi-chat-dots me-2 text-primary"></i>What to Include in Your Message</h2>
+            <p>To help us assist you better, please include:</p>
+            <ul>
+              <li><strong>Browser & Version:</strong> e.g., Chrome 120, Firefox 121, Safari 17</li>
+              <li><strong>Operating System:</strong> e.g., Windows 11, macOS Sonoma, Android 14</li>
+              <li><strong>Device Type:</strong> Desktop, laptop, smartphone, tablet</li>
+              <li><strong>Microphone/Speaker:</strong> Built-in, USB, Bluetooth, etc.</li>
+              <li><strong>Which tool you were using:</strong> e.g., <a href="/" title="Mic Test">Mic Test</a>, <a href="/mic-recorder" title="Recorder">Recorder</a>, <a href="/stereo-test" title="Stereo Test">Stereo Test</a></li>
+              <li><strong>Description of the issue:</strong> What happened vs. what you expected</li>
+              <li><strong>Any error messages:</strong> If applicable</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-tools me-2"></i>Quick Tools
+          </div>
+          <div class="card-body">
+            <p class="small">Try these tools to diagnose your audio issue:</p>
+            <div class="d-grid gap-2">
+              <a href="/" class="btn btn-outline-primary btn-sm" title="Test Microphone">
+                <i class="bi bi-mic-fill me-2"></i>Test Microphone
+              </a>
+              <a href="/show-mic" class="btn btn-outline-primary btn-sm" title="View Mic Info">
+                <i class="bi bi-info-circle me-2"></i>View Mic Details
+              </a>
+              <a href="/show-speakers" class="btn btn-outline-primary btn-sm" title="View Speaker Info">
+                <i class="bi bi-speaker me-2"></i>View Speaker Details
+              </a>
+              <a href="/troubleshooting" class="btn btn-outline-secondary btn-sm" title="Troubleshooting">
+                <i class="bi bi-question-circle me-2"></i>Troubleshooting Guide
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-clock me-2"></i>Response Time
+          </div>
+          <div class="card-body">
+            <p class="mb-2"><strong>Email:</strong> 24-48 hours</p>
+            <p class="small text-muted mb-0">Response times may be longer during weekends and holidays.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-info-circle me-2"></i>Learn More
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <a href="/about" class="text-decoration-none" title="About MicTest">About MicTest</a>
+            </li>
+            <li class="list-group-item">
+              <a href="/troubleshooting" class="text-decoration-none" title="Audio Troubleshooting">Troubleshooting Guide</a>
+            </li>
+            <li class="list-group-item">
+              <a href="/" class="text-decoration-none" title="Microphone Test">Test Your Microphone</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-
-    <p class="text-muted">We typically respond to all inquiries within 24-48 hours during business days.</p>
   </div>
 
-  <footer class="footer mt-5 py-3 bg-light text-center">
-    <div class="container">
-      <p>&copy; 2025 MicTest. Test your microphone online.</p>
-    </div>
-  </footer>
+  <!-- Footer Container -->
+  <div id="footer-container"></div>
 
+  <script src="/js/partials-loader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
