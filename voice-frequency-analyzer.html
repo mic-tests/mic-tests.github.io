@@ -63,7 +63,7 @@
 
   <div class="container mt-4">
     <div class="row">
-      <div class="col-lg-8">
+      <div class="col-md-8">
         <h1><i class="bi bi-graph-up me-2"></i>Voice Frequency Analyzer</h1>
         <p class="lead">Analyze the frequency spectrum of your voice in real-time. Perfect for vocal training, audio analysis, and understanding your voice characteristics. First <a href="/" title="Microphone Test">test your microphone</a> or <a href="/mic-recorder" title="Record Audio">record your voice</a>.</p>
 
@@ -245,7 +245,7 @@
       </div>
 
       <!-- Sidebar -->
-      <div class="col-lg-4">
+      <div class="col-md-4">
 
 <div class="card mb-4">
     <div class="card-header bg-primary text-white">
@@ -320,6 +320,112 @@
           <div class="card-body">
             <h6><i class="bi bi-shield-check me-2 text-success"></i>Privacy</h6>
             <p class="small mb-0">All audio analysis is performed locally in your browser. No audio data is recorded or transmitted.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h2><i class="bi bi-graph-up me-2"></i>About Voice Frequency Analysis</h2>
+
+      <p>
+        Our voice frequency analyzer visualizes the frequency spectrum of your voice in real-time. This tool helps 
+        singers understand their vocal range, podcasters optimize their recording setup, and audio enthusiasts analyze 
+        sound characteristics.
+      </p>
+      <p>
+        Human voice typically spans 85Hz to 8kHz, with fundamental frequencies around 85-180Hz for male voices and 
+        165-255Hz for female voices. The analyzer shows both fundamental frequencies and harmonics that give each 
+        voice its unique character. Use our <a href="/" title="Microphone Test">microphone test</a> to verify mic setup first.
+      </p>
+      <p>
+        Voice frequency analysis is valuable for vocal training, identifying microphone issues, and understanding 
+        room acoustics. Check your <a href="/background-noise-analyzer" title="Background Noise Analyzer">background noise</a> 
+        levels for cleaner recordings.
+      </p>
+
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h2><i class="bi bi-mic me-2"></i>Understanding Voice Frequencies</h2>
+
+      <div class="row">
+        <div class="col-lg-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h4><i class="bi bi-person me-2"></i>Vocal Range</h4>
+              <p>Bass singers reach down to 80Hz, while sopranos can exceed 1kHz. Speaking voice fundamentals typically range from 100-250Hz. Harmonics extend much higher, giving voice its timbre.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h4><i class="bi bi-bar-chart me-2"></i>Frequency Spectrum</h4>
+              <p>The spectrum display shows intensity across frequencies. Peaks indicate dominant frequencies in your voice. Consistent patterns help identify your natural pitch and resonance characteristics.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h2><i class="bi bi-question-circle-fill me-2"></i>Frequently Asked Questions</h2>
+      <div class="accordion" id="faqAccordion">
+        
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading0">
+            <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse0" aria-expanded="true" aria-controls="faqCollapse0">
+              What is my fundamental frequency?
+            </button>
+          </h2>
+          <div id="faqCollapse0" class="accordion-collapse collapse show" aria-labelledby="faqHeading0" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              The fundamental frequency is the lowest frequency in your voice and determines your perceived pitch. It appears as the leftmost peak in the spectrum analyzer.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading1">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="false" aria-controls="faqCollapse1">
+              Why does my voice have multiple peaks?
+            </button>
+          </h2>
+          <div id="faqCollapse1" class="accordion-collapse collapse " aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              These are harmonics - multiples of your fundamental frequency. They create the unique timbre that makes your voice recognizable and different from others.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading2">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+              How can I use this for vocal training?
+            </button>
+          </h2>
+          <div id="faqCollapse2" class="accordion-collapse collapse " aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Monitor your pitch consistency, identify your comfortable range, and observe how different singing techniques affect your frequency spectrum.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading3">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+              What frequencies are important for speech clarity?
+            </button>
+          </h2>
+          <div id="faqCollapse3" class="accordion-collapse collapse " aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Consonants and sibilance (2-8kHz) are crucial for intelligibility. If these frequencies are weak, speech may sound muffled.
+            </div>
           </div>
         </div>
       </div>

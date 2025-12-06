@@ -55,7 +55,7 @@
 
   <div class="container mt-4">
     <div class="row">
-      <div class="col-lg-8">
+      <div class="col-md-8">
         <h1><i class="bi bi-record-circle me-2"></i>Online Mic Recorder</h1>
         <p class="lead">Record your voice directly in your browser. Download as MP3 or WAV format. Before recording, you can <a href="/" title="Test Your Microphone">test your microphone</a> or <a href="/show-mic" title="View Mic Details">check your mic specifications</a>.</p>
 
@@ -178,7 +178,7 @@
       </div>
 
       <!-- Sidebar -->
-      <div class="col-lg-4">
+      <div class="col-md-4">
 
 <div class="card mb-4">
     <div class="card-header bg-primary text-white">
@@ -263,6 +263,111 @@
           <div class="card-body">
             <h6><i class="bi bi-shield-check me-2 text-success"></i>Privacy Note</h6>
             <p class="small mb-0">All recordings are processed locally in your browser. No audio data is uploaded to any server. Your recordings stay on your device.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h2><i class="bi bi-record-circle me-2"></i>About Online Microphone Recording</h2>
+
+      <p>
+        Our online mic recorder lets you capture audio directly in your browser without installing software. 
+        Perfect for quick voice memos, testing microphone quality, and creating audio clips for various purposes.
+      </p>
+      <p>
+        All recording happens locally on your device - no audio is uploaded to servers. This ensures your privacy 
+        while providing a convenient recording solution. Before recording, use our <a href="/" title="Microphone Test">microphone test</a> 
+        to verify your setup.
+      </p>
+      <p>
+        For best results, reduce <a href="/background-noise-analyzer" title="Background Noise Analyzer">background noise</a>, 
+        speak at a consistent distance from the microphone, and monitor your <a href="/sound-level-meter" title="Sound Level Meter">input levels</a> 
+        to avoid clipping.
+      </p>
+
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h2><i class="bi bi-lightbulb me-2"></i>Recording Tips</h2>
+
+      <div class="row">
+        <div class="col-lg-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h4><i class="bi bi-mic me-2"></i>Microphone Technique</h4>
+              <p>Position your microphone 6-12 inches from your mouth. Speak across the mic rather than directly into it to reduce plosives (P and B sounds). Use a pop filter for professional recording.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h4><i class="bi bi-sliders me-2"></i>Level Management</h4>
+              <p>Aim for input levels that peak around -12dB to -6dB. This provides headroom for louder moments while keeping signal well above the noise floor. Avoid letting levels hit 0dB (clipping).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h2><i class="bi bi-question-circle-fill me-2"></i>Frequently Asked Questions</h2>
+      <div class="accordion" id="faqAccordion">
+        
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading0">
+            <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse0" aria-expanded="true" aria-controls="faqCollapse0">
+              Is my recording private?
+            </button>
+          </h2>
+          <div id="faqCollapse0" class="accordion-collapse collapse show" aria-labelledby="faqHeading0" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Yes. All recording and processing happens locally in your browser. No audio data is sent to our servers.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading1">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="false" aria-controls="faqCollapse1">
+              What audio format is used?
+            </button>
+          </h2>
+          <div id="faqCollapse1" class="accordion-collapse collapse " aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Recordings are saved in WebM or WAV format depending on your browser. Both formats maintain good audio quality.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading2">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+              Why is my recording too quiet?
+            </button>
+          </h2>
+          <div id="faqCollapse2" class="accordion-collapse collapse " aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Check your microphone input level in system settings. You may also need to speak closer to the microphone or increase the gain.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading3">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+              Can I record system audio?
+            </button>
+          </h2>
+          <div id="faqCollapse3" class="accordion-collapse collapse " aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              This tool records from your microphone only. Recording system audio requires different permissions that browsers typically don't allow for privacy reasons.
+            </div>
           </div>
         </div>
       </div>

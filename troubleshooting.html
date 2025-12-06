@@ -28,7 +28,7 @@
 
   <div class="container mt-4">
     <div class="row">
-      <div class="col-lg-8">
+      <div class="col-md-8">
         <h1><i class="bi bi-question-circle me-2"></i>Audio Troubleshooting Guide</h1>
         <p class="lead">Having issues with your microphone or speakers? Find solutions to common audio problems below. You can also <a href="/" title="Test Microphone">test your microphone</a> or <a href="/show-speakers" title="Test Speakers">check your speakers</a>.</p>
 
@@ -357,7 +357,7 @@
 
       </div>
 
-      <div class="col-lg-4">
+      <div class="col-md-4">
 
 <div class="card mb-4">
     <div class="card-header bg-primary text-white">
@@ -400,6 +400,111 @@
           <div class="card-body">
             <h6><i class="bi bi-info-circle me-2"></i>About</h6>
             <p class="small mb-0">Learn more about our audio testing tools on our <a href="/about">about page</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h2><i class="bi bi-tools me-2"></i>About Audio Troubleshooting</h2>
+
+      <p>
+        Our comprehensive troubleshooting guide helps resolve common microphone, speaker, and audio issues. 
+        Whether you're experiencing no sound, poor quality, or configuration problems, systematic troubleshooting 
+        can identify and fix most issues.
+      </p>
+      <p>
+        Audio problems typically fall into categories: driver/software issues, hardware failures, connection problems, 
+        and configuration errors. Use our <a href="/" title="Microphone Test">microphone test</a> and 
+        <a href="/stereo-test" title="Stereo Test">speaker test</a> to identify which component is causing issues.
+      </p>
+      <p>
+        Most audio problems have simple solutions - checking connections, updating drivers, or adjusting settings. 
+        This guide covers Windows, Mac, and browser-specific troubleshooting for comprehensive support.
+      </p>
+
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h2><i class="bi bi-list-check me-2"></i>Troubleshooting Process</h2>
+
+      <div class="row">
+        <div class="col-lg-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h4><i class="bi bi-1-circle me-2"></i>Identify the Problem</h4>
+              <p>Is it input (microphone) or output (speakers)? Is it hardware or software? Does it affect all applications or just one? Use our testing tools to isolate the issue.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h4><i class="bi bi-2-circle me-2"></i>Check the Basics</h4>
+              <p>Verify physical connections, check mute buttons, confirm correct device selection in system settings, and ensure volume levels are adequate. Most issues are configuration-related.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h2><i class="bi bi-question-circle-fill me-2"></i>Frequently Asked Questions</h2>
+      <div class="accordion" id="faqAccordion">
+        
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading0">
+            <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse0" aria-expanded="true" aria-controls="faqCollapse0">
+              Why is my microphone not detected?
+            </button>
+          </h2>
+          <div id="faqCollapse0" class="accordion-collapse collapse show" aria-labelledby="faqHeading0" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Check physical connection, try a different USB port, verify privacy settings allow microphone access, and check if drivers are installed correctly.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading1">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="false" aria-controls="faqCollapse1">
+              Why do I hear static or crackling?
+            </button>
+          </h2>
+          <div id="faqCollapse1" class="accordion-collapse collapse " aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              This often indicates cable damage, interference, or driver issues. Try different cables, move away from electrical interference, and update audio drivers.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading2">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+              Why is my audio quality poor?
+            </button>
+          </h2>
+          <div id="faqCollapse2" class="accordion-collapse collapse " aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Check sample rate settings (44.1kHz or higher), ensure proper driver installation, and verify you're using the correct input/output device in system settings.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading3">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+              How do I reset audio settings?
+            </button>
+          </h2>
+          <div id="faqCollapse3" class="accordion-collapse collapse " aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Windows: Sound Settings > Device Properties > Disable/Re-enable. Mac: Delete ~/Library/Preferences/com.apple.audio.plist and restart. This resets to defaults.
+            </div>
           </div>
         </div>
       </div>

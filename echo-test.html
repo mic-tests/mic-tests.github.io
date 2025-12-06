@@ -46,7 +46,7 @@
 
   <div class="container mt-4">
     <div class="row">
-      <div class="col-lg-8">
+      <div class="col-md-8">
         <h1><i class="bi bi-arrow-repeat me-2"></i>Echo Test</h1>
         <p class="lead">Test your audio setup for echo and feedback issues. Record your voice and play it back with adjustable delay. Use <a href="/headphone-test" title="Headphone Test">headphones</a> for accurate results. First, <a href="/" title="Microphone Test">test your microphone</a> to ensure it's working properly.</p>
 
@@ -202,7 +202,7 @@
       </div>
 
       <!-- Sidebar -->
-      <div class="col-lg-4">
+      <div class="col-md-4">
 
 <div class="card mb-4">
     <div class="card-header bg-primary text-white">
@@ -275,6 +275,111 @@
           <div class="card-body">
             <h6><i class="bi bi-lightbulb me-2 text-warning"></i>Pro Tip</h6>
             <p class="small mb-0">For professional recording without echo, use a <a href="/headphone-test" title="Test Headphones">closed-back headphone</a> and position your mic away from reflective surfaces. Check your <a href="/show-mic" title="Mic Details">microphone's echo cancellation</a> settings.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h2><i class="bi bi-arrow-repeat me-2"></i>About Echo Testing</h2>
+
+      <p>
+        Our echo test helps you identify audio feedback loops and echo issues in your setup. Echo problems commonly 
+        occur during video calls, streaming, and recording when your microphone picks up sound from your speakers.
+      </p>
+      <p>
+        Echo occurs when audio output is captured by your input device, creating a feedback loop. This is frustrating 
+        for call participants and can ruin recordings. Use <a href="/headphone-test" title="Headphone Test">headphones</a> 
+        to eliminate most echo issues, or adjust your speaker and microphone positioning.
+      </p>
+      <p>
+        Modern communication software includes echo cancellation, but hardware setup still matters. Check your 
+        <a href="/audio-latency-test" title="Audio Latency Test">audio latency</a> as high latency can worsen 
+        echo perception during calls.
+      </p>
+
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h2><i class="bi bi-arrow-left-right me-2"></i>Understanding Audio Echo</h2>
+
+      <div class="row">
+        <div class="col-lg-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h4><i class="bi bi-mic me-2"></i>Acoustic Echo</h4>
+              <p>Sound from speakers bounces around the room and enters your microphone. The delay creates an echo effect. Soft furnishings, carpets, and acoustic panels reduce reflections and echo.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h4><i class="bi bi-headphones me-2"></i>Preventing Echo</h4>
+              <p>Using headphones eliminates most echo by preventing speakers from reaching your microphone. If speakers are necessary, position them away from your microphone and reduce volume.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h2><i class="bi bi-question-circle-fill me-2"></i>Frequently Asked Questions</h2>
+      <div class="accordion" id="faqAccordion">
+        
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading0">
+            <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse0" aria-expanded="true" aria-controls="faqCollapse0">
+              Why do others hear echo when I speak?
+            </button>
+          </h2>
+          <div id="faqCollapse0" class="accordion-collapse collapse show" aria-labelledby="faqHeading0" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Your microphone is likely picking up audio from your speakers. Use headphones or reduce speaker volume to prevent this feedback loop.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading1">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="false" aria-controls="faqCollapse1">
+              How does echo cancellation work?
+            </button>
+          </h2>
+          <div id="faqCollapse1" class="accordion-collapse collapse " aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Software echo cancellation identifies the audio being played and removes it from the microphone signal. It works best with consistent, predictable audio paths.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading2">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+              Why is there a delay in my echo?
+            </button>
+          </h2>
+          <div id="faqCollapse2" class="accordion-collapse collapse " aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Echo delay corresponds to the time sound takes to travel from speakers to microphone, plus any processing latency. Larger rooms create longer delays.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading3">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+              Can room treatment help with echo?
+            </button>
+          </h2>
+          <div id="faqCollapse3" class="accordion-collapse collapse " aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Yes. Soft materials like curtains, carpets, and acoustic panels absorb sound reflections, reducing both echo and room reverb.
+            </div>
           </div>
         </div>
       </div>
