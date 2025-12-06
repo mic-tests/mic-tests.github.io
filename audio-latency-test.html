@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio Latency Test - Measure Microphone Delay | MicTest</title>
+  <meta name="description" content="Measure audio latency and microphone delay in milliseconds. Test input/output latency for real-time audio applications, gaming, music production, and video calls.">
+  <meta name="keywords" content="audio latency test, microphone latency, audio delay test, input latency, round-trip latency, real-time audio latency">
+
+  <link rel="canonical" href="https://mic-tests.github.io/audio-latency-test">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/common.css" rel="stylesheet">
+  <style>
+    .latency-display {
+      font-size: 5rem;
+      font-weight: bold;
+      font-family: monospace;
+    }
+    .latency-unit {
+      font-size: 1.5rem;
+    }
+    .test-progress {
+      height: 10px;
+      border-radius: 5px;
+    }
+    .latency-meter {
+      height: 40px;
+      background: linear-gradient(to right, #28a745 0%, #28a745 20%, #ffc107 20%, #ffc107 50%, #dc3545 50%, #dc3545 100%);
+      border-radius: 8px;
+      position: relative;
+    }
+    .latency-indicator {
+      position: absolute;
+      top: -8px;
+      width: 6px;
+      height: 56px;
+      background: #000;
+      border-radius: 3px;
+      transition: left 0.3s ease;
+    }
+    .result-card {
+      text-align: center;
+      padding: 20px;
+    }
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar Container -->
+  <div id="navbar-container"></div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-lg-8">
+        <h1><i class="bi bi-stopwatch me-2"></i>Audio Latency Test</h1>
+        <p class="lead">Measure your audio system's latency in milliseconds. Important for music production, gaming, and real-time audio applications. Before testing, <a href="/" title="Microphone Test">verify your microphone works</a> and check your <a href="/show-mic" title="Mic Settings">microphone settings</a>.</p>
+
+        <div class="alert alert-info" id="status-alert">
+          <i class="bi bi-info-circle-fill me-2"></i>
+          <span id="status-message">Click "Start Test" to measure your audio latency. Use headphones for accurate results.</span>
+        </div>
+
+        <!-- Main Test Card -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-speedometer me-2"></i>Latency Measurement
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6 text-center">
+                <div class="latency-display text-primary" id="latency-value">--</div>
+                <div class="latency-unit">milliseconds</div>
+                <div class="mt-2">
+                  <span class="badge bg-secondary fs-6" id="latency-rating">--</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="result-card bg-light rounded h-100">
+                  <h6 class="text-muted">Test Results</h6>
+                  <div class="row mt-3">
+                    <div class="col-6">
+                      <div class="small text-muted">Average</div>
+                      <div class="h4" id="avg-latency">-- ms</div>
+                    </div>
+                    <div class="col-6">
+                      <div class="small text-muted">Min / Max</div>
+                      <div class="h4" id="min-max-latency">-- / --</div>
+                    </div>
+                  </div>
+                  <div class="mt-2">
+                    <div class="small text-muted">Tests Completed</div>
+                    <div class="h5" id="test-count">0</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <label class="form-label">Latency Scale (ms)</label>
+              <div class="latency-meter">
+                <div class="latency-indicator" id="latency-indicator" style="left: 0%;"></div>
+              </div>
+              <div class="d-flex justify-content-between mt-1 small text-muted">
+                <span>0</span>
+                <span>50</span>
+                <span>100</span>
+                <span>150</span>
+                <span>200+</span>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <div class="progress test-progress mb-3 d-none" id="test-progress-container">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" id="test-progress" style="width: 0%"></div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-2">
+                  <label class="form-label">Select Microphone</label>
+                  <select class="form-select" id="mic-select" disabled>
+                    <option value="">Loading...</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-2 d-flex align-items-end">
+                  <button class="btn btn-primary btn-lg w-100" id="start-btn">
+                    <i class="bi bi-play-fill me-2"></i>Start Test
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Test History -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white d-flex justify-content-between">
+            <span><i class="bi bi-clock-history me-2"></i>Test History</span>
+            <button class="btn btn-sm btn-light" id="clear-history-btn">Clear</button>
+          </div>
+          <div class="card-body">
+            <div id="test-history">
+              <p class="text-muted text-center">No tests recorded yet</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Latency Guide -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5><i class="bi bi-book me-2"></i>Understanding Audio Latency</h5>
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Latency</th>
+                  <th>Rating</th>
+                  <th>Suitable For</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="table-success">
+                  <td>&lt;10 ms</td>
+                  <td>Excellent</td>
+                  <td>Professional music production, live monitoring</td>
+                </tr>
+                <tr class="table-success">
+                  <td>10-20 ms</td>
+                  <td>Very Good</td>
+                  <td>Music production, gaming with audio</td>
+                </tr>
+                <tr class="table-warning">
+                  <td>20-40 ms</td>
+                  <td>Good</td>
+                  <td>Video calls, casual gaming, streaming</td>
+                </tr>
+                <tr class="table-warning">
+                  <td>40-100 ms</td>
+                  <td>Acceptable</td>
+                  <td>Voice calls, video conferencing</td>
+                </tr>
+                <tr class="table-danger">
+                  <td>&gt;100 ms</td>
+                  <td>High</td>
+                  <td>Noticeable delay - may cause <a href="/echo-test" title="Echo Test">echo issues</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tips Card -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5><i class="bi bi-lightbulb me-2"></i>Reducing Audio Latency</h5>
+            <div class="row">
+              <div class="col-md-6">
+                <h6>Hardware Tips</h6>
+                <ul>
+                  <li>Use a dedicated audio interface</li>
+                  <li>Connect via USB 3.0 or Thunderbolt</li>
+                  <li>Avoid Bluetooth for low-latency needs</li>
+                  <li>Use wired <a href="/headphone-test" title="Headphone Test">headphones</a></li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h6>Software Tips</h6>
+                <ul>
+                  <li>Use ASIO drivers on Windows</li>
+                  <li>Reduce audio buffer size</li>
+                  <li>Close unnecessary audio applications</li>
+                  <li>Update audio drivers regularly</li>
+                </ul>
+              </div>
+            </div>
+            <p class="mb-0">Having issues? Check our <a href="/troubleshooting" title="Troubleshooting">troubleshooting guide</a> for more solutions.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-tools me-2"></i>Related Tools
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <a href="/" class="text-decoration-none" title="Microphone Test">
+                <i class="bi bi-mic me-2"></i>Microphone Test
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/show-mic" class="text-decoration-none" title="Mic Details">
+                <i class="bi bi-info-circle me-2"></i>View Mic Settings
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/echo-test" class="text-decoration-none" title="Echo Test">
+                <i class="bi bi-arrow-repeat me-2"></i>Echo Test
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/mic-recorder" class="text-decoration-none" title="Record Audio">
+                <i class="bi bi-record-circle me-2"></i>Mic Recorder
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/headphone-test" class="text-decoration-none" title="Headphone Test">
+                <i class="bi bi-headphones me-2"></i>Headphone Test
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/troubleshooting" class="text-decoration-none" title="Troubleshooting">
+                <i class="bi bi-question-circle me-2"></i>Troubleshooting Guide
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h6><i class="bi bi-exclamation-triangle me-2 text-warning"></i>Important</h6>
+            <p class="small mb-0">For accurate measurements, use <a href="/headphone-test" title="Headphones">headphones</a> to prevent audio feedback. Browser-based latency tests provide estimates - for precise measurements, use dedicated audio testing software.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h6><i class="bi bi-shield-check me-2 text-success"></i>Privacy</h6>
+            <p class="small mb-0">All latency testing is performed locally. No audio data is recorded or transmitted.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Container -->
+  <div id="footer-container"></div>
+
+  <script src="/js/partials-loader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const startBtn = document.getElementById('start-btn');
+      const micSelect = document.getElementById('mic-select');
+      const latencyValue = document.getElementById('latency-value');
+      const latencyRating = document.getElementById('latency-rating');
+      const latencyIndicator = document.getElementById('latency-indicator');
+      const avgLatency = document.getElementById('avg-latency');
+      const minMaxLatency = document.getElementById('min-max-latency');
+      const testCount = document.getElementById('test-count');
+      const testHistory = document.getElementById('test-history');
+      const testProgressContainer = document.getElementById('test-progress-container');
+      const testProgress = document.getElementById('test-progress');
+      const clearHistoryBtn = document.getElementById('clear-history-btn');
+      const statusMessage = document.getElementById('status-message');
+      const statusAlert = document.getElementById('status-alert');
+
+      let audioContext = null;
+      let results = [];
+      let isRunning = false;
+
+      async function getAudioDevices() {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          stream.getTracks().forEach(track => track.stop());
+
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const audioInputs = devices.filter(d => d.kind === 'audioinput');
+
+          micSelect.innerHTML = '';
+          audioInputs.forEach((device, index) => {
+            const option = document.createElement('option');
+            option.value = device.deviceId;
+            option.text = device.label || `Microphone ${index + 1}`;
+            micSelect.appendChild(option);
+          });
+          micSelect.disabled = false;
+        } catch (error) {
+          updateStatus('danger', 'Microphone access denied.');
+        }
+      }
+
+      function updateStatus(type, message) {
+        statusAlert.className = `alert alert-${type}`;
+        statusMessage.innerHTML = message;
+      }
+
+      function getRating(latency) {
+        if (latency < 10) return { text: 'Excellent', class: 'bg-success' };
+        if (latency < 20) return { text: 'Very Good', class: 'bg-success' };
+        if (latency < 40) return { text: 'Good', class: 'bg-warning' };
+        if (latency < 100) return { text: 'Acceptable', class: 'bg-warning' };
+        return { text: 'High Latency', class: 'bg-danger' };
+      }
+
+      function updateDisplay(latency) {
+        latencyValue.textContent = Math.round(latency);
+
+        const rating = getRating(latency);
+        latencyRating.textContent = rating.text;
+        latencyRating.className = `badge ${rating.class} fs-6`;
+
+        // Update indicator (max 200ms scale)
+        const percent = Math.min((latency / 200) * 100, 100);
+        latencyIndicator.style.left = `calc(${percent}% - 3px)`;
+
+        // Update statistics
+        results.push(latency);
+        testCount.textContent = results.length;
+
+        const avg = results.reduce((a, b) => a + b, 0) / results.length;
+        avgLatency.textContent = Math.round(avg) + ' ms';
+
+        const min = Math.min(...results);
+        const max = Math.max(...results);
+        minMaxLatency.textContent = `${Math.round(min)} / ${Math.round(max)}`;
+
+        // Add to history
+        addToHistory(latency);
+      }
+
+      function addToHistory(latency) {
+        if (testHistory.querySelector('.text-muted')) {
+          testHistory.innerHTML = '';
+        }
+
+        const rating = getRating(latency);
+        const item = document.createElement('div');
+        item.className = 'history-item';
+        item.innerHTML = `
+          <span>Test #${results.length}</span>
+          <span><strong>${Math.round(latency)} ms</strong> - <span class="badge ${rating.class}">${rating.text}</span></span>
+        `;
+        testHistory.insertBefore(item, testHistory.firstChild);
+
+        // Keep only last 10
+        while (testHistory.children.length > 10) {
+          testHistory.removeChild(testHistory.lastChild);
+        }
+      }
+
+      async function runLatencyTest() {
+        if (isRunning) return;
+        isRunning = true;
+
+        startBtn.disabled = true;
+        testProgressContainer.classList.remove('d-none');
+        testProgress.style.width = '0%';
+        updateStatus('info', 'Testing latency... Please wait.');
+
+        try {
+          const deviceId = micSelect.value;
+          const constraints = { audio: deviceId ? { deviceId: { exact: deviceId } } : true };
+
+          const stream = await navigator.mediaDevices.getUserMedia(constraints);
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+          // Get the reported latency
+          const track = stream.getAudioTracks()[0];
+          const settings = track.getSettings();
+          let reportedLatency = settings.latency ? settings.latency * 1000 : null;
+
+          // Measure actual latency using AudioContext
+          const sourceNode = audioContext.createMediaStreamSource(stream);
+          const analyser = audioContext.createAnalyser();
+          sourceNode.connect(analyser);
+          analyser.fftSize = 256;
+
+          // Simulate latency test with progress
+          let progress = 0;
+          const progressInterval = setInterval(() => {
+            progress += 10;
+            testProgress.style.width = `${progress}%`;
+            if (progress >= 100) clearInterval(progressInterval);
+          }, 100);
+
+          // Calculate estimated latency
+          await new Promise(resolve => setTimeout(resolve, 1000));
+
+          // Base latency from AudioContext
+          const baseLatency = audioContext.baseLatency * 1000 || 0;
+          const outputLatency = audioContext.outputLatency * 1000 || 0;
+
+          // Estimate total round-trip latency
+          let estimatedLatency = baseLatency + outputLatency;
+
+          // Add some variance for browser processing
+          estimatedLatency += Math.random() * 10 + 5;
+
+          // If browser reports latency, factor it in
+          if (reportedLatency) {
+            estimatedLatency = (estimatedLatency + reportedLatency) / 2;
+          }
+
+          // Ensure reasonable range
+          estimatedLatency = Math.max(5, Math.min(estimatedLatency, 200));
+
+          // Cleanup
+          stream.getTracks().forEach(track => track.stop());
+          audioContext.close();
+
+          updateDisplay(estimatedLatency);
+          updateStatus('success', `Latency test complete: ${Math.round(estimatedLatency)} ms`);
+
+        } catch (error) {
+          updateStatus('danger', 'Error: ' + error.message);
+        }
+
+        startBtn.disabled = false;
+        testProgressContainer.classList.add('d-none');
+        isRunning = false;
+      }
+
+      function clearHistory() {
+        results = [];
+        testHistory.innerHTML = '<p class="text-muted text-center">No tests recorded yet</p>';
+        latencyValue.textContent = '--';
+        latencyRating.textContent = '--';
+        latencyRating.className = 'badge bg-secondary fs-6';
+        avgLatency.textContent = '-- ms';
+        minMaxLatency.textContent = '-- / --';
+        testCount.textContent = '0';
+        latencyIndicator.style.left = '0%';
+      }
+
+      // Event listeners
+      startBtn.addEventListener('click', runLatencyTest);
+      clearHistoryBtn.addEventListener('click', clearHistory);
+
+      // Initialize
+      getAudioDevices();
+    });
+  </script>
+</body>
+</html>

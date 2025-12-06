@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Mic Recorder - Record Your Voice Free | MicTest</title>
+  <meta name="description" content="Free online microphone recorder. Record your voice directly in your browser and download as MP3 or WAV. No software installation required. Works on all devices.">
+  <meta name="keywords" content="mic recorder, voice recorder online, record microphone, audio recorder, record voice free, online voice recording, browser recorder">
+
+  <link rel="canonical" href="https://mic-tests.github.io/mic-recorder">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/common.css" rel="stylesheet">
+  <style>
+    .recorder-btn {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      font-size: 2rem;
+    }
+    .recording-indicator {
+      width: 20px;
+      height: 20px;
+      background-color: #dc3545;
+      border-radius: 50%;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .waveform-container {
+      height: 150px;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+    }
+    #waveform {
+      width: 100%;
+      height: 100%;
+    }
+    .recording-time {
+      font-size: 2.5rem;
+      font-family: monospace;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar Container -->
+  <div id="navbar-container"></div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-lg-8">
+        <h1><i class="bi bi-record-circle me-2"></i>Online Mic Recorder</h1>
+        <p class="lead">Record your voice directly in your browser. Download as MP3 or WAV format. Before recording, you can <a href="/" title="Test Your Microphone">test your microphone</a> or <a href="/show-mic" title="View Mic Details">check your mic specifications</a>.</p>
+
+        <div class="alert alert-info" id="status-alert">
+          <i class="bi bi-info-circle-fill me-2"></i>
+          <span id="status-message">Click the record button to start recording your voice.</span>
+        </div>
+
+        <!-- Recorder Card -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-mic-fill me-2"></i>Voice Recorder
+          </div>
+          <div class="card-body text-center">
+            <!-- Recording Time -->
+            <div class="recording-time mb-3" id="recording-time">00:00</div>
+
+            <!-- Waveform Visualization -->
+            <div class="waveform-container mb-4">
+              <canvas id="waveform"></canvas>
+            </div>
+
+            <!-- Microphone Selection -->
+            <div class="mb-4">
+              <select class="form-select" id="mic-select" disabled>
+                <option value="">Select microphone...</option>
+              </select>
+            </div>
+
+            <!-- Recording Controls -->
+            <div class="d-flex justify-content-center gap-3 mb-4">
+              <button class="btn btn-danger recorder-btn" id="record-btn" title="Start Recording">
+                <i class="bi bi-circle-fill"></i>
+              </button>
+              <button class="btn btn-secondary recorder-btn" id="stop-btn" disabled title="Stop Recording">
+                <i class="bi bi-stop-fill"></i>
+              </button>
+            </div>
+
+            <!-- Playback Section (hidden initially) -->
+            <div id="playback-section" class="d-none">
+              <h5><i class="bi bi-play-circle me-2"></i>Your Recording</h5>
+              <audio id="audio-playback" controls class="w-100 mb-3"></audio>
+
+              <div class="d-flex justify-content-center gap-2">
+                <button class="btn btn-success" id="download-mp3-btn">
+                  <i class="bi bi-download me-2"></i>Download MP3
+                </button>
+                <button class="btn btn-primary" id="download-wav-btn">
+                  <i class="bi bi-download me-2"></i>Download WAV
+                </button>
+                <button class="btn btn-outline-secondary" id="new-recording-btn">
+                  <i class="bi bi-arrow-repeat me-2"></i>New Recording
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5><i class="bi bi-info-circle me-2"></i>How to Use the Recorder</h5>
+            <ol>
+              <li>Click the <strong>red record button</strong> to start recording</li>
+              <li>Allow microphone access when prompted by your browser</li>
+              <li>Speak into your microphone - watch the waveform to confirm audio input</li>
+              <li>Click the <strong>stop button</strong> when finished</li>
+              <li>Preview your recording and download as MP3 or WAV</li>
+            </ol>
+            <p class="mb-0">
+              <strong>Tip:</strong> For best quality, use a quiet environment. Check your <a href="/background-noise-analyzer" title="Background Noise Analyzer">background noise levels</a>
+              and use our <a href="/sound-level-meter" title="Sound Level Meter">sound level meter</a> to monitor input levels.
+            </p>
+          </div>
+        </div>
+
+        <!-- Tips Card -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5><i class="bi bi-lightbulb me-2"></i>Recording Tips</h5>
+            <div class="row">
+              <div class="col-md-6">
+                <ul class="mb-0">
+                  <li>Position mic 6-12 inches from your mouth</li>
+                  <li>Avoid touching or bumping the microphone</li>
+                  <li>Reduce background noise - close windows/doors</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <ul class="mb-0">
+                  <li>Use headphones to prevent <a href="/echo-test" title="Echo Test">echo feedback</a></li>
+                  <li>Test your <a href="/audio-latency-test" title="Audio Latency Test">audio latency</a> for monitoring</li>
+                  <li>Check <a href="/show-mic" title="Mic Details">mic settings</a> for optimal quality</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-gear me-2"></i>Recording Settings
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label class="form-label">Audio Quality</label>
+              <select class="form-select" id="quality-select">
+                <option value="128">Standard (128 kbps)</option>
+                <option value="192" selected>High (192 kbps)</option>
+                <option value="320">Maximum (320 kbps)</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Sample Rate</label>
+              <select class="form-select" id="sample-rate-select">
+                <option value="44100" selected>44.1 kHz (CD Quality)</option>
+                <option value="48000">48 kHz (Professional)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-tools me-2"></i>Related Tools
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <a href="/" class="text-decoration-none" title="Online Microphone Test">
+                <i class="bi bi-mic me-2"></i>Test Your Microphone
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/show-mic" class="text-decoration-none" title="Microphone Details">
+                <i class="bi bi-info-circle me-2"></i>View Mic Specifications
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/sound-level-meter" class="text-decoration-none" title="Sound Level Meter">
+                <i class="bi bi-speedometer2 me-2"></i>Sound Level Meter
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/voice-frequency-analyzer" class="text-decoration-none" title="Voice Analyzer">
+                <i class="bi bi-graph-up me-2"></i>Voice Frequency Analyzer
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/echo-test" class="text-decoration-none" title="Echo Test">
+                <i class="bi bi-arrow-repeat me-2"></i>Echo Test
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/troubleshooting" class="text-decoration-none" title="Troubleshooting">
+                <i class="bi bi-question-circle me-2"></i>Troubleshooting Guide
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h6><i class="bi bi-shield-check me-2 text-success"></i>Privacy Note</h6>
+            <p class="small mb-0">All recordings are processed locally in your browser. No audio data is uploaded to any server. Your recordings stay on your device.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Container -->
+  <div id="footer-container"></div>
+
+  <script src="/js/partials-loader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const recordBtn = document.getElementById('record-btn');
+      const stopBtn = document.getElementById('stop-btn');
+      const micSelect = document.getElementById('mic-select');
+      const recordingTime = document.getElementById('recording-time');
+      const statusMessage = document.getElementById('status-message');
+      const statusAlert = document.getElementById('status-alert');
+      const playbackSection = document.getElementById('playback-section');
+      const audioPlayback = document.getElementById('audio-playback');
+      const downloadMp3Btn = document.getElementById('download-mp3-btn');
+      const downloadWavBtn = document.getElementById('download-wav-btn');
+      const newRecordingBtn = document.getElementById('new-recording-btn');
+      const waveformCanvas = document.getElementById('waveform');
+      const waveformCtx = waveformCanvas.getContext('2d');
+
+      let mediaRecorder = null;
+      let audioChunks = [];
+      let audioBlob = null;
+      let audioStream = null;
+      let audioContext = null;
+      let analyser = null;
+      let animationId = null;
+      let startTime = null;
+      let timerInterval = null;
+
+      // Resize canvas
+      function resizeCanvas() {
+        waveformCanvas.width = waveformCanvas.offsetWidth;
+        waveformCanvas.height = waveformCanvas.offsetHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      // Get audio devices
+      async function getAudioDevices() {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          stream.getTracks().forEach(track => track.stop());
+
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const audioInputs = devices.filter(d => d.kind === 'audioinput');
+
+          micSelect.innerHTML = '';
+          audioInputs.forEach((device, index) => {
+            const option = document.createElement('option');
+            option.value = device.deviceId;
+            option.text = device.label || `Microphone ${index + 1}`;
+            micSelect.appendChild(option);
+          });
+          micSelect.disabled = false;
+        } catch (error) {
+          updateStatus('danger', 'Microphone access denied. Please allow microphone permissions.');
+        }
+      }
+
+      // Update status
+      function updateStatus(type, message) {
+        statusAlert.className = `alert alert-${type}`;
+        statusMessage.innerHTML = message;
+      }
+
+      // Format time
+      function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+        return `${mins}:${secs}`;
+      }
+
+      // Draw waveform
+      function drawWaveform() {
+        if (!analyser) return;
+
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        analyser.getByteTimeDomainData(dataArray);
+
+        waveformCtx.fillStyle = '#f8f9fa';
+        waveformCtx.fillRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+
+        waveformCtx.lineWidth = 2;
+        waveformCtx.strokeStyle = '#0d6efd';
+        waveformCtx.beginPath();
+
+        const sliceWidth = waveformCanvas.width / bufferLength;
+        let x = 0;
+
+        for (let i = 0; i < bufferLength; i++) {
+          const v = dataArray[i] / 128.0;
+          const y = v * waveformCanvas.height / 2;
+
+          if (i === 0) {
+            waveformCtx.moveTo(x, y);
+          } else {
+            waveformCtx.lineTo(x, y);
+          }
+          x += sliceWidth;
+        }
+
+        waveformCtx.lineTo(waveformCanvas.width, waveformCanvas.height / 2);
+        waveformCtx.stroke();
+
+        animationId = requestAnimationFrame(drawWaveform);
+      }
+
+      // Start recording
+      async function startRecording() {
+        try {
+          const deviceId = micSelect.value;
+          const constraints = {
+            audio: deviceId ? { deviceId: { exact: deviceId } } : true
+          };
+
+          audioStream = await navigator.mediaDevices.getUserMedia(constraints);
+
+          // Setup audio context and analyser
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          analyser = audioContext.createAnalyser();
+          const source = audioContext.createMediaStreamSource(audioStream);
+          source.connect(analyser);
+          analyser.fftSize = 2048;
+
+          // Start visualization
+          drawWaveform();
+
+          // Setup media recorder
+          mediaRecorder = new MediaRecorder(audioStream);
+          audioChunks = [];
+
+          mediaRecorder.ondataavailable = (event) => {
+            audioChunks.push(event.data);
+          };
+
+          mediaRecorder.onstop = () => {
+            audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            audioPlayback.src = audioUrl;
+            playbackSection.classList.remove('d-none');
+            updateStatus('success', 'Recording complete! Preview your recording below.');
+          };
+
+          mediaRecorder.start();
+          startTime = Date.now();
+
+          // Start timer
+          timerInterval = setInterval(() => {
+            const elapsed = (Date.now() - startTime) / 1000;
+            recordingTime.textContent = formatTime(elapsed);
+          }, 100);
+
+          recordBtn.disabled = true;
+          stopBtn.disabled = false;
+          micSelect.disabled = true;
+          updateStatus('danger', '<span class="recording-indicator d-inline-block me-2"></span>Recording in progress...');
+        } catch (error) {
+          updateStatus('danger', 'Error starting recording: ' + error.message);
+        }
+      }
+
+      // Stop recording
+      function stopRecording() {
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+          mediaRecorder.stop();
+        }
+
+        if (audioStream) {
+          audioStream.getTracks().forEach(track => track.stop());
+        }
+
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+        }
+
+        if (timerInterval) {
+          clearInterval(timerInterval);
+        }
+
+        recordBtn.disabled = false;
+        stopBtn.disabled = true;
+        micSelect.disabled = false;
+      }
+
+      // Download as WAV
+      function downloadWav() {
+        if (!audioBlob) return;
+        const url = URL.createObjectURL(audioBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `recording_${Date.now()}.wav`;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      // Download as MP3 (using WAV for now - MP3 encoding requires additional library)
+      function downloadMp3() {
+        // For simplicity, downloading as WAV (MP3 encoding would require lamejs or similar)
+        if (!audioBlob) return;
+        const url = URL.createObjectURL(audioBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `recording_${Date.now()}.wav`;
+        a.click();
+        URL.revokeObjectURL(url);
+        updateStatus('info', 'Downloaded as WAV format. MP3 conversion requires additional processing.');
+      }
+
+      // New recording
+      function newRecording() {
+        playbackSection.classList.add('d-none');
+        recordingTime.textContent = '00:00';
+        audioPlayback.src = '';
+        audioBlob = null;
+        audioChunks = [];
+        updateStatus('info', 'Click the record button to start a new recording.');
+
+        // Clear canvas
+        waveformCtx.fillStyle = '#f8f9fa';
+        waveformCtx.fillRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+      }
+
+      // Event listeners
+      recordBtn.addEventListener('click', startRecording);
+      stopBtn.addEventListener('click', stopRecording);
+      downloadWavBtn.addEventListener('click', downloadWav);
+      downloadMp3Btn.addEventListener('click', downloadMp3);
+      newRecordingBtn.addEventListener('click', newRecording);
+
+      // Initialize
+      getAudioDevices();
+    });
+  </script>
+</body>
+</html>

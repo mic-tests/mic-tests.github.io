@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Background Noise Analyzer - Check Ambient Sound Levels | MicTest</title>
+  <meta name="description" content="Analyze background noise in your environment. Measure ambient sound levels, identify noise sources, and optimize your recording space. Free online noise analyzer tool.">
+  <meta name="keywords" content="background noise analyzer, ambient noise test, noise level checker, room noise analysis, audio environment test, recording space analysis">
+
+  <link rel="canonical" href="https://mic-tests.github.io/background-noise-analyzer">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/common.css" rel="stylesheet">
+  <style>
+    .spectrum-container {
+      height: 200px;
+      background: #1a1a2e;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    #spectrum-canvas {
+      width: 100%;
+      height: 100%;
+    }
+    .noise-meter {
+      height: 30px;
+      background: linear-gradient(to right, #28a745, #ffc107, #dc3545);
+      border-radius: 15px;
+      position: relative;
+    }
+    .noise-indicator {
+      position: absolute;
+      top: -5px;
+      width: 4px;
+      height: 40px;
+      background: #000;
+      border-radius: 2px;
+      transition: left 0.2s ease;
+    }
+    .noise-level-card {
+      text-align: center;
+      padding: 20px;
+    }
+    .noise-value {
+      font-size: 3rem;
+      font-weight: bold;
+      font-family: monospace;
+    }
+    .quality-badge {
+      font-size: 1.2rem;
+      padding: 8px 20px;
+    }
+    .freq-band {
+      text-align: center;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar Container -->
+  <div id="navbar-container"></div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-lg-8">
+        <h1><i class="bi bi-soundwave me-2"></i>Background Noise Analyzer</h1>
+        <p class="lead">Analyze ambient noise in your environment to ensure optimal conditions for <a href="/mic-recorder" title="Mic Recorder">recording</a> and video calls. Use with our <a href="/sound-level-meter" title="Sound Level Meter">sound level meter</a> for detailed measurements.</p>
+
+        <div class="alert alert-info" id="status-alert">
+          <i class="bi bi-info-circle-fill me-2"></i>
+          <span id="status-message">Click "Start Analysis" to begin monitoring background noise.</span>
+        </div>
+
+        <!-- Main Analysis Card -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-graph-up me-2"></i>Frequency Spectrum Analysis
+          </div>
+          <div class="card-body">
+            <div class="spectrum-container mb-3">
+              <canvas id="spectrum-canvas"></canvas>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Select Microphone</label>
+                <select class="form-select" id="mic-select" disabled>
+                  <option value="">Loading...</option>
+                </select>
+              </div>
+              <div class="col-md-6 text-center d-flex align-items-end">
+                <button class="btn btn-primary btn-lg w-100" id="start-btn">
+                  <i class="bi bi-play-fill me-2"></i>Start Analysis
+                </button>
+              </div>
+            </div>
+
+            <!-- Noise Level Meter -->
+            <div class="mb-3">
+              <label class="form-label">Overall Noise Level</label>
+              <div class="noise-meter">
+                <div class="noise-indicator" id="noise-indicator" style="left: 0%;"></div>
+              </div>
+              <div class="d-flex justify-content-between mt-1 small text-muted">
+                <span>Quiet</span>
+                <span>Moderate</span>
+                <span>Loud</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Card -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-clipboard-data me-2"></i>Analysis Results
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="noise-level-card bg-light rounded">
+                  <div class="small text-muted">Current Level</div>
+                  <div class="noise-value text-primary" id="current-level">--</div>
+                  <div class="small">dB</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="noise-level-card bg-light rounded">
+                  <div class="small text-muted">Average Level</div>
+                  <div class="noise-value text-success" id="avg-level">--</div>
+                  <div class="small">dB</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="noise-level-card bg-light rounded">
+                  <div class="small text-muted">Environment</div>
+                  <div id="environment-rating">
+                    <span class="badge bg-secondary quality-badge">--</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+
+            <!-- Frequency Bands -->
+            <h6><i class="bi bi-bar-chart me-2"></i>Frequency Band Analysis</h6>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="freq-band bg-light">
+                  <div class="small text-muted">Low (20-250Hz)</div>
+                  <div class="h5 mb-0" id="low-freq">--</div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="freq-band bg-light">
+                  <div class="small text-muted">Mid-Low (250-500Hz)</div>
+                  <div class="h5 mb-0" id="mid-low-freq">--</div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="freq-band bg-light">
+                  <div class="small text-muted">Mid-High (500-2kHz)</div>
+                  <div class="h5 mb-0" id="mid-high-freq">--</div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="freq-band bg-light">
+                  <div class="small text-muted">High (2k-20kHz)</div>
+                  <div class="h5 mb-0" id="high-freq">--</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5><i class="bi bi-lightbulb me-2"></i>Recommendations</h5>
+            <div id="recommendations">
+              <p class="text-muted">Start the analysis to receive personalized recommendations for improving your audio environment.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tips Card -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5><i class="bi bi-info-circle me-2"></i>Reducing Background Noise</h5>
+            <div class="row">
+              <div class="col-md-6">
+                <h6>Common Noise Sources</h6>
+                <ul>
+                  <li>Air conditioning / HVAC systems</li>
+                  <li>Computer fans and hard drives</li>
+                  <li>Traffic and outside sounds</li>
+                  <li>Electrical hum (50/60 Hz)</li>
+                  <li>Appliances and refrigerators</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h6>Noise Reduction Tips</h6>
+                <ul>
+                  <li>Use a directional microphone</li>
+                  <li>Enable <a href="/show-mic" title="Mic Settings">noise suppression</a> in mic settings</li>
+                  <li>Add soft furnishings to reduce echo</li>
+                  <li>Close windows and doors</li>
+                  <li>Position mic away from noise sources</li>
+                </ul>
+              </div>
+            </div>
+            <p class="mb-0">For <a href="/echo-test" title="Echo Test">echo issues</a>, try our echo test tool. Check <a href="/troubleshooting" title="Troubleshooting">troubleshooting guide</a> for more help.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-tools me-2"></i>Related Tools
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <a href="/" class="text-decoration-none" title="Microphone Test">
+                <i class="bi bi-mic me-2"></i>Microphone Test
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/sound-level-meter" class="text-decoration-none" title="dB Meter">
+                <i class="bi bi-speedometer2 me-2"></i>Sound Level Meter
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/mic-recorder" class="text-decoration-none" title="Record Audio">
+                <i class="bi bi-record-circle me-2"></i>Mic Recorder
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/voice-frequency-analyzer" class="text-decoration-none" title="Frequency Analyzer">
+                <i class="bi bi-graph-up me-2"></i>Voice Frequency Analyzer
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/echo-test" class="text-decoration-none" title="Echo Test">
+                <i class="bi bi-arrow-repeat me-2"></i>Echo Test
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/show-mic" class="text-decoration-none" title="Mic Details">
+                <i class="bi bi-info-circle me-2"></i>View Mic Settings
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-book me-2"></i>Noise Level Guide
+          </div>
+          <ul class="list-group list-group-flush small">
+            <li class="list-group-item d-flex justify-content-between">
+              <span class="text-success">●</span> &lt;30 dB - Excellent for recording
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span class="text-success">●</span> 30-40 dB - Good for calls
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span class="text-warning">●</span> 40-50 dB - Acceptable
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span class="text-warning">●</span> 50-60 dB - May affect quality
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span class="text-danger">●</span> &gt;60 dB - Too noisy
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h6><i class="bi bi-shield-check me-2 text-success"></i>Privacy</h6>
+            <p class="small mb-0">All audio analysis is performed locally in your browser. No sound data is recorded or transmitted to any server.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Container -->
+  <div id="footer-container"></div>
+
+  <script src="/js/partials-loader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const startBtn = document.getElementById('start-btn');
+      const micSelect = document.getElementById('mic-select');
+      const spectrumCanvas = document.getElementById('spectrum-canvas');
+      const spectrumCtx = spectrumCanvas.getContext('2d');
+      const noiseIndicator = document.getElementById('noise-indicator');
+      const currentLevel = document.getElementById('current-level');
+      const avgLevel = document.getElementById('avg-level');
+      const environmentRating = document.getElementById('environment-rating');
+      const recommendations = document.getElementById('recommendations');
+      const statusMessage = document.getElementById('status-message');
+      const statusAlert = document.getElementById('status-alert');
+
+      const lowFreq = document.getElementById('low-freq');
+      const midLowFreq = document.getElementById('mid-low-freq');
+      const midHighFreq = document.getElementById('mid-high-freq');
+      const highFreq = document.getElementById('high-freq');
+
+      let audioContext = null;
+      let analyser = null;
+      let audioStream = null;
+      let isRunning = false;
+      let animationId = null;
+      let readings = [];
+
+      // Resize canvas
+      function resizeCanvas() {
+        spectrumCanvas.width = spectrumCanvas.parentElement.offsetWidth;
+        spectrumCanvas.height = spectrumCanvas.parentElement.offsetHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      // Get audio devices
+      async function getAudioDevices() {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          stream.getTracks().forEach(track => track.stop());
+
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const audioInputs = devices.filter(d => d.kind === 'audioinput');
+
+          micSelect.innerHTML = '';
+          audioInputs.forEach((device, index) => {
+            const option = document.createElement('option');
+            option.value = device.deviceId;
+            option.text = device.label || `Microphone ${index + 1}`;
+            micSelect.appendChild(option);
+          });
+          micSelect.disabled = false;
+        } catch (error) {
+          updateStatus('danger', 'Microphone access denied.');
+        }
+      }
+
+      function updateStatus(type, message) {
+        statusAlert.className = `alert alert-${type}`;
+        statusMessage.innerHTML = message;
+      }
+
+      // Draw spectrum
+      function drawSpectrum() {
+        if (!analyser || !isRunning) return;
+
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        analyser.getByteFrequencyData(dataArray);
+
+        spectrumCtx.fillStyle = '#1a1a2e';
+        spectrumCtx.fillRect(0, 0, spectrumCanvas.width, spectrumCanvas.height);
+
+        const barWidth = (spectrumCanvas.width / bufferLength) * 2.5;
+        let x = 0;
+
+        for (let i = 0; i < bufferLength; i++) {
+          const barHeight = (dataArray[i] / 255) * spectrumCanvas.height;
+
+          // Color gradient based on frequency
+          const hue = (i / bufferLength) * 120 + 200; // Blue to green
+          spectrumCtx.fillStyle = `hsl(${hue}, 70%, 50%)`;
+          spectrumCtx.fillRect(x, spectrumCanvas.height - barHeight, barWidth, barHeight);
+
+          x += barWidth + 1;
+        }
+
+        // Calculate levels
+        const calculateBandLevel = (start, end) => {
+          let sum = 0;
+          const startIdx = Math.floor(start / 22050 * bufferLength);
+          const endIdx = Math.floor(end / 22050 * bufferLength);
+          for (let i = startIdx; i < endIdx && i < bufferLength; i++) {
+            sum += dataArray[i];
+          }
+          return Math.round(sum / (endIdx - startIdx));
+        };
+
+        const low = calculateBandLevel(20, 250);
+        const midLow = calculateBandLevel(250, 500);
+        const midHigh = calculateBandLevel(500, 2000);
+        const high = calculateBandLevel(2000, 20000);
+
+        lowFreq.textContent = low;
+        midLowFreq.textContent = midLow;
+        midHighFreq.textContent = midHigh;
+        highFreq.textContent = high;
+
+        // Overall level
+        let sum = 0;
+        for (let i = 0; i < bufferLength; i++) {
+          sum += dataArray[i];
+        }
+        const avgValue = sum / bufferLength;
+        const db = Math.round((avgValue / 255) * 100);
+
+        currentLevel.textContent = db;
+        readings.push(db);
+        if (readings.length > 100) readings.shift();
+
+        const avgDb = Math.round(readings.reduce((a, b) => a + b, 0) / readings.length);
+        avgLevel.textContent = avgDb;
+
+        // Update noise indicator
+        noiseIndicator.style.left = `${Math.min(db, 100)}%`;
+
+        // Environment rating
+        let rating, ratingClass;
+        if (avgDb < 30) {
+          rating = 'Excellent';
+          ratingClass = 'bg-success';
+        } else if (avgDb < 40) {
+          rating = 'Good';
+          ratingClass = 'bg-success';
+        } else if (avgDb < 50) {
+          rating = 'Acceptable';
+          ratingClass = 'bg-warning';
+        } else if (avgDb < 60) {
+          rating = 'Noisy';
+          ratingClass = 'bg-warning';
+        } else {
+          rating = 'Too Loud';
+          ratingClass = 'bg-danger';
+        }
+        environmentRating.innerHTML = `<span class="badge ${ratingClass} quality-badge">${rating}</span>`;
+
+        // Update recommendations
+        updateRecommendations(avgDb, low, high);
+
+        animationId = requestAnimationFrame(drawSpectrum);
+      }
+
+      function updateRecommendations(avgDb, low, high) {
+        let recs = [];
+
+        if (avgDb > 50) {
+          recs.push('⚠️ High background noise detected. Consider moving to a quieter location.');
+        }
+        if (low > 100) {
+          recs.push('🔊 High low-frequency noise (possibly HVAC, traffic). Try closing windows or using a high-pass filter.');
+        }
+        if (high > 80) {
+          recs.push('📡 High-frequency noise detected (possibly electrical interference). Check for nearby electronics.');
+        }
+        if (avgDb < 30) {
+          recs.push('✅ Excellent! Your environment is very quiet - ideal for recording.');
+        }
+        if (avgDb >= 30 && avgDb < 45) {
+          recs.push('✅ Good environment for video calls and casual recording.');
+        }
+
+        if (recs.length === 0) {
+          recs.push('Analysis in progress... Keep monitoring for accurate results.');
+        }
+
+        recommendations.innerHTML = recs.map(r => `<p class="mb-2">${r}</p>`).join('');
+      }
+
+      // Start analysis
+      async function startAnalysis() {
+        if (isRunning) {
+          stopAnalysis();
+          return;
+        }
+
+        try {
+          const deviceId = micSelect.value;
+          const constraints = {
+            audio: deviceId ? { deviceId: { exact: deviceId } } : true
+          };
+
+          audioStream = await navigator.mediaDevices.getUserMedia(constraints);
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          analyser = audioContext.createAnalyser();
+          const source = audioContext.createMediaStreamSource(audioStream);
+          source.connect(analyser);
+          analyser.fftSize = 2048;
+
+          isRunning = true;
+          readings = [];
+          startBtn.innerHTML = '<i class="bi bi-stop-fill me-2"></i>Stop Analysis';
+          startBtn.classList.remove('btn-primary');
+          startBtn.classList.add('btn-danger');
+          micSelect.disabled = true;
+
+          updateStatus('success', 'Analyzing background noise... Stay quiet to measure ambient levels.');
+          drawSpectrum();
+
+        } catch (error) {
+          updateStatus('danger', 'Error: ' + error.message);
+        }
+      }
+
+      function stopAnalysis() {
+        isRunning = false;
+
+        if (animationId) cancelAnimationFrame(animationId);
+        if (audioStream) audioStream.getTracks().forEach(track => track.stop());
+        if (audioContext) audioContext.close();
+
+        startBtn.innerHTML = '<i class="bi bi-play-fill me-2"></i>Start Analysis';
+        startBtn.classList.remove('btn-danger');
+        startBtn.classList.add('btn-primary');
+        micSelect.disabled = false;
+
+        updateStatus('info', 'Analysis stopped. Click "Start Analysis" to begin again.');
+      }
+
+      // Event listeners
+      startBtn.addEventListener('click', startAnalysis);
+
+      // Initialize
+      getAudioDevices();
+    });
+  </script>
+</body>
+</html>

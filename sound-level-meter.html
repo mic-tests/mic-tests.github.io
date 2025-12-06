@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sound Level Meter - Online Decibel (dB) Meter | MicTest</title>
+  <meta name="description" content="Free online sound level meter. Measure decibel (dB) levels in real-time using your microphone. Check ambient noise, audio input levels, and environmental sound intensity.">
+  <meta name="keywords" content="sound level meter, decibel meter, dB meter online, noise level meter, audio level meter, volume meter, sound intensity meter">
+
+  <link rel="canonical" href="https://mic-tests.github.io/sound-level-meter">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/common.css" rel="stylesheet">
+  <style>
+    .db-display {
+      font-size: 5rem;
+      font-weight: bold;
+      font-family: monospace;
+    }
+    .db-unit {
+      font-size: 2rem;
+      vertical-align: super;
+    }
+    .meter-container {
+      height: 300px;
+      background: linear-gradient(to top, #28a745 0%, #28a745 33%, #ffc107 33%, #ffc107 66%, #dc3545 66%, #dc3545 100%);
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    .meter-fill {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #e9ecef;
+      transition: height 0.1s ease;
+    }
+    .meter-scale {
+      position: absolute;
+      right: 10px;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: white;
+      font-weight: bold;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+    .level-indicator {
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .level-quiet { background-color: #28a745; color: white; }
+    .level-moderate { background-color: #ffc107; color: black; }
+    .level-loud { background-color: #fd7e14; color: white; }
+    .level-very-loud { background-color: #dc3545; color: white; }
+    .history-canvas {
+      width: 100%;
+      height: 150px;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar Container -->
+  <div id="navbar-container"></div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-lg-8">
+        <h1><i class="bi bi-speedometer2 me-2"></i>Sound Level Meter</h1>
+        <p class="lead">Measure sound intensity in decibels (dB) using your microphone. Perfect for checking ambient noise levels before <a href="/mic-recorder" title="Mic Recorder">recording audio</a> or during a <a href="/" title="Microphone Test">microphone test</a>.</p>
+
+        <div class="alert alert-info" id="status-alert">
+          <i class="bi bi-info-circle-fill me-2"></i>
+          <span id="status-message">Click "Start Measuring" to begin monitoring sound levels.</span>
+        </div>
+
+        <!-- Main Meter Card -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-speedometer2 me-2"></i>Real-Time Sound Level
+          </div>
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-md-6 text-center">
+                <div class="db-display" id="db-value">--</div>
+                <span class="db-unit">dB</span>
+                <div class="level-indicator mt-3" id="level-indicator">--</div>
+              </div>
+              <div class="col-md-6">
+                <div class="meter-container" id="meter-container">
+                  <div class="meter-fill" id="meter-fill" style="height: 100%;"></div>
+                  <div class="meter-scale">
+                    <span>100</span>
+                    <span>80</span>
+                    <span>60</span>
+                    <span>40</span>
+                    <span>20</span>
+                    <span>0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-4">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Select Microphone</label>
+                  <select class="form-select" id="mic-select" disabled>
+                    <option value="">Select microphone...</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">&nbsp;</label>
+                  <div class="d-grid">
+                    <button class="btn btn-primary btn-lg" id="start-btn">
+                      <i class="bi bi-play-fill me-2"></i>Start Measuring
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Statistics Card -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-graph-up me-2"></i>Statistics
+          </div>
+          <div class="card-body">
+            <div class="row text-center">
+              <div class="col-4">
+                <h5>Current</h5>
+                <div class="h3 text-primary" id="stat-current">-- dB</div>
+              </div>
+              <div class="col-4">
+                <h5>Average</h5>
+                <div class="h3 text-success" id="stat-avg">-- dB</div>
+              </div>
+              <div class="col-4">
+                <h5>Peak</h5>
+                <div class="h3 text-danger" id="stat-peak">-- dB</div>
+              </div>
+            </div>
+            <hr>
+            <h6>Level History</h6>
+            <canvas class="history-canvas" id="history-canvas"></canvas>
+            <button class="btn btn-sm btn-outline-secondary mt-2" id="reset-stats-btn">
+              <i class="bi bi-arrow-counterclockwise me-1"></i>Reset Statistics
+            </button>
+          </div>
+        </div>
+
+        <!-- Reference Guide -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5><i class="bi bi-book me-2"></i>Decibel Reference Guide</h5>
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Level (dB)</th>
+                  <th>Example</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="table-success">
+                  <td>0-30 dB</td>
+                  <td>Quiet room, whisper</td>
+                  <td>Very quiet - ideal for <a href="/mic-recorder" title="Recording">recording</a></td>
+                </tr>
+                <tr class="table-success">
+                  <td>30-50 dB</td>
+                  <td>Library, quiet office</td>
+                  <td>Quiet - good for calls and meetings</td>
+                </tr>
+                <tr class="table-warning">
+                  <td>50-70 dB</td>
+                  <td>Normal conversation</td>
+                  <td>Moderate - typical indoor environment</td>
+                </tr>
+                <tr class="table-warning">
+                  <td>70-85 dB</td>
+                  <td>Busy traffic, vacuum</td>
+                  <td>Loud - may affect audio quality</td>
+                </tr>
+                <tr class="table-danger">
+                  <td>85-100 dB</td>
+                  <td>Power tools, concert</td>
+                  <td>Very loud - hearing protection recommended</td>
+                </tr>
+                <tr class="table-danger">
+                  <td>100+ dB</td>
+                  <td>Jet engine, sirens</td>
+                  <td>Dangerous - limit exposure time</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-tools me-2"></i>Related Tools
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <a href="/" class="text-decoration-none" title="Microphone Test">
+                <i class="bi bi-mic me-2"></i>Microphone Test
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/mic-recorder" class="text-decoration-none" title="Record Audio">
+                <i class="bi bi-record-circle me-2"></i>Record Audio
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/background-noise-analyzer" class="text-decoration-none" title="Noise Analyzer">
+                <i class="bi bi-soundwave me-2"></i>Background Noise Analyzer
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/voice-frequency-analyzer" class="text-decoration-none" title="Frequency Analyzer">
+                <i class="bi bi-graph-up me-2"></i>Voice Frequency Analyzer
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/show-mic" class="text-decoration-none" title="View Mic Details">
+                <i class="bi bi-info-circle me-2"></i>View Mic Details
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/speaker-volume-test" class="text-decoration-none" title="Speaker Volume Test">
+                <i class="bi bi-volume-up me-2"></i>Speaker Volume Test
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h6><i class="bi bi-lightbulb me-2 text-warning"></i>Tips</h6>
+            <ul class="small mb-0">
+              <li>For accurate readings, calibrate against a known sound source</li>
+              <li>Browser dB readings are relative, not absolute measurements</li>
+              <li>Use <a href="/background-noise-analyzer" title="Noise Analyzer">noise analyzer</a> for detailed analysis</li>
+              <li>Check <a href="/troubleshooting" title="Troubleshooting">troubleshooting</a> if levels seem wrong</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h6><i class="bi bi-shield-check me-2 text-success"></i>Privacy</h6>
+            <p class="small mb-0">Sound level analysis is performed locally in your browser. No audio is recorded or transmitted.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Container -->
+  <div id="footer-container"></div>
+
+  <script src="/js/partials-loader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const startBtn = document.getElementById('start-btn');
+      const micSelect = document.getElementById('mic-select');
+      const dbValue = document.getElementById('db-value');
+      const meterFill = document.getElementById('meter-fill');
+      const levelIndicator = document.getElementById('level-indicator');
+      const statusMessage = document.getElementById('status-message');
+      const statusAlert = document.getElementById('status-alert');
+      const statCurrent = document.getElementById('stat-current');
+      const statAvg = document.getElementById('stat-avg');
+      const statPeak = document.getElementById('stat-peak');
+      const historyCanvas = document.getElementById('history-canvas');
+      const historyCtx = historyCanvas.getContext('2d');
+      const resetStatsBtn = document.getElementById('reset-stats-btn');
+
+      let audioContext = null;
+      let analyser = null;
+      let microphone = null;
+      let audioStream = null;
+      let isRunning = false;
+      let animationId = null;
+
+      let readings = [];
+      let peakValue = 0;
+      let historyData = [];
+      const maxHistoryPoints = 100;
+
+      // Resize canvas
+      function resizeCanvas() {
+        historyCanvas.width = historyCanvas.offsetWidth;
+        historyCanvas.height = historyCanvas.offsetHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      // Get audio devices
+      async function getAudioDevices() {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          stream.getTracks().forEach(track => track.stop());
+
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const audioInputs = devices.filter(d => d.kind === 'audioinput');
+
+          micSelect.innerHTML = '';
+          audioInputs.forEach((device, index) => {
+            const option = document.createElement('option');
+            option.value = device.deviceId;
+            option.text = device.label || `Microphone ${index + 1}`;
+            micSelect.appendChild(option);
+          });
+          micSelect.disabled = false;
+        } catch (error) {
+          updateStatus('danger', 'Microphone access denied. Please allow microphone permissions.');
+        }
+      }
+
+      // Update status
+      function updateStatus(type, message) {
+        statusAlert.className = `alert alert-${type}`;
+        statusMessage.innerHTML = message;
+      }
+
+      // Calculate dB from audio data
+      function calculateDb(dataArray) {
+        let sum = 0;
+        for (let i = 0; i < dataArray.length; i++) {
+          const value = (dataArray[i] - 128) / 128;
+          sum += value * value;
+        }
+        const rms = Math.sqrt(sum / dataArray.length);
+        const db = 20 * Math.log10(rms + 0.0001);
+        // Normalize to 0-100 range (approximate)
+        return Math.max(0, Math.min(100, db + 100));
+      }
+
+      // Get level description
+      function getLevelDescription(db) {
+        if (db < 30) return { text: 'Very Quiet', class: 'level-quiet' };
+        if (db < 50) return { text: 'Quiet', class: 'level-quiet' };
+        if (db < 70) return { text: 'Moderate', class: 'level-moderate' };
+        if (db < 85) return { text: 'Loud', class: 'level-loud' };
+        return { text: 'Very Loud', class: 'level-very-loud' };
+      }
+
+      // Draw history graph
+      function drawHistory() {
+        historyCtx.fillStyle = '#f8f9fa';
+        historyCtx.fillRect(0, 0, historyCanvas.width, historyCanvas.height);
+
+        if (historyData.length < 2) return;
+
+        historyCtx.strokeStyle = '#0d6efd';
+        historyCtx.lineWidth = 2;
+        historyCtx.beginPath();
+
+        const stepX = historyCanvas.width / (maxHistoryPoints - 1);
+
+        for (let i = 0; i < historyData.length; i++) {
+          const x = i * stepX;
+          const y = historyCanvas.height - (historyData[i] / 100 * historyCanvas.height);
+
+          if (i === 0) {
+            historyCtx.moveTo(x, y);
+          } else {
+            historyCtx.lineTo(x, y);
+          }
+        }
+        historyCtx.stroke();
+      }
+
+      // Update meter
+      function updateMeter() {
+        if (!analyser || !isRunning) return;
+
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        analyser.getByteTimeDomainData(dataArray);
+
+        const db = calculateDb(dataArray);
+        const dbRounded = Math.round(db);
+
+        // Update display
+        dbValue.textContent = dbRounded;
+        meterFill.style.height = `${100 - db}%`;
+
+        const level = getLevelDescription(db);
+        levelIndicator.textContent = level.text;
+        levelIndicator.className = `level-indicator ${level.class}`;
+
+        // Update statistics
+        readings.push(db);
+        if (readings.length > 1000) readings.shift();
+
+        if (db > peakValue) peakValue = db;
+
+        const avgDb = readings.reduce((a, b) => a + b, 0) / readings.length;
+
+        statCurrent.textContent = `${dbRounded} dB`;
+        statAvg.textContent = `${Math.round(avgDb)} dB`;
+        statPeak.textContent = `${Math.round(peakValue)} dB`;
+
+        // Update history
+        historyData.push(db);
+        if (historyData.length > maxHistoryPoints) historyData.shift();
+        drawHistory();
+
+        animationId = requestAnimationFrame(updateMeter);
+      }
+
+      // Start measuring
+      async function startMeasuring() {
+        if (isRunning) {
+          stopMeasuring();
+          return;
+        }
+
+        try {
+          const deviceId = micSelect.value;
+          const constraints = {
+            audio: deviceId ? { deviceId: { exact: deviceId } } : true
+          };
+
+          audioStream = await navigator.mediaDevices.getUserMedia(constraints);
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          analyser = audioContext.createAnalyser();
+          microphone = audioContext.createMediaStreamSource(audioStream);
+          microphone.connect(analyser);
+          analyser.fftSize = 2048;
+
+          isRunning = true;
+          startBtn.innerHTML = '<i class="bi bi-stop-fill me-2"></i>Stop Measuring';
+          startBtn.classList.remove('btn-primary');
+          startBtn.classList.add('btn-danger');
+          micSelect.disabled = true;
+
+          updateStatus('success', 'Measuring sound levels... Speak or make sounds to see the levels.');
+          updateMeter();
+        } catch (error) {
+          updateStatus('danger', 'Error accessing microphone: ' + error.message);
+        }
+      }
+
+      // Stop measuring
+      function stopMeasuring() {
+        isRunning = false;
+
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+        }
+
+        if (audioStream) {
+          audioStream.getTracks().forEach(track => track.stop());
+        }
+
+        if (audioContext) {
+          audioContext.close();
+        }
+
+        startBtn.innerHTML = '<i class="bi bi-play-fill me-2"></i>Start Measuring';
+        startBtn.classList.remove('btn-danger');
+        startBtn.classList.add('btn-primary');
+        micSelect.disabled = false;
+
+        updateStatus('info', 'Measurement stopped. Click "Start Measuring" to begin again.');
+      }
+
+      // Reset statistics
+      function resetStats() {
+        readings = [];
+        peakValue = 0;
+        historyData = [];
+        statCurrent.textContent = '-- dB';
+        statAvg.textContent = '-- dB';
+        statPeak.textContent = '-- dB';
+        drawHistory();
+      }
+
+      // Event listeners
+      startBtn.addEventListener('click', startMeasuring);
+      resetStatsBtn.addEventListener('click', resetStats);
+
+      // Initialize
+      getAudioDevices();
+    });
+  </script>
+</body>
+</html>

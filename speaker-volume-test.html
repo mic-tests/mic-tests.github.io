@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speaker Volume Test - Check Audio Output Levels | MicTest</title>
+  <meta name="description" content="Test your speaker volume and audio output levels. Verify speakers are working correctly with different volume levels. Free online speaker volume checker.">
+  <meta name="keywords" content="speaker volume test, audio output test, speaker test, volume check, speaker sound test, audio level test">
+
+  <link rel="canonical" href="https://mic-tests.github.io/speaker-volume-test">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/common.css" rel="stylesheet">
+  <style>
+    .volume-icon { font-size: 6rem; }
+    .volume-bar { height: 200px; width: 60px; background: #e9ecef; border-radius: 10px; position: relative; overflow: hidden; }
+    .volume-fill { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, #28a745, #ffc107, #dc3545); transition: height 0.3s; }
+    .test-sound-btn { font-size: 1.2rem; padding: 15px 30px; }
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-lg-8">
+        <h1><i class="bi bi-volume-up me-2"></i>Speaker Volume Test</h1>
+        <p class="lead">Test your speakers and audio output at different volume levels. Use with <a href="/stereo-test" title="Stereo Test">stereo test</a> to verify both channels, or check <a href="/show-speakers" title="Speaker Details">speaker details</a>.</p>
+
+        <div class="alert alert-info">
+          <i class="bi bi-info-circle-fill me-2"></i>Start with low volume and gradually increase. Use system volume controls alongside this test.
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-volume-up me-2"></i>Volume Level Test
+          </div>
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-md-4 text-center">
+                <i class="bi bi-speaker volume-icon text-primary" id="speaker-icon"></i>
+                <div class="h3 mt-3" id="volume-percent">50%</div>
+              </div>
+              <div class="col-md-4 text-center">
+                <div class="volume-bar mx-auto">
+                  <div class="volume-fill" id="volume-fill" style="height: 50%;"></div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <label class="form-label">Test Volume</label>
+                  <input type="range" class="form-range" id="volume-slider" min="0" max="100" value="50">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Test Sound</label>
+                  <select class="form-select" id="sound-type">
+                    <option value="tone">1kHz Tone</option>
+                    <option value="beep">Beep Pattern</option>
+                    <option value="sweep">Frequency Sweep</option>
+                    <option value="noise">White Noise</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center mt-4">
+              <button class="btn btn-success test-sound-btn" id="play-btn">
+                <i class="bi bi-play-fill me-2"></i>Play Test Sound
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">Quick Volume Tests</div>
+          <div class="card-body">
+            <div class="row text-center">
+              <div class="col-3"><button class="btn btn-outline-success w-100 mb-2" data-vol="25">25%<br><small>Quiet</small></button></div>
+              <div class="col-3"><button class="btn btn-outline-primary w-100 mb-2" data-vol="50">50%<br><small>Medium</small></button></div>
+              <div class="col-3"><button class="btn btn-outline-warning w-100 mb-2" data-vol="75">75%<br><small>Loud</small></button></div>
+              <div class="col-3"><button class="btn btn-outline-danger w-100 mb-2" data-vol="100">100%<br><small>Max</small></button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5><i class="bi bi-wrench me-2"></i>No Sound?</h5>
+            <ul>
+              <li>Check system volume is not muted</li>
+              <li>Verify correct output device in <a href="/show-speakers" title="Settings">audio settings</a></li>
+              <li>Check cable connections</li>
+              <li>Try a different browser</li>
+              <li>See <a href="/troubleshooting" title="Troubleshooting">troubleshooting guide</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">Related Tools</div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><a href="/stereo-test" class="text-decoration-none"><i class="bi bi-badge-hd me-2"></i>Stereo Test</a></li>
+            <li class="list-group-item"><a href="/tone-generator" class="text-decoration-none"><i class="bi bi-activity me-2"></i>Tone Generator</a></li>
+            <li class="list-group-item"><a href="/bass-test" class="text-decoration-none"><i class="bi bi-disc me-2"></i>Bass Test</a></li>
+            <li class="list-group-item"><a href="/headphone-test" class="text-decoration-none"><i class="bi bi-headphones me-2"></i>Headphone Test</a></li>
+            <li class="list-group-item"><a href="/show-speakers" class="text-decoration-none"><i class="bi bi-speaker me-2"></i>View Speaker Details</a></li>
+            <li class="list-group-item"><a href="/" class="text-decoration-none"><i class="bi bi-mic me-2"></i>Microphone Test</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer-container"></div>
+
+  <script src="/js/partials-loader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const volumeSlider = document.getElementById('volume-slider');
+      const volumePercent = document.getElementById('volume-percent');
+      const volumeFill = document.getElementById('volume-fill');
+      const playBtn = document.getElementById('play-btn');
+      const soundType = document.getElementById('sound-type');
+      const quickBtns = document.querySelectorAll('[data-vol]');
+
+      let audioContext = null;
+      let source = null;
+      let gainNode = null;
+      let isPlaying = false;
+
+      function updateVolume(vol) {
+        volumeSlider.value = vol;
+        volumePercent.textContent = vol + '%';
+        volumeFill.style.height = vol + '%';
+        if (gainNode && isPlaying) gainNode.gain.setValueAtTime(vol / 100 * 0.5, audioContext.currentTime);
+      }
+
+      function playSound() {
+        if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        stopSound();
+
+        gainNode = audioContext.createGain();
+        gainNode.gain.setValueAtTime(volumeSlider.value / 100 * 0.5, audioContext.currentTime);
+        gainNode.connect(audioContext.destination);
+
+        const type = soundType.value;
+        if (type === 'tone') {
+          source = audioContext.createOscillator();
+          source.frequency.setValueAtTime(1000, audioContext.currentTime);
+          source.connect(gainNode);
+          source.start();
+        } else if (type === 'beep') {
+          source = audioContext.createOscillator();
+          source.frequency.setValueAtTime(800, audioContext.currentTime);
+          source.connect(gainNode);
+          source.start();
+          const now = audioContext.currentTime;
+          for (let i = 0; i < 5; i++) {
+            gainNode.gain.setValueAtTime(volumeSlider.value / 100 * 0.5, now + i * 0.5);
+            gainNode.gain.setValueAtTime(0, now + i * 0.5 + 0.2);
+          }
+        } else if (type === 'sweep') {
+          source = audioContext.createOscillator();
+          source.frequency.setValueAtTime(200, audioContext.currentTime);
+          source.frequency.exponentialRampToValueAtTime(2000, audioContext.currentTime + 3);
+          source.connect(gainNode);
+          source.start();
+        } else {
+          const bufferSize = 2 * audioContext.sampleRate;
+          const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+          source = audioContext.createBufferSource();
+          source.buffer = buffer;
+          source.loop = true;
+          source.connect(gainNode);
+          source.start();
+        }
+
+        isPlaying = true;
+        playBtn.innerHTML = '<i class="bi bi-stop-fill me-2"></i>Stop';
+        playBtn.classList.replace('btn-success', 'btn-danger');
+      }
+
+      function stopSound() {
+        if (source) { try { source.stop(); } catch(e) {} source.disconnect(); source = null; }
+        isPlaying = false;
+        playBtn.innerHTML = '<i class="bi bi-play-fill me-2"></i>Play Test Sound';
+        playBtn.classList.replace('btn-danger', 'btn-success');
+      }
+
+      playBtn.addEventListener('click', () => isPlaying ? stopSound() : playSound());
+      volumeSlider.addEventListener('input', () => updateVolume(parseInt(volumeSlider.value)));
+      quickBtns.forEach(btn => btn.addEventListener('click', () => { updateVolume(parseInt(btn.dataset.vol)); playSound(); }));
+    });
+  </script>
+</body>
+</html>

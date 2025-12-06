@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bass Test - Subwoofer & Low Frequency Test | MicTest</title>
+  <meta name="description" content="Test your speakers and subwoofer with low frequency bass tones. Check bass response from 20Hz to 200Hz. Verify subwoofer functionality and speaker bass capabilities.">
+  <meta name="keywords" content="bass test, subwoofer test, low frequency test, speaker bass test, sub bass test, bass response test, Hz test">
+
+  <link rel="canonical" href="https://mic-tests.github.io/bass-test">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/common.css" rel="stylesheet">
+  <style>
+    .bass-display {
+      font-size: 5rem;
+      font-weight: bold;
+      font-family: monospace;
+    }
+    .bass-visualizer {
+      height: 200px;
+      background: #1a1a2e;
+      border-radius: 10px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 4px;
+      padding: 20px;
+    }
+    .bass-bar {
+      width: 20px;
+      background: linear-gradient(to top, #0d6efd, #6610f2);
+      border-radius: 5px 5px 0 0;
+      transition: height 0.1s ease;
+    }
+    .freq-btn {
+      font-size: 1.1rem;
+      padding: 12px 16px;
+      margin: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-lg-8">
+        <h1><i class="bi bi-disc me-2"></i>Bass Test</h1>
+        <p class="lead">Test your speakers and subwoofer's bass response. Check low frequency reproduction from 20Hz to 200Hz. For full audio testing, also try our <a href="/tone-generator" title="Tone Generator">tone generator</a> and <a href="/stereo-test" title="Stereo Test">stereo test</a>.</p>
+
+        <div class="alert alert-warning">
+          <i class="bi bi-exclamation-triangle me-2"></i>Start with low volume. Very low frequencies can damage speakers if played too loud.
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-soundwave me-2"></i>Bass Frequency Test
+          </div>
+          <div class="card-body">
+            <div class="text-center mb-4">
+              <div class="bass-display text-primary" id="freq-display">--</div>
+              <div class="h5">Hz</div>
+              <span class="badge bg-secondary fs-6" id="freq-label">Select a frequency</span>
+            </div>
+
+            <div class="bass-visualizer mb-4" id="visualizer">
+              <div class="bass-bar" style="height: 20%;"></div>
+              <div class="bass-bar" style="height: 30%;"></div>
+              <div class="bass-bar" style="height: 50%;"></div>
+              <div class="bass-bar" style="height: 70%;"></div>
+              <div class="bass-bar" style="height: 90%;"></div>
+              <div class="bass-bar" style="height: 100%;"></div>
+              <div class="bass-bar" style="height: 90%;"></div>
+              <div class="bass-bar" style="height: 70%;"></div>
+              <div class="bass-bar" style="height: 50%;"></div>
+              <div class="bass-bar" style="height: 30%;"></div>
+              <div class="bass-bar" style="height: 20%;"></div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Frequency (20 Hz - 200 Hz)</label>
+              <input type="range" class="form-range" id="freq-slider" min="20" max="200" value="60">
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Volume</label>
+              <input type="range" class="form-range" id="volume-slider" min="0" max="100" value="20">
+              <div class="text-center"><span id="volume-display">20%</span></div>
+            </div>
+
+            <div class="text-center">
+              <button class="btn btn-success btn-lg px-5" id="play-btn">
+                <i class="bi bi-play-fill me-2"></i>Play Bass
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">Quick Test Frequencies</div>
+          <div class="card-body text-center">
+            <button class="btn btn-outline-primary freq-btn" data-freq="20">20 Hz</button>
+            <button class="btn btn-outline-primary freq-btn" data-freq="30">30 Hz</button>
+            <button class="btn btn-outline-primary freq-btn" data-freq="40">40 Hz</button>
+            <button class="btn btn-outline-primary freq-btn" data-freq="50">50 Hz</button>
+            <button class="btn btn-outline-primary freq-btn" data-freq="60">60 Hz</button>
+            <button class="btn btn-outline-primary freq-btn" data-freq="80">80 Hz</button>
+            <button class="btn btn-outline-primary freq-btn" data-freq="100">100 Hz</button>
+            <button class="btn btn-outline-primary freq-btn" data-freq="150">150 Hz</button>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">Bass Sweep Test</div>
+          <div class="card-body">
+            <p>Sweep through all bass frequencies to test your speaker's full range.</p>
+            <div class="progress mb-3 d-none" id="sweep-progress-container">
+              <div class="progress-bar" id="sweep-progress" style="width: 0%"></div>
+            </div>
+            <button class="btn btn-primary w-100" id="sweep-btn">
+              <i class="bi bi-play-fill me-2"></i>Start 10s Bass Sweep (20-200 Hz)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">Related Tools</div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><a href="/tone-generator" class="text-decoration-none"><i class="bi bi-activity me-2"></i>Tone Generator</a></li>
+            <li class="list-group-item"><a href="/stereo-test" class="text-decoration-none"><i class="bi bi-badge-hd me-2"></i>Stereo Test</a></li>
+            <li class="list-group-item"><a href="/speaker-volume-test" class="text-decoration-none"><i class="bi bi-volume-up me-2"></i>Speaker Volume Test</a></li>
+            <li class="list-group-item"><a href="/headphone-test" class="text-decoration-none"><i class="bi bi-headphones me-2"></i>Headphone Test</a></li>
+            <li class="list-group-item"><a href="/show-speakers" class="text-decoration-none"><i class="bi bi-speaker me-2"></i>View Speaker Details</a></li>
+            <li class="list-group-item"><a href="/" class="text-decoration-none"><i class="bi bi-mic me-2"></i>Microphone Test</a></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h6><i class="bi bi-lightbulb me-2 text-warning"></i>Tips</h6>
+            <p class="small mb-0">If you can't hear frequencies below 40Hz, your speakers may not support sub-bass. Try with a subwoofer or bass-capable <a href="/headphone-test">headphones</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer-container"></div>
+
+  <script src="/js/partials-loader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const freqSlider = document.getElementById('freq-slider');
+      const freqDisplay = document.getElementById('freq-display');
+      const freqLabel = document.getElementById('freq-label');
+      const volumeSlider = document.getElementById('volume-slider');
+      const volumeDisplay = document.getElementById('volume-display');
+      const playBtn = document.getElementById('play-btn');
+      const freqBtns = document.querySelectorAll('.freq-btn');
+      const sweepBtn = document.getElementById('sweep-btn');
+      const sweepProgress = document.getElementById('sweep-progress');
+      const sweepProgressContainer = document.getElementById('sweep-progress-container');
+      const bassBars = document.querySelectorAll('.bass-bar');
+
+      let audioContext = null;
+      let oscillator = null;
+      let gainNode = null;
+      let isPlaying = false;
+      let isSweeping = false;
+      let animationId = null;
+
+      function getFreqLabel(freq) {
+        if (freq <= 30) return 'Sub-bass';
+        if (freq <= 60) return 'Deep bass';
+        if (freq <= 100) return 'Bass';
+        return 'Upper bass';
+      }
+
+      function updateDisplay(freq) {
+        freqDisplay.textContent = freq;
+        freqLabel.textContent = getFreqLabel(freq);
+        freqSlider.value = freq;
+        if (oscillator && isPlaying) oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
+      }
+
+      function animateBars() {
+        if (!isPlaying) { bassBars.forEach(bar => bar.style.height = '20%'); return; }
+        bassBars.forEach((bar, i) => {
+          const dist = Math.abs(i - 5);
+          bar.style.height = Math.max(20, 100 - dist * 15 - Math.random() * 20) + '%';
+        });
+        animationId = requestAnimationFrame(animateBars);
+      }
+
+      function playTone(freq) {
+        if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        stopTone();
+        updateDisplay(freq);
+        oscillator = audioContext.createOscillator();
+        gainNode = audioContext.createGain();
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
+        gainNode.gain.setValueAtTime(volumeSlider.value / 100 * 0.5, audioContext.currentTime);
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        oscillator.start();
+        isPlaying = true;
+        playBtn.innerHTML = '<i class="bi bi-stop-fill me-2"></i>Stop';
+        playBtn.classList.replace('btn-success', 'btn-danger');
+        animateBars();
+      }
+
+      function stopTone() {
+        if (oscillator) { oscillator.stop(); oscillator.disconnect(); oscillator = null; }
+        isPlaying = false; isSweeping = false;
+        playBtn.innerHTML = '<i class="bi bi-play-fill me-2"></i>Play Bass';
+        playBtn.classList.replace('btn-danger', 'btn-success');
+        sweepBtn.innerHTML = '<i class="bi bi-play-fill me-2"></i>Start 10s Bass Sweep (20-200 Hz)';
+        sweepProgressContainer.classList.add('d-none');
+        if (animationId) cancelAnimationFrame(animationId);
+        bassBars.forEach(bar => bar.style.height = '20%');
+      }
+
+      function startSweep() {
+        if (isSweeping) { stopTone(); return; }
+        if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        stopTone();
+        oscillator = audioContext.createOscillator();
+        gainNode = audioContext.createGain();
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(20, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 10);
+        gainNode.gain.setValueAtTime(volumeSlider.value / 100 * 0.5, audioContext.currentTime);
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        oscillator.start();
+        isPlaying = true; isSweeping = true;
+        sweepBtn.innerHTML = '<i class="bi bi-stop-fill me-2"></i>Stop Sweep';
+        sweepProgressContainer.classList.remove('d-none');
+        animateBars();
+        const startTime = Date.now();
+        const updateInterval = setInterval(() => {
+          const elapsed = Date.now() - startTime;
+          const progress = (elapsed / 10000) * 100;
+          if (progress >= 100 || !isSweeping) { clearInterval(updateInterval); if (isSweeping) stopTone(); return; }
+          sweepProgress.style.width = progress + '%';
+          updateDisplay(Math.round(20 * Math.pow(10, elapsed / 10000)));
+        }, 50);
+      }
+
+      playBtn.addEventListener('click', () => isPlaying ? stopTone() : playTone(parseInt(freqSlider.value)));
+      freqSlider.addEventListener('input', () => updateDisplay(parseInt(freqSlider.value)));
+      volumeSlider.addEventListener('input', () => {
+        volumeDisplay.textContent = volumeSlider.value + '%';
+        if (gainNode && isPlaying) gainNode.gain.setValueAtTime(volumeSlider.value / 100 * 0.5, audioContext.currentTime);
+      });
+      freqBtns.forEach(btn => btn.addEventListener('click', () => playTone(parseInt(btn.dataset.freq))));
+      sweepBtn.addEventListener('click', startSweep);
+    });
+  </script>
+</body>
+</html>

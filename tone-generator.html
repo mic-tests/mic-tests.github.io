@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tone Generator - Online Frequency & Sound Generator | MicTest</title>
+  <meta name="description" content="Free online tone generator. Generate sine waves, square waves, white noise, and pink noise at any frequency. Test speakers, calibrate audio equipment, and explore sound frequencies.">
+  <meta name="keywords" content="tone generator, frequency generator, sine wave generator, sound generator, white noise generator, test tone, audio frequency generator">
+
+  <link rel="canonical" href="https://mic-tests.github.io/tone-generator">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/common.css" rel="stylesheet">
+  <style>
+    .frequency-display {
+      font-size: 4rem;
+      font-weight: bold;
+      font-family: monospace;
+    }
+    .waveform-btn {
+      padding: 15px 20px;
+      font-size: 1.1rem;
+    }
+    .waveform-btn.active {
+      box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.5);
+    }
+    .visualizer-container {
+      height: 150px;
+      background: #1a1a2e;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .preset-btn {
+      margin: 2px;
+    }
+    .volume-slider {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar Container -->
+  <div id="navbar-container"></div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-lg-8">
+        <h1><i class="bi bi-activity me-2"></i>Tone Generator</h1>
+        <p class="lead">Generate audio tones at any frequency. Perfect for <a href="/show-speakers" title="Speaker Details">testing speakers</a>, <a href="/stereo-test" title="Stereo Test">stereo channels</a>, <a href="/hearing-test" title="Hearing Test">hearing tests</a>, and audio equipment calibration.</p>
+
+        <div class="alert alert-warning" id="status-alert">
+          <i class="bi bi-volume-up me-2"></i>
+          <span id="status-message">Adjust volume to a safe level before playing tones. High frequencies at high volume can be harmful.</span>
+        </div>
+
+        <!-- Main Generator Card -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-sliders me-2"></i>Frequency Control
+          </div>
+          <div class="card-body">
+            <div class="text-center mb-4">
+              <div class="frequency-display text-primary" id="freq-display">440</div>
+              <div class="h5">Hz</div>
+              <div class="text-muted" id="note-display">A4</div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Frequency (20 Hz - 20,000 Hz)</label>
+              <input type="range" class="form-range" id="freq-slider" min="20" max="20000" value="440">
+              <div class="d-flex justify-content-between small text-muted">
+                <span>20 Hz</span>
+                <span>1 kHz</span>
+                <span>10 kHz</span>
+                <span>20 kHz</span>
+              </div>
+            </div>
+
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <label class="form-label">Manual Input (Hz)</label>
+                <input type="number" class="form-control" id="freq-input" min="20" max="20000" value="440">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Volume</label>
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-volume-down me-2"></i>
+                  <input type="range" class="form-range volume-slider" id="volume-slider" min="0" max="100" value="30">
+                  <i class="bi bi-volume-up ms-2"></i>
+                  <span class="ms-2" id="volume-display">30%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Waveform Visualization -->
+            <div class="visualizer-container mb-4">
+              <canvas id="visualizer"></canvas>
+            </div>
+
+            <!-- Play Button -->
+            <div class="text-center">
+              <button class="btn btn-success btn-lg px-5" id="play-btn">
+                <i class="bi bi-play-fill me-2"></i>Play Tone
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Waveform Selection -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-soundwave me-2"></i>Waveform Type
+          </div>
+          <div class="card-body">
+            <div class="row text-center">
+              <div class="col-6 col-md-3 mb-2">
+                <button class="btn btn-outline-primary waveform-btn w-100 active" data-wave="sine">
+                  <i class="bi bi-activity d-block fs-3 mb-1"></i>
+                  Sine
+                </button>
+              </div>
+              <div class="col-6 col-md-3 mb-2">
+                <button class="btn btn-outline-primary waveform-btn w-100" data-wave="square">
+                  <i class="bi bi-square d-block fs-3 mb-1"></i>
+                  Square
+                </button>
+              </div>
+              <div class="col-6 col-md-3 mb-2">
+                <button class="btn btn-outline-primary waveform-btn w-100" data-wave="sawtooth">
+                  <i class="bi bi-triangle d-block fs-3 mb-1"></i>
+                  Sawtooth
+                </button>
+              </div>
+              <div class="col-6 col-md-3 mb-2">
+                <button class="btn btn-outline-primary waveform-btn w-100" data-wave="triangle">
+                  <i class="bi bi-caret-up d-block fs-3 mb-1"></i>
+                  Triangle
+                </button>
+              </div>
+            </div>
+
+            <hr>
+
+            <h6>Noise Types</h6>
+            <div class="row text-center">
+              <div class="col-6 mb-2">
+                <button class="btn btn-spelled-secondary w-100" id="white-noise-btn">
+                  <i class="bi bi-snow me-2"></i>White Noise
+                </button>
+              </div>
+              <div class="col-6 mb-2">
+                <button class="btn btn-outlined-secondary w-100" id="pink-noise-btn">
+                  <i class="bi bi-cloud me-2"></i>Pink Noise
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Preset Frequencies -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-music-note-list me-2"></i>Preset Frequencies
+          </div>
+          <div class="card-body">
+            <h6>Musical Notes</h6>
+            <div class="mb-3">
+              <button class="btn btn-outline-secondary btn-sm preset-btn" data-freq="261.63">C4</button>
+              <button class="btn btn-outline-secondary btn-sm preset-btn" data-freq="293.66">D4</button>
+              <button class="btn btn-outline-secondary btn-sm preset-btn" data-freq="329.63">E4</button>
+              <button class="btn btn-outline-secondary btn-sm preset-btn" data-freq="349.23">F4</button>
+              <button class="btn btn-outline-secondary btn-sm preset-btn" data-freq="392.00">G4</button>
+              <button class="btn btn-outline-secondary btn-sm preset-btn" data-freq="440.00">A4</button>
+              <button class="btn btn-outline-secondary btn-sm preset-btn" data-freq="493.88">B4</button>
+              <button class="btn btn-outline-secondary btn-sm preset-btn" data-freq="523.25">C5</button>
+            </div>
+
+            <h6>Test Frequencies</h6>
+            <div class="mb-3">
+              <button class="btn btn-outline-info btn-sm preset-btn" data-freq="50">50 Hz (<a href="/bass-test" class="text-decoration-none">Bass</a>)</button>
+              <button class="btn btn-outline-info btn-sm preset-btn" data-freq="100">100 Hz</button>
+              <button class="btn btn-outline-info btn-sm preset-btn" data-freq="250">250 Hz</button>
+              <button class="btn btn-outline-info btn-sm preset-btn" data-freq="500">500 Hz</button>
+              <button class="btn btn-outline-info btn-sm preset-btn" data-freq="1000">1 kHz</button>
+              <button class="btn btn-outline-info btn-sm preset-btn" data-freq="2000">2 kHz</button>
+              <button class="btn btn-outline-info btn-sm preset-btn" data-freq="4000">4 kHz</button>
+              <button class="btn btn-outline-info btn-sm preset-btn" data-freq="8000">8 kHz</button>
+              <button class="btn btn-outline-info btn-sm preset-btn" data-freq="10000">10 kHz</button>
+              <button class="btn btn-outline-info btn-sm preset-btn" data-freq="15000">15 kHz</button>
+            </div>
+
+            <h6>Stereo Test (use with <a href="/stereo-test" title="Stereo Test">Stereo Test</a>)</h6>
+            <div>
+              <button class="btn btn-outline-warning btn-sm" id="left-only-btn">Left Only</button>
+              <button class="btn btn-outline-warning btn-sm" id="right-only-btn">Right Only</button>
+              <button class="btn btn-outline-warning btn-sm" id="both-btn">Both Channels</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-tools me-2"></i>Related Tools
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <a href="/stereo-test" class="text-decoration-none" title="Stereo Test">
+                <i class="bi bi-badge-hd me-2"></i>Stereo Test
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/bass-test" class="text-decoration-none" title="Bass Test">
+                <i class="bi bi-disc me-2"></i>Bass Test
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/speaker-volume-test" class="text-decoration-none" title="Volume Test">
+                <i class="bi bi-volume-up me-2"></i>Speaker Volume Test
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/hearing-test" class="text-decoration-none" title="Hearing Test">
+                <i class="bi bi-ear me-2"></i>Hearing Test
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/show-speakers" class="text-decoration-none" title="Speaker Details">
+                <i class="bi bi-speaker me-2"></i>View Speaker Details
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/headphone-test" class="text-decoration-none" title="Headphone Test">
+                <i class="bi bi-headphones me-2"></i>Headphone Test
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h6><i class="bi bi-info-circle me-2 text-primary"></i>Frequency Guide</h6>
+            <ul class="small mb-0">
+              <li><strong>20-60 Hz:</strong> Sub-bass, feel more than hear</li>
+              <li><strong>60-250 Hz:</strong> Bass, warmth of sound</li>
+              <li><strong>250-2000 Hz:</strong> Midrange, voice clarity</li>
+              <li><strong>2000-4000 Hz:</strong> Presence, definition</li>
+              <li><strong>4000-20000 Hz:</strong> Brilliance, air</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h6><i class="bi bi-exclamation-triangle me-2 text-warning"></i>Safety Notice</h6>
+            <p class="small mb-0">Start with low volume. High frequencies at high volume can cause hearing damage. If testing <a href="/bass-test" title="Bass Test">bass frequencies</a>, be careful with speaker/subwoofer limits.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Container -->
+  <div id="footer-container"></div>
+
+  <script src="/js/partials-loader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const freqSlider = document.getElementById('freq-slider');
+      const freqInput = document.getElementById('freq-input');
+      const freqDisplay = document.getElementById('freq-display');
+      const noteDisplay = document.getElementById('note-display');
+      const volumeSlider = document.getElementById('volume-slider');
+      const volumeDisplay = document.getElementById('volume-display');
+      const playBtn = document.getElementById('play-btn');
+      const visualizer = document.getElementById('visualizer');
+      const visualizerCtx = visualizer.getContext('2d');
+      const waveformBtns = document.querySelectorAll('.waveform-btn');
+      const presetBtns = document.querySelectorAll('.preset-btn');
+      const whiteNoiseBtn = document.getElementById('white-noise-btn');
+      const pinkNoiseBtn = document.getElementById('pink-noise-btn');
+      const leftOnlyBtn = document.getElementById('left-only-btn');
+      const rightOnlyBtn = document.getElementById('right-only-btn');
+      const bothBtn = document.getElementById('both-btn');
+
+      let audioContext = null;
+      let oscillator = null;
+      let gainNode = null;
+      let analyser = null;
+      let isPlaying = false;
+      let waveformType = 'sine';
+      let panValue = 0;
+      let panNode = null;
+      let animationId = null;
+
+      const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+
+      function resizeCanvas() {
+        visualizer.width = visualizer.parentElement.offsetWidth;
+        visualizer.height = visualizer.parentElement.offsetHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      function freqToNote(freq) {
+        const noteNum = 12 * (Math.log2(freq / 440)) + 69;
+        const octave = Math.floor((noteNum - 12) / 12);
+        const noteIndex = Math.round(noteNum) % 12;
+        return noteNames[noteIndex] + octave;
+      }
+
+      function updateFrequencyDisplay(freq) {
+        freqDisplay.textContent = Math.round(freq);
+        noteDisplay.textContent = freqToNote(freq);
+        freqSlider.value = freq;
+        freqInput.value = Math.round(freq);
+
+        if (oscillator && isPlaying) {
+          oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
+        }
+      }
+
+      function drawVisualizer() {
+        if (!analyser) return;
+
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        analyser.getByteTimeDomainData(dataArray);
+
+        visualizerCtx.fillStyle = '#1a1a2e';
+        visualizerCtx.fillRect(0, 0, visualizer.width, visualizer.height);
+
+        visualizerCtx.lineWidth = 2;
+        visualizerCtx.strokeStyle = '#00ff88';
+        visualizerCtx.beginPath();
+
+        const sliceWidth = visualizer.width / bufferLength;
+        let x = 0;
+
+        for (let i = 0; i < bufferLength; i++) {
+          const v = dataArray[i] / 128.0;
+          const y = v * visualizer.height / 2;
+
+          if (i === 0) visualizerCtx.moveTo(x, y);
+          else visualizerCtx.lineTo(x, y);
+          x += sliceWidth;
+        }
+
+        visualizerCtx.lineTo(visualizer.width, visualizer.height / 2);
+        visualizerCtx.stroke();
+
+        animationId = requestAnimationFrame(drawVisualizer);
+      }
+
+      function startTone() {
+        if (!audioContext) {
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        if (isPlaying) {
+          stopTone();
+          return;
+        }
+
+        oscillator = audioContext.createOscillator();
+        gainNode = audioContext.createGain();
+        analyser = audioContext.createAnalyser();
+        panNode = audioContext.createStereoPanner();
+
+        oscillator.type = waveformType;
+        oscillator.frequency.setValueAtTime(parseFloat(freqInput.value), audioContext.currentTime);
+        gainNode.gain.setValueAtTime(volumeSlider.value / 100 * 0.5, audioContext.currentTime);
+        panNode.pan.setValueAtTime(panValue, audioContext.currentTime);
+        analyser.fftSize = 2048;
+
+        oscillator.connect(gainNode);
+        gainNode.connect(panNode);
+        panNode.connect(analyser);
+        analyser.connect(audioContext.destination);
+
+        oscillator.start();
+        isPlaying = true;
+
+        playBtn.innerHTML = '<i class="bi bi-stop-fill me-2"></i>Stop';
+        playBtn.classList.remove('btn-success');
+        playBtn.classList.add('btn-danger');
+
+        drawVisualizer();
+      }
+
+      function stopTone() {
+        if (oscillator) {
+          oscillator.stop();
+          oscillator.disconnect();
+          oscillator = null;
+        }
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+        }
+
+        isPlaying = false;
+        playBtn.innerHTML = '<i class="bi bi-play-fill me-2"></i>Play Tone';
+        playBtn.classList.remove('btn-danger');
+        playBtn.classList.add('btn-success');
+
+        // Clear visualizer
+        visualizerCtx.fillStyle = '#1a1a2e';
+        visualizerCtx.fillRect(0, 0, visualizer.width, visualizer.height);
+      }
+
+      function playNoise(type) {
+        if (!audioContext) {
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        stopTone();
+
+        const bufferSize = 2 * audioContext.sampleRate;
+        const noiseBuffer = audioContext.createBuffer(2, bufferSize, audioContext.sampleRate);
+
+        for (let channel = 0; channel < 2; channel++) {
+          const nowBuffering = noiseBuffer.getChannelData(channel);
+          for (let i = 0; i < bufferSize; i++) {
+            if (type === 'white') {
+              nowBuffering[i] = Math.random() * 2 - 1;
+            } else {
+              // Pink noise approximation
+              let white = Math.random() * 2 - 1;
+              nowBuffering[i] = (nowBuffering[i - 1] || 0) * 0.99 + white * 0.01;
+            }
+          }
+        }
+
+        const noiseSource = audioContext.createBufferSource();
+        noiseSource.buffer = noiseBuffer;
+        noiseSource.loop = true;
+
+        gainNode = audioContext.createGain();
+        analyser = audioContext.createAnalyser();
+
+        gainNode.gain.setValueAtTime(volumeSlider.value / 100 * 0.3, audioContext.currentTime);
+        analyser.fftSize = 2048;
+
+        noiseSource.connect(gainNode);
+        gainNode.connect(analyser);
+        analyser.connect(audioContext.destination);
+
+        noiseSource.start();
+        oscillator = noiseSource;
+        isPlaying = true;
+
+        playBtn.innerHTML = '<i class="bi bi-stop-fill me-2"></i>Stop';
+        playBtn.classList.remove('btn-success');
+        playBtn.classList.add('btn-danger');
+
+        drawVisualizer();
+      }
+
+      // Event listeners
+      playBtn.addEventListener('click', startTone);
+
+      freqSlider.addEventListener('input', () => updateFrequencyDisplay(freqSlider.value));
+      freqInput.addEventListener('change', () => {
+        const val = Math.max(20, Math.min(20000, freqInput.value));
+        updateFrequencyDisplay(val);
+      });
+
+      volumeSlider.addEventListener('input', () => {
+        volumeDisplay.textContent = volumeSlider.value + '%';
+        if (gainNode) {
+          gainNode.gain.setValueAtTime(volumeSlider.value / 100 * 0.5, audioContext.currentTime);
+        }
+      });
+
+      waveformBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          waveformBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          waveformType = btn.dataset.wave;
+          if (isPlaying) {
+            stopTone();
+            startTone();
+          }
+        });
+      });
+
+      presetBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          updateFrequencyDisplay(parseFloat(btn.dataset.freq));
+        });
+      });
+
+      whiteNoiseBtn.addEventListener('click', () => playNoise('white'));
+      pinkNoiseBtn.addEventListener('click', () => playNoise('pink'));
+
+      leftOnlyBtn.addEventListener('click', () => {
+        panValue = -1;
+        if (panNode) panNode.pan.setValueAtTime(-1, audioContext.currentTime);
+      });
+      rightOnlyBtn.addEventListener('click', () => {
+        panValue = 1;
+        if (panNode) panNode.pan.setValueAtTime(1, audioContext.currentTime);
+      });
+      bothBtn.addEventListener('click', () => {
+        panValue = 0;
+        if (panNode) panNode.pan.setValueAtTime(0, audioContext.currentTime);
+      });
+    });
+  </script>
+</body>
+</html>

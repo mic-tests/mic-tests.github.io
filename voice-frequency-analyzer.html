@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Frequency Analyzer - Real-Time Spectrum Analysis | MicTest</title>
+  <meta name="description" content="Analyze your voice frequencies in real-time. Visualize the frequency spectrum of your voice, identify pitch, and understand your vocal characteristics with our free online tool.">
+  <meta name="keywords" content="voice frequency analyzer, voice spectrum, pitch analyzer, vocal frequency, voice analysis tool, audio spectrum analyzer, frequency visualizer">
+
+  <link rel="canonical" href="https://mic-tests.github.io/voice-frequency-analyzer">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/common.css" rel="stylesheet">
+  <style>
+    .spectrum-container {
+      height: 250px;
+      background: #0d1117;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+    #spectrum-canvas {
+      width: 100%;
+      height: 100%;
+    }
+    .freq-label {
+      position: absolute;
+      bottom: 5px;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.75rem;
+    }
+    .pitch-display {
+      font-size: 4rem;
+      font-weight: bold;
+      font-family: monospace;
+    }
+    .note-display {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .waveform-container {
+      height: 100px;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+    }
+    .voice-range {
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .visualization-mode .btn {
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar Container -->
+  <div id="navbar-container"></div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-lg-8">
+        <h1><i class="bi bi-graph-up me-2"></i>Voice Frequency Analyzer</h1>
+        <p class="lead">Analyze the frequency spectrum of your voice in real-time. Perfect for vocal training, audio analysis, and understanding your voice characteristics. First <a href="/" title="Microphone Test">test your microphone</a> or <a href="/mic-recorder" title="Record Audio">record your voice</a>.</p>
+
+        <div class="alert alert-info" id="status-alert">
+          <i class="bi bi-info-circle-fill me-2"></i>
+          <span id="status-message">Click "Start Analysis" to begin analyzing your voice frequencies.</span>
+        </div>
+
+        <!-- Main Spectrum Card -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-activity me-2"></i>Frequency Spectrum</span>
+            <div class="btn-group btn-group-sm visualization-mode">
+              <button class="btn btn-light active" id="bars-mode">Bars</button>
+              <button class="btn btn-outline-light" id="line-mode">Line</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="spectrum-container mb-3">
+              <canvas id="spectrum-canvas"></canvas>
+              <span class="freq-label" style="left: 5%;">100Hz</span>
+              <span class="freq-label" style="left: 25%;">500Hz</span>
+              <span class="freq-label" style="left: 50%;">1kHz</span>
+              <span class="freq-label" style="left: 75%;">5kHz</span>
+              <span class="freq-label" style="right: 5%;">10kHz+</span>
+            </div>
+
+            <h6>Waveform</h6>
+            <div class="waveform-container mb-3">
+              <canvas id="waveform-canvas"></canvas>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Select Microphone</label>
+                <select class="form-select" id="mic-select" disabled>
+                  <option value="">Loading...</option>
+                </select>
+              </div>
+              <div class="col-md-6 d-flex align-items-end">
+                <button class="btn btn-primary btn-lg w-100" id="start-btn">
+                  <i class="bi bi-play-fill me-2"></i>Start Analysis
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Voice Analysis Results -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-clipboard-data me-2"></i>Voice Analysis
+          </div>
+          <div class="card-body">
+            <div class="row text-center">
+              <div class="col-md-4">
+                <div class="bg-light rounded p-3">
+                  <div class="small text-muted">Fundamental Frequency</div>
+                  <div class="pitch-display text-primary" id="fundamental-freq">--</div>
+                  <div class="small">Hz</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="bg-light rounded p-3">
+                  <div class="small text-muted">Closest Note</div>
+                  <div class="note-display" id="closest-note">--</div>
+                  <div class="small" id="note-cents">--</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="bg-light rounded p-3">
+                  <div class="small text-muted">Voice Type</div>
+                  <div class="h4 mb-0" id="voice-type">--</div>
+                  <div class="small" id="voice-range">--</div>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+
+            <h6><i class="bi bi-bar-chart me-2"></i>Frequency Distribution</h6>
+            <div class="row">
+              <div class="col-6 col-md-3 mb-2">
+                <div class="voice-range bg-info bg-opacity-10 text-center">
+                  <small class="text-muted">Bass (80-300Hz)</small>
+                  <div class="h5 mb-0" id="bass-level">--</div>
+                </div>
+              </div>
+              <div class="col-6 col-md-3 mb-2">
+                <div class="voice-range bg-success bg-opacity-10 text-center">
+                  <small class="text-muted">Mid (300-2kHz)</small>
+                  <div class="h5 mb-0" id="mid-level">--</div>
+                </div>
+              </div>
+              <div class="col-6 col-md-3 mb-2">
+                <div class="voice-range bg-warning bg-opacity-10 text-center">
+                  <small class="text-muted">Presence (2-4kHz)</small>
+                  <div class="h5 mb-0" id="presence-level">--</div>
+                </div>
+              </div>
+              <div class="col-6 col-md-3 mb-2">
+                <div class="voice-range bg-danger bg-opacity-10 text-center">
+                  <small class="text-muted">Brilliance (4kHz+)</small>
+                  <div class="h5 mb-0" id="brilliance-level">--</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Voice Range Reference -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5><i class="bi bi-music-note-list me-2"></i>Voice Range Reference</h5>
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th>Voice Type</th>
+                  <th>Typical Range</th>
+                  <th>Frequency</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Bass</td>
+                  <td>E2 - E4</td>
+                  <td>82 - 330 Hz</td>
+                </tr>
+                <tr>
+                  <td>Baritone</td>
+                  <td>A2 - A4</td>
+                  <td>110 - 440 Hz</td>
+                </tr>
+                <tr>
+                  <td>Tenor</td>
+                  <td>C3 - C5</td>
+                  <td>130 - 523 Hz</td>
+                </tr>
+                <tr>
+                  <td>Alto</td>
+                  <td>F3 - F5</td>
+                  <td>175 - 698 Hz</td>
+                </tr>
+                <tr>
+                  <td>Mezzo-Soprano</td>
+                  <td>A3 - A5</td>
+                  <td>220 - 880 Hz</td>
+                </tr>
+                <tr>
+                  <td>Soprano</td>
+                  <td>C4 - C6</td>
+                  <td>262 - 1047 Hz</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="small mb-0">Compare with <a href="/tone-generator" title="Tone Generator">tone generator</a> or test your <a href="/hearing-test" title="Hearing Test">hearing range</a>.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-tools me-2"></i>Related Tools
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <a href="/" class="text-decoration-none" title="Microphone Test">
+                <i class="bi bi-mic me-2"></i>Microphone Test
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/mic-recorder" class="text-decoration-none" title="Record Audio">
+                <i class="bi bi-record-circle me-2"></i>Mic Recorder
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/tone-generator" class="text-decoration-none" title="Tone Generator">
+                <i class="bi bi-activity me-2"></i>Tone Generator
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/background-noise-analyzer" class="text-decoration-none" title="Noise Analyzer">
+                <i class="bi bi-soundwave me-2"></i>Background Noise Analyzer
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/hearing-test" class="text-decoration-none" title="Hearing Test">
+                <i class="bi bi-ear me-2"></i>Hearing Test
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/show-mic" class="text-decoration-none" title="Mic Details">
+                <i class="bi bi-info-circle me-2"></i>View Mic Specifications
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h6><i class="bi bi-lightbulb me-2 text-warning"></i>Tips for Analysis</h6>
+            <ul class="small mb-0">
+              <li>Speak or sing clearly into the microphone</li>
+              <li>Maintain consistent distance from mic</li>
+              <li>Reduce <a href="/background-noise-analyzer" title="Noise Analyzer">background noise</a> for accurate results</li>
+              <li>Try different vowel sounds to see frequency changes</li>
+              <li>Compare your voice with <a href="/tone-generator" title="Tone Generator">generated tones</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h6><i class="bi bi-shield-check me-2 text-success"></i>Privacy</h6>
+            <p class="small mb-0">All audio analysis is performed locally in your browser. No audio data is recorded or transmitted.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Container -->
+  <div id="footer-container"></div>
+
+  <script src="/js/partials-loader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const startBtn = document.getElementById('start-btn');
+      const micSelect = document.getElementById('mic-select');
+      const spectrumCanvas = document.getElementById('spectrum-canvas');
+      const spectrumCtx = spectrumCanvas.getContext('2d');
+      const waveformCanvas = document.getElementById('waveform-canvas');
+      const waveformCtx = waveformCanvas.getContext('2d');
+      const statusMessage = document.getElementById('status-message');
+      const statusAlert = document.getElementById('status-alert');
+      const barsMode = document.getElementById('bars-mode');
+      const lineMode = document.getElementById('line-mode');
+
+      const fundamentalFreq = document.getElementById('fundamental-freq');
+      const closestNote = document.getElementById('closest-note');
+      const noteCents = document.getElementById('note-cents');
+      const voiceType = document.getElementById('voice-type');
+      const voiceRange = document.getElementById('voice-range');
+      const bassLevel = document.getElementById('bass-level');
+      const midLevel = document.getElementById('mid-level');
+      const presenceLevel = document.getElementById('presence-level');
+      const brillianceLevel = document.getElementById('brilliance-level');
+
+      let audioContext = null;
+      let analyser = null;
+      let audioStream = null;
+      let isRunning = false;
+      let animationId = null;
+      let visualizationMode = 'bars';
+
+      const noteFrequencies = [
+        {note: 'C', freq: 16.35}, {note: 'C#', freq: 17.32}, {note: 'D', freq: 18.35},
+        {note: 'D#', freq: 19.45}, {note: 'E', freq: 20.60}, {note: 'F', freq: 21.83},
+        {note: 'F#', freq: 23.12}, {note: 'G', freq: 24.50}, {note: 'G#', freq: 25.96},
+        {note: 'A', freq: 27.50}, {note: 'A#', freq: 29.14}, {note: 'B', freq: 30.87}
+      ];
+
+      function resizeCanvases() {
+        spectrumCanvas.width = spectrumCanvas.parentElement.offsetWidth;
+        spectrumCanvas.height = spectrumCanvas.parentElement.offsetHeight;
+        waveformCanvas.width = waveformCanvas.parentElement.offsetWidth;
+        waveformCanvas.height = waveformCanvas.parentElement.offsetHeight;
+      }
+      resizeCanvases();
+      window.addEventListener('resize', resizeCanvases);
+
+      async function getAudioDevices() {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          stream.getTracks().forEach(track => track.stop());
+
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const audioInputs = devices.filter(d => d.kind === 'audioinput');
+
+          micSelect.innerHTML = '';
+          audioInputs.forEach((device, index) => {
+            const option = document.createElement('option');
+            option.value = device.deviceId;
+            option.text = device.label || `Microphone ${index + 1}`;
+            micSelect.appendChild(option);
+          });
+          micSelect.disabled = false;
+        } catch (error) {
+          updateStatus('danger', 'Microphone access denied.');
+        }
+      }
+
+      function updateStatus(type, message) {
+        statusAlert.className = `alert alert-${type}`;
+        statusMessage.innerHTML = message;
+      }
+
+      function getClosestNote(freq) {
+        let octave = Math.floor(Math.log2(freq / 16.35));
+        let noteInOctave = freq / Math.pow(2, octave);
+
+        let closestNote = noteFrequencies[0];
+        let minDiff = Math.abs(noteInOctave - noteFrequencies[0].freq);
+
+        for (let note of noteFrequencies) {
+          const diff = Math.abs(noteInOctave - note.freq);
+          if (diff < minDiff) {
+            minDiff = diff;
+            closestNote = note;
+          }
+        }
+
+        const cents = Math.round(1200 * Math.log2(freq / (closestNote.freq * Math.pow(2, octave))));
+        return { note: closestNote.note + octave, cents };
+      }
+
+      function getVoiceType(freq) {
+        if (freq < 110) return { type: 'Bass', range: '82-330 Hz' };
+        if (freq < 165) return { type: 'Baritone', range: '110-440 Hz' };
+        if (freq < 262) return { type: 'Tenor', range: '130-523 Hz' };
+        if (freq < 350) return { type: 'Alto', range: '175-698 Hz' };
+        if (freq < 440) return { type: 'Mezzo-Soprano', range: '220-880 Hz' };
+        return { type: 'Soprano', range: '262-1047 Hz' };
+      }
+
+      function findFundamentalFrequency(dataArray, sampleRate) {
+        let maxIndex = 0;
+        let maxValue = 0;
+
+        for (let i = 5; i < dataArray.length / 2; i++) {
+          if (dataArray[i] > maxValue) {
+            maxValue = dataArray[i];
+            maxIndex = i;
+          }
+        }
+
+        return (maxIndex * sampleRate) / (analyser.fftSize * 2);
+      }
+
+      function draw() {
+        if (!analyser || !isRunning) return;
+
+        const bufferLength = analyser.frequencyBinCount;
+        const freqData = new Uint8Array(bufferLength);
+        const timeData = new Uint8Array(bufferLength);
+
+        analyser.getByteFrequencyData(freqData);
+        analyser.getByteTimeDomainData(timeData);
+
+        // Draw spectrum
+        spectrumCtx.fillStyle = '#0d1117';
+        spectrumCtx.fillRect(0, 0, spectrumCanvas.width, spectrumCanvas.height);
+
+        if (visualizationMode === 'bars') {
+          const barWidth = (spectrumCanvas.width / bufferLength) * 2.5;
+          let x = 0;
+
+          for (let i = 0; i < bufferLength; i++) {
+            const barHeight = (freqData[i] / 255) * spectrumCanvas.height;
+            const hue = (i / bufferLength) * 280;
+            spectrumCtx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+            spectrumCtx.fillRect(x, spectrumCanvas.height - barHeight, barWidth, barHeight);
+            x += barWidth + 1;
+          }
+        } else {
+          spectrumCtx.strokeStyle = '#00ff88';
+          spectrumCtx.lineWidth = 2;
+          spectrumCtx.beginPath();
+
+          const sliceWidth = spectrumCanvas.width / bufferLength;
+          let x = 0;
+
+          for (let i = 0; i < bufferLength; i++) {
+            const y = spectrumCanvas.height - (freqData[i] / 255) * spectrumCanvas.height;
+            if (i === 0) spectrumCtx.moveTo(x, y);
+            else spectrumCtx.lineTo(x, y);
+            x += sliceWidth;
+          }
+          spectrumCtx.stroke();
+        }
+
+        // Draw waveform
+        waveformCtx.fillStyle = '#f8f9fa';
+        waveformCtx.fillRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+        waveformCtx.strokeStyle = '#0d6efd';
+        waveformCtx.lineWidth = 2;
+        waveformCtx.beginPath();
+
+        const waveSlice = waveformCanvas.width / bufferLength;
+        let wx = 0;
+
+        for (let i = 0; i < bufferLength; i++) {
+          const v = timeData[i] / 128.0;
+          const y = v * waveformCanvas.height / 2;
+          if (i === 0) waveformCtx.moveTo(wx, y);
+          else waveformCtx.lineTo(wx, y);
+          wx += waveSlice;
+        }
+        waveformCtx.stroke();
+
+        // Calculate frequencies
+        const fundFreq = findFundamentalFrequency(freqData, audioContext.sampleRate);
+
+        if (fundFreq > 50 && fundFreq < 1000) {
+          fundamentalFreq.textContent = Math.round(fundFreq);
+
+          const noteInfo = getClosestNote(fundFreq);
+          closestNote.textContent = noteInfo.note;
+          noteCents.textContent = `${noteInfo.cents > 0 ? '+' : ''}${noteInfo.cents} cents`;
+
+          const voice = getVoiceType(fundFreq);
+          voiceType.textContent = voice.type;
+          voiceRange.textContent = voice.range;
+        }
+
+        // Frequency bands
+        const calcBand = (start, end) => {
+          let sum = 0;
+          const startIdx = Math.floor(start / 22050 * bufferLength);
+          const endIdx = Math.floor(end / 22050 * bufferLength);
+          for (let i = startIdx; i < endIdx && i < bufferLength; i++) sum += freqData[i];
+          return Math.round((sum / (endIdx - startIdx)) / 255 * 100);
+        };
+
+        bassLevel.textContent = calcBand(80, 300) + '%';
+        midLevel.textContent = calcBand(300, 2000) + '%';
+        presenceLevel.textContent = calcBand(2000, 4000) + '%';
+        brillianceLevel.textContent = calcBand(4000, 20000) + '%';
+
+        animationId = requestAnimationFrame(draw);
+      }
+
+      async function startAnalysis() {
+        if (isRunning) {
+          stopAnalysis();
+          return;
+        }
+
+        try {
+          const deviceId = micSelect.value;
+          const constraints = { audio: deviceId ? { deviceId: { exact: deviceId } } : true };
+
+          audioStream = await navigator.mediaDevices.getUserMedia(constraints);
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          analyser = audioContext.createAnalyser();
+          const source = audioContext.createMediaStreamSource(audioStream);
+          source.connect(analyser);
+          analyser.fftSize = 4096;
+
+          isRunning = true;
+          startBtn.innerHTML = '<i class="bi bi-stop-fill me-2"></i>Stop Analysis';
+          startBtn.classList.remove('btn-primary');
+          startBtn.classList.add('btn-danger');
+          micSelect.disabled = true;
+
+          updateStatus('success', 'Analyzing voice frequencies... Speak or sing into your microphone.');
+          draw();
+
+        } catch (error) {
+          updateStatus('danger', 'Error: ' + error.message);
+        }
+      }
+
+      function stopAnalysis() {
+        isRunning = false;
+        if (animationId) cancelAnimationFrame(animationId);
+        if (audioStream) audioStream.getTracks().forEach(track => track.stop());
+        if (audioContext) audioContext.close();
+
+        startBtn.innerHTML = '<i class="bi bi-play-fill me-2"></i>Start Analysis';
+        startBtn.classList.remove('btn-danger');
+        startBtn.classList.add('btn-primary');
+        micSelect.disabled = false;
+
+        updateStatus('info', 'Analysis stopped.');
+      }
+
+      // Event listeners
+      startBtn.addEventListener('click', startAnalysis);
+      barsMode.addEventListener('click', () => {
+        visualizationMode = 'bars';
+        barsMode.classList.add('active');
+        barsMode.classList.remove('btn-outline-light');
+        barsMode.classList.add('btn-light');
+        lineMode.classList.remove('active');
+        lineMode.classList.add('btn-outline-light');
+        lineMode.classList.remove('btn-light');
+      });
+      lineMode.addEventListener('click', () => {
+        visualizationMode = 'line';
+        lineMode.classList.add('active');
+        lineMode.classList.remove('btn-outline-light');
+        lineMode.classList.add('btn-light');
+        barsMode.classList.remove('active');
+        barsMode.classList.add('btn-outline-light');
+        barsMode.classList.remove('btn-light');
+      });
+
+      getAudioDevices();
+    });
+  </script>
+</body>
+</html>

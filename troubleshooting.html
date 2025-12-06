@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio Troubleshooting Guide - Fix Microphone & Speaker Issues | MicTest</title>
+  <meta name="description" content="Fix common microphone and speaker problems. Troubleshoot audio issues on Windows, Mac, and Chrome. Solutions for no sound, mic not working, echo, and more.">
+  <meta name="keywords" content="microphone troubleshooting, fix microphone, speaker not working, audio problems, mic issues, no sound fix, browser audio fix">
+
+  <link rel="canonical" href="https://mic-tests.github.io/troubleshooting">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/common.css" rel="stylesheet">
+  <style>
+    .issue-card { cursor: pointer; transition: all 0.2s; border-left: 4px solid transparent; }
+    .issue-card:hover { border-left-color: #0d6efd; background: #f8f9fa; }
+    .issue-card.active { border-left-color: #0d6efd; background: #e7f1ff; }
+    .solution-step { padding: 15px; margin-bottom: 10px; border-radius: 8px; background: #f8f9fa; }
+    .solution-step:hover { background: #e9ecef; }
+    .step-number { width: 30px; height: 30px; border-radius: 50%; background: #0d6efd; color: white; display: inline-flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 10px; }
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-lg-8">
+        <h1><i class="bi bi-question-circle me-2"></i>Audio Troubleshooting Guide</h1>
+        <p class="lead">Having issues with your microphone or speakers? Find solutions to common audio problems below. You can also <a href="/" title="Test Microphone">test your microphone</a> or <a href="/show-speakers" title="Test Speakers">check your speakers</a>.</p>
+
+        <!-- Quick Diagnostic -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-lightning me-2"></i>Quick Diagnostic
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <a href="/" class="btn btn-outline-primary w-100 py-3">
+                  <i class="bi bi-mic fs-4 d-block mb-1"></i>
+                  Test Microphone
+                </a>
+              </div>
+              <div class="col-md-6 mb-3">
+                <a href="/speaker-volume-test" class="btn btn-outline-primary w-100 py-3">
+                  <i class="bi bi-volume-up fs-4 d-block mb-1"></i>
+                  Test Speakers
+                </a>
+              </div>
+              <div class="col-md-6 mb-3">
+                <a href="/show-mic" class="btn btn-outline-secondary w-100 py-3">
+                  <i class="bi bi-info-circle fs-4 d-block mb-1"></i>
+                  View Mic Info
+                </a>
+              </div>
+              <div class="col-md-6 mb-3">
+                <a href="/echo-test" class="btn btn-outline-secondary w-100 py-3">
+                  <i class="bi bi-arrow-repeat fs-4 d-block mb-1"></i>
+                  Echo Test
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Common Issues -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-wrench me-2"></i>Select Your Issue
+          </div>
+          <div class="card-body p-0">
+            <div class="issue-card p-3 active" data-issue="mic-not-working">
+              <i class="bi bi-mic-mute me-2 text-danger"></i>
+              <strong>Microphone Not Working</strong>
+            </div>
+            <div class="issue-card p-3" data-issue="no-sound">
+              <i class="bi bi-volume-mute me-2 text-danger"></i>
+              <strong>No Sound from Speakers</strong>
+            </div>
+            <div class="issue-card p-3" data-issue="permission-denied">
+              <i class="bi bi-shield-x me-2 text-warning"></i>
+              <strong>Browser Permission Denied</strong>
+            </div>
+            <div class="issue-card p-3" data-issue="echo-feedback">
+              <i class="bi bi-arrow-repeat me-2 text-warning"></i>
+              <strong>Echo or Feedback</strong>
+            </div>
+            <div class="issue-card p-3" data-issue="low-volume">
+              <i class="bi bi-volume-down me-2 text-warning"></i>
+              <strong>Low Volume / Quiet Audio</strong>
+            </div>
+            <div class="issue-card p-3" data-issue="distortion">
+              <i class="bi bi-soundwave me-2 text-warning"></i>
+              <strong>Distorted or Crackling Sound</strong>
+            </div>
+            <div class="issue-card p-3" data-issue="wrong-device">
+              <i class="bi bi-usb-drive me-2 text-info"></i>
+              <strong>Wrong Device Selected</strong>
+            </div>
+            <div class="issue-card p-3" data-issue="bluetooth">
+              <i class="bi bi-bluetooth me-2 text-info"></i>
+              <strong>Bluetooth Audio Issues</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Solutions -->
+        <div class="card mb-4">
+          <div class="card-header bg-success text-white">
+            <i class="bi bi-check-circle me-2"></i>Solutions
+          </div>
+          <div class="card-body" id="solutions-container">
+            <!-- Mic Not Working -->
+            <div class="solution-content" id="sol-mic-not-working">
+              <h5>Microphone Not Working - Solutions</h5>
+
+              <div class="solution-step">
+                <span class="step-number">1</span>
+                <strong>Check Physical Connection</strong>
+                <p class="mb-0 mt-2 small">Ensure your microphone is properly plugged in. For USB mics, try a different port. For wireless, check battery.</p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">2</span>
+                <strong>Check Browser Permissions</strong>
+                <p class="mb-0 mt-2 small">Click the lock icon in your browser's address bar → Site Settings → Allow Microphone access.</p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">3</span>
+                <strong>Check System Settings</strong>
+                <p class="mb-0 mt-2 small">
+                  <strong>Windows:</strong> Settings → Privacy → Microphone → Enable access<br>
+                  <strong>Mac:</strong> System Preferences → Security & Privacy → Microphone
+                </p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">4</span>
+                <strong>Select Correct Input Device</strong>
+                <p class="mb-0 mt-2 small">In your system sound settings, ensure the correct microphone is selected as the default input device. <a href="/show-mic">View detected devices</a>.</p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">5</span>
+                <strong>Update Audio Drivers</strong>
+                <p class="mb-0 mt-2 small">Outdated drivers can cause issues. Check your device manufacturer's website for updates.</p>
+              </div>
+            </div>
+
+            <!-- No Sound -->
+            <div class="solution-content d-none" id="sol-no-sound">
+              <h5>No Sound from Speakers - Solutions</h5>
+
+              <div class="solution-step">
+                <span class="step-number">1</span>
+                <strong>Check Volume Levels</strong>
+                <p class="mb-0 mt-2 small">Check system volume, browser volume, and physical speaker/headphone volume controls.</p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">2</span>
+                <strong>Check Output Device</strong>
+                <p class="mb-0 mt-2 small">Ensure correct output device is selected. <a href="/show-speakers">Check speaker details</a>.</p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">3</span>
+                <strong>Test with Different Audio</strong>
+                <p class="mb-0 mt-2 small">Try playing audio from another website or application to isolate the issue. <a href="/speaker-volume-test">Use our speaker test</a>.</p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">4</span>
+                <strong>Restart Audio Service</strong>
+                <p class="mb-0 mt-2 small">
+                  <strong>Windows:</strong> services.msc → Windows Audio → Restart<br>
+                  <strong>Mac:</strong> sudo killall coreaudiod
+                </p>
+              </div>
+            </div>
+
+            <!-- Permission Denied -->
+            <div class="solution-content d-none" id="sol-permission-denied">
+              <h5>Browser Permission Denied - Solutions</h5>
+
+              <div class="solution-step">
+                <span class="step-number">1</span>
+                <strong>Reset Site Permissions</strong>
+                <p class="mb-0 mt-2 small">Click the lock/info icon in your address bar → Reset permissions → Reload the page.</p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">2</span>
+                <strong>Chrome Settings</strong>
+                <p class="mb-0 mt-2 small">Go to chrome://settings/content/microphone → Remove this site from blocked list → Reload.</p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">3</span>
+                <strong>System-Level Permissions</strong>
+                <p class="mb-0 mt-2 small">
+                  <strong>Windows:</strong> Settings → Privacy → Microphone → Allow apps to access<br>
+                  <strong>Mac:</strong> System Preferences → Security & Privacy → Microphone → Enable for your browser
+                </p>
+              </div>
+            </div>
+
+            <!-- Echo Feedback -->
+            <div class="solution-content d-none" id="sol-echo-feedback">
+              <h5>Echo or Feedback - Solutions</h5>
+
+              <div class="solution-step">
+                <span class="step-number">1</span>
+                <strong>Use Headphones</strong>
+                <p class="mb-0 mt-2 small">The most effective solution. Prevents speaker audio from being picked up by the mic. <a href="/headphone-test">Test your headphones</a>.</p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">2</span>
+                <strong>Lower Speaker Volume</strong>
+                <p class="mb-0 mt-2 small">Reduce volume to minimize audio reaching the microphone.</p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">3</span>
+                <strong>Increase Distance</strong>
+                <p class="mb-0 mt-2 small">Move your microphone away from speakers.</p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">4</span>
+                <strong>Enable Echo Cancellation</strong>
+                <p class="mb-0 mt-2 small">Check your app/software settings for echo cancellation options. <a href="/echo-test">Test for echo</a>.</p>
+              </div>
+            </div>
+
+            <!-- Low Volume -->
+            <div class="solution-content d-none" id="sol-low-volume">
+              <h5>Low Volume - Solutions</h5>
+
+              <div class="solution-step">
+                <span class="step-number">1</span>
+                <strong>Check All Volume Controls</strong>
+                <p class="mb-0 mt-2 small">System volume, app volume, browser volume, and physical device volume.</p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">2</span>
+                <strong>Boost Microphone Levels</strong>
+                <p class="mb-0 mt-2 small">
+                  <strong>Windows:</strong> Sound settings → Recording → Properties → Levels → Increase Microphone Boost<br>
+                  <strong>Mac:</strong> System Preferences → Sound → Input → Increase input volume
+                </p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">3</span>
+                <strong>Position Microphone Closer</strong>
+                <p class="mb-0 mt-2 small">Move closer to your microphone, typically 6-12 inches for best results. <a href="/sound-level-meter">Check audio levels</a>.</p>
+              </div>
+            </div>
+
+            <!-- Distortion -->
+            <div class="solution-content d-none" id="sol-distortion">
+              <h5>Distorted Sound - Solutions</h5>
+
+              <div class="solution-step">
+                <span class="step-number">1</span>
+                <strong>Lower Input Gain</strong>
+                <p class="mb-0 mt-2 small">Audio clipping causes distortion. Reduce microphone gain/boost in system settings.</p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">2</span>
+                <strong>Check Cable Connections</strong>
+                <p class="mb-0 mt-2 small">Loose or damaged cables cause crackling. Try different cables.</p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">3</span>
+                <strong>Reduce Interference</strong>
+                <p class="mb-0 mt-2 small">Move away from electronic devices, routers, and phones that may cause interference. <a href="/background-noise-analyzer">Analyze background noise</a>.</p>
+              </div>
+            </div>
+
+            <!-- Wrong Device -->
+            <div class="solution-content d-none" id="sol-wrong-device">
+              <h5>Wrong Device Selected - Solutions</h5>
+
+              <div class="solution-step">
+                <span class="step-number">1</span>
+                <strong>Check System Sound Settings</strong>
+                <p class="mb-0 mt-2 small">Open system sound settings and verify the correct input/output device is selected as default.</p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">2</span>
+                <strong>Use Device Selector</strong>
+                <p class="mb-0 mt-2 small">Many of our tools have device selectors. <a href="/show-mic">View your microphones</a> or <a href="/show-speakers">view your speakers</a>.</p>
+              </div>
+            </div>
+
+            <!-- Bluetooth -->
+            <div class="solution-content d-none" id="sol-bluetooth">
+              <h5>Bluetooth Audio Issues - Solutions</h5>
+
+              <div class="solution-step">
+                <span class="step-number">1</span>
+                <strong>Re-pair Device</strong>
+                <p class="mb-0 mt-2 small">Remove the Bluetooth device and pair it again.</p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">2</span>
+                <strong>Check Battery</strong>
+                <p class="mb-0 mt-2 small">Low battery can cause audio issues. Charge your device.</p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">3</span>
+                <strong>Reduce Distance</strong>
+                <p class="mb-0 mt-2 small">Stay within range of your computer. Walls and obstacles can affect signal.</p>
+              </div>
+
+              <div class="solution-step">
+                <span class="step-number">4</span>
+                <strong>Check Audio Codec</strong>
+                <p class="mb-0 mt-2 small">Some Bluetooth profiles have poor microphone quality. Try using "Hands-Free" profile for calls. <a href="/audio-latency-test">Test latency</a>.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">Diagnostic Tools</div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><a href="/" class="text-decoration-none"><i class="bi bi-mic me-2"></i>Microphone Test</a></li>
+            <li class="list-group-item"><a href="/show-mic" class="text-decoration-none"><i class="bi bi-info-circle me-2"></i>View Mic Details</a></li>
+            <li class="list-group-item"><a href="/speaker-volume-test" class="text-decoration-none"><i class="bi bi-volume-up me-2"></i>Speaker Volume Test</a></li>
+            <li class="list-group-item"><a href="/echo-test" class="text-decoration-none"><i class="bi bi-arrow-repeat me-2"></i>Echo Test</a></li>
+            <li class="list-group-item"><a href="/audio-latency-test" class="text-decoration-none"><i class="bi bi-stopwatch me-2"></i>Latency Test</a></li>
+            <li class="list-group-item"><a href="/background-noise-analyzer" class="text-decoration-none"><i class="bi bi-soundwave me-2"></i>Noise Analyzer</a></li>
+          </ul>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h6><i class="bi bi-envelope me-2"></i>Still Need Help?</h6>
+            <p class="small">If you're still experiencing issues after trying these solutions, <a href="/contact">contact us</a> with details about your problem and we'll try to help.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h6><i class="bi bi-info-circle me-2"></i>About</h6>
+            <p class="small mb-0">Learn more about our audio testing tools on our <a href="/about">about page</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer-container"></div>
+
+  <script src="/js/partials-loader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const issueCards = document.querySelectorAll('.issue-card');
+      const solutionContents = document.querySelectorAll('.solution-content');
+
+      issueCards.forEach(card => {
+        card.addEventListener('click', () => {
+          // Update active state
+          issueCards.forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+
+          // Show corresponding solution
+          const issue = card.dataset.issue;
+          solutionContents.forEach(content => {
+            content.classList.add('d-none');
+            if (content.id === 'sol-' + issue) {
+              content.classList.remove('d-none');
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

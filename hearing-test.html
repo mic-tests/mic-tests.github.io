@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hearing Test - Check Your Hearing Range Online | MicTest</title>
+  <meta name="description" content="Free online hearing test. Check your hearing frequency range from 20Hz to 20kHz. Test each ear individually. Note: This is not a medical hearing test.">
+  <meta name="keywords" content="hearing test online, frequency hearing test, hearing range test, audiometry test online, ear test, hearing check">
+
+  <link rel="canonical" href="https://mic-tests.github.io/hearing-test">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/common.css" rel="stylesheet">
+  <style>
+    .freq-btn { width: 100%; margin-bottom: 8px; position: relative; }
+    .freq-btn .heard-badge { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); }
+    .ear-section { padding: 20px; border-radius: 10px; }
+    .range-indicator { height: 30px; border-radius: 5px; position: relative; }
+    .range-marker { position: absolute; height: 100%; width: 4px; background: #dc3545; top: 0; }
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-lg-8">
+        <h1><i class="bi bi-ear me-2"></i>Hearing Test</h1>
+        <p class="lead">Test your hearing range with frequencies from 20Hz to 20kHz. Use quality <a href="/headphone-test" title="Headphone Test">headphones</a> for accurate results. For speaker testing, see our <a href="/tone-generator" title="Tone Generator">tone generator</a>.</p>
+
+        <div class="alert alert-warning">
+          <i class="bi bi-exclamation-triangle me-2"></i>
+          <strong>Disclaimer:</strong> This is not a medical hearing test. For concerns about your hearing, please consult an audiologist.
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-sliders me-2"></i>Test Settings
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="form-label">Test Ear</label>
+                <select class="form-select" id="ear-select">
+                  <option value="both">Both Ears</option>
+                  <option value="left">Left Ear Only</option>
+                  <option value="right">Right Ear Only</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Volume</label>
+                <input type="range" class="form-range" id="volume" min="10" max="100" value="40">
+                <div class="text-center" id="vol-display">40%</div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Tone Duration</label>
+                <select class="form-select" id="duration">
+                  <option value="0.5">0.5 seconds</option>
+                  <option value="1" selected>1 second</option>
+                  <option value="2">2 seconds</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-soundwave me-2"></i>Frequency Test
+          </div>
+          <div class="card-body">
+            <p>Click each frequency button. Mark "Heard" if you can hear the tone, "Not Heard" if you can't.</p>
+
+            <div class="row">
+              <div class="col-md-6">
+                <h6>Low Frequencies (Bass)</h6>
+                <button class="btn btn-outline-primary freq-btn" data-freq="20">20 Hz</button>
+                <button class="btn btn-outline-primary freq-btn" data-freq="30">30 Hz</button>
+                <button class="btn btn-outline-primary freq-btn" data-freq="40">40 Hz</button>
+                <button class="btn btn-outline-primary freq-btn" data-freq="60">60 Hz</button>
+                <button class="btn btn-outline-primary freq-btn" data-freq="100">100 Hz</button>
+                <button class="btn btn-outline-primary freq-btn" data-freq="200">200 Hz</button>
+                <button class="btn btn-outline-primary freq-btn" data-freq="500">500 Hz</button>
+              </div>
+              <div class="col-md-6">
+                <h6>High Frequencies (Treble)</h6>
+                <button class="btn btn-outline-primary freq-btn" data-freq="1000">1 kHz</button>
+                <button class="btn btn-outline-primary freq-btn" data-freq="2000">2 kHz</button>
+                <button class="btn btn-outline-primary freq-btn" data-freq="4000">4 kHz</button>
+                <button class="btn btn-outline-primary freq-btn" data-freq="6000">6 kHz</button>
+                <button class="btn btn-outline-primary freq-btn" data-freq="8000">8 kHz</button>
+                <button class="btn btn-outline-primary freq-btn" data-freq="12000">12 kHz</button>
+                <button class="btn btn-outline-primary freq-btn" data-freq="16000">16 kHz</button>
+                <button class="btn btn-outline-primary freq-btn" data-freq="18000">18 kHz</button>
+                <button class="btn btn-outline-primary freq-btn" data-freq="20000">20 kHz</button>
+              </div>
+            </div>
+
+            <div class="mt-3">
+              <button class="btn btn-success me-2" id="heard-btn" disabled>
+                <i class="bi bi-check me-1"></i>I Heard It
+              </button>
+              <button class="btn btn-secondary me-2" id="not-heard-btn" disabled>
+                <i class="bi bi-x me-1"></i>Didn't Hear
+              </button>
+              <button class="btn btn-outline-danger" id="reset-btn">
+                <i class="bi bi-arrow-counterclockwise me-1"></i>Reset All
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">Your Hearing Range</div>
+          <div class="card-body">
+            <div class="range-indicator bg-light mb-2" style="background: linear-gradient(to right, #6610f2, #0d6efd, #20c997, #ffc107, #dc3545);">
+              <div class="range-marker" id="low-marker" style="left: 0%;"></div>
+              <div class="range-marker" id="high-marker" style="left: 100%;"></div>
+            </div>
+            <div class="d-flex justify-content-between small">
+              <span>20 Hz</span>
+              <span>100 Hz</span>
+              <span>1 kHz</span>
+              <span>10 kHz</span>
+              <span>20 kHz</span>
+            </div>
+            <div class="mt-3 text-center">
+              <h5>Detected Range: <span id="range-display">-- Hz to -- Hz</span></h5>
+              <p class="text-muted small" id="range-comment">Complete the test to see your hearing range</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5><i class="bi bi-info-circle me-2"></i>About Hearing Range</h5>
+            <ul>
+              <li><strong>Normal range:</strong> 20 Hz - 20,000 Hz (declines with age)</li>
+              <li><strong>Age 20-30:</strong> Typically hear up to 16-18 kHz</li>
+              <li><strong>Age 40-50:</strong> Typically hear up to 12-14 kHz</li>
+              <li><strong>Age 60+:</strong> Typically hear up to 8-10 kHz</li>
+            </ul>
+            <p class="mb-0 small">Results depend on your <a href="/headphone-test" title="Headphones">headphone quality</a> and testing environment.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">Related Tools</div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><a href="/headphone-test" class="text-decoration-none"><i class="bi bi-headphones me-2"></i>Headphone Test</a></li>
+            <li class="list-group-item"><a href="/tone-generator" class="text-decoration-none"><i class="bi bi-activity me-2"></i>Tone Generator</a></li>
+            <li class="list-group-item"><a href="/voice-frequency-analyzer" class="text-decoration-none"><i class="bi bi-graph-up me-2"></i>Voice Analyzer</a></li>
+            <li class="list-group-item"><a href="/bass-test" class="text-decoration-none"><i class="bi bi-disc me-2"></i>Bass Test</a></li>
+            <li class="list-group-item"><a href="/stereo-test" class="text-decoration-none"><i class="bi bi-badge-hd me-2"></i>Stereo Test</a></li>
+            <li class="list-group-item"><a href="/" class="text-decoration-none"><i class="bi bi-mic me-2"></i>Microphone Test</a></li>
+          </ul>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h6><i class="bi bi-lightbulb me-2 text-warning"></i>Tips</h6>
+            <ul class="small mb-0">
+              <li>Use quality headphones</li>
+              <li>Test in a quiet room</li>
+              <li>Start with medium volume</li>
+              <li>Don't increase volume too high for high frequencies</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h6><i class="bi bi-exclamation-circle me-2 text-danger"></i>Important</h6>
+            <p class="small mb-0">This test is for entertainment only. If you have hearing concerns, please see an audiologist for a professional evaluation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer-container"></div>
+
+  <script src="/js/partials-loader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const freqBtns = document.querySelectorAll('.freq-btn');
+      const earSelect = document.getElementById('ear-select');
+      const volume = document.getElementById('volume');
+      const volDisplay = document.getElementById('vol-display');
+      const duration = document.getElementById('duration');
+      const heardBtn = document.getElementById('heard-btn');
+      const notHeardBtn = document.getElementById('not-heard-btn');
+      const resetBtn = document.getElementById('reset-btn');
+      const rangeDisplay = document.getElementById('range-display');
+      const rangeComment = document.getElementById('range-comment');
+      const lowMarker = document.getElementById('low-marker');
+      const highMarker = document.getElementById('high-marker');
+
+      let audioContext = null;
+      let oscillator = null;
+      let currentBtn = null;
+      let results = {};
+
+      function playTone(freq) {
+        stopTone();
+        if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        const panNode = audioContext.createStereoPanner();
+
+        oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
+        gainNode.gain.setValueAtTime(volume.value / 100 * 0.3, audioContext.currentTime);
+
+        const ear = earSelect.value;
+        panNode.pan.setValueAtTime(ear === 'left' ? -1 : ear === 'right' ? 1 : 0, audioContext.currentTime);
+
+        oscillator.connect(gainNode);
+        gainNode.connect(panNode);
+        panNode.connect(audioContext.destination);
+        oscillator.start();
+
+        const dur = parseFloat(duration.value) * 1000;
+        setTimeout(stopTone, dur);
+      }
+
+      function stopTone() {
+        if (oscillator) { try { oscillator.stop(); } catch(e) {} oscillator = null; }
+      }
+
+      function updateRange() {
+        const heard = Object.entries(results).filter(([f, h]) => h).map(([f]) => parseInt(f)).sort((a,b) => a-b);
+        if (heard.length === 0) {
+          rangeDisplay.textContent = '-- Hz to -- Hz';
+          rangeComment.textContent = 'Complete the test to see your hearing range';
+          return;
+        }
+        const low = heard[0];
+        const high = heard[heard.length - 1];
+        rangeDisplay.textContent = `${low} Hz to ${high >= 1000 ? (high/1000) + ' kHz' : high + ' Hz'}`;
+
+        // Position markers (log scale)
+        const logPos = (f) => (Math.log10(f) - Math.log10(20)) / (Math.log10(20000) - Math.log10(20)) * 100;
+        lowMarker.style.left = logPos(low) + '%';
+        highMarker.style.left = logPos(high) + '%';
+
+        if (high >= 16000) rangeComment.textContent = 'Excellent hearing range!';
+        else if (high >= 12000) rangeComment.textContent = 'Good hearing range for most adults';
+        else if (high >= 8000) rangeComment.textContent = 'Typical for ages 50+';
+        else rangeComment.textContent = 'Consider consulting an audiologist';
+      }
+
+      freqBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (currentBtn) currentBtn.classList.remove('btn-primary');
+          currentBtn = btn;
+          btn.classList.add('btn-primary');
+          playTone(parseInt(btn.dataset.freq));
+          heardBtn.disabled = false;
+          notHeardBtn.disabled = false;
+        });
+      });
+
+      heardBtn.addEventListener('click', () => {
+        if (!currentBtn) return;
+        results[currentBtn.dataset.freq] = true;
+        currentBtn.classList.remove('btn-primary', 'btn-outline-primary', 'btn-secondary');
+        currentBtn.classList.add('btn-success');
+        currentBtn.innerHTML = currentBtn.dataset.freq >= 1000 ?
+          (currentBtn.dataset.freq/1000) + ' kHz <span class="heard-badge badge bg-light text-success">✓</span>' :
+          currentBtn.dataset.freq + ' Hz <span class="heard-badge badge bg-light text-success">✓</span>';
+        updateRange();
+        heardBtn.disabled = true;
+        notHeardBtn.disabled = true;
+      });
+
+      notHeardBtn.addEventListener('click', () => {
+        if (!currentBtn) return;
+        results[currentBtn.dataset.freq] = false;
+        currentBtn.classList.remove('btn-primary', 'btn-outline-primary', 'btn-success');
+        currentBtn.classList.add('btn-secondary');
+        currentBtn.innerHTML = currentBtn.dataset.freq >= 1000 ?
+          (currentBtn.dataset.freq/1000) + ' kHz <span class="heard-badge badge bg-light text-secondary">✗</span>' :
+          currentBtn.dataset.freq + ' Hz <span class="heard-badge badge bg-light text-secondary">✗</span>';
+        updateRange();
+        heardBtn.disabled = true;
+        notHeardBtn.disabled = true;
+      });
+
+      resetBtn.addEventListener('click', () => {
+        results = {};
+        freqBtns.forEach(btn => {
+          btn.classList.remove('btn-primary', 'btn-success', 'btn-secondary');
+          btn.classList.add('btn-outline-primary');
+          const freq = parseInt(btn.dataset.freq);
+          btn.innerHTML = freq >= 1000 ? (freq/1000) + ' kHz' : freq + ' Hz';
+        });
+        updateRange();
+        currentBtn = null;
+        heardBtn.disabled = true;
+        notHeardBtn.disabled = true;
+      });
+
+      volume.addEventListener('input', () => volDisplay.textContent = volume.value + '%');
+    });
+  </script>
+</body>
+</html>

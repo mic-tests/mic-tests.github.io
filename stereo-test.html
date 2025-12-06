@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stereo Test - Check Left & Right Audio Channels | MicTest</title>
+  <meta name="description" content="Free online stereo test. Verify your left and right audio channels are working correctly. Test speaker balance, headphone channels, and stereo separation.">
+  <meta name="keywords" content="stereo test, left right audio test, speaker channel test, headphone stereo test, audio balance test, stereo sound check">
+
+  <link rel="canonical" href="https://mic-tests.github.io/stereo-test">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/common.css" rel="stylesheet">
+  <style>
+    .speaker-icon {
+      font-size: 5rem;
+      transition: all 0.3s ease;
+    }
+    .speaker-icon.active {
+      color: #0d6efd;
+      animation: pulse 0.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    .channel-card {
+      padding: 40px 20px;
+      text-align: center;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .channel-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .channel-card.playing {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    .balance-slider {
+      width: 100%;
+    }
+    .test-sequence-item {
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .test-sequence-item:hover {
+      background: #e9ecef;
+    }
+    .test-sequence-item.active {
+      background: #0d6efd;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar Container -->
+  <div id="navbar-container"></div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-lg-8">
+        <h1><i class="bi bi-badge-hd me-2"></i>Stereo Test</h1>
+        <p class="lead">Test your left and right audio channels to ensure proper stereo output. Works with <a href="/headphone-test" title="Headphone Test">headphones</a> and <a href="/show-speakers" title="Speaker Details">speakers</a>. Use our <a href="/tone-generator" title="Tone Generator">tone generator</a> for custom frequency tests.</p>
+
+        <div class="alert alert-info" id="status-alert">
+          <i class="bi bi-info-circle-fill me-2"></i>
+          <span id="status-message">Click on a channel below or use the test buttons to check your stereo audio.</span>
+        </div>
+
+        <!-- Main Stereo Test Card -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-speaker me-2"></i>Channel Test
+          </div>
+          <div class="card-body">
+            <div class="row mb-4">
+              <div class="col-6">
+                <div class="channel-card bg-light" id="left-channel">
+                  <i class="bi bi-speaker speaker-icon" id="left-icon"></i>
+                  <h3 class="mt-3">LEFT</h3>
+                  <p class="text-muted mb-0">Click to test</p>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="channel-card bg-light" id="right-channel">
+                  <i class="bi bi-speaker speaker-icon" id="right-icon"></i>
+                  <h3 class="mt-3">RIGHT</h3>
+                  <p class="text-muted mb-0">Click to test</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-center gap-3 mb-4">
+              <button class="btn btn-primary btn-lg" id="play-left-btn">
+                <i class="bi bi-arrow-left me-2"></i>Left Only
+              </button>
+              <button class="btn btn-success btn-lg" id="play-both-btn">
+                <i class="bi bi-arrows-expand me-2"></i>Both
+              </button>
+              <button class="btn btn-primary btn-lg" id="play-right-btn">
+                Right Only<i class="bi bi-arrow-right ms-2"></i>
+              </button>
+            </div>
+
+            <button class="btn btn-danger w-100" id="stop-btn" disabled>
+              <i class="bi bi-stop-fill me-2"></i>Stop
+            </button>
+          </div>
+        </div>
+
+        <!-- Balance Test -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-sliders me-2"></i>Balance Test
+          </div>
+          <div class="card-body">
+            <p>Adjust the balance slider while audio is playing to test channel separation and balance.</p>
+
+            <div class="mb-3">
+              <div class="d-flex justify-content-between mb-2">
+                <span><i class="bi bi-speaker-fill"></i> Left</span>
+                <span id="balance-value">Center</span>
+                <span>Right <i class="bi bi-speaker-fill"></i></span>
+              </div>
+              <input type="range" class="form-range balance-slider" id="balance-slider" min="-100" max="100" value="0">
+            </div>
+
+            <div class="row text-center">
+              <div class="col-4">
+                <button class="btn btn-outline-secondary btn-sm" id="balance-left">Full Left</button>
+              </div>
+              <div class="col-4">
+                <button class="btn btn-outline-secondary btn-sm" id="balance-center">Center</button>
+              </div>
+              <div class="col-4">
+                <button class="btn btn-outline-secondary btn-sm" id="balance-right">Full Right</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Automatic Test Sequence -->
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-play-circle me-2"></i>Automatic Test Sequence
+          </div>
+          <div class="card-body">
+            <p>Run an automatic sequence that cycles through all stereo tests.</p>
+
+            <div class="test-sequence-item" data-step="1">
+              <strong>Step 1:</strong> Left channel only (2 seconds)
+            </div>
+            <div class="test-sequence-item" data-step="2">
+              <strong>Step 2:</strong> Right channel only (2 seconds)
+            </div>
+            <div class="test-sequence-item" data-step="3">
+              <strong>Step 3:</strong> Alternating left/right (4 seconds)
+            </div>
+            <div class="test-sequence-item" data-step="4">
+              <strong>Step 4:</strong> Both channels (2 seconds)
+            </div>
+
+            <button class="btn btn-success w-100 mt-3" id="auto-test-btn">
+              <i class="bi bi-play-fill me-2"></i>Run Automatic Test
+            </button>
+          </div>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5><i class="bi bi-wrench me-2"></i>Stereo Issues?</h5>
+            <div class="row">
+              <div class="col-md-6">
+                <h6>Common Problems</h6>
+                <ul>
+                  <li>One channel not working</li>
+                  <li>Channels reversed (left/right swapped)</li>
+                  <li>Uneven volume between channels</li>
+                  <li>Mono audio instead of stereo</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h6>Solutions</h6>
+                <ul>
+                  <li>Check cable connections</li>
+                  <li>Verify <a href="/show-speakers" title="Speaker Settings">audio output settings</a></li>
+                  <li>Update audio drivers</li>
+                  <li>Check system balance settings</li>
+                </ul>
+              </div>
+            </div>
+            <p class="mb-0">For more help, see our <a href="/troubleshooting" title="Troubleshooting">troubleshooting guide</a> or test your <a href="/headphone-test" title="Headphone Test">headphones</a> separately.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-gear me-2"></i>Test Settings
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <label class="form-label">Test Frequency</label>
+              <select class="form-select" id="frequency-select">
+                <option value="440">440 Hz (A4 - Standard)</option>
+                <option value="261">261 Hz (C4)</option>
+                <option value="1000">1000 Hz (Test Tone)</option>
+                <option value="100">100 Hz (Bass)</option>
+                <option value="4000">4000 Hz (Treble)</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Volume</label>
+              <input type="range" class="form-range" id="volume-slider" min="0" max="100" value="30">
+              <div class="text-center"><span id="volume-display">30%</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-tools me-2"></i>Related Tools
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <a href="/" class="text-decoration-none" title="Microphone Test">
+                <i class="bi bi-mic me-2"></i>Microphone Test
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/tone-generator" class="text-decoration-none" title="Tone Generator">
+                <i class="bi bi-activity me-2"></i>Tone Generator
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/bass-test" class="text-decoration-none" title="Bass Test">
+                <i class="bi bi-disc me-2"></i>Bass Test
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/headphone-test" class="text-decoration-none" title="Headphone Test">
+                <i class="bi bi-headphones me-2"></i>Headphone Test
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/speaker-volume-test" class="text-decoration-none" title="Volume Test">
+                <i class="bi bi-volume-up me-2"></i>Speaker Volume Test
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="/show-speakers" class="text-decoration-none" title="Speaker Details">
+                <i class="bi bi-speaker me-2"></i>View Speaker Details
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h6><i class="bi bi-lightbulb me-2 text-warning"></i>Tip</h6>
+            <p class="small mb-0">For best results, use <a href="/headphone-test" title="Headphones">headphones</a> to clearly distinguish between left and right channels without room acoustics affecting the test.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Container -->
+  <div id="footer-container"></div>
+
+  <script src="/js/partials-loader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const leftChannel = document.getElementById('left-channel');
+      const rightChannel = document.getElementById('right-channel');
+      const leftIcon = document.getElementById('left-icon');
+      const rightIcon = document.getElementById('right-icon');
+      const playLeftBtn = document.getElementById('play-left-btn');
+      const playRightBtn = document.getElementById('play-right-btn');
+      const playBothBtn = document.getElementById('play-both-btn');
+      const stopBtn = document.getElementById('stop-btn');
+      const balanceSlider = document.getElementById('balance-slider');
+      const balanceValue = document.getElementById('balance-value');
+      const balanceLeft = document.getElementById('balance-left');
+      const balanceCenter = document.getElementById('balance-center');
+      const balanceRight = document.getElementById('balance-right');
+      const frequencySelect = document.getElementById('frequency-select');
+      const volumeSlider = document.getElementById('volume-slider');
+      const volumeDisplay = document.getElementById('volume-display');
+      const autoTestBtn = document.getElementById('auto-test-btn');
+
+      let audioContext = null;
+      let oscillator = null;
+      let gainNode = null;
+      let panNode = null;
+      let isPlaying = false;
+      let autoTestInterval = null;
+
+      function initAudio() {
+        if (!audioContext) {
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+      }
+
+      function playTone(pan = 0) {
+        initAudio();
+        stopTone();
+
+        oscillator = audioContext.createOscillator();
+        gainNode = audioContext.createGain();
+        panNode = audioContext.createStereoPanner();
+
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(parseInt(frequencySelect.value), audioContext.currentTime);
+        gainNode.gain.setValueAtTime(volumeSlider.value / 100 * 0.5, audioContext.currentTime);
+        panNode.pan.setValueAtTime(pan, audioContext.currentTime);
+
+        oscillator.connect(gainNode);
+        gainNode.connect(panNode);
+        panNode.connect(audioContext.destination);
+
+        oscillator.start();
+        isPlaying = true;
+        stopBtn.disabled = false;
+
+        updateChannelIndicators(pan);
+      }
+
+      function stopTone() {
+        if (oscillator) {
+          oscillator.stop();
+          oscillator.disconnect();
+          oscillator = null;
+        }
+        isPlaying = false;
+        stopBtn.disabled = true;
+
+        leftChannel.classList.remove('playing');
+        rightChannel.classList.remove('playing');
+        leftIcon.classList.remove('active');
+        rightIcon.classList.remove('active');
+      }
+
+      function updateChannelIndicators(pan) {
+        leftChannel.classList.remove('playing');
+        rightChannel.classList.remove('playing');
+        leftIcon.classList.remove('active');
+        rightIcon.classList.remove('active');
+
+        if (pan <= 0) {
+          leftChannel.classList.add('playing');
+          leftIcon.classList.add('active');
+        }
+        if (pan >= 0) {
+          rightChannel.classList.add('playing');
+          rightIcon.classList.add('active');
+        }
+      }
+
+      function updateBalance(value) {
+        balanceSlider.value = value;
+        if (value < -10) {
+          balanceValue.textContent = 'Left ' + Math.abs(value) + '%';
+        } else if (value > 10) {
+          balanceValue.textContent = 'Right ' + value + '%';
+        } else {
+          balanceValue.textContent = 'Center';
+        }
+
+        if (panNode && isPlaying) {
+          panNode.pan.setValueAtTime(value / 100, audioContext.currentTime);
+          updateChannelIndicators(value / 100);
+        }
+      }
+
+      async function runAutoTest() {
+        if (autoTestInterval) {
+          clearInterval(autoTestInterval);
+          autoTestInterval = null;
+          stopTone();
+          autoTestBtn.innerHTML = '<i class="bi bi-play-fill me-2"></i>Run Automatic Test';
+          document.querySelectorAll('.test-sequence-item').forEach(item => item.classList.remove('active'));
+          return;
+        }
+
+        autoTestBtn.innerHTML = '<i class="bi bi-stop-fill me-2"></i>Stop Test';
+        const steps = [
+          { pan: -1, duration: 2000, step: 1 },
+          { pan: 1, duration: 2000, step: 2 },
+          { pan: -1, duration: 500, step: 3 },
+          { pan: 1, duration: 500, step: 3 },
+          { pan: -1, duration: 500, step: 3 },
+          { pan: 1, duration: 500, step: 3 },
+          { pan: -1, duration: 500, step: 3 },
+          { pan: 1, duration: 500, step: 3 },
+          { pan: -1, duration: 500, step: 3 },
+          { pan: 1, duration: 500, step: 3 },
+          { pan: 0, duration: 2000, step: 4 }
+        ];
+
+        let currentStep = 0;
+
+        function nextStep() {
+          if (currentStep >= steps.length) {
+            stopTone();
+            autoTestBtn.innerHTML = '<i class="bi bi-play-fill me-2"></i>Run Automatic Test';
+            document.querySelectorAll('.test-sequence-item').forEach(item => item.classList.remove('active'));
+            autoTestInterval = null;
+            return;
+          }
+
+          const step = steps[currentStep];
+          document.querySelectorAll('.test-sequence-item').forEach(item => {
+            item.classList.toggle('active', item.dataset.step == step.step);
+          });
+
+          playTone(step.pan);
+          currentStep++;
+          autoTestInterval = setTimeout(nextStep, step.duration);
+        }
+
+        nextStep();
+      }
+
+      // Event listeners
+      leftChannel.addEventListener('click', () => playTone(-1));
+      rightChannel.addEventListener('click', () => playTone(1));
+      playLeftBtn.addEventListener('click', () => playTone(-1));
+      playRightBtn.addEventListener('click', () => playTone(1));
+      playBothBtn.addEventListener('click', () => playTone(0));
+      stopBtn.addEventListener('click', stopTone);
+
+      balanceSlider.addEventListener('input', () => updateBalance(parseInt(balanceSlider.value)));
+      balanceLeft.addEventListener('click', () => updateBalance(-100));
+      balanceCenter.addEventListener('click', () => updateBalance(0));
+      balanceRight.addEventListener('click', () => updateBalance(100));
+
+      volumeSlider.addEventListener('input', () => {
+        volumeDisplay.textContent = volumeSlider.value + '%';
+        if (gainNode && isPlaying) {
+          gainNode.gain.setValueAtTime(volumeSlider.value / 100 * 0.5, audioContext.currentTime);
+        }
+      });
+
+      frequencySelect.addEventListener('change', () => {
+        if (isPlaying) {
+          oscillator.frequency.setValueAtTime(parseInt(frequencySelect.value), audioContext.currentTime);
+        }
+      });
+
+      autoTestBtn.addEventListener('click', runAutoTest);
+    });
+  </script>
+</body>
+</html>
