@@ -68,7 +68,6 @@
       border-radius: 5px;
     }
   </style>
-  <meta content="ca-pub-5426315045205785" name="google-adsense-account">
 </head>
 <body>
   <!-- Navbar Container -->
@@ -211,10 +210,13 @@
             </table>
           </div>
         </div>
-      
+      </div>
+
+      <!-- Sidebar -->
+
       <div class="card mb-4">
         <div class="card-header bg-light">
-          <i class="bi bi-star-fill me-2"></i>Advertisements
+          <i class="bi bi-star-fill me-2"></i>Advertisements:
         </div>
         <div class="card-body text-center">
           <!-- mic test - 2 -->
@@ -230,15 +232,10 @@
         </div>
       </div>
 
-
-      </div>
-
-      <!-- Sidebar -->
       <div class="col-md-4">
-
-<div class="card mb-4">
+<div class="card mt-4">
     <div class="card-header bg-primary text-white">
-        <i class="bi bi-star-fill me-2"></i>Advertisements
+        <i class="bi bi-star-fill me-2"></i>Advertisements:
     </div>
     <div class="card-body text-center">
         <!-- Mic Test - 1 -->
@@ -254,6 +251,7 @@
     </div>
 </div>
 
+      <br>
         <div class="card mb-4">
           <div class="card-header bg-primary text-white">
             <i class="bi bi-tools me-2"></i>Related Tools
@@ -314,38 +312,25 @@
     </div>
   </div>
 
+  <!-- Footer Container -->
+
   <div class="row mt-5">
     <div class="col-md-12">
       <h2><i class="bi bi-speedometer me-2"></i>About Sound Level Measurement</h2>
-
-      <p>
-        Our online sound level meter measures ambient noise levels in decibels (dB) using your device's microphone. 
-        Understanding sound levels helps protect your hearing, optimize recording environments, and identify noise issues.
-      </p>
-      <p>
-        Prolonged exposure to sounds above 85dB can cause hearing damage. Normal conversation is around 60dB, 
-        while concerts can exceed 100dB. Use this tool to monitor your environment and protect your hearing health. 
-        Check your <a href="/hearing-test" title="Hearing Test">hearing range</a> periodically.
-      </p>
-      <p>
-        While not a calibrated professional meter, this tool provides relative measurements useful for comparing 
-        environments and monitoring levels. For background noise analysis, try our dedicated 
-        <a href="/background-noise-analyzer" title="Background Noise Analyzer">noise analyzer</a>.
-      </p>
-
+      <p>Measure ambient noise in decibels. Prolonged exposure above 85dB causes hearing damage.</p>
+      <p>Check your <a href="/hearing-test" title="Hearing Test">hearing range</a> periodically.</p>
     </div>
   </div>
 
   <div class="row mt-5">
     <div class="col-md-12">
       <h2><i class="bi bi-bar-chart me-2"></i>Understanding Decibels</h2>
-
       <div class="row">
         <div class="col-lg-4 mb-4">
           <div class="card h-100">
             <div class="card-body">
               <h4><i class="bi bi-moon me-2"></i>Quiet (0-40dB)</h4>
-              <p>Whisper quiet library (30dB), quiet bedroom (35dB), light rainfall (40dB). This range is comfortable for sleeping and concentration. Ideal for recording studios.</p>
+              <p>Library (30dB), bedroom (35dB). Ideal for recording.</p>
             </div>
           </div>
         </div>
@@ -353,7 +338,7 @@
           <div class="card h-100">
             <div class="card-body">
               <h4><i class="bi bi-chat me-2"></i>Moderate (40-70dB)</h4>
-              <p>Normal conversation (60dB), office environment (50dB), vacuum cleaner (70dB). Comfortable for daily activities but may interfere with recording.</p>
+              <p>Conversation (60dB), office (50dB). Comfortable for activities.</p>
             </div>
           </div>
         </div>
@@ -361,12 +346,11 @@
           <div class="card h-100">
             <div class="card-body">
               <h4><i class="bi bi-exclamation-triangle me-2"></i>Loud (70-120dB)</h4>
-              <p>Busy traffic (80dB), concerts (100dB), jet engine (120dB). Hearing protection recommended above 85dB for extended exposure. Can cause permanent damage.</p>
+              <p>Traffic (80dB), concerts (100dB). Protection needed above 85dB.</p>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -374,53 +358,36 @@
     <div class="col-md-12">
       <h2><i class="bi bi-question-circle-fill me-2"></i>Frequently Asked Questions</h2>
       <div class="accordion" id="faqAccordion">
-        
         <div class="accordion-item">
-          <h2 class="accordion-header" id="faqHeading0">
-            <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse0" aria-expanded="true" aria-controls="faqCollapse0">
-              How accurate is this meter?
-            </button>
+          <h2 class="accordion-header" id="faqHead0">
+            <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#faqBody0" aria-expanded="true">How accurate?</button>
           </h2>
-          <div id="faqCollapse0" class="accordion-collapse collapse show" aria-labelledby="faqHeading0" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              Browser-based meters provide relative measurements. They're useful for comparison but not calibrated like professional sound level meters.
-            </div>
+          <div id="faqBody0" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Relative measurements, useful for comparison but not calibrated.</div>
           </div>
         </div>
         <div class="accordion-item">
-          <h2 class="accordion-header" id="faqHeading1">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="false" aria-controls="faqCollapse1">
-              What sound level is safe for extended listening?
-            </button>
+          <h2 class="accordion-header" id="faqHead1">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqBody1" aria-expanded="false">Safe listening level?</button>
           </h2>
-          <div id="faqCollapse1" class="accordion-collapse collapse " aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              Keep prolonged exposure below 85dB. Most smartphones warn when headphone volume exceeds safe levels for extended periods.
-            </div>
+          <div id="faqBody1" class="accordion-collapse collapse " data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Keep prolonged exposure below 85dB.</div>
           </div>
         </div>
         <div class="accordion-item">
-          <h2 class="accordion-header" id="faqHeading2">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
-              Why do my readings fluctuate?
-            </button>
+          <h2 class="accordion-header" id="faqHead2">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqBody2" aria-expanded="false">Why fluctuations?</button>
           </h2>
-          <div id="faqCollapse2" class="accordion-collapse collapse " aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              Sound levels naturally vary. Background noise, movement, and environmental factors cause fluctuations. Watch the average reading for overall level.
-            </div>
+          <div id="faqBody2" class="accordion-collapse collapse " data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Sound levels vary naturally. Watch average readings.</div>
           </div>
         </div>
         <div class="accordion-item">
-          <h2 class="accordion-header" id="faqHeading3">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
-              Can sound levels damage my hearing?
-            </button>
+          <h2 class="accordion-header" id="faqHead3">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqBody3" aria-expanded="false">Can sound damage hearing?</button>
           </h2>
-          <div id="faqCollapse3" class="accordion-collapse collapse " aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              Yes. Extended exposure above 85dB or brief exposure above 120dB can cause permanent hearing damage. Use hearing protection when necessary.
-            </div>
+          <div id="faqBody3" class="accordion-collapse collapse " data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Yes, >85dB extended or >120dB brief exposure causes permanent damage.</div>
           </div>
         </div>
       </div>
@@ -429,7 +396,7 @@
 
   <div class="card mt-5 mb-4">
     <div class="card-header bg-light">
-        <i class="bi bi-star-fill me-2"></i>Advertisements
+        <i class="bi bi-star-fill me-2"></i>Advertisements:
     </div>
     <div class="card-body text-center">
         <!-- mic test 3 -->
@@ -445,7 +412,6 @@
     </div>
   </div>
 
-  <!-- Footer Container -->
   <div id="footer-container"></div>
 
   <script src="/js/partials-loader.js"></script>

@@ -59,7 +59,6 @@
       margin-bottom: 10px;
     }
   </style>
-  <meta content="ca-pub-5426315045205785" name="google-adsense-account">
 </head>
 <body>
   <!-- Navbar Container -->
@@ -218,10 +217,13 @@
             <p class="mb-0">For <a href="/echo-test" title="Echo Test">echo issues</a>, try our echo test tool. Check <a href="/troubleshooting" title="Troubleshooting">troubleshooting guide</a> for more help.</p>
           </div>
         </div>
-      
+      </div>
+
+      <!-- Sidebar -->
+
       <div class="card mb-4">
         <div class="card-header bg-light">
-          <i class="bi bi-star-fill me-2"></i>Advertisements
+          <i class="bi bi-star-fill me-2"></i>Advertisements:
         </div>
         <div class="card-body text-center">
           <!-- mic test - 2 -->
@@ -237,15 +239,10 @@
         </div>
       </div>
 
-
-      </div>
-
-      <!-- Sidebar -->
       <div class="col-md-4">
-
-<div class="card mb-4">
+<div class="card mt-4">
     <div class="card-header bg-primary text-white">
-        <i class="bi bi-star-fill me-2"></i>Advertisements
+        <i class="bi bi-star-fill me-2"></i>Advertisements:
     </div>
     <div class="card-body text-center">
         <!-- Mic Test - 1 -->
@@ -261,6 +258,7 @@
     </div>
 </div>
 
+      <br>
         <div class="card mb-4">
           <div class="card-header bg-primary text-white">
             <i class="bi bi-tools me-2"></i>Related Tools
@@ -332,39 +330,25 @@
     </div>
   </div>
 
+  <!-- Footer Container -->
+
   <div class="row mt-5">
     <div class="col-md-12">
       <h2><i class="bi bi-volume-mute me-2"></i>About Background Noise Analysis</h2>
-
-      <p>
-        Our background noise analyzer helps you identify and measure ambient noise in your recording environment. 
-        Understanding your noise floor is essential for podcasters, streamers, musicians, and anyone making audio 
-        or video calls.
-      </p>
-      <p>
-        Background noise can come from many sources: HVAC systems, computer fans, traffic, electrical hum, and room 
-        reflections. Professional recording environments aim for noise floors below 30dB. Use our 
-        <a href="/sound-level-meter" title="Sound Level Meter">sound level meter</a> for precise decibel measurements.
-      </p>
-      <p>
-        Identifying noise sources allows you to address them before recording. Common solutions include acoustic 
-        treatment, noise gates, and choosing quieter recording times. Check your <a href="/" title="Microphone Test">microphone setup</a> 
-        for optimal placement.
-      </p>
-
+      <p>Identify and measure ambient noise in your recording environment. Essential for podcasters, streamers, and video callers.</p>
+      <p>Professional studios aim for <30dB. Use our <a href="/sound-level-meter" title="Sound Level Meter">sound level meter</a> for measurements.</p>
     </div>
   </div>
 
   <div class="row mt-5">
     <div class="col-md-12">
       <h2><i class="bi bi-soundwave me-2"></i>Understanding Background Noise</h2>
-
       <div class="row">
         <div class="col-lg-6 mb-4">
           <div class="card h-100">
             <div class="card-body">
               <h4><i class="bi bi-fan me-2"></i>Common Noise Sources</h4>
-              <p>Computer fans (broadband noise), air conditioning (low-frequency rumble), electrical interference (60Hz hum), and room reflections all contribute to your noise floor. Identifying the source is the first step to reduction.</p>
+              <p>Computer fans, HVAC, traffic, electrical hum (60Hz), and room reflections.</p>
             </div>
           </div>
         </div>
@@ -372,12 +356,11 @@
           <div class="card h-100">
             <div class="card-body">
               <h4><i class="bi bi-shield-check me-2"></i>Noise Reduction</h4>
-              <p>Position your microphone closer to reduce gain requirements, use directional microphones that reject off-axis noise, add acoustic treatment, and consider recording during quieter times of day.</p>
+              <p>Position mic closer, use directional microphones, add acoustic treatment.</p>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -385,53 +368,36 @@
     <div class="col-md-12">
       <h2><i class="bi bi-question-circle-fill me-2"></i>Frequently Asked Questions</h2>
       <div class="accordion" id="faqAccordion">
-        
         <div class="accordion-item">
-          <h2 class="accordion-header" id="faqHeading0">
-            <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse0" aria-expanded="true" aria-controls="faqCollapse0">
-              What is a good noise floor for recording?
-            </button>
+          <h2 class="accordion-header" id="faqHead0">
+            <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#faqBody0" aria-expanded="true">Good noise floor?</button>
           </h2>
-          <div id="faqCollapse0" class="accordion-collapse collapse show" aria-labelledby="faqHeading0" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              Professional studios aim for under 30dB. Home recording under 45dB is acceptable. Anything above 50dB will be noticeable in recordings.
-            </div>
+          <div id="faqBody0" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Studios: <30dB. Home: <45dB acceptable. >50dB will be noticeable.</div>
           </div>
         </div>
         <div class="accordion-item">
-          <h2 class="accordion-header" id="faqHeading1">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="false" aria-controls="faqCollapse1">
-              Why do I hear a constant hum?
-            </button>
+          <h2 class="accordion-header" id="faqHead1">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqBody1" aria-expanded="false">Why constant hum?</button>
           </h2>
-          <div id="faqCollapse1" class="accordion-collapse collapse " aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              60Hz (or 50Hz in some countries) hum usually indicates electrical interference. This can come from ungrounded equipment, nearby power lines, or ground loops.
-            </div>
+          <div id="faqBody1" class="accordion-collapse collapse " data-bs-parent="#faqAccordion">
+            <div class="accordion-body">60Hz indicates electrical interference from ungrounded equipment or ground loops.</div>
           </div>
         </div>
         <div class="accordion-item">
-          <h2 class="accordion-header" id="faqHeading2">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
-              How can I reduce room noise?
-            </button>
+          <h2 class="accordion-header" id="faqHead2">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqBody2" aria-expanded="false">How to reduce room noise?</button>
           </h2>
-          <div id="faqCollapse2" class="accordion-collapse collapse " aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              Use acoustic panels, seal gaps around doors and windows, turn off unnecessary electronics, and consider a noise gate or noise reduction software.
-            </div>
+          <div id="faqBody2" class="accordion-collapse collapse " data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Acoustic panels, seal gaps, turn off electronics, use noise gates.</div>
           </div>
         </div>
         <div class="accordion-item">
-          <h2 class="accordion-header" id="faqHeading3">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
-              Does microphone type affect noise pickup?
-            </button>
+          <h2 class="accordion-header" id="faqHead3">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqBody3" aria-expanded="false">Does mic type matter?</button>
           </h2>
-          <div id="faqCollapse3" class="accordion-collapse collapse " aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              Yes. Dynamic microphones are less sensitive and pick up less background noise. Condenser microphones are more sensitive and require quieter environments.
-            </div>
+          <div id="faqBody3" class="accordion-collapse collapse " data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Dynamic mics pick up less noise. Condensers need quieter environments.</div>
           </div>
         </div>
       </div>
@@ -440,7 +406,7 @@
 
   <div class="card mt-5 mb-4">
     <div class="card-header bg-light">
-        <i class="bi bi-star-fill me-2"></i>Advertisements
+        <i class="bi bi-star-fill me-2"></i>Advertisements:
     </div>
     <div class="card-body text-center">
         <!-- mic test 3 -->
@@ -456,7 +422,6 @@
     </div>
   </div>
 
-  <!-- Footer Container -->
   <div id="footer-container"></div>
 
   <script src="/js/partials-loader.js"></script>

@@ -19,7 +19,6 @@
     .volume-fill { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, #28a745, #ffc107, #dc3545); transition: height 0.3s; }
     .test-sound-btn { font-size: 1.2rem; padding: 15px 30px; }
   </style>
-  <meta content="ca-pub-5426315045205785" name="google-adsense-account">
 </head>
 <body>
   <div id="navbar-container"></div>
@@ -98,10 +97,12 @@
             </ul>
           </div>
         </div>
-      
+      </div>
+
+
       <div class="card mb-4">
         <div class="card-header bg-light">
-          <i class="bi bi-star-fill me-2"></i>Advertisements
+          <i class="bi bi-star-fill me-2"></i>Advertisements:
         </div>
         <div class="card-body text-center">
           <!-- mic test - 2 -->
@@ -117,14 +118,10 @@
         </div>
       </div>
 
-
-      </div>
-
       <div class="col-md-4">
-
-<div class="card mb-4">
+<div class="card mt-4">
     <div class="card-header bg-primary text-white">
-        <i class="bi bi-star-fill me-2"></i>Advertisements
+        <i class="bi bi-star-fill me-2"></i>Advertisements:
     </div>
     <div class="card-body text-center">
         <!-- Mic Test - 1 -->
@@ -140,6 +137,7 @@
     </div>
 </div>
 
+      <br>
         <div class="card mb-4">
           <div class="card-header bg-primary text-white">Related Tools</div>
           <ul class="list-group list-group-flush">
@@ -155,38 +153,24 @@
     </div>
   </div>
 
+
   <div class="row mt-5">
     <div class="col-md-12">
       <h2><i class="bi bi-volume-up me-2"></i>About Speaker Volume Testing</h2>
-
-      <p>
-        Our speaker volume test helps verify that your speakers are producing balanced audio at appropriate levels. 
-        Ensure both left and right speakers output equal volume for proper stereo imaging.
-      </p>
-      <p>
-        Unbalanced speakers can make audio sound off-center and reduce the effectiveness of stereo mixing. 
-        Use this test alongside our <a href="/stereo-test" title="Stereo Test">stereo test</a> for comprehensive 
-        speaker evaluation. Check speaker placement for optimal sound staging.
-      </p>
-      <p>
-        Volume testing is also important for hearing health - prolonged listening at high volumes can cause permanent 
-        damage. Use our <a href="/sound-level-meter" title="Sound Level Meter">sound level meter</a> to monitor 
-        safe listening levels.
-      </p>
-
+      <p>Verify speakers produce balanced audio. Unbalanced speakers affect stereo imaging.</p>
+      <p>Use with <a href="/stereo-test" title="Stereo Test">stereo test</a> and <a href="/sound-level-meter" title="Sound Level Meter">sound level meter</a>.</p>
     </div>
   </div>
 
   <div class="row mt-5">
     <div class="col-md-12">
       <h2><i class="bi bi-speaker me-2"></i>Speaker Setup Guide</h2>
-
       <div class="row">
         <div class="col-lg-6 mb-4">
           <div class="card h-100">
             <div class="card-body">
               <h4><i class="bi bi-arrows-move me-2"></i>Positioning</h4>
-              <p>Place speakers at ear level, equidistant from your listening position. Angle them inward to form an equilateral triangle with your head. This creates the best stereo image.</p>
+              <p>Ear level, equidistant from listening position, angled inward.</p>
             </div>
           </div>
         </div>
@@ -194,12 +178,11 @@
           <div class="card h-100">
             <div class="card-body">
               <h4><i class="bi bi-sliders me-2"></i>Balance Adjustment</h4>
-              <p>If speakers sound unbalanced, check system audio settings. Windows and Mac both offer balance controls. Also verify speaker wire connections are secure and undamaged.</p>
+              <p>Check system audio settings. Verify speaker wire connections.</p>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -207,53 +190,36 @@
     <div class="col-md-12">
       <h2><i class="bi bi-question-circle-fill me-2"></i>Frequently Asked Questions</h2>
       <div class="accordion" id="faqAccordion">
-        
         <div class="accordion-item">
-          <h2 class="accordion-header" id="faqHeading0">
-            <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse0" aria-expanded="true" aria-controls="faqCollapse0">
-              Why is one speaker louder than the other?
-            </button>
+          <h2 class="accordion-header" id="faqHead0">
+            <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#faqBody0" aria-expanded="true">One speaker louder?</button>
           </h2>
-          <div id="faqCollapse0" class="accordion-collapse collapse show" aria-labelledby="faqHeading0" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              Check system balance settings, speaker wire connections, and verify both speakers are set to the same volume if they have individual controls.
-            </div>
+          <div id="faqBody0" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Check balance settings and speaker wire connections.</div>
           </div>
         </div>
         <div class="accordion-item">
-          <h2 class="accordion-header" id="faqHeading1">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="false" aria-controls="faqCollapse1">
-              How loud should I listen?
-            </button>
+          <h2 class="accordion-header" id="faqHead1">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqBody1" aria-expanded="false">How loud to listen?</button>
           </h2>
-          <div id="faqCollapse1" class="accordion-collapse collapse " aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              Keep average listening around 60-70dB for extended periods. Short-term exposure up to 85dB is safe. Use our sound level meter to check.
-            </div>
+          <div id="faqBody1" class="accordion-collapse collapse " data-bs-parent="#faqAccordion">
+            <div class="accordion-body">60-70dB for extended periods. Up to 85dB briefly is safe.</div>
           </div>
         </div>
         <div class="accordion-item">
-          <h2 class="accordion-header" id="faqHeading2">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
-              Should both speakers sound identical?
-            </button>
+          <h2 class="accordion-header" id="faqHead2">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqBody2" aria-expanded="false">Should speakers sound identical?</button>
           </h2>
-          <div id="faqCollapse2" class="accordion-collapse collapse " aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              Yes, for accurate stereo reproduction. Any difference in tone or volume between speakers will affect the stereo image and overall sound quality.
-            </div>
+          <div id="faqBody2" class="accordion-collapse collapse " data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Yes, for accurate stereo reproduction.</div>
           </div>
         </div>
         <div class="accordion-item">
-          <h2 class="accordion-header" id="faqHeading3">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
-              How do room acoustics affect speakers?
-            </button>
+          <h2 class="accordion-header" id="faqHead3">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqBody3" aria-expanded="false">Room acoustics impact?</button>
           </h2>
-          <div id="faqCollapse3" class="accordion-collapse collapse " aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              Room reflections, furniture placement, and speaker position significantly affect sound. Acoustic treatment and proper positioning improve clarity.
-            </div>
+          <div id="faqBody3" class="accordion-collapse collapse " data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Reflections and positioning significantly affect sound quality.</div>
           </div>
         </div>
       </div>
@@ -262,7 +228,7 @@
 
   <div class="card mt-5 mb-4">
     <div class="card-header bg-light">
-        <i class="bi bi-star-fill me-2"></i>Advertisements
+        <i class="bi bi-star-fill me-2"></i>Advertisements:
     </div>
     <div class="card-body text-center">
         <!-- mic test 3 -->

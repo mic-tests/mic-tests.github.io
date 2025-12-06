@@ -47,7 +47,6 @@
       font-weight: bold;
     }
   </style>
-  <meta content="ca-pub-5426315045205785" name="google-adsense-account">
 </head>
 <body>
   <!-- Navbar Container -->
@@ -155,10 +154,13 @@
             </div>
           </div>
         </div>
-      
+      </div>
+
+      <!-- Sidebar -->
+
       <div class="card mb-4">
         <div class="card-header bg-light">
-          <i class="bi bi-star-fill me-2"></i>Advertisements
+          <i class="bi bi-star-fill me-2"></i>Advertisements:
         </div>
         <div class="card-body text-center">
           <!-- mic test - 2 -->
@@ -174,15 +176,10 @@
         </div>
       </div>
 
-
-      </div>
-
-      <!-- Sidebar -->
       <div class="col-md-4">
-
-<div class="card mb-4">
+<div class="card mt-4">
     <div class="card-header bg-primary text-white">
-        <i class="bi bi-star-fill me-2"></i>Advertisements
+        <i class="bi bi-star-fill me-2"></i>Advertisements:
     </div>
     <div class="card-body text-center">
         <!-- Mic Test - 1 -->
@@ -198,6 +195,7 @@
     </div>
 </div>
 
+      <br>
         <div class="card mb-4">
           <div class="card-header bg-primary text-white">
             <i class="bi bi-gear me-2"></i>Recording Settings
@@ -269,38 +267,25 @@
     </div>
   </div>
 
+  <!-- Footer Container -->
+
   <div class="row mt-5">
     <div class="col-md-12">
       <h2><i class="bi bi-record-circle me-2"></i>About Online Microphone Recording</h2>
-
-      <p>
-        Our online mic recorder lets you capture audio directly in your browser without installing software. 
-        Perfect for quick voice memos, testing microphone quality, and creating audio clips for various purposes.
-      </p>
-      <p>
-        All recording happens locally on your device - no audio is uploaded to servers. This ensures your privacy 
-        while providing a convenient recording solution. Before recording, use our <a href="/" title="Microphone Test">microphone test</a> 
-        to verify your setup.
-      </p>
-      <p>
-        For best results, reduce <a href="/background-noise-analyzer" title="Background Noise Analyzer">background noise</a>, 
-        speak at a consistent distance from the microphone, and monitor your <a href="/sound-level-meter" title="Sound Level Meter">input levels</a> 
-        to avoid clipping.
-      </p>
-
+      <p>Capture audio in your browser without software. All recording is local - no uploads.</p>
+      <p>Use our <a href="/" title="Microphone Test">microphone test</a> to verify setup first.</p>
     </div>
   </div>
 
   <div class="row mt-5">
     <div class="col-md-12">
       <h2><i class="bi bi-lightbulb me-2"></i>Recording Tips</h2>
-
       <div class="row">
         <div class="col-lg-6 mb-4">
           <div class="card h-100">
             <div class="card-body">
               <h4><i class="bi bi-mic me-2"></i>Microphone Technique</h4>
-              <p>Position your microphone 6-12 inches from your mouth. Speak across the mic rather than directly into it to reduce plosives (P and B sounds). Use a pop filter for professional recording.</p>
+              <p>Position 6-12 inches away, speak across the mic to reduce plosives.</p>
             </div>
           </div>
         </div>
@@ -308,12 +293,11 @@
           <div class="card h-100">
             <div class="card-body">
               <h4><i class="bi bi-sliders me-2"></i>Level Management</h4>
-              <p>Aim for input levels that peak around -12dB to -6dB. This provides headroom for louder moments while keeping signal well above the noise floor. Avoid letting levels hit 0dB (clipping).</p>
+              <p>Aim for peaks at -12dB to -6dB for headroom without clipping.</p>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -321,53 +305,36 @@
     <div class="col-md-12">
       <h2><i class="bi bi-question-circle-fill me-2"></i>Frequently Asked Questions</h2>
       <div class="accordion" id="faqAccordion">
-        
         <div class="accordion-item">
-          <h2 class="accordion-header" id="faqHeading0">
-            <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse0" aria-expanded="true" aria-controls="faqCollapse0">
-              Is my recording private?
-            </button>
+          <h2 class="accordion-header" id="faqHead0">
+            <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#faqBody0" aria-expanded="true">Is recording private?</button>
           </h2>
-          <div id="faqCollapse0" class="accordion-collapse collapse show" aria-labelledby="faqHeading0" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              Yes. All recording and processing happens locally in your browser. No audio data is sent to our servers.
-            </div>
+          <div id="faqBody0" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Yes, all processing happens locally. No data sent to servers.</div>
           </div>
         </div>
         <div class="accordion-item">
-          <h2 class="accordion-header" id="faqHeading1">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="false" aria-controls="faqCollapse1">
-              What audio format is used?
-            </button>
+          <h2 class="accordion-header" id="faqHead1">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqBody1" aria-expanded="false">Audio format?</button>
           </h2>
-          <div id="faqCollapse1" class="accordion-collapse collapse " aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              Recordings are saved in WebM or WAV format depending on your browser. Both formats maintain good audio quality.
-            </div>
+          <div id="faqBody1" class="accordion-collapse collapse " data-bs-parent="#faqAccordion">
+            <div class="accordion-body">WebM or WAV depending on browser, both maintain good quality.</div>
           </div>
         </div>
         <div class="accordion-item">
-          <h2 class="accordion-header" id="faqHeading2">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
-              Why is my recording too quiet?
-            </button>
+          <h2 class="accordion-header" id="faqHead2">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqBody2" aria-expanded="false">Why too quiet?</button>
           </h2>
-          <div id="faqCollapse2" class="accordion-collapse collapse " aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              Check your microphone input level in system settings. You may also need to speak closer to the microphone or increase the gain.
-            </div>
+          <div id="faqBody2" class="accordion-collapse collapse " data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Check mic input level in system settings or move closer.</div>
           </div>
         </div>
         <div class="accordion-item">
-          <h2 class="accordion-header" id="faqHeading3">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
-              Can I record system audio?
-            </button>
+          <h2 class="accordion-header" id="faqHead3">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqBody3" aria-expanded="false">Can I record system audio?</button>
           </h2>
-          <div id="faqCollapse3" class="accordion-collapse collapse " aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              This tool records from your microphone only. Recording system audio requires different permissions that browsers typically don't allow for privacy reasons.
-            </div>
+          <div id="faqBody3" class="accordion-collapse collapse " data-bs-parent="#faqAccordion">
+            <div class="accordion-body">This tool records microphone only. System audio requires special permissions.</div>
           </div>
         </div>
       </div>
@@ -376,7 +343,7 @@
 
   <div class="card mt-5 mb-4">
     <div class="card-header bg-light">
-        <i class="bi bi-star-fill me-2"></i>Advertisements
+        <i class="bi bi-star-fill me-2"></i>Advertisements:
     </div>
     <div class="card-body text-center">
         <!-- mic test 3 -->
@@ -392,7 +359,6 @@
     </div>
   </div>
 
-  <!-- Footer Container -->
   <div id="footer-container"></div>
 
   <script src="/js/partials-loader.js"></script>
