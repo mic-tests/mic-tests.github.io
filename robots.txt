@@ -1,7 +1,4 @@
+Sitemap: https://mic-tests.github.io/sitemap.xml
 
-# Allow crawling of all content
 User-agent: *
 Disallow:
-
-
-Sitemap: https://mic-tests.github.io/sitemap.xml
