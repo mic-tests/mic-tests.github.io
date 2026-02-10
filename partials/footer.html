@@ -53,7 +53,7 @@
     <hr>
     <div class="row align-items-center">
       <div class="col-md-6 text-center text-md-start">
-        <p class="text-muted small mb-0">&copy; 2025<script>document.write('-' + new Date().getFullYear())</script> MicTest.</p>
+        <p class="text-muted small mb-0">&copy; 2025-<span id="footer-current-year"></span> MicTest.</p>
       </div>
       <div class="col-md-6 text-center text-md-end">
         <a href="/about" class="text-muted text-decoration-none small me-3">About</a>
@@ -63,3 +63,9 @@
     </div>
   </div>
 </footer>
+<script>
+(function() {
+  var yearEl = document.getElementById('footer-current-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+})();
+</script>
