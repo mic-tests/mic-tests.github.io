@@ -1,62 +1,76 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <title>Page Not Found</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found - MicTest</title>
+  <meta name="description" content="The page you're looking for doesn't exist. Return to MicTest to test your microphone and audio devices.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/css/common.css" rel="stylesheet">
   <style>
-    * {
-      line-height: 1.2;
-      margin: 0;
-    }
-
-    html {
-      color: #888;
-      display: table;
-      font-family: sans-serif;
-      height: 100%;
-      text-align: center;
-      width: 100%;
-    }
-
-    body {
-      display: table-cell;
-      vertical-align: middle;
-      margin: 2em auto;
-    }
-
-    h1 {
-      color: #555;
-      font-size: 2em;
-      font-weight: 400;
-    }
-
-    p {
-      margin: 0 auto;
-      width: 280px;
-    }
-
-    @media only screen and (max-width: 280px) {
-
-      body,
-      p {
-        width: 95%;
-      }
-
-      h1 {
-        font-size: 1.5em;
-        margin: 0 0 0.3em;
-      }
-
-    }
+    body { min-height: 100vh; display: flex; flex-direction: column; }
+    .error-container { flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem 0; }
+    .error-number { font-size: 7rem; font-weight: bold; color: #0d6efd; line-height: 1; }
+    .suggestion-card { transition: transform 0.2s; text-decoration: none; color: inherit; }
+    .suggestion-card:hover { transform: translateY(-4px); color: inherit; }
   </style>
 </head>
-
 <body>
-  <h1>Page Not Found</h1>
-  <p>Sorry, but the page you were trying to view does not exist.</p>
-</body>
+  <div id="navbar-container"></div>
 
+  <div class="error-container">
+    <div class="container">
+      <div class="text-center" style="max-width: 700px; margin: 0 auto;">
+        <div class="error-number mb-3">404</div>
+        <h1 class="h2 fw-bold mb-3">Page Not Found</h1>
+        <p class="text-muted fs-5 mb-4">The page you're looking for doesn't exist. It might have been moved or you entered an incorrect URL.</p>
+
+        <div class="mb-5">
+          <a href="/" class="btn btn-primary btn-lg me-2 mb-2">
+            <i class="bi bi-mic-fill me-2"></i>Test Microphone
+          </a>
+          <a href="/troubleshooting" class="btn btn-outline-secondary btn-lg mb-2">
+            <i class="bi bi-question-circle me-2"></i>Troubleshooting
+          </a>
+        </div>
+
+        <div class="row g-3 text-start">
+          <div class="col-md-4">
+            <a href="/mic-recorder" class="card suggestion-card h-100">
+              <div class="card-body text-center">
+                <i class="bi bi-record-circle fs-1 text-danger"></i>
+                <h6 class="mt-2 mb-1">Mic Recorder</h6>
+                <small class="text-muted">Record your voice online</small>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a href="/stereo-test" class="card suggestion-card h-100">
+              <div class="card-body text-center">
+                <i class="bi bi-badge-hd fs-1 text-primary"></i>
+                <h6 class="mt-2 mb-1">Stereo Test</h6>
+                <small class="text-muted">Check left/right channels</small>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a href="/headphone-test" class="card suggestion-card h-100">
+              <div class="card-body text-center">
+                <i class="bi bi-headphones fs-1 text-success"></i>
+                <h6 class="mt-2 mb-1">Headphone Test</h6>
+                <small class="text-muted">Test your headphones</small>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer-container"></div>
+
+  <script src="/js/partials-loader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
-<!-- IE needs 512+ bytes: https://docs.microsoft.com/archive/blogs/ieinternals/friendly-http-error-pages -->
