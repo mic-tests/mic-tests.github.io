@@ -1,0 +1,34 @@
+<!-- Comments Partial Template - Comentario -->
+<section class="comments-section py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h3 class="mb-4"><i class="bi bi-chat-dots me-2 text-primary"></i>Comments & Feedback</h3>
+<script defer src="https://comments.tickspike.com/comentario.js"></script>
+<comentario-comments theme="light"></comentario-comments>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// KEYBOARD CAPTURE FIX: Stop keyboard events from propagating when typing in comments
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        var comentarioEl = document.querySelector('comentario-comments');
+        if (!comentarioEl) return;
+
+        comentarioEl.addEventListener('keydown', function(e) {
+            e.stopPropagation();
+        }, true);
+
+        comentarioEl.addEventListener('keyup', function(e) {
+            e.stopPropagation();
+        }, true);
+
+        comentarioEl.addEventListener('keypress', function(e) {
+            e.stopPropagation();
+        }, true);
+    }, 2000);
+});
+</script>

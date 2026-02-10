@@ -1,6 +1,6 @@
 /**
  * MicTest - Partials Loader
- * Loads navbar and footer partials into the page
+ * Loads navbar, footer, and comments partials into the page
  */
 
 class PartialsLoader {
@@ -17,6 +17,23 @@ class PartialsLoader {
       if (response.ok) {
         const html = await response.text();
         element.innerHTML = html;
+
+        // Execute any scripts in the loaded partial
+        const scripts = element.querySelectorAll('script');
+        scripts.forEach(script => {
+          const newScript = document.createElement('script');
+          if (script.src) {
+            newScript.src = script.src;
+            Array.from(script.attributes).forEach(attr => {
+              if (attr.name !== 'src') {
+                newScript.setAttribute(attr.name, attr.value);
+              }
+            });
+          } else {
+            newScript.textContent = script.textContent;
+          }
+          document.body.appendChild(newScript);
+        });
 
         if (partialName === 'navbar') {
           this.setActiveNavLink();
@@ -72,7 +89,10 @@ class PartialsLoader {
 
   async init() {
     await this.loadPartial('navbar-container', 'navbar');
-    await this.loadPartial('footer-container', 'footer');
+    await Promise.all([
+      this.loadPartial('comments-container', 'comments'),
+      this.loadPartial('footer-container', 'footer')
+    ]);
   }
 }
 
