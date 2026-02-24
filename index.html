@@ -9,7 +9,44 @@
         name="description">
   <meta content="microphone test, mic test online, audio test, microphone check, voice test, audio quality, microphone troubleshooting" name="keywords">
 
-  <link href="https://mic-tests.github.io" rel="canonical">
+  <link rel="canonical" href="https://mic-tests.github.io">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "MicTest",
+        "url": "https://mic-tests.github.io",
+        "description": "Advanced online microphone test tool. Test your mic quality, check audio levels, and verify microphone functionality across all devices.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://mic-tests.github.io/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "name": "MicTest",
+        "url": "https://mic-tests.github.io",
+        "logo": "https://mic-tests.github.io/icon.png"
+      },
+      {
+        "@type": "WebApplication",
+        "name": "MicTest - Online Microphone Test",
+        "url": "https://mic-tests.github.io",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "browserRequirements": "Requires a modern browser with WebRTC support"
+      }
+    ]
+  }
+  </script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <link href="/css/common.css" rel="stylesheet">
