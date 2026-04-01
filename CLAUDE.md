@@ -69,7 +69,9 @@ Each page should have:
 
 ## Internal Linking Strategy — Advanced Silo
 
-Three-level authority silo. Every link uses the target page's **primary keyword as anchor text** (no "click here" / "read more"). All links go inside the **main content body**, not sidebars or footers.
+Three-level authority silo. Every link uses the target page's **primary keyword as anchor text** (no "click here" / "read more"). The silo plan governs **body content links only**.
+
+**Sidebar / nav / footer links are expected and acceptable.** Per Kyle Roof's SEO methodology, search engines discount links in nav, footer, and sidebar as navigational — they do not pass the same authority as in-content links and do not interfere with the silo structure. Audits should focus exclusively on inline body content links; sidebar "Related Tools" cards and footer links can be ignored.
 
 ### Pillar Page
 
