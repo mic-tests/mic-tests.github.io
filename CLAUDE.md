@@ -135,3 +135,15 @@ The last supporting page of one silo links to the first supporting page of the n
 | Mic Recorder (first C) → | Background Noise Analyzer (last B) | "background noise analyzer" |
 
 ### Total: 37 links across 15 pages
+
+---
+
+## W3 HTML Validator — Pending
+
+All pages should be validated using live URLs via the Nu HTML Checker:
+`https://validator.w3.org/nu/?doc=https://mic-tests.github.io/<page-path>`
+
+Example:
+- `https://validator.w3.org/nu/?doc=https://mic-tests.github.io/`
+
+No pages have been validated yet. After each deploy, re-run the validator on changed pages to catch any new issues.
