@@ -1,5 +1,9 @@
 /* MicTest Common Styles */
 
+strong, b {
+  font-weight: 700;
+}
+
 /* Footer Styles */
 .footer {
   margin-top: 50px;
