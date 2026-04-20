@@ -22,6 +22,10 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <link href="/css/common.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <link href="/css/design.css" rel="stylesheet">
   <script async crossorigin="anonymous"
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5426315045205785"></script>
   <style>
@@ -37,7 +41,7 @@
 
     .feature-icon {
       font-size: 2rem;
-      color: #0d6efd;
+      color: var(--blue);
       margin-bottom: 15px;
     }
 
@@ -59,7 +63,7 @@
     }
 
     .device-card.selected {
-      border-color: #0d6efd;
+      border-color: var(--blue);
       border-width: 2px;
     }
 
@@ -221,7 +225,7 @@
 </script>
 
 <!-- Main Content -->
-<div class="container mt-4">
+<div class="container main-wrap">
   <div class="alert alert-info" id="browser-alert">
     <div id="browser-message">
       <i class="bi bi-info-circle-fill me-2"></i>
