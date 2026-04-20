@@ -152,6 +152,24 @@ INJECTION_TARGETS = {
 # Sentence templates — 6 per anchor keyword, {link} replaced at render time.
 # ---------------------------------------------------------------------------
 
+# Long-tail anchor variants used for the hub → pillar (slot_a) link.
+# Rotated monthly per hub page so each hub uses a different variant.
+HUB_UP_ANCHORS = [
+    "mic test online",
+    "online microphone test",
+    "free microphone test",
+    "test my microphone",
+    "microphone test online",
+    "mic check online",
+]
+
+
+def pick_hub_up_anchor(hub_file: str, today: datetime.date) -> str:
+    key = f"{today.year}-{today.month}-{hub_file}-slot_a"
+    idx = int(hashlib.md5(key.encode()).hexdigest(), 16) % len(HUB_UP_ANCHORS)
+    return HUB_UP_ANCHORS[idx]
+
+
 SENTENCES = {
     "mic test online": [
         "Run a {link} to confirm your microphone is working before your next call.",
@@ -160,6 +178,46 @@ SENTENCES = {
         "The {link} checks your mic input, waveform, and device info in one step.",
         "Before any recording session, a {link} confirms your audio input is clean.",
         "The {link} runs entirely in your browser — no downloads or sign-up required.",
+    ],
+    "online microphone test": [
+        "Run an {link} to verify your mic is working before any call or recording.",
+        "The free {link} shows your waveform, levels, and device details in seconds.",
+        "An {link} confirms your input is clean without any software to install.",
+        "Use an {link} to diagnose why your microphone isn't picking up sound.",
+        "An {link} checks your mic input, sample rate, and channel config in one step.",
+        "Before a podcast or meeting, a quick {link} rules out hardware issues instantly.",
+    ],
+    "free microphone test": [
+        "Run a {link} in your browser — no download or sign-up required.",
+        "The {link} shows a live waveform and confirms your input is clean in seconds.",
+        "A {link} catches mic faults before they turn into recording problems.",
+        "Use the {link} to see your volume level, sample rate, and device name instantly.",
+        "The {link} works with any browser-accessible microphone and runs entirely locally.",
+        "Before any call or recording session, a {link} verifies your mic is ready.",
+    ],
+    "test my microphone": [
+        "If you need to {link} quickly, the tool runs in your browser with one click.",
+        "Use this page to {link} — it shows waveform, levels, and device info in real time.",
+        "The fastest way to {link} is to open this page and speak a few words.",
+        "To {link} before a call, click Start and watch the waveform respond to your voice.",
+        "You can {link} without any downloads — the tool uses your browser's audio API directly.",
+        "This tool lets you {link} and get instant feedback on volume, quality, and device details.",
+    ],
+    "microphone test online": [
+        "Use this {link} to confirm your mic is picking up audio before your next call.",
+        "A {link} shows your input waveform, volume level, and device specs in one place.",
+        "The {link} runs entirely in the browser — no app or plugin required.",
+        "Before recording, a {link} confirms your mic levels are clean and consistent.",
+        "The {link} checks input quality and surfaces any device or permission issues instantly.",
+        "A {link} is the fastest way to rule out hardware problems before a session.",
+    ],
+    "mic check online": [
+        "Do a quick {link} before your next call to confirm your audio is working.",
+        "The {link} shows a live waveform and volume reading as soon as you speak.",
+        "A fast {link} catches input problems before they interrupt a live call.",
+        "Use the {link} to verify your microphone, check levels, and confirm device details.",
+        "The free {link} runs in your browser with no software or account required.",
+        "Before any recording session, a {link} confirms your mic is clean and at the right level.",
     ],
     "tone generator": [
         "Use the {link} to sweep through frequencies and check your speaker response.",
@@ -326,7 +384,7 @@ def generate_silo_links(today: datetime.date) -> dict:
         right_hub    = shuffled_hubs[pos + 1] if not is_last_hub  else None
 
         links[hub_file] = [
-            {"slot": "slot_a", "anchor": "mic test online", "url": "/"},
+            {"slot": "slot_a", "anchor": pick_hub_up_anchor(hub_file, today), "url": "/"},
             {"slot": "slot_b",
              "anchor": HUB_ANCHORS[left_hub]  if left_hub  else None,
              "url":    HUB_URLS[left_hub]     if left_hub  else None},
