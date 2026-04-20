@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Show My Microphone - Mic Specs & Device Details</title>
   <meta content="See every microphone connected to your device — device name, sample rate, channel count, and device ID — all read directly from your browser without any software."
         name="description">
@@ -361,7 +361,7 @@
                 <div class="feature-icon">
                   <i class="bi bi-headset"></i>
                 </div>
-                <h4>Compatibility Check</h4>
+                <h3>Compatibility Check</h3>
                 <p>Ensure your microphone meets the requirements for your conferencing software, recording setup, or gaming needs.</p>
               </div>
             </div>
@@ -370,7 +370,7 @@
                 <div class="feature-icon">
                   <i class="bi bi-volume-up"></i>
                 </div>
-                <h4>Audio Quality Assessment</h4>
+                <h3>Audio Quality Assessment</h3>
                 <p>Understand the technical capabilities of your microphone to determine if it's suitable for your specific audio requirements.</p>
               </div>
             </div>
@@ -379,7 +379,7 @@
                 <div class="feature-icon">
                   <i class="bi bi-tools"></i>
                 </div>
-                <h4>Troubleshooting</h4>
+                <h3>Troubleshooting</h3>
                 <p>Identify potential issues with your microphone settings that might be affecting your audio quality or performance.</p>
               </div>
             </div>
@@ -395,10 +395,8 @@
     <div class="col-md-12">
 
       <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-          <i class="bi bi-question-circle-fill me-2"></i>How to Find Out What Microphone You Have
-        </div>
         <div class="card-body">
+          <h2>How to Find Out What Microphone You Have</h2>
           <p>Not sure what microphone do I have connected right now? This tool reads your browser's audio device list and shows you every input device your system has registered — all without any software to install.</p>
           <ol>
             <li><strong>Click "Allow"</strong> when your browser asks for microphone permission. This is required for the tool to read device names and specs — no audio is recorded.</li>
@@ -412,10 +410,8 @@
       </div>
 
       <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-          <i class="bi bi-info-circle-fill me-2"></i>Understanding Your Microphone Details and Audio Input Specifications
-        </div>
         <div class="card-body">
+          <h2>Understanding Your Microphone Details and Audio Input Specifications</h2>
           <h3>Device Name — What Microphone Do I Have?</h3>
           <p>The device name is the most direct answer to the question: <em>what microphone do I have?</em> It's typically pulled from the device driver and reflects the model name your operating system registered when you connected the microphone. Built-in laptop mics often appear as "Built-in Microphone" or "Internal Mic". USB microphones usually show their product name (e.g. "Blue Yeti USB Microphone"). Headset mics connected via a combined audio jack may display the headset brand, or sometimes just "Headset Microphone". If the name is blank or shows only a device ID string, your browser hasn't yet been granted full permission — click Allow to get full details.</p>
 
@@ -433,10 +429,8 @@
       </div>
 
       <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-          <i class="bi bi-sliders me-2"></i>Audio Processing Features — Echo Cancellation, Noise Suppression, and Auto Gain
-        </div>
         <div class="card-body">
+          <h2>Audio Processing Features — Echo Cancellation, Noise Suppression, and Auto Gain</h2>
           <h3>Echo Cancellation — What It Does and When to Disable It</h3>
           <p>Echo cancellation is a browser-level audio processing feature that removes the sound of your speakers from the microphone signal. It's useful for video calls where the other person's voice would otherwise be picked up by your mic and sent back to them as an echo. Most modern browsers enable it by default. However, if you're recording music, voiceovers, or any audio where you want to capture the full sound of your room, echo cancellation can alter the frequency response and should be turned off. The status shown here reflects the current browser constraint setting — changing it requires code-level control, not the OS settings panel.</p>
 
@@ -449,10 +443,8 @@
       </div>
 
       <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-          <i class="bi bi-mic-fill me-2"></i>Common Audio Input Device Types — What Microphone Might You Have?
-        </div>
         <div class="card-body">
+          <h2>Common Audio Input Device Types — What Microphone Might You Have?</h2>
           <h3>Built-In Laptop and Desktop Microphones</h3>
           <p>The most common result when asking "what microphone do I have?" is a built-in device. Laptop internal mics are typically compact electret condenser elements with limited frequency range — adequate for calls but not ideal for recording. They usually operate at 44.1 kHz or 48 kHz, mono, with echo cancellation and noise suppression enabled by default. Desktop PCs rarely have built-in microphones unless it's an all-in-one model.</p>
 
@@ -468,10 +460,8 @@
       </div>
 
       <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-          <i class="bi bi-patch-question-fill me-2"></i>Show My Microphone — Frequently Asked Questions
-        </div>
         <div class="card-body">
+          <h2>Show My Microphone — Frequently Asked Questions</h2>
           <h3>Why does my browser show the wrong microphone?</h3>
           <p>Browsers default to the system's "Default Input Device" setting, not necessarily the last microphone you plugged in. To check which one the browser is using, open your OS sound settings (Windows: Sound → Input; macOS: System Settings → Sound → Input) and confirm which device is set as the default. After changing it, refresh this page — the device list will update to reflect the new default at the top of the selection order.</p>
 
