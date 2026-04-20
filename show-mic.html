@@ -390,6 +390,105 @@
     </div>
   </div>
 
+  <!-- SEO Content Sections -->
+  <div class="row mt-4">
+    <div class="col-md-12">
+
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          <i class="bi bi-question-circle-fill me-2"></i>How to Find Out What Microphone You Have
+        </div>
+        <div class="card-body">
+          <p>Not sure what microphone do I have connected right now? This tool reads your browser's audio device list and shows you every input device your system has registered — all without any software to install.</p>
+          <ol>
+            <li><strong>Click "Allow"</strong> when your browser asks for microphone permission. This is required for the tool to read device names and specs — no audio is recorded.</li>
+            <li><strong>Browse the detected devices</strong> in the Connected Microphones panel. Each card shows a device name and a partial device ID.</li>
+            <li><strong>Click a device card</strong> to expand its full microphone details: sample rate, channel count, echo cancellation status, estimated quality rating, and more.</li>
+            <li><strong>Press "Test Microphone"</strong> to confirm it's picking up audio and to visualise the frequency response in the spectrogram.</li>
+            <li><strong>Click Refresh</strong> if you've just plugged in a new microphone and it hasn't appeared yet.</li>
+          </ol>
+          <p>If the device name shows as "Default" or a generic label, you may be on a browser or OS that restricts full device enumeration. Granting full permission (Allow, not Block) gives the most complete results. For latency measurements, run the <a href="/audio-latency-test">audio latency test</a> after identifying your microphone here.</p>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          <i class="bi bi-info-circle-fill me-2"></i>Understanding Your Microphone Details and Audio Input Specifications
+        </div>
+        <div class="card-body">
+          <h3>Device Name — What Microphone Do I Have?</h3>
+          <p>The device name is the most direct answer to the question: <em>what microphone do I have?</em> It's typically pulled from the device driver and reflects the model name your operating system registered when you connected the microphone. Built-in laptop mics often appear as "Built-in Microphone" or "Internal Mic". USB microphones usually show their product name (e.g. "Blue Yeti USB Microphone"). Headset mics connected via a combined audio jack may display the headset brand, or sometimes just "Headset Microphone". If the name is blank or shows only a device ID string, your browser hasn't yet been granted full permission — click Allow to get full details.</p>
+
+          <h3>Sample Rate — 44.1 kHz vs 48 kHz for Audio Input</h3>
+          <p>The sample rate tells you how many audio samples per second your microphone captures. The two most common values are:</p>
+          <ul>
+            <li><strong>44,100 Hz (44.1 kHz)</strong> — the CD-quality standard, used most often for music recording and consumer audio devices.</li>
+            <li><strong>48,000 Hz (48 kHz)</strong> — the broadcast and video production standard; the default rate for many professional USB microphones, webcams, and conference systems.</li>
+          </ul>
+          <p>Higher is generally better, but for voice calls, podcasting, and video conferencing, 48 kHz is more than sufficient. If your microphone is reporting a lower rate (e.g. 8 kHz or 16 kHz), it may be a low-quality built-in device or a telephony-mode mic that's been configured for voice-only capture.</p>
+
+          <h3>Channel Count — Mono vs Stereo Microphone Input</h3>
+          <p>Most microphones are mono (1 channel) — they capture a single audio stream regardless of whether your headphones are stereo. A channel count of 2 means the audio input device is reporting a stereo signal, which is less common but does occur with some USB audio interfaces and conference microphones. For recording purposes, mono is standard for vocals and podcasting; stereo input is more relevant to room microphones or binaural recording setups. If you need to verify your speaker output channels separately, use the <a href="/echo-test">echo test</a> to check for audio loopback issues.</p>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          <i class="bi bi-sliders me-2"></i>Audio Processing Features — Echo Cancellation, Noise Suppression, and Auto Gain
+        </div>
+        <div class="card-body">
+          <h3>Echo Cancellation — What It Does and When to Disable It</h3>
+          <p>Echo cancellation is a browser-level audio processing feature that removes the sound of your speakers from the microphone signal. It's useful for video calls where the other person's voice would otherwise be picked up by your mic and sent back to them as an echo. Most modern browsers enable it by default. However, if you're recording music, voiceovers, or any audio where you want to capture the full sound of your room, echo cancellation can alter the frequency response and should be turned off. The status shown here reflects the current browser constraint setting — changing it requires code-level control, not the OS settings panel.</p>
+
+          <h3>Noise Suppression — Automatic vs Manual Control</h3>
+          <p>Noise suppression (sometimes listed as noise reduction) applies a real-time filter to attenuate background noise — fans, air conditioning, keyboard clicks — from the microphone signal. Like echo cancellation, it's helpful for calls but counterproductive for music recording. Browser-based noise suppression is less aggressive than dedicated apps (such as Krisp or NVIDIA RTX Voice) but is built into Chrome, Edge, and Firefox at the WebRTC layer. If you're testing a mic for a specific recording application, check whether suppression is on and compare results with it toggled via browser flags.</p>
+
+          <h3>Auto Gain Control — Microphone Level Management</h3>
+          <p>Auto gain control (AGC) automatically adjusts microphone input sensitivity to keep the recorded volume consistent regardless of how loud or quiet you speak. While convenient for casual use, it can cause problems for singers and podcasters — it may boost background noise during pauses or compress dynamic range during louder passages. Professional recording setups typically disable AGC and set input levels manually. The AGC status displayed here is browser-reported and may not always match the OS-level audio setting.</p>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          <i class="bi bi-mic-fill me-2"></i>Common Audio Input Device Types — What Microphone Might You Have?
+        </div>
+        <div class="card-body">
+          <h3>Built-In Laptop and Desktop Microphones</h3>
+          <p>The most common result when asking "what microphone do I have?" is a built-in device. Laptop internal mics are typically compact electret condenser elements with limited frequency range — adequate for calls but not ideal for recording. They usually operate at 44.1 kHz or 48 kHz, mono, with echo cancellation and noise suppression enabled by default. Desktop PCs rarely have built-in microphones unless it's an all-in-one model.</p>
+
+          <h3>USB Microphones — Plug-and-Play Audio Input Devices</h3>
+          <p>USB microphones appear by their product name in the device list and are among the easiest audio input devices to identify. Models like the Blue Yeti, Audio-Technica AT2020 USB, and Rode NT-USB typically report 48 kHz sample rate, 16-bit or 24-bit sample size, and appear as a dedicated audio interface. USB mics bypass the computer's built-in sound card, which is why they often produce cleaner microphone details in this tool than integrated audio hardware.</p>
+
+          <h3>Headset and 3.5mm Microphones</h3>
+          <p>Gaming headsets and 3.5mm combo audio jacks (TRRS plug) are detected as audio input devices but may show a shared device name with the headphone output. If your headset mic is connected via USB, it will appear as its own device. If via 3.5mm, it shares the sound card with the speakers and may show as "Realtek Audio" or similar chipset name rather than the headset brand. These typically support 44.1 kHz, mono, with variable quality depending on the headset.</p>
+
+          <h3>XLR Microphones via Audio Interface</h3>
+          <p>If you're using an XLR condenser or dynamic microphone connected via an audio interface (e.g. Focusrite Scarlett, Audient iD4), the device name displayed will be the audio interface, not the microphone itself. For example, you'd see "Scarlett Solo USB" rather than "Shure SM7B". The audio input specifications shown (sample rate, channel count) reflect the interface's capabilities, which are typically 44.1–192 kHz and may offer stereo input if the interface has two inputs.</p>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+          <i class="bi bi-patch-question-fill me-2"></i>Show My Microphone — Frequently Asked Questions
+        </div>
+        <div class="card-body">
+          <h3>Why does my browser show the wrong microphone?</h3>
+          <p>Browsers default to the system's "Default Input Device" setting, not necessarily the last microphone you plugged in. To check which one the browser is using, open your OS sound settings (Windows: Sound → Input; macOS: System Settings → Sound → Input) and confirm which device is set as the default. After changing it, refresh this page — the device list will update to reflect the new default at the top of the selection order.</p>
+
+          <h3>What does it mean if my microphone name shows as "Default" or a partial ID?</h3>
+          <p>This usually means the browser hasn't been granted full microphone permission yet, or your browser version limits device label exposure for privacy reasons. Click Allow on the permission prompt to unlock full device names and specifications. In Firefox, you may need to select "Remember this decision" to retain access across sessions. In Brave or Safari, device enumeration may be partially restricted even with permission granted.</p>
+
+          <h3>Can this tool identify my exact microphone model?</h3>
+          <p>The tool reads exactly what your browser's MediaDevices API reports, which comes from your operating system's audio driver registration. If your OS has the correct driver installed, you'll see the full product name. If the driver is generic or the device uses a shared USB audio class driver, the name may be a chipset or class identifier rather than a brand name. To confirm the exact model, check Device Manager (Windows) or System Information (macOS) for the full hardware descriptor.</p>
+
+          <h3>My microphone has a "Fair" or "Basic" quality rating — what should I check?</h3>
+          <p>The quality rating is calculated from five factors: sample rate, sample size, channel count, latency, and whether audio processing features are active. A low rating most often means your sample rate is below 44.1 kHz, your sample size is 8-bit, or your mic is operating in a degraded mode (e.g. via a heavily compressed Bluetooth connection). Check your OS audio settings to ensure the device isn't forced into a telephony mode (8 kHz or 16 kHz). For Bluetooth mics, switching the device out of "hands-free" mode into a higher-quality audio profile can significantly improve the rating.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Related Tools Section -->
   <div class="row mt-5">
     <div class="col-12">

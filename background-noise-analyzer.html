@@ -341,6 +341,73 @@
         </div>
       </div>
 
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>How to Use the Background Noise Analyzer</h2>
+            <ol>
+              <li>Click <strong>Start Analysis</strong> and grant microphone access when the browser prompts.</li>
+              <li>Stay silent — the tool is measuring what your microphone captures when you are not speaking, so any voice input will skew the ambient noise reading.</li>
+              <li>Let the analysis run for at least <strong>20–30 seconds</strong> to accumulate a stable average dB level and frequency distribution.</li>
+              <li>Look at the <strong>frequency spectrum</strong> for concentrations of energy: peaks at specific frequencies identify distinct noise sources; a broadly elevated floor indicates diffuse broadband noise like HVAC or traffic.</li>
+              <li>Note the <strong>Average Level</strong> reading — below 40 dB is excellent for recording; 40–55 dB is workable with noise reduction software; above 60 dB requires physical noise mitigation before recording.</li>
+              <li>Use the frequency band breakdown (Low, Mid-Low, Mid-High, High) to pinpoint which frequency range is contributing most to your noise floor.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Reading the Background Noise Frequency Spectrum</h2>
+
+            <h3>What Causes Noise in Each Frequency Band</h3>
+            <p>The frequency spectrum display reveals the <em>character</em> of background noise — not just how loud it is, but what is causing it. Different noise sources have distinctive frequency signatures:</p>
+            <ul>
+              <li><strong>Low (20–250 Hz):</strong> HVAC rumble, traffic passing outside, building vibration, and electrical mains hum (50 Hz in Europe/Asia, 60 Hz in North America). A sharp spike at exactly 50 or 60 Hz almost always indicates electrical interference — a ground loop, poor cable shielding, or a power supply near the microphone.</li>
+              <li><strong>Mid-Low (250–500 Hz):</strong> Air conditioning fan blades, refrigerator compressors, and mechanical resonances from computer cases. These frequencies often bleed into the vocal body range and can make voices sound hollow or boxy in recordings.</li>
+              <li><strong>Mid-High (500 Hz–2 kHz):</strong> Human speech bleed from other rooms, television or music playing in adjacent spaces, and some HVAC systems with metal ductwork. This band affects speech intelligibility most directly — noise here competes directly with the fundamental vocal range.</li>
+              <li><strong>High (2 kHz–20 kHz):</strong> Microphone self-noise (the hiss inherent to all microphones), electronic interference from cheap USB cables and power supplies, fluorescent light ballast noise, and high-frequency computer fan whine. This band contributes to the "noise floor" that software noise reduction targets.</li>
+            </ul>
+
+            <h3>What Good Background Noise Analysis Results Look Like</h3>
+            <p>An ideal recording environment shows: average dB below 35, a flat or gently declining spectrum with no sharp peaks, low-band and mid-band levels significantly below high-band, and no visible spikes at 50 or 60 Hz. A good room for voice recording looks like a ski slope on the spectrum display — energy declining smoothly from left to right with no jagged peaks.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Identifying and Fixing Background Noise Sources</h2>
+
+            <h3>Low-Frequency Noise: HVAC, Traffic, and Electrical Hum</h3>
+            <p>HVAC and traffic produce broadband low-frequency rumble that is difficult to eliminate without physical isolation. Short-term solutions: close all windows and doors, turn off the AC unit during recording sessions, and move the microphone away from the room's main ventilation duct. Electrical hum (the characteristic 60 Hz tone in North America) is fixed by addressing the ground loop: use a balanced XLR microphone instead of unbalanced 3.5 mm, replace cheap USB cables, and avoid running microphone cables parallel to power cables.</p>
+
+            <h3>Mid-Frequency Noise: Fans, Appliances, and Mechanical Sources</h3>
+            <p>Computer fan noise is often the largest contributor to mid-frequency background noise in a home studio. Solutions: use a directional (cardioid) microphone positioned away from the computer, place the computer behind a physical barrier, or record with the computer at a greater distance. Refrigerators and appliances: unplug nearby appliances during recording sessions, or move to a different room. For permanent solutions, acoustic panels on walls and heavy door seals significantly reduce mid-frequency transmission from adjacent spaces.</p>
+
+            <h3>High-Frequency Noise: Microphone Hiss and Electronic Interference</h3>
+            <p>High-frequency noise is usually microphone self-noise (measurable as dB(A) in the microphone's specification sheet) or USB/power supply interference. To reduce it: use a microphone with a lower self-noise rating (under 20 dB(A) for studio work), use a quality audio interface instead of a direct USB connection, and keep the microphone cable away from power supplies and screens. Software noise reduction (Nvidia RTX Voice, Krisp, or a noise reduction plugin in your DAW) can reduce residual high-frequency hiss that physical measures cannot eliminate.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Background Noise Analyzer — Frequently Asked Questions</h2>
+
+            <h3>What is a good ambient noise level for recording?</h3>
+            <p>Below 40 dB average is the target for podcast and voiceover recording — this equates to a quiet room with no HVAC running. Professional recording studios typically measure 20–25 dB. A typical home office with a running computer measures 40–55 dB, which is workable if the microphone is positioned close enough to achieve a strong signal-to-noise ratio. Check your room with this background noise analyzer before investing time in a recording session.</p>
+
+            <h3>Why does my analyzer show a spike at exactly 50 or 60 Hz?</h3>
+            <p>A sharp spike at 50 or 60 Hz is almost always electrical mains hum caused by a ground loop or inadequate shielding. Common causes: a cheap 3.5 mm microphone cable near a power cable, a USB microphone drawing power from an electrically noisy port, or multiple devices connected to the same power strip with different ground references. Fix by switching to a balanced XLR microphone, using a USB isolator, or plugging audio equipment into a dedicated power strip with proper earthing.</p>
+
+            <h3>Can I use the background noise analyzer to check noise before a recording or call?</h3>
+            <p>Yes — that is one of its most practical uses. Run the analyzer for 30 seconds in the space where you plan to record or make a call. If the average level is above 55 dB, background noise will be audible to your call participants or on your recording. Take the action steps in the recommendations section and re-run the analyzer until the level drops to an acceptable range. For calls specifically, pairing this with an <a href="/echo-test">echo test</a> gives you a complete pre-call audio environment check.</p>
+
+            <h3>How is this different from the sound level meter?</h3>
+            <p>The <a href="/sound-level-meter">sound level meter online</a> gives you a single dB reading that represents the overall volume of everything — voice, noise, and silence combined. The background noise analyzer is specifically designed to measure what the microphone picks up when you are <em>not</em> speaking, and it adds the frequency spectrum display that lets you identify the character and sources of that noise. For a quick volume check, use the sound level meter. For diagnosing recording environment problems, use the background noise analyzer.</p>
+          </div>
+        </div>
+
+      </div>
+
 
       </div>
 

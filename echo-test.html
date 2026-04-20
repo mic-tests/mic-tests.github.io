@@ -301,6 +301,63 @@
         </div>
       </div>
 
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>How to Use the Echo Test</h2>
+            <ol>
+              <li><strong>Put on headphones</strong> before starting — if you use open speakers, the playback will be picked up by your microphone and create a real feedback loop during the test.</li>
+              <li>Set the <strong>Playback Delay</strong> slider to 500ms for an initial test. This introduces a deliberate half-second offset between your speech and the playback, making it easy to hear the echo effect clearly.</li>
+              <li>Click <strong>Record (3 sec)</strong> and say a short phrase. Click <strong>Play Back</strong> to hear what your microphone captured — if you hear the audio clearly with the delay you set, the microphone and playback path are working correctly.</li>
+              <li>For a real-time echo check, use <strong>Live Monitor Test</strong> with headphones. This routes your microphone input directly to your headphones in real time so you can hear exactly what others on a call would hear from you.</li>
+              <li>Adjust the Monitor Delay slider to simulate specific latency scenarios — 0ms for direct monitoring, 100–200ms to approximate typical VoIP call latency.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>What Causes Audio Echo — Three Types Explained</h2>
+
+            <h3>Acoustic Echo — Room Reflections and Speaker-to-Mic Feedback</h3>
+            <p>Acoustic echo occurs when your speakers play audio that bounces off room surfaces (walls, desk, monitor) and reaches your microphone. The microphone captures the direct sound of your voice and the reflected speaker audio simultaneously. This manifests as a double voice to call participants — they hear you once directly and again after a room-reflection delay. The fix is physical: use headphones, reduce speaker volume, or position the microphone further from the speakers. Adding soft furnishings to the room reduces reflective surfaces that carry speaker sound back to the mic.</p>
+
+            <h3>Electronic Echo — Loopback and Monitoring Feedback</h3>
+            <p>Electronic echo happens when audio is routed in a software loop: your microphone input is passed through a monitoring or recording application that sends it back to your speakers, which the microphone then picks up again. This creates a rapidly escalating feedback loop — the characteristic loud screech in recording software. Common triggers: Stereo Mix or "What U Hear" enabled in Windows sound settings, recording software set to monitor microphone through speakers rather than headphones, or video call applications with monitoring enabled. Disable all monitoring-through-speakers settings and use headphone monitoring exclusively.</p>
+
+            <h3>Network Echo — VoIP Delay in Calls</h3>
+            <p>Network echo in video calls (Zoom, Teams, Meet) is actually your own voice being delayed by the network and returned to your ears by the far-end participant's speaker and microphone. Most modern video call platforms include Acoustic Echo Cancellation (AEC) that automatically suppresses this — but AEC fails when the far-end participant has speakers set too loud or sits in a reverberant room. If you hear yourself echoed back during calls, the echo cancellation is failing on the other participant's side, not yours. Ask them to lower their speaker volume or switch to headphones.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>How to Stop Echo — Microphone Echo Cancellation Settings</h2>
+
+            <h3>Enable Echo Cancellation in Your Browser or OS</h3>
+            <p>Most modern browsers apply echo cancellation by default when a website uses microphone access through getUserMedia. This is a software AEC filter that processes the microphone signal to subtract known speaker output from the captured audio. It works well for standard video calls but can degrade recording quality by adding artifacts. To verify it is enabled: in Chrome, open chrome://settings/content/microphone and confirm the site has microphone access. On Windows, check Sound → Recording → Properties → Enhancements and confirm "Acoustic echo cancellation" is ticked.</p>
+
+            <h3>Using Headphones to Stop the Audio Feedback Loop</h3>
+            <p>Headphones are the most reliable way to prevent acoustic echo. Over-ear and in-ear headphones physically isolate the speaker output from the microphone — sound from the headphone driver cannot travel through air to reach the microphone capsule. If you must use open speakers, reduce their volume until the noise floor contribution is below the microphone's noise reduction threshold. The echo test's live monitor mode with headphones lets you verify there is no remaining feedback before joining an important call.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Echo Test — Frequently Asked Questions</h2>
+
+            <h3>Why do I hear myself echoed back on video calls?</h3>
+            <p>If you hear your own voice echoed back during a video call, the problem is almost always on the other participant's side — their speaker audio is being picked up by their microphone and sent back to you. Ask them to lower their speaker volume, switch to headphones, or check their echo cancellation settings. If the echo appears even in a 1-on-1 call with yourself (browser tab), it means your own monitoring setup has a feedback loop — check that no monitoring-through-speakers setting is active.</p>
+
+            <h3>What is the difference between echo and reverb?</h3>
+            <p>Echo is a distinct delayed repetition of a sound — you hear a clear separate copy of the original sound after a perceptible delay. Reverb is a dense cluster of many tiny reflections arriving so quickly that they blur into a continuous "wash" rather than a distinct repeat. A large empty room produces reverb (less than 20ms delay between reflections); a canyon produces echo (several hundred milliseconds of delay between the original sound and the reflection). In recording contexts, room reverb is the more common problem; electronic echo (feedback loop) is what the echo test helps diagnose.</p>
+
+            <h3>Can I use the echo test to simulate how I sound on calls?</h3>
+            <p>Yes — enable Live Monitor Test with headphones and speak normally. You will hear exactly what your microphone is capturing in real time, which closely approximates what call participants hear from you. This is the fastest way to check whether your voice sounds clear, whether background noise is audible, and whether any processing (noise cancellation, echo suppression) is working correctly before a call. For a complete pre-call audio check, also run the <a href="/background-noise-analyzer">background noise analyzer</a> to confirm your room's noise floor is acceptable.</p>
+          </div>
+        </div>
+
+      </div>
+
 
       </div>
 

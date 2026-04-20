@@ -277,6 +277,94 @@
         </div>
       </div>
 
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>What Is an Online Mic Recorder and How Does It Work?</h2>
+            <p>An online mic recorder captures audio directly through your browser using the Web Audio API and the MediaRecorder interface — no plugin, no app, no server upload involved. When you click Record, the browser requests microphone access, opens an audio stream, and writes the incoming audio data into memory chunks. When you click Stop, those chunks are assembled into an audio file (WAV or MP3) that can be played back and downloaded directly from the page. The entire process happens locally on your device: no audio is ever sent to a remote server, making it one of the most private ways to capture voice recordings.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Common Uses for the Online Voice Recorder</h2>
+
+            <h3>Voice Memos and Quick Audio Notes</h3>
+            <p>The online mic recorder is ideal for capturing ideas, reminders, or observations faster than typing. Open the page, hit Record, speak your thought, and download the file in seconds. Unlike phone voice memo apps, the browser recorder produces a standard MP3 or WAV file that is immediately transferable to any device or application without proprietary formats or cloud sync requirements.</p>
+
+            <h3>Podcast and Voiceover Recording Online</h3>
+            <p>For first drafts, test reads, or short podcast segments, an online voice recorder eliminates the setup overhead of a DAW. Record a segment, listen back, and determine whether you need to adjust microphone position, delivery pace, or room acoustics before investing in a full production session. The waveform visualization in this tool lets you see breath sounds, plosives, and silence gaps before you download the file.</p>
+
+            <h3>Interview and Meeting Audio Recording</h3>
+            <p>When you need to capture a spoken interview, briefing, or meeting audio for transcription, the online mic recorder provides a simple one-click solution. Record the session, download the WAV file, and upload it to a transcription service. For best results in an interview context, position the microphone equidistant between you and your subject, or use a directional microphone pointed at the primary speaker.</p>
+
+            <h3>Testing Microphone Quality Before a Call or Recording Session</h3>
+            <p>Before a video call, podcast, or recording session, make a 30-second test recording and listen back critically: Are there hiss or hum artefacts? Is the voice clear and present? Does the room echo? Addressing these issues before going live saves embarrassment and post-production effort. Pair the recorder with the <a href="/audio-latency-test">audio latency test</a> to confirm your monitoring delay is acceptable.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Audio Quality Settings for Your Mic Recording</h2>
+
+            <h3>MP3 vs WAV — Which Download Format to Choose?</h3>
+            <p><strong>WAV</strong> is an uncompressed audio format. Every sample is stored at full resolution, which means the file is large but perfectly preserves the original quality of your recording — ideal for further editing, transcription, or archiving. <strong>MP3</strong> applies lossy compression that reduces file size significantly (roughly 10:1 at 192 kbps) at the cost of some very high-frequency detail that is largely inaudible to most listeners. For voice recordings, 192 kbps MP3 is indistinguishable from WAV to most ears. Choose WAV if you plan to edit the file in a DAW; choose MP3 for sharing, emailing, or uploading.</p>
+
+            <h3>Sample Rate: 44.1 kHz vs 48 kHz</h3>
+            <p>44.1 kHz is the CD standard — it captures all frequencies up to 22.05 kHz, well above the human hearing limit of 20 kHz. 48 kHz is the professional audio and video standard used in film, TV, and video production. For voice-only recordings destined for podcasting or general use, 44.1 kHz is perfectly adequate. If your recording will be mixed with video footage or used in a video production, choose 48 kHz to avoid resampling artefacts.</p>
+
+            <h3>Bitrate Settings for Voice Recording Online</h3>
+            <p>Bitrate controls how much data is used per second of MP3 audio. For voice recordings, 128 kbps is more than sufficient — voice frequencies sit between 80 Hz and 8 kHz, well within 128 kbps's reproduction capability. The 192 kbps setting (selected by default) provides extra headroom for any music, ambient sound, or high-frequency sibilants (s, sh, t sounds) in the recording. 320 kbps is overkill for voice-only content and produces unnecessarily large files.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Tips for Better Browser Microphone Recordings</h2>
+
+            <h3>Set Up a Good Recording Environment</h3>
+            <p>The room you record in is as important as the microphone you use. Hard, parallel walls create flutter echo; soft furnishings, curtains, and bookshelves absorb reflections. Before recording, check your ambient noise floor with the <a href="/sound-level-meter">sound level meter online</a> — aim for below 40 dB. Close doors and windows, turn off HVAC systems and fans, and avoid recording near a running refrigerator or desktop fan. A quiet room transforms a mediocre microphone into an adequate one.</p>
+
+            <h3>Microphone Positioning for Clearest Voice Recording</h3>
+            <p>Position the microphone 15–30 cm (6–12 inches) from your mouth and slightly off-axis (angled 15–30° away from direct mouth position) to reduce plosive sounds ("p" and "b" bursts). Too close and plosives will overload the capsule; too far and room reverb becomes audible. Using a pop filter (or improvising with a piece of nylon stretched over a hoop) eliminates most plosive issues. Avoid pointing the microphone directly at a hard wall behind you — the reflection will add a slight comb-filtering colouration.</p>
+
+            <h3>Reducing Echo and Background Noise Before You Record</h3>
+            <p>If you hear echo on playback, there are two possible causes: acoustic room echo (reverb from hard surfaces) or digital echo (feedback loop from monitor speakers). For room echo, add soft furnishings or record in a walk-in wardrobe surrounded by clothing. For digital echo, use headphones instead of speakers while recording — this prevents the played-back audio from being re-captured by the microphone. Use the <a href="/echo-test">echo test</a> to confirm there is no feedback loop before starting a recording session.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Online Mic Recorder Privacy — No Upload, No Storage</h2>
+            <p>Every step of the recording process in this tool runs locally in your browser. When you click Record, the MediaRecorder API writes audio data to a Blob object in your browser's memory. When you download the file, it is transferred directly from memory to your local filesystem. No audio data is sent to any server at any point — there is no account, no cloud storage, no analytics that capture audio content. The recording exists only in your browser session; when you close the tab, it is gone unless you downloaded it first.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Online Mic Recorder — Frequently Asked Questions</h2>
+
+            <h3>Does the online mic recorder work on mobile phones?</h3>
+            <p>Yes — the tool works on iOS Safari (version 14.3+) and Android Chrome. On iOS, you must use Safari; Chrome for iOS does not support the MediaRecorder API. On Android, Chrome, Firefox, and Edge all support browser-based recording. Note that mobile microphones typically have higher noise floors and more aggressive noise cancellation than desktop microphones, which may affect recording quality.</p>
+
+            <h3>Why does my recording sound muffled or very quiet?</h3>
+            <p>Common causes: the microphone input volume in OS settings is set too low (check Sound settings → Input level), a noise cancellation or microphone boost setting is interfering, or you are positioned too far from the microphone. Also check that the correct microphone is selected in the device dropdown — some laptops have multiple microphone inputs (built-in mic, webcam mic, headset mic) and the wrong one may be selected.</p>
+
+            <h3>Is there a maximum recording length?</h3>
+            <p>There is no hard time limit — the tool records until you click Stop. However, long recordings accumulate in your browser's memory. Recordings above 30–60 minutes may cause memory pressure on devices with limited RAM, particularly on older phones or tablets. For very long recordings (hours), a dedicated desktop recording application is more appropriate.</p>
+
+            <h3>Why does the waveform not move when I click Record?</h3>
+            <p>This usually means the browser did not receive microphone audio. Check: (1) microphone permission was granted in the browser — look for the microphone icon in the address bar; (2) the correct microphone is selected in the dropdown; (3) your microphone is physically connected and not muted at the hardware level (some headsets have an inline mute button). If the permission was previously denied, reset it in the browser's site settings.</p>
+
+            <h3>Can I record system audio (computer sounds) as well as my microphone?</h3>
+            <p>Browser-based mic recorders can only capture microphone input — they cannot record system audio (music playing, game sound, etc.) due to browser security restrictions. To record system audio alongside your microphone, use a desktop screen recorder or a virtual audio cable routing tool. The browser MediaRecorder API is limited to microphone streams for privacy reasons.</p>
+
+            <h3>What browsers support the online voice recorder?</h3>
+            <p>The tool works in any browser that supports the MediaRecorder API: Chrome 49+, Firefox 25+, Safari 14.3+, and Edge 79+. Internet Explorer is not supported. For the best audio quality and most consistent behaviour, use the latest version of Chrome or Firefox on a desktop or laptop. If the record button is unresponsive, update your browser — older versions may lack the required Web Audio API features.</p>
+          </div>
+        </div>
+
+      </div>
+
 
       </div>
 

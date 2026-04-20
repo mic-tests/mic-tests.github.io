@@ -346,6 +346,90 @@
         </div>
       </div>
 
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>How to Take the Audio Latency Test</h2>
+            <ol>
+              <li><strong>Put on headphones</strong> — open-air speakers cause acoustic feedback that corrupts the measurement. Wired headphones give the most accurate round-trip latency reading.</li>
+              <li>Click <strong>Allow</strong> when the browser asks for microphone access. The test needs your mic to capture the reference tone it plays.</li>
+              <li>Keep the room quiet — any background noise can interfere with the detection algorithm and inflate the latency reading.</li>
+              <li>Click <strong>Start Test</strong> and wait for the progress bar to complete. The tool plays a short tone, listens for it through your microphone, and calculates the round-trip delay.</li>
+              <li>Run the test <strong>three to five times</strong> and use the average reading — individual results can vary slightly due to browser scheduling.</li>
+              <li>Compare your result to the latency rating table: under 20ms is excellent for music and calls; above 100ms indicates a problem worth addressing.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>What Is Audio Latency? Understanding Sound Delay in Your System</h2>
+            <p>Audio latency is the total time between a sound event (a key pressed, a voice spoken, a signal triggered) and when it is audible through speakers or headphones. Every device in your signal chain adds a small delay: the driver, the audio engine, the digital-to-analogue converter, and the amplifier all contribute. The sum of all these delays is your system's <strong>total audio latency</strong>, measured in milliseconds.</p>
+
+            <h3>Base Latency vs Output Latency vs Round-Trip Latency</h3>
+            <p><strong>Base latency</strong> is the minimum processing delay of the audio engine — the time from when software sends a signal to when the hardware begins outputting it. <strong>Output latency</strong> is the delay introduced by the output device's buffer. <strong>Round-trip latency</strong> is what this test measures: the full loop from output to microphone capture — which includes both output and input delays simultaneously. For real-time recording and live monitoring, round-trip latency is the most relevant measurement.</p>
+
+            <h3>Browser Audio Latency vs DAW Input Latency</h3>
+            <p>Browser-based audio latency tests give a useful estimate but cannot match the precision of dedicated DAW buffer analysis. Browsers add an inherent processing overhead — typically 20–40ms even on fast hardware — because the Web Audio API runs through a non-realtime scheduler. A DAW using ASIO drivers on Windows or Core Audio on macOS bypasses this overhead and can achieve sub-5ms round-trip latency. Use this online audio latency test to diagnose general system performance; use your DAW's built-in latency report for music production calibration.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Audio Latency by Use Case — What Is an Acceptable Sound Delay?</h2>
+            <p>The right latency threshold depends entirely on what you are doing with the audio. A video call tolerates delays that would be completely unacceptable in a live recording session.</p>
+
+            <h3>Music Production and Live Monitoring: Minimum Input Latency Required</h3>
+            <p>When recording instruments or vocals, musicians monitor their own performance through headphones in real time. Any latency above 10ms is perceivable as a slight "doubling" effect — the direct sound from the instrument arrives slightly before the monitored sound through the headphones. Professional recordings target under 5ms total round-trip latency. If your audio latency test returns 10–20ms, it is workable for most home recording; above 30ms, you will notice the delay while singing or playing.</p>
+
+            <h3>Gaming and Live Streaming — Audio Delay and Sync Issues</h3>
+            <p>Gaming audio latency above 100ms makes it difficult to use audio cues to react to in-game events (gunshots, footsteps). For streamers, audio delay causes the voice commentary to fall out of sync with on-screen action. Most streaming software lets you add a video delay offset to compensate, but reducing the underlying audio latency in the first place is always preferable. A result of 20–50ms is acceptable for casual gaming; competitive play benefits from anything below 20ms.</p>
+
+            <h3>Video Calls and Online Meetings</h3>
+            <p>Conference call software (Zoom, Teams, Meet) buffers and resamples audio, adding 40–150ms of its own delay on top of your system latency. For this use case, your microphone latency reading from this test is less critical — the app's own processing dominates. That said, a high system latency above 100ms can compound the app's delay and make you sound consistently late in conversations. Under 50ms system latency is ideal for smooth call audio.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>How to Reduce Audio Latency and Minimise Sound Delay</h2>
+
+            <h3>ASIO Drivers for Low-Latency Audio on Windows</h3>
+            <p>ASIO (Audio Stream Input/Output) is a driver protocol developed by Steinberg that bypasses Windows' standard audio engine, dramatically cutting latency. If you use a USB audio interface, install its ASIO driver from the manufacturer's website. If no dedicated driver is available, ASIO4ALL is a free wrapper that gives most Windows machines access to low-latency ASIO routing. Most DAWs let you switch between WASAPI and ASIO — always choose ASIO for recording work. On macOS, Core Audio already provides near-ASIO performance natively.</p>
+
+            <h3>Reducing Buffer Size to Lower Microphone Latency</h3>
+            <p>The audio buffer is a short memory queue that holds samples before they are processed. A smaller buffer reduces latency but increases CPU load — if the CPU cannot fill the buffer in time, you get audio dropouts and glitches. For recording, set the buffer to 64–256 samples. For mixing or playback only, 512–1024 samples is fine. If you get crackling at low buffer sizes, close all background applications and check that no other software is claiming exclusive audio access to your device.</p>
+
+            <h3>Wired vs Bluetooth: Which Has Lower Audio Delay?</h3>
+            <p>Bluetooth audio introduces 100–300ms of codec-dependent latency. Aptx Low Latency (aptX LL) reduces this to 40ms; Bluetooth LE Audio (LC3) targets 20–30ms. Even the best Bluetooth codecs cannot match a wired USB or 3.5 mm connection, which typically adds under 5ms at the hardware level. If your audio latency test returns values above 100ms and you are on Bluetooth, switching to a wired connection is the single most effective change you can make.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Audio Latency Test — Frequently Asked Questions</h2>
+
+            <h3>What causes high audio latency in a browser?</h3>
+            <p>Browsers process audio through the Web Audio API, which runs on a non-realtime scheduler. This adds inherent overhead of 20–40ms regardless of your hardware. Additional causes include: a large audio buffer set in your OS driver settings, background applications competing for CPU, Bluetooth audio routing, or an outdated audio driver. For the browser-based audio latency test to show a low reading, all these factors need to be minimised simultaneously.</p>
+
+            <h3>Why does Bluetooth always show high audio latency?</h3>
+            <p>Bluetooth audio uses lossy compression codecs (SBC, AAC, aptX) that add encoding and decoding time. The Bluetooth radio protocol also adds packet transmission delay. Even with modern low-latency codecs, you should expect 40–200ms of additional delay versus a wired connection. Some earbuds in "gaming mode" switch to a lower-latency codec specifically to reduce this — check if your device has this option in its companion app.</p>
+
+            <h3>Is the audio latency test the same as a network ping test?</h3>
+            <p>No — they measure completely different things. A network ping test measures how long a data packet takes to travel across a network. This audio latency test measures how long it takes for your device to produce a sound and for that sound to be captured by your microphone — entirely local, no network involved. Poor network ping does not directly cause audio latency within your computer's sound system.</p>
+
+            <h3>My latency reading is 5ms but audio still feels delayed — why?</h3>
+            <p>Browser-based tests estimate latency using AudioContext.baseLatency and AudioContext.outputLatency — values reported by the browser, not directly measured. The browser may report a low hardware latency while adding its own scheduling delay on top. Additionally, if you are experiencing perceived audio delay in a specific application (video call, DAW, game), that application may be adding its own buffering that this test does not account for. Test within the specific application's own latency settings.</p>
+
+            <h3>What is ASIO and does it reduce audio latency significantly?</h3>
+            <p>ASIO bypasses the Windows Kernel Mixer, which adds up to 30ms of extra latency. With a quality audio interface and ASIO driver, total round-trip latency of 3–6ms is achievable on modern hardware. Without ASIO (using WASAPI or DirectSound), typical Windows latency is 20–50ms. The improvement is significant for music production. ASIO has no equivalent in browser audio — this is why browser-based tests always show higher latency than DAW measurements.</p>
+
+            <h3>Can I use this test to calibrate latency for my DAW recording setup?</h3>
+            <p>Use it as a starting point for diagnosing whether your audio interface is performing as expected. For precise DAW calibration, use your DAW's built-in round-trip latency measurement or a dedicated hardware latency tester. The <a href="/mic-recorder">online mic recorder</a> is also useful for checking whether your recorded audio drifts out of sync over time, which indicates a clock rate mismatch rather than a latency issue.</p>
+          </div>
+        </div>
+
+      </div>
+
 
       </div>
 

@@ -221,6 +221,94 @@
         </div>
       </div>
 
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>How to Run the Speaker Test Online</h2>
+            <ol>
+              <li><strong>Set system volume to 50%</strong> before starting — use your OS volume control, not just this tool's slider, to avoid sudden loud output.</li>
+              <li>Select a <strong>Test Sound</strong> from the dropdown: start with 1 kHz Tone for a clean reference signal.</li>
+              <li>Click <strong>Play Test Sound</strong> and confirm you hear audio from both speakers.</li>
+              <li>Use the <strong>Quick Volume Tests</strong> (25%, 50%, 75%, 100%) to step through levels and check that volume scales smoothly without crackling.</li>
+              <li>Switch to <strong>Frequency Sweep</strong> to scan from 200 Hz to 2000 Hz — listen for any frequencies that sound distorted or absent.</li>
+              <li>Try <strong>White Noise</strong> to check speaker response across the full audio spectrum simultaneously.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>What Does the Online Speaker Test Check?</h2>
+
+            <h3>Speaker Channel Test — Left, Right, and Both</h3>
+            <p>The speaker test confirms that audio output reaches both channels at the correct volume. If one speaker plays noticeably louder, the audio output is unbalanced — check the balance slider in your OS sound settings. Run a <a href="/stereo-test">stereo test</a> if you need to verify that left and right channels are not swapped.</p>
+
+            <h3>Frequency Sweep Speaker Test</h3>
+            <p>The sweep option ramps from 200 Hz to 2000 Hz over three seconds. A healthy speaker plays every point in the sweep at consistent volume. If you notice a sudden drop, a resonance buzz, or complete silence at a specific frequency, that region of the speaker's response is problematic — it may indicate a damaged driver or port resonance.</p>
+
+            <h3>Noise-Based Speaker Sound Test</h3>
+            <p>White noise contains all frequencies at equal energy, making it ideal for identifying colouration or gaps in your speaker's audio output. Pink noise reduces high-frequency energy to better match how the ear perceives loudness — audiophiles use it for level-matching multiple speakers. If one speaker sounds brighter or duller than the other during a noise test, the two units are not matched.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Speaker Test Results by Volume Level</h2>
+
+            <h3>Low Volume Speaker Test (25%)</h3>
+            <p>At 25% volume, you're testing that your audio output chain functions at minimum levels — essential for quiet listening environments and background audio. If you can't hear anything at 25% with system volume at 50%, your speaker's sensitivity rating may be low, or a hardware volume control (physical knob on a monitor or amplifier) is set too low.</p>
+
+            <h3>Medium Volume Audio Output Test (50%)</h3>
+            <p>50% is the standard reference level for most speaker tests. A well-functioning speaker should play cleanly, with no distortion, at this level. If you hear rattling, buzzing, or crackling at 50% volume, something is wrong — driver damage, a loose enclosure component, or excessive bass boost in your EQ settings are the most common causes.</p>
+
+            <h3>High Volume Check (75–100%)</h3>
+            <p>Testing at high volume reveals how much headroom your speakers have before they clip or distort. Distortion at 75–100% is normal for budget speakers operating at their limit. If distortion appears at 50% or below, the driver is likely damaged or the amplifier is underpowered for the speaker load. Never sustain 100% volume for extended periods — it accelerates driver wear.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Speaker Test Troubleshooting — No Sound or Poor Audio Output</h2>
+
+            <h3>Speaker Test Shows No Audio Output</h3>
+            <p>If the speaker test plays but you hear nothing: check that the correct output device is selected in your OS sound settings — if you recently plugged in headphones or an HDMI monitor, the OS may have switched the default output. Also verify system volume is not muted at the OS level. On laptops, a function key (Fn+F8 or similar) may be muting audio independently.</p>
+
+            <h3>One Speaker Channel Is Silent During the Test</h3>
+            <p>A silent channel points to a physical connection issue, a damaged driver, or an OS balance setting pushed fully to one side. Check your OS sound settings and confirm the balance is centred. Try different cables or ports to isolate the fault. If the silent channel works in a different audio app, the issue may be browser-specific — try a different browser for the online speaker test.</p>
+
+            <h3>Audio Output Sounds Distorted at Any Volume</h3>
+            <p>Consistent distortion at all volume levels usually means a damaged voice coil or blown driver. Distortion that appears only at high volumes is more likely an overloaded amplifier or EQ-boosted bass exceeding the speaker's limits. Remove any bass boost or loudness enhancement in your audio driver software and retest.</p>
+
+            <h3>Speaker Test Passes But Overall Sound Quality Is Poor</h3>
+            <p>A passing speaker test means the hardware is functional — but sound quality issues often come from software: equaliser settings, audio enhancement software (spatial sound, room correction), or a low-quality audio driver. Disable enhancements in your OS audio settings and test again. Outdated or generic audio drivers can also degrade quality — install the manufacturer's driver from their website.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Frequently Asked Questions About the Speaker Test Online</h2>
+
+            <h3>Is the online speaker test safe for my speakers?</h3>
+            <p>Yes, as long as you start at a moderate volume and avoid sustained maximum-volume playback. The test tones are standard sine waves and noise signals — the same types used in professional audio calibration. Start at 25–50% volume and only increase if needed. If you hear distortion at any level, stop immediately and reduce volume.</p>
+
+            <h3>Why does the speaker test sound different at different volume levels?</h3>
+            <p>All speakers have a non-linear frequency response that changes with volume. At low volumes, bass frequencies sound thinner (the equal-loudness contour effect — the ear is less sensitive to bass at low levels). At high volumes, the speaker's physical limits cause harmonic distortion. This is normal speaker behaviour, not a fault.</p>
+
+            <h3>Can I use this as a subwoofer test?</h3>
+            <p>For subwoofer testing, the <a href="/bass-test">bass test</a> is better suited — it covers 20–200 Hz with a dedicated sweep. The 1 kHz tone and frequency sweep in this speaker test focus on the mid-range. That said, playing white noise through all speakers simultaneously (including the subwoofer) gives a useful overall balance check.</p>
+
+            <h3>Why does the speaker test only play through one channel?</h3>
+            <p>Check your OS balance control first — it may be set fully left or right. Also verify your cable: a mono-to-stereo adaptor or a partially-inserted 3.5 mm jack will only output to one channel. If using Bluetooth, check that the speaker is connected in stereo mode, not mono/hands-free profile.</p>
+
+            <h3>Does the speaker test work with Bluetooth speakers?</h3>
+            <p>Yes. Select your Bluetooth speaker as the audio output device in your OS sound settings before running the test. Note that Bluetooth audio introduces 50–200 ms of latency — the tone will play with a slight delay after you click Play. This is normal and does not affect the volume or quality test results.</p>
+
+            <h3>What is white noise and why is it used in speaker testing?</h3>
+            <p>White noise is a random signal that contains all audible frequencies simultaneously at equal power. It's used in speaker testing because it exercises the full frequency range of the driver in a single pass. If a speaker has a weak tweeter, the white noise will sound muffled. If the woofer is damaged, the noise will have a hollow, thin quality.</p>
+          </div>
+        </div>
+
+      </div>
+
 
       </div>
 

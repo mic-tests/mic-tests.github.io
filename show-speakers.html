@@ -419,6 +419,72 @@
     </div>
   </div>
 
+  <!-- Content Section -->
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2>How to Find Out What Speakers You Have</h2>
+          <p>This tool reads your system's audio output devices using the browser's Web Audio API and <code>MediaDevices.enumerateDevices()</code> method. Unlike checking your OS control panel, it shows you exactly what your <em>browser</em> sees — which matters when you're troubleshooting audio in a web app or video call that behaves differently from your desktop applications. The tool lists every audio output endpoint your system exposes: built-in speakers, connected headphones, HDMI outputs, USB audio devices, and Bluetooth speakers.</p>
+          <p>Click any device card to expand its full technical specifications — device ID, group ID, sample rate, channel count, and latency. Use the built-in speaker test controls to confirm the device actually produces sound before deciding whether it's the one you want as your default.</p>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2>Understanding Your Audio Output Device Specifications</h2>
+
+          <h3>Device Name and Group ID — What They Tell You</h3>
+          <p>The device name is what your OS and browser expose to web applications — it may be a generic label ("Speakers") or a specific model name ("Realtek Audio Output"). The group ID links audio input and output devices that share the same physical hardware: for example, a headset's microphone and headphone driver will share a group ID, confirming they are part of the same device. This is useful when troubleshooting mixed-device setups where audio goes to the wrong endpoint.</p>
+
+          <h3>Sample Rate — What 44.1 kHz and 48 kHz Mean for Your Speaker</h3>
+          <p>The sample rate shown is the rate at which your audio hardware processes digital audio samples per second. 44.1 kHz (44,100 samples/second) is the CD standard and the most common setting for consumer audio. 48 kHz is the professional audio and video standard used in film, TV, and video production. Most modern systems default to 48 kHz. If your sample rate differs from your audio software's setting, the OS resamples the audio — this is harmless but can introduce very subtle quality changes in critical listening environments.</p>
+
+          <h3>Channel Count — Stereo vs Surround Audio Output</h3>
+          <p>The channel count indicates how many independent audio streams your output device supports. Channel count 2 is stereo (left and right). Channel count 6 indicates 5.1 surround (front-left, front-right, centre, rear-left, rear-right, subwoofer). Channel count 8 indicates 7.1 surround. Most browsers and web applications output stereo (2-channel) audio regardless of your hardware's capability — hardware surround is typically handled by your audio driver and receiver, not the browser.</p>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2>Common Audio Output Device Types and What Speakers You Might Have</h2>
+
+          <h3>Built-In Laptop and Desktop Speakers</h3>
+          <p>Built-in speakers appear in the device list as entries like "Speakers (Realtek Audio)" or "Internal Speakers". These are driven directly by the motherboard's integrated audio chipset. They are the most common default output device and the first place to check if you hear no audio — if the built-in speaker is listed but produces no sound, the driver may need updating or the physical speaker connection may be loose.</p>
+
+          <h3>USB and External Speakers</h3>
+          <p>USB speakers and audio interfaces appear as separate devices with names that match their manufacturer labels (e.g., "Focusrite USB Audio" or "Logitech Z506 Audio"). They register as independent audio endpoints and typically show 48 kHz sample rate. If a USB speaker doesn't appear in the list, it may need to be reconnected, or the USB audio driver may not be installed. Try unplugging and replugging the device, then clicking Refresh.</p>
+
+          <h3>HDMI and DisplayPort Audio Output</h3>
+          <p>When a monitor, TV, or projector is connected via HDMI or DisplayPort, it registers as an audio output device (e.g., "HDMI Audio Output" or "LG ULTRAGEAR HDMI"). If audio is unexpectedly coming from a TV or monitor speaker, it is because the system has set this HDMI endpoint as the default output. Select it in the device list to confirm it is active, then change your default output in OS sound settings if needed.</p>
+
+          <h3>Bluetooth Speakers</h3>
+          <p>Bluetooth speakers appear in the list only while they are paired and connected. They typically show reduced capabilities compared to wired devices — 48 kHz sample rate and stereo channel count. The device name usually matches the Bluetooth device's name as configured in its companion app. If a Bluetooth speaker has disconnected and you hear no audio, check that it's still the system default output; the OS does not automatically fall back to the built-in speaker in all cases.</p>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2>Speaker Details FAQ — Frequently Asked Questions</h2>
+
+          <h3>Why can't I see all my connected speakers in the list?</h3>
+          <p>Browser audio device enumeration requires microphone permission — the browser uses mic permission as a gate to prevent fingerprinting via device enumeration. If you denied microphone access previously, the device list may be incomplete or show only the default output. Grant microphone access when prompted (even if you have no microphone) and refresh the page. Also, some audio devices register only as input devices and will not appear in the speaker output list.</p>
+
+          <h3>What does "Default Device" mean in my speaker details?</h3>
+          <p>The default device is the audio output endpoint that applications use unless they specify a different one. When you play a YouTube video or join a Zoom call without selecting a specific output, the audio goes to the default device. You can change the default in OS sound settings (Windows: Sound Control Panel → Playback tab; macOS: System Settings → Sound → Output). The speaker detail table shows whether a device is currently set as your default.</p>
+
+          <h3>Why does my speaker show as "disconnected" even though I can hear audio?</h3>
+          <p>Some browsers cannot always determine the live connection status of audio endpoints, particularly for HDMI outputs and Bluetooth devices. The status shown is reported by the OS driver, which may lag behind the actual hardware state. If audio is playing through the device, it is functionally connected regardless of what the status label says. Use the built-in speaker test in this tool to confirm audio output rather than relying solely on the status indicator.</p>
+
+          <h3>Can I see the model name and specifications of my speakers through the browser?</h3>
+          <p>The browser can only access what the OS audio driver exposes — typically the device name, device ID, group ID, sample rate, and channel count. Detailed hardware specifications like driver size, power rating, or frequency response are not available through any browser API. For full hardware details on a specific speaker model, check the manufacturer's product page using the model name shown in the device list.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Related Tools Section -->
   <div class="row mt-5">
     <div class="col-12">

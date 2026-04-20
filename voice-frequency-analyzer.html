@@ -344,6 +344,94 @@
         </div>
       </div>
 
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>How to Use the Voice Frequency Analyzer</h2>
+            <ol>
+              <li>Click <strong>Start Analysis</strong> and grant microphone access when the browser prompts.</li>
+              <li>Speak in your normal voice — sustain a vowel sound ("ahhh") for 2–3 seconds to get a stable fundamental frequency reading.</li>
+              <li>Watch the <strong>Frequency Spectrum</strong> graph: the tallest bar is your fundamental frequency; the bars to the right of it are your harmonics.</li>
+              <li>Read the <strong>Fundamental Frequency</strong> display (in Hz) and the <strong>Voice Type</strong> classification below the graph.</li>
+              <li>Switch between <strong>Bars</strong> and <strong>Line</strong> view modes to see the spectrum in different visualisations. Line mode makes it easier to spot narrow peaks and notches.</li>
+              <li>Speak different sounds, whisper, and project — watch how the spectrum shifts. High consonants like "s" and "sh" create energy above 4 kHz; vowels centre energy in the 300 Hz–3 kHz range.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Understanding Your Voice Frequency Analysis Results</h2>
+
+            <h3>Fundamental Frequency — Your Speaking Pitch in Hz</h3>
+            <p>The fundamental frequency (F0) is the rate at which your vocal folds vibrate per second, measured in Hertz. It is the lowest and typically strongest frequency component of your voice. When the analyzer displays "120 Hz", it means your vocal cords are vibrating 120 times per second at that moment — a frequency that corresponds roughly to B2 on a musical scale, which sits in the typical range for adult male speaking voices. The fundamental frequency is the clearest indicator of whether your voice pitch is high or low.</p>
+
+            <h3>Harmonics and Their Role in Your Voice Character</h3>
+            <p>Harmonics are integer multiples of the fundamental frequency. If your F0 is 120 Hz, your first harmonic is 240 Hz, the second is 360 Hz, and so on. These harmonic overtones give your voice its unique tonal character — the difference between a warm baritone and a bright tenor, or a rich alto and a bright soprano, is largely a matter of which harmonics are emphasised by the shape of your vocal tract. On the frequency spectrum display, harmonics appear as a series of regularly spaced peaks that trail off in height to the right of the fundamental.</p>
+
+            <h3>Voice Frequency Distribution: Bass, Mid, Presence, and Brilliance</h3>
+            <p>The four frequency bands displayed below the spectrum graph each describe a different aspect of your voice's energy:</p>
+            <ul>
+              <li><strong>Bass (80–300 Hz):</strong> The fundamental pitch and body of the voice. A high level here suggests a deep voice; too much can make the voice sound muddy on recordings.</li>
+              <li><strong>Mid (300 Hz–2 kHz):</strong> The core intelligibility zone. Most of the energy that makes speech understandable lives here — vowel formants, consonant body, and voice warmth.</li>
+              <li><strong>Presence (2–4 kHz):</strong> The "cut" of the voice. High presence makes a voice forward and prominent; insufficient presence makes it sound distant or recessed, which is a common complaint about conference call audio.</li>
+              <li><strong>Brilliance (4 kHz+):</strong> Air, sibilance, and brightness. High-frequency content above 4 kHz gives the voice its crispness and "air". If this band is flat, the voice sounds dull or muffled — often a sign the microphone's frequency response rolls off above 4 kHz.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Voice Frequency Ranges by Voice Type</h2>
+
+            <h3>Typical Speaking Frequency for Men</h3>
+            <p>Adult men typically speak with a fundamental frequency between 85 Hz and 180 Hz, with an average around 120 Hz. Men with very deep voices (bass voice type) may centre around 85–100 Hz. Tenor voices tend to speak around 150–180 Hz. These ranges apply to habitual speaking pitch — the frequency a person naturally gravitates towards in relaxed conversation, as distinct from the higher pitches used when excited or the lower pitches when authoritative.</p>
+
+            <h3>Typical Speaking Frequency for Women</h3>
+            <p>Adult women typically speak between 165 Hz and 255 Hz, with an average around 200–210 Hz. Women with alto voice types gravitate toward the lower end (165–190 Hz); sopranos often speak at 220–260 Hz. The substantial overlap between male and female speaking frequency ranges — roughly 150–200 Hz — is the "androgynous zone" where voice gender is ambiguous to the ear without additional cues like vocabulary and speech patterns.</p>
+
+            <h3>How Voice Frequency Changes with Age</h3>
+            <p>Children's voices are not yet differentiated by gender — both boys and girls typically speak at 250–300 Hz. Male voice frequency drops dramatically during puberty as the larynx grows and vocal folds lengthen, typically settling 60–70% lower. Female voices also drop slightly during puberty but much less dramatically. In older adults, vocal fold thinning and reduced muscular tension cause voice frequency to drift — men's voices often rise slightly after 60, while women's voices may drop slightly post-menopause.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Practical Uses for the Voice Frequency Analyzer</h2>
+
+            <h3>Checking Microphone Frequency Response on Calls</h3>
+            <p>If your voice sounds thin, muffled, or tinny on video calls, the voice frequency analyzer helps diagnose the problem. Speak into your microphone and compare the spectrum to what you expect. If the mid-range (300 Hz–2 kHz) is weak, the microphone or its positioning is cutting fundamental vocal energy. If the presence band (2–4 kHz) is missing, the voice will sound recessed — a common issue with laptop microphones and cheap webcam mics. If the bass band dominates, you may be too close to a cardioid microphone experiencing proximity effect.</p>
+
+            <h3>Vocal Training and Pitch Monitoring</h3>
+            <p>Singers and vocal coaches use frequency analysis to verify pitch accuracy and consistency. Sustain a note and watch the fundamental frequency display — ideally the number should stay stable for the duration of the note. Wobble in the Hz reading indicates pitch instability; a slow drift upward or downward indicates pitch drift (flat or sharp tendency). The closest note display and cent deviation readout let you see exactly how far off a target pitch you are in real time, which is useful for ear training exercises.</p>
+
+            <h3>Diagnosing Recording Problems with the Audio Spectrum Analyzer</h3>
+            <p>When a recording sounds wrong but you cannot immediately identify why, the live spectrum display can pinpoint the problem. Unusual peaks at specific frequencies may indicate resonances in the room or recording environment. A "hole" in the spectrum at 1–3 kHz is a common symptom of comb filtering from microphone placement near a reflective surface. Excessive bass build-up below 200 Hz often comes from proximity effect on condenser microphones. The <a href="/background-noise-analyzer">background noise analyzer</a> can help identify the specific frequency content of any noise that appears in the spectrum even when you are not speaking.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Voice Frequency Analyzer — Frequently Asked Questions</h2>
+
+            <h3>What is a normal voice frequency for speaking?</h3>
+            <p>Adult men typically speak at 85–180 Hz (average: ~120 Hz); adult women at 165–255 Hz (average: ~210 Hz). There is no "correct" speaking frequency — it is determined by the length and mass of your vocal folds, which are set by genetics. However, habitual pitch can be consciously raised or lowered with training, and many people unconsciously shift their speaking pitch depending on context (formal vs casual, authoritative vs empathetic).</p>
+
+            <h3>Why does my fundamental frequency change throughout the day?</h3>
+            <p>Voice frequency is influenced by hydration, muscle warm-up, and hormonal cycles. Immediately after waking, vocal folds are less hydrated and the voice typically runs 5–15 Hz lower than usual. After speaking for 10–15 minutes, folds warm up and frequency stabilises. Dehydration throughout the day causes progressive stiffening that raises the fundamental frequency slightly. Menstrual cycle hormones in women can cause measurable frequency shifts. Stress increases laryngeal muscle tension, which raises pitch.</p>
+
+            <h3>Can I use the voice frequency analyzer to tune my singing voice?</h3>
+            <p>Yes — sustain a note, read the fundamental frequency in Hz, and compare it to the target note frequency (A4 = 440 Hz, C4 = 261.6 Hz, etc.). The "Closest Note" display and cents deviation reading show you how close to the target pitch you are. However, for dedicated pitch training, a chromatic tuner designed for vocal use gives more musical feedback. This voice frequency analyzer is more useful for understanding the full spectral character of your voice than for precise pitch-by-pitch tuning exercises.</p>
+
+            <h3>Why is my fundamental frequency display showing "--" or fluctuating wildly?</h3>
+            <p>The analyzer needs a sustained, tonal sound to detect a clear fundamental frequency. Background noise, consonants, whispers, and ambient room sounds produce complex, atonal spectra where pitch detection algorithms struggle to identify a single dominant frequency. Sustain a clear "ahhh" vowel and hold it steady for 2–3 seconds to get a stable reading. Also check that the room is reasonably quiet — constant noise above 60 dB can swamp the microphone signal and make pitch detection unreliable.</p>
+
+            <h3>What do the Hz numbers mean for my voice quality?</h3>
+            <p>The Hz value on its own does not indicate voice quality — it only indicates pitch. A deep voice at 100 Hz is not better or worse than a higher voice at 220 Hz. What matters for voice quality is the <em>distribution</em> of frequency energy: a well-balanced voice with strong presence (2–4 kHz) is clear and intelligible; a voice with weak mids is muffled; one with excessive bass is boomy. Use the frequency distribution bands below the spectrum graph to assess quality, not just the fundamental frequency reading.</p>
+          </div>
+        </div>
+
+      </div>
+
 
       </div>
 

@@ -333,6 +333,133 @@
         </div>
       </div>
 
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>How to Use the Online Sound Level Meter</h2>
+            <ol>
+              <li><strong>Grant microphone access</strong> — the browser will prompt you the first time you click Start Measuring. The tool uses your mic to capture ambient sound; no audio is recorded or uploaded.</li>
+              <li>Click <strong>Start Measuring</strong> and watch the dB meter needle rise and fall in real time as your room's sound level changes.</li>
+              <li>Check the <strong>Current, Average, and Peak</strong> readings at the bottom of the meter. For most use cases, the average reading is the most meaningful — a single loud noise inflates the peak without reflecting the overall environment.</li>
+              <li>To test a specific scenario — AC unit, traffic noise, a fan — click Start, wait 30 seconds, then click Stop and read the average dB.</li>
+              <li>Use the <strong>Level History graph</strong> to see how noise levels fluctuate over time. A flat line means consistent ambient noise; spikes indicate transient noise events.</li>
+              <li>Click <strong>Reset Statistics</strong> between tests to clear the peak and average accumulation for a fresh reading.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>What Is a Decibel? Understanding Sound Level Measurement in dB</h2>
+            <p>A decibel (dB) is the unit used to express the ratio of a sound's pressure relative to a reference value. Because the human ear can detect sounds across an enormous range — from the faintest whisper to a jet engine — the decibel scale is logarithmic rather than linear. This means each increase of 10 dB represents roughly ten times the sound intensity and about twice the perceived loudness. A 70 dB office is not just 40% louder than a 50 dB library — it is 100 times more intense in physical energy terms.</p>
+
+            <h3>dBFS vs dB SPL — What the Online dB Meter Measures</h3>
+            <p>Professional sound meters measure dB SPL (Sound Pressure Level), calibrated against a physical reference (20 micropascals). This requires certified hardware. Browser-based tools measure <strong>dBFS (Decibels relative to Full Scale)</strong> — the signal level relative to the maximum value the microphone and audio driver can capture. Without hardware calibration, the readings are relative rather than absolute. Two important practical implications: (1) the exact dB number may differ from a certified meter; (2) the relative changes — whether sound gets louder or quieter — are accurate and useful for comparing environments or monitoring consistency.</p>
+
+            <h3>Why the Decibel Scale Is Logarithmic</h3>
+            <p>The ear uses a logarithmic response because it evolved to process sound over an enormous dynamic range — from 0 dB (threshold of hearing) to 140 dB (pain threshold). A linear scale would require representing numbers from 1 to 100,000,000,000,000 just to cover normal hearing range. The log scale compresses this into a manageable 0–140 dB range. This also explains why "turning it up by 3 dB" sounds slightly louder but requires double the amplifier power — the physics and the perception do not scale the same way.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Sound Level Guide — What Your dB Reading Means</h2>
+            <p>Use these ranges to interpret the dB readings from the online sound level meter and understand whether your environment is safe or noisy for recording, calls, or long-term occupancy.</p>
+
+            <h3>Quiet Environments: 0–40 dB</h3>
+            <p>Below 30 dB is acoustically near-silent — a recording studio's target ambient noise level. A quiet bedroom at night typically reads 25–35 dB. A quiet library measures around 35–40 dB. These environments are ideal for podcast recording, studio work, and online calls where microphone sensitivity will pick up everything. If your sound level meter reads below 40 dB with no specific noise sources present, you have a high-quality acoustic environment.</p>
+
+            <h3>Moderate Noise Levels: 40–70 dB</h3>
+            <p>This is the range most people live and work in. Normal conversation at one metre is approximately 60–65 dB. An open-plan office typically runs 55–65 dB continuously. These levels are comfortable for extended exposure and generally produce acceptable recording conditions, though a directional microphone positioned close to the speaker will help reject background noise in the 50–65 dB range. Anything above 65 dB will noticeably bleed into recordings.</p>
+
+            <h3>Loud Noise Levels: 70–85 dB</h3>
+            <p>Busy traffic from indoors reads around 70–75 dB. A vacuum cleaner at 1 metre is approximately 75 dB. A food blender runs around 80–85 dB. These levels are tiring over several hours and will contaminate recordings. At 85 dB, NIOSH (National Institute for Occupational Safety and Health) considers exposure beyond 8 hours per day to pose a risk of noise-induced hearing loss. Use the sound level meter to identify when your environment reaches this threshold.</p>
+
+            <h3>Harmful and Dangerous Sound Levels: 85–130+ dB</h3>
+            <p>Power tools (90–100 dB), concerts and clubs (100–115 dB), and emergency sirens (120 dB) represent increasingly hazardous exposure levels. At 110 dB, safe exposure time without hearing protection is under 2 minutes per day according to NIOSH guidelines. At 120 dB or above — the threshold of pain — any unprotected exposure carries immediate risk of permanent hearing damage. If your sound level meter reaches these values, move away immediately or wear hearing protection.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Safe Noise Exposure Times — Protecting Your Hearing</h2>
+            <p>NIOSH applies the "3 dB exchange rate" to calculate safe daily noise exposure limits. Every 3 dB increase in sound level halves the safe exposure time:</p>
+            <table class="table table-sm">
+              <thead><tr><th>Sound Level</th><th>Max Daily Exposure (NIOSH)</th><th>Example Source</th></tr></thead>
+              <tbody>
+                <tr><td>85 dB</td><td>8 hours</td><td>Heavy traffic, vacuum cleaner</td></tr>
+                <tr><td>88 dB</td><td>4 hours</td><td>Hand drill, busy restaurant</td></tr>
+                <tr><td>91 dB</td><td>2 hours</td><td>Lawn mower, power saw</td></tr>
+                <tr><td>94 dB</td><td>1 hour</td><td>Motorcycle at close range</td></tr>
+                <tr><td>100 dB</td><td>15 minutes</td><td>Pneumatic drill, concert near stage</td></tr>
+                <tr><td>110 dB</td><td>2 minutes</td><td>Rock concert, chainsaw</td></tr>
+              </tbody>
+            </table>
+            <p class="mb-0">If your workspace or listening environment regularly exceeds 85 dB, consider taking a <a href="/hearing-test">hearing test online</a> to check whether your high-frequency sensitivity has already been affected.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Common Uses for an Online Sound Level Meter</h2>
+
+            <h3>Checking Room Noise Before Recording or a Call</h3>
+            <p>Before starting a podcast, voiceover session, or video call, run the sound level meter for 30 seconds to check your average ambient noise floor. A room with an average below 40 dB will produce clean recordings. Between 40–55 dB you will hear background hiss in quiet passages but it is manageable. Above 60 dB, the background noise will be audible to all participants on a call or audible in recordings even with noise-reduction software applied.</p>
+
+            <h3>Workplace Noise Level Monitoring</h3>
+            <p>Workers in manufacturing, construction, and hospitality environments are often exposed to noise above 85 dB without realising it. While an online dB meter does not replace a certified occupational hygienist's measurement, it provides a useful first-pass awareness check. If readings consistently exceed 80 dB in your workspace, request a formal noise assessment from your employer — workers have statutory rights regarding hearing protection in most countries once noise exceeds 80–85 dB daily average.</p>
+
+            <h3>Verifying Speaker and Headphone Output Levels</h3>
+            <p>The sound level meter is useful for calibrating speaker playback levels for mixing and mastering. Place the microphone at listening distance, play pink noise through your speakers, and note the average dB reading. This lets you match levels between sessions for consistent monitoring. The same principle applies to headphones — play a reference tone and note the dB reading before and after adjusting volume to establish a repeatable, safe listening level. Pair this with the <a href="/voice-frequency-analyzer">voice frequency analyzer</a> to check the frequency balance of your mic or speakers.</p>
+
+            <h3>Environmental and Neighbourhood Noise Assessment</h3>
+            <p>The online sound level meter can help document noise from traffic, neighbours, HVAC systems, or construction. Collect 5-minute average readings at different times of day to establish a pattern. This data can support noise complaints to building management or local authorities, though certified acoustic measurements are required for any legal proceeding. For detailed noise frequency breakdown beyond a simple dB level, use the <a href="/background-noise-analyzer">background noise analyzer</a>.</p>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Accuracy and Limitations of Browser-Based Decibel Measurement</h2>
+
+            <h3>Why Online dB Meter Readings Are Relative, Not Absolute</h3>
+            <p>Your device's microphone has a built-in sensitivity rating (typically −38 dBFS at 1 Pa for a phone mic) and the OS applies automatic gain control (AGC) that adjusts input sensitivity dynamically. This means the raw reading from a browser-based sound level meter cannot be directly mapped to an absolute dB SPL value without a known reference measurement and hardware calibration. The readings are most useful for <em>relative</em> comparisons: checking whether your room is quieter than another room, or whether a noise source is getting louder or quieter over time.</p>
+
+            <h3>Tips for More Accurate Online Sound Level Meter Readings</h3>
+            <ul>
+              <li><strong>Disable audio enhancements:</strong> Turn off noise cancellation, spatial sound, and microphone boost in your OS audio settings. These processing layers distort the input signal and skew dB readings.</li>
+              <li><strong>Keep the microphone position consistent:</strong> Move the laptop or phone 30 cm closer and the reading will jump 3–6 dB. Fix your measurement position and repeat tests from the same spot.</li>
+              <li><strong>Wait 5 seconds after starting:</strong> AGC takes a moment to stabilise. Ignore the first few seconds of readings.</li>
+              <li><strong>Use average, not peak:</strong> A single door slam can push the peak reading to 90+ dB. The average reading over 30–60 seconds is a far better indicator of your ambient noise environment.</li>
+              <li><strong>For absolute dB SPL:</strong> Use a calibrated hardware SPL meter for any measurement that needs to be legally defensible or professionally accurate.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2>Sound Level Meter — Frequently Asked Questions</h2>
+
+            <h3>Is this online sound level meter accurate?</h3>
+            <p>It is useful for relative measurements and awareness — comparing environments, identifying noise sources, and checking recording conditions. It is not a certified SPL meter. Accuracy depends heavily on your microphone's sensitivity and your OS audio processing settings. For regulatory compliance (OSHA, workplace health and safety), you need a certified Class 1 or Class 2 sound level meter.</p>
+
+            <h3>What is a safe noise level for a home office or workspace?</h3>
+            <p>The WHO recommends an average noise level below 35 dB for sleeping environments and below 50 dB for offices for concentration and productivity. NIOSH sets the occupational exposure limit at 85 dB for 8-hour workdays. For home recording, an ambient noise floor below 40 dB is the target. Use this dB meter to measure your space before setting up a microphone.</p>
+
+            <h3>How loud is too loud for headphone listening?</h3>
+            <p>The WHO warns that 1.1 billion young people are at risk of hearing loss from unsafe headphone use. Listening at 85 dB through headphones for more than 8 hours daily is considered unsafe by most guidelines. A practical rule: if someone next to you can hear your headphones clearly, the volume is likely above 85 dB and too loud for extended use. Take a periodic <a href="/hearing-test">hearing test online</a> if you are a heavy headphone user.</p>
+
+            <h3>What is the difference between dBA and dBC weighting?</h3>
+            <p>dBA (A-weighted) applies frequency correction that mimics the ear's sensitivity — it de-emphasises very low and very high frequencies because the ear is less sensitive to them. dBA is the most common measurement for occupational noise exposure and environmental regulations. dBC (C-weighted) is relatively flat and is used for measuring peak noise events like gunshots or explosions. The readings shown in this online dB meter are unweighted (dBFS), which means they treat all frequencies equally.</p>
+
+            <h3>Can I use the sound level meter on my phone?</h3>
+            <p>Yes — the tool works in any modern browser including Chrome and Safari on iOS and Android. Grant microphone permission when prompted. Note that phone microphones typically have higher noise floors than dedicated measurement microphones, which slightly reduces accuracy at very low sound levels (below 30 dB). For best results on a phone, disable any noise cancellation in the microphone settings and hold the phone still during measurement.</p>
+
+            <h3>My readings seem too low or too high — what should I do?</h3>
+            <p>If the reading seems wrong, first check your OS microphone input volume — if it is set very low, the meter will read artificially quiet. If it is boosted above 100%, readings will be artificially high. Disable microphone boost and noise cancellation in your OS audio settings. Also check that the correct microphone is selected in the tool's device dropdown — a headset microphone and a built-in laptop mic will give very different sensitivity levels.</p>
+          </div>
+        </div>
+
+      </div>
+
 
       </div>
 
