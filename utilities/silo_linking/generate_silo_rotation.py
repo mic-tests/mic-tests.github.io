@@ -1,105 +1,72 @@
 #!/usr/bin/env python3
 """
 Monthly silo link rotation for mic-tests.github.io.
-Patches HTML files in-place using comment markers:
+
+Full rotation each month:
+  - Pillar rotates which hub it links to (deterministic shuffle, pick index 0).
+  - Each hub's "down" link rotates to whichever supporter is first in that
+    silo's shuffled chain for the month.
+  - Supporter prev/next/bridge links update to match the shuffled order.
+
+HTML files are patched in-place using comment markers:
   <!-- SILO_START:slot_a -->sentence with link<!-- SILO_END:slot_a -->
 
 Run via GitHub Actions on the 1st of each month, or manually:
   python3 utilities/silo_linking/generate_silo_rotation.py
+  python3 utilities/silo_linking/generate_silo_rotation.py --dry-run
 """
 
 import datetime
 import hashlib
 import html as html_lib
 import os
+import random
 import re
 import sys
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # ---------------------------------------------------------------------------
-# Silo links: which page → which slots → which target (anchor + URL)
+# Silo structure
 # ---------------------------------------------------------------------------
 
-SILO_LINKS = {
-    "index.html": [
-        {"slot": "slot_a", "anchor": "tone generator",          "url": "/tone-generator"},
+HUBS = ["tone-generator.html", "hearing-test.html", "audio-latency-test.html"]
+
+HUB_ANCHORS = {
+    "tone-generator.html":     "tone generator",
+    "hearing-test.html":       "hearing test online",
+    "audio-latency-test.html": "audio latency test",
+}
+HUB_URLS = {
+    "tone-generator.html":     "/tone-generator",
+    "hearing-test.html":       "/hearing-test",
+    "audio-latency-test.html": "/audio-latency-test",
+}
+
+# Supporter pages in each silo. "anchor" = keyword used when linking TO this page.
+SILO_SUPPORTERS = {
+    "tone-generator.html": [        # Silo A — 5 pages
+        {"file": "headphone-test.html",      "anchor": "headphone test",         "url": "/headphone-test"},
+        {"file": "stereo-test.html",          "anchor": "stereo test",            "url": "/stereo-test"},
+        {"file": "bass-test.html",            "anchor": "bass test",              "url": "/bass-test"},
+        {"file": "speaker-volume-test.html",  "anchor": "speaker test online",    "url": "/speaker-volume-test"},
+        {"file": "show-speakers.html",        "anchor": "what speakers do i have","url": "/show-speakers"},
     ],
-    "tone-generator.html": [
-        {"slot": "slot_a", "anchor": "mic test online",          "url": "/"},
-        {"slot": "slot_b", "anchor": "headphone test",           "url": "/headphone-test"},
-        {"slot": "slot_c", "anchor": "hearing test online",      "url": "/hearing-test"},
+    "hearing-test.html": [          # Silo B — 3 pages
+        {"file": "sound-level-meter.html",         "anchor": "sound level meter online", "url": "/sound-level-meter"},
+        {"file": "voice-frequency-analyzer.html",  "anchor": "voice frequency analyzer", "url": "/voice-frequency-analyzer"},
+        {"file": "background-noise-analyzer.html", "anchor": "background noise analyzer","url": "/background-noise-analyzer"},
     ],
-    "hearing-test.html": [
-        {"slot": "slot_a", "anchor": "mic test online",          "url": "/"},
-        {"slot": "slot_b", "anchor": "tone generator",           "url": "/tone-generator"},
-        {"slot": "slot_c", "anchor": "audio latency test",       "url": "/audio-latency-test"},
-        {"slot": "slot_d", "anchor": "sound level meter online", "url": "/sound-level-meter"},
-    ],
-    "audio-latency-test.html": [
-        {"slot": "slot_a", "anchor": "mic test online",          "url": "/"},
-        {"slot": "slot_b", "anchor": "hearing test online",      "url": "/hearing-test"},
-        {"slot": "slot_c", "anchor": "online mic recorder",      "url": "/mic-recorder"},
-    ],
-    "headphone-test.html": [
-        {"slot": "slot_a", "anchor": "tone generator",           "url": "/tone-generator"},
-        {"slot": "slot_b", "anchor": "stereo test",              "url": "/stereo-test"},
-    ],
-    "stereo-test.html": [
-        {"slot": "slot_a", "anchor": "tone generator",           "url": "/tone-generator"},
-        {"slot": "slot_b", "anchor": "headphone test",           "url": "/headphone-test"},
-        {"slot": "slot_c", "anchor": "bass test",                "url": "/bass-test"},
-    ],
-    "bass-test.html": [
-        {"slot": "slot_a", "anchor": "tone generator",           "url": "/tone-generator"},
-        {"slot": "slot_b", "anchor": "stereo test",              "url": "/stereo-test"},
-        {"slot": "slot_c", "anchor": "speaker test online",      "url": "/speaker-volume-test"},
-    ],
-    "speaker-volume-test.html": [
-        {"slot": "slot_a", "anchor": "tone generator",           "url": "/tone-generator"},
-        {"slot": "slot_b", "anchor": "bass test",                "url": "/bass-test"},
-        {"slot": "slot_c", "anchor": "what speakers do i have",  "url": "/show-speakers"},
-    ],
-    "show-speakers.html": [
-        {"slot": "slot_a", "anchor": "tone generator",           "url": "/tone-generator"},
-        {"slot": "slot_b", "anchor": "speaker test online",      "url": "/speaker-volume-test"},
-        {"slot": "slot_c", "anchor": "sound level meter online", "url": "/sound-level-meter"},
-    ],
-    "sound-level-meter.html": [
-        {"slot": "slot_a", "anchor": "hearing test online",      "url": "/hearing-test"},
-        {"slot": "slot_b", "anchor": "voice frequency analyzer", "url": "/voice-frequency-analyzer"},
-        {"slot": "slot_c", "anchor": "what speakers do i have",  "url": "/show-speakers"},
-    ],
-    "voice-frequency-analyzer.html": [
-        {"slot": "slot_a", "anchor": "hearing test online",      "url": "/hearing-test"},
-        {"slot": "slot_b", "anchor": "sound level meter online", "url": "/sound-level-meter"},
-        {"slot": "slot_c", "anchor": "background noise analyzer","url": "/background-noise-analyzer"},
-    ],
-    "background-noise-analyzer.html": [
-        {"slot": "slot_a", "anchor": "hearing test online",      "url": "/hearing-test"},
-        {"slot": "slot_b", "anchor": "voice frequency analyzer", "url": "/voice-frequency-analyzer"},
-        {"slot": "slot_c", "anchor": "online mic recorder",      "url": "/mic-recorder"},
-    ],
-    "mic-recorder.html": [
-        {"slot": "slot_a", "anchor": "audio latency test",       "url": "/audio-latency-test"},
-        {"slot": "slot_b", "anchor": "echo test",                "url": "/echo-test"},
-        {"slot": "slot_c", "anchor": "background noise analyzer","url": "/background-noise-analyzer"},
-    ],
-    "echo-test.html": [
-        {"slot": "slot_a", "anchor": "audio latency test",       "url": "/audio-latency-test"},
-        {"slot": "slot_b", "anchor": "online mic recorder",      "url": "/mic-recorder"},
-        {"slot": "slot_c", "anchor": "what microphone do i have","url": "/show-mic"},
-    ],
-    "show-mic.html": [
-        {"slot": "slot_a", "anchor": "audio latency test",       "url": "/audio-latency-test"},
-        {"slot": "slot_b", "anchor": "echo test",                "url": "/echo-test"},
+    "audio-latency-test.html": [    # Silo C — 3 pages
+        {"file": "mic-recorder.html", "anchor": "online mic recorder",       "url": "/mic-recorder"},
+        {"file": "echo-test.html",    "anchor": "echo test",                 "url": "/echo-test"},
+        {"file": "show-mic.html",     "anchor": "what microphone do i have", "url": "/show-mic"},
     ],
 }
 
 # ---------------------------------------------------------------------------
-# Injection targets: where to place each slot's marker on first run.
+# Injection targets: physical HTML location for each slot (first run only).
 # (heading_tag, heading_text_fragment) — None = first <p> after <h1>.
-# Uses partial text matching so minor entity differences don't break it.
 # ---------------------------------------------------------------------------
 
 INJECTION_TARGETS = {
@@ -108,23 +75,26 @@ INJECTION_TARGETS = {
     },
     "tone-generator.html": {
         "slot_a": ("h1", None),
-        "slot_b": ("h2", "What Is a Tone Generator?"),
-        "slot_c": ("h3", "Hearing Range Assessment"),
+        "slot_b": ("h2", "What Is a Tone Generator?"),        # left hub (or empty)
+        "slot_c": ("h3", "Hearing Range Assessment"),          # right hub (or empty)
+        "slot_d": ("h3", "Tinnitus Frequency Matching"),       # down to first supporter
     },
     "hearing-test.html": {
         "slot_a": ("h1", None),
-        "slot_b": ("h2", "How to Take the Hearing Test"),
-        "slot_c": ("h2", "Understanding Your Hearing Test Results"),
-        "slot_d": ("h2", "Common Causes of High-Frequency Hearing Loss"),
+        "slot_b": ("h2", "How to Take the Hearing Test"),      # left hub (or empty)
+        "slot_c": ("h2", "Understanding Your Hearing Test Results"),  # right hub (or empty)
+        "slot_d": ("h2", "Common Causes of High-Frequency Hearing Loss"),  # down to first supporter
     },
     "audio-latency-test.html": {
         "slot_a": ("h1", None),
-        "slot_b": ("h2", "What Is Audio Latency?"),
-        "slot_c": ("h2", "Audio Latency by Use Case"),
+        "slot_b": ("h2", "What Is Audio Latency?"),            # left hub (or empty)
+        "slot_c": ("h2", "Audio Latency by Use Case"),         # right hub (or empty)
+        "slot_d": ("h2", "How to Reduce Audio Latency"),       # down to first supporter
     },
     "headphone-test.html": {
         "slot_a": ("h1", None),
         "slot_b": ("h2", "What Does the Headphone Test Check?"),
+        "slot_c": ("h3", "Sound Coming from the Wrong Ear"),
     },
     "stereo-test.html": {
         "slot_a": ("h1", None),
@@ -174,6 +144,7 @@ INJECTION_TARGETS = {
     "show-mic.html": {
         "slot_a": ("h1", None),
         "slot_b": ("h2", "How to Find Out What Microphone You Have"),
+        "slot_c": ("h3", "Device Name \u2014 What Microphone Do I Have?"),
     },
 }
 
@@ -232,7 +203,7 @@ SENTENCES = {
     ],
     "bass test": [
         "Use the {link} to find out how deep your speakers can reproduce low frequencies.",
-        "The {link} sweeps through 20Hz–200Hz to reveal your subwoofer's actual frequency floor.",
+        "The {link} sweeps through 20Hz\u2013200Hz to reveal your subwoofer's actual frequency floor.",
         "Run a {link} to check whether your speakers handle sub-bass or roll off above 60Hz.",
         "A {link} exposes port resonance, driver rattle, or missing low end in any speaker setup.",
         "The free {link} plays every bass frequency so you can hear exactly where your system drops out.",
@@ -305,11 +276,14 @@ SENTENCES = {
 }
 
 # ---------------------------------------------------------------------------
-# Core helpers
+# Rotation helpers
 # ---------------------------------------------------------------------------
 
-def _strip_tags(s: str) -> str:
-    return html_lib.unescape(re.sub(r"<[^>]+>", "", s)).strip()
+def monthly_shuffle(items: list, seed_key: str, today: datetime.date) -> list:
+    seed = int(hashlib.md5(f"{today.year}-{today.month}-{seed_key}".encode()).hexdigest(), 16)
+    items = list(items)
+    random.Random(seed).shuffle(items)
+    return items
 
 
 def pick_sentence(source_file: str, anchor: str, today: datetime.date) -> str:
@@ -318,28 +292,145 @@ def pick_sentence(source_file: str, anchor: str, today: datetime.date) -> str:
     return SENTENCES[anchor][idx]
 
 
+def generate_silo_links(today: datetime.date) -> dict:
+    """Return SILO_LINKS dict for the given month via deterministic shuffle.
+
+    Hub slot convention (all 3 hubs share identical slot semantics):
+      slot_a = up to pillar ("mic test online" — fixed)
+      slot_b = LEFT hub neighbour (None/empty if this hub is first in shuffled order)
+      slot_c = RIGHT hub neighbour (None/empty if this hub is last in shuffled order)
+      slot_d = DOWN to first supporter in this hub's shuffled chain (rotates monthly)
+    """
+
+    shuffled_hubs = monthly_shuffle(HUBS, "pillar", today)
+    pillar_hub    = shuffled_hubs[0]  # pillar links to whichever hub is first this month
+
+    silo_supporters = {
+        hub: monthly_shuffle(SILO_SUPPORTERS[hub], f"silo_{i}", today)
+        for i, hub in enumerate(HUBS)
+    }
+
+    links: dict = {}
+
+    # --- Pillar: 1 outgoing link to whichever hub is first this month ---
+    links["index.html"] = [
+        {"slot": "slot_a", "anchor": HUB_ANCHORS[pillar_hub], "url": HUB_URLS[pillar_hub]},
+    ]
+
+    # --- Hub pages: slot_b=left, slot_c=right, slot_d=down (all rotate monthly) ---
+    for pos, hub_file in enumerate(shuffled_hubs):
+        is_first_hub = (pos == 0)
+        is_last_hub  = (pos == len(shuffled_hubs) - 1)
+        supporters   = silo_supporters[hub_file]
+        left_hub     = shuffled_hubs[pos - 1] if not is_first_hub else None
+        right_hub    = shuffled_hubs[pos + 1] if not is_last_hub  else None
+
+        links[hub_file] = [
+            {"slot": "slot_a", "anchor": "mic test online", "url": "/"},
+            {"slot": "slot_b",
+             "anchor": HUB_ANCHORS[left_hub]  if left_hub  else None,
+             "url":    HUB_URLS[left_hub]     if left_hub  else None},
+            {"slot": "slot_c",
+             "anchor": HUB_ANCHORS[right_hub] if right_hub else None,
+             "url":    HUB_URLS[right_hub]    if right_hub else None},
+            {"slot": "slot_d",
+             "anchor": supporters[0]["anchor"], "url": supporters[0]["url"]},
+        ]
+
+    # Pull per-silo shuffled lists for use in the supporter section below
+    silo_a = silo_supporters["tone-generator.html"]
+    silo_b = silo_supporters["hearing-test.html"]
+    silo_c = silo_supporters["audio-latency-test.html"]
+
+    # --- Supporter pages ---
+    silos = [
+        ("tone-generator.html",     silo_a, 0),  # Silo A
+        ("hearing-test.html",       silo_b, 1),  # Silo B
+        ("audio-latency-test.html", silo_c, 2),  # Silo C
+    ]
+
+    for hub_file, supporters, silo_idx in silos:
+        n          = len(supporters)
+        hub_anchor = HUB_ANCHORS[hub_file]
+        hub_url    = HUB_URLS[hub_file]
+
+        for i, page in enumerate(supporters):
+            is_first = (i == 0)
+            is_last  = (i == n - 1)
+
+            slot_a_def = {"slot": "slot_a", "anchor": hub_anchor, "url": hub_url}
+
+            if is_first:
+                next_page  = supporters[1]
+                slot_b_def = {"slot": "slot_b",
+                              "anchor": next_page["anchor"], "url": next_page["url"]}
+
+                if silo_idx == 0:
+                    # Silo A first — no backward bridge (A is the first silo)
+                    slot_c_def = {"slot": "slot_c", "anchor": None, "url": None}
+                else:
+                    # Backward bridge: link to last of the previous silo
+                    prev_silo  = [silo_a, silo_b][silo_idx - 1]
+                    last_prev  = prev_silo[-1]
+                    slot_c_def = {"slot": "slot_c",
+                                  "anchor": last_prev["anchor"], "url": last_prev["url"]}
+
+            elif is_last:
+                prev_page  = supporters[i - 1]
+                slot_b_def = {"slot": "slot_b",
+                              "anchor": prev_page["anchor"], "url": prev_page["url"]}
+
+                if silo_idx == 2:
+                    # Silo C last — no forward bridge (C is the last silo)
+                    slot_c_def = {"slot": "slot_c", "anchor": None, "url": None}
+                else:
+                    # Forward bridge: link to first of the next silo
+                    next_silo  = [silo_b, silo_c][silo_idx]
+                    first_next = next_silo[0]
+                    slot_c_def = {"slot": "slot_c",
+                                  "anchor": first_next["anchor"], "url": first_next["url"]}
+
+            else:
+                # Middle of chain
+                prev_page  = supporters[i - 1]
+                next_page  = supporters[i + 1]
+                slot_b_def = {"slot": "slot_b",
+                              "anchor": prev_page["anchor"], "url": prev_page["url"]}
+                slot_c_def = {"slot": "slot_c",
+                              "anchor": next_page["anchor"], "url": next_page["url"]}
+
+            links[page["file"]] = [slot_a_def, slot_b_def, slot_c_def]
+
+    return links
+
+# ---------------------------------------------------------------------------
+# Core HTML helpers
+# ---------------------------------------------------------------------------
+
+def _strip_tags(s: str) -> str:
+    return html_lib.unescape(re.sub(r"<[^>]+>", "", s)).strip()
+
+
 def make_sentence_html(template: str, url: str, anchor: str) -> str:
     link = f'<a href="{url}">{anchor}</a>'
     return template.replace("{link}", link)
 
 
 def update_markers(html: str, slot: str, sentence_html: str) -> str:
-    start = f"<!-- SILO_START:{slot} -->"
-    end   = f"<!-- SILO_END:{slot} -->"
+    start   = f"<!-- SILO_START:{slot} -->"
+    end     = f"<!-- SILO_END:{slot} -->"
     pattern = re.compile(re.escape(start) + r".*?" + re.escape(end), re.S)
     return pattern.sub(start + sentence_html + end, html)
 
 
 def find_paragraph_end(html: str, heading_tag: str, heading_text: str | None) -> int | None:
-    """Return position of </p> to inject before, based on the given heading."""
+    """Return position just before </p> to inject into, based on the given heading."""
     if heading_text is None:
-        # First <p> after the first </h1>
         m = re.search(r"</h1>", html)
         if not m:
             return None
         search_from = m.end()
     else:
-        # Find heading tag whose stripped text contains heading_text fragment
         for m in re.finditer(
             r"<" + heading_tag + r"[^>]*>(.*?)</" + heading_tag + r">",
             html, re.S
@@ -360,48 +451,55 @@ def insert_markers(html: str, slot: str, sentence_html: str,
                    heading_tag: str, heading_text: str | None) -> str:
     pos = find_paragraph_end(html, heading_tag, heading_text)
     if pos is None:
-        return html  # injection point not found — leave unchanged
-    start = f"<!-- SILO_START:{slot} -->"
-    end   = f"<!-- SILO_END:{slot} -->"
+        return html
+    start     = f"<!-- SILO_START:{slot} -->"
+    end       = f"<!-- SILO_END:{slot} -->"
     injection = f" {start}{sentence_html}{end}"
     return html[:pos] + injection + html[pos:]
-
 
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
 def run(today: datetime.date, dry_run: bool = False) -> None:
+    silo_links = generate_silo_links(today)
     errors: list[str] = []
 
-    for page_file, links in SILO_LINKS.items():
+    for page_file, link_defs in silo_links.items():
         filepath = os.path.join(REPO_ROOT, page_file)
         if not os.path.exists(filepath):
             errors.append(f"MISSING FILE: {page_file}")
             continue
 
-        html = open(filepath, encoding="utf-8").read()
+        html     = open(filepath, encoding="utf-8").read()
         original = html
 
-        for link_def in links:
+        for link_def in link_defs:
             slot   = link_def["slot"]
             anchor = link_def["anchor"]
             url    = link_def["url"]
 
-            sentence_html = make_sentence_html(
-                pick_sentence(page_file, anchor, today), url, anchor
-            )
-
             marker_start = f"<!-- SILO_START:{slot} -->"
 
-            if marker_start in html:
-                html = update_markers(html, slot, sentence_html)
+            if anchor is None:
+                # Empty slot — clear any existing content, or insert empty markers
+                if marker_start in html:
+                    html = update_markers(html, slot, "")
+                else:
+                    tag, text = INJECTION_TARGETS[page_file][slot]
+                    html = insert_markers(html, slot, "", tag, text)
             else:
-                tag, text = INJECTION_TARGETS[page_file][slot]
-                new_html = insert_markers(html, slot, sentence_html, tag, text)
-                if new_html == html:
-                    errors.append(f"INJECT FAILED: {page_file}/{slot} — heading not found")
-                html = new_html
+                sentence_html = make_sentence_html(
+                    pick_sentence(page_file, anchor, today), url, anchor
+                )
+                if marker_start in html:
+                    html = update_markers(html, slot, sentence_html)
+                else:
+                    tag, text = INJECTION_TARGETS[page_file][slot]
+                    new_html  = insert_markers(html, slot, sentence_html, tag, text)
+                    if new_html == html:
+                        errors.append(f"INJECT FAILED: {page_file}/{slot} — heading not found")
+                    html = new_html
 
         if html != original:
             if dry_run:
