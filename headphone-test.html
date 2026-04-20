@@ -3,21 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Headphone Test - Check Left/Right Channels & Audio Quality | MicTest</title>
-  <meta name="description" content="Put on your headphones and check each ear individually. Click Play Left and the tone should come from your left ear only — if it comes from the right, your headphones are backwards or your audio output is swapped.">
+  <title>Headphone Test - Check Left & Right Audio Channels</title>
+  <meta name="description" content="Check left and right audio channels on your headphones. Click Play Left — if sound comes from the wrong ear, your headphones are wired backwards or the output is swapped.">
   <meta name="keywords" content="headphone test, earphone test, headphone stereo test, left right headphone test, headphone channel test, audio quality test">
 
   <link rel="canonical" href="https://mic-tests.github.io/headphone-test">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "WebPage",
     "name": "Headphone Test",
     "url": "https://mic-tests.github.io/headphone-test",
     "description": "Test your headphones for stereo balance, audio quality, and channel separation. Verify left and right earphones are working correctly.",
-    "applicationCategory": "UtilitiesApplication",
-    "operatingSystem": "Any",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "isPartOf": { "@type": "WebSite", "name": "MicTest", "url": "https://mic-tests.github.io" }
   }
   </script>
@@ -168,7 +165,7 @@
                 <div class="card test-card h-100" id="bass-card">
                   <div class="card-body text-center">
                     <i class="bi bi-disc fs-1 text-primary"></i>
-                    <h6 class="mt-2">Bass Test</h6>
+                    <h2 class="mt-2">Bass Test</h2>
                     <small class="text-muted">Check low frequency response</small>
                   </div>
                 </div>
@@ -177,7 +174,7 @@
                 <div class="card test-card h-100" id="treble-card">
                   <div class="card-body text-center">
                     <i class="bi bi-graph-up fs-1 text-warning"></i>
-                    <h6 class="mt-2">Treble Test</h6>
+                    <h2 class="mt-2">Treble Test</h2>
                     <small class="text-muted">Check high frequency response</small>
                   </div>
                 </div>
@@ -186,7 +183,7 @@
                 <div class="card test-card h-100" id="fullrange-card">
                   <div class="card-body text-center">
                     <i class="bi bi-soundwave fs-1 text-success"></i>
-                    <h6 class="mt-2">Full Range Sweep</h6>
+                    <h2 class="mt-2">Full Range Sweep</h2>
                     <small class="text-muted">20Hz to 20kHz sweep</small>
                   </div>
                 </div>
@@ -215,7 +212,7 @@
 
         <div class="card mb-4">
           <div class="card-body">
-            <h5><i class="bi bi-check-circle me-2"></i>What to Check</h5>
+            <h2><i class="bi bi-check-circle me-2"></i>What to Check</h2>
             <ul>
               <li><strong>Both ears work:</strong> Sound should be clear in both left and right</li>
               <li><strong>Correct channels:</strong> Left plays in left ear, right in right ear</li>
@@ -302,7 +299,7 @@
 
         <div class="card">
           <div class="card-body">
-            <h6><i class="bi bi-wrench me-2"></i>Issues?</h6>
+            <h3><i class="bi bi-wrench me-2"></i>Issues?</h3>
             <p class="small mb-0">If one side isn't working, check your cable connection. For wireless, check battery and pairing. See <a href="/troubleshooting">troubleshooting</a> for more help.</p>
           </div>
         </div>
@@ -352,12 +349,12 @@ document.addEventListener('DOMContentLoaded', function() {
   <div class="container">
     <div class="row">
       <div class="col-lg-3 col-md-6 mb-4">
-        <h5><i class="bi bi-mic-fill me-2"></i>MicTest</h5>
+        <p class="h5 fw-bold mb-2"><i class="bi bi-mic-fill me-2"></i>MicTest</p>
         <p class="text-muted small">Free online microphone and audio testing tools. Test your microphone, speakers, and audio devices directly in your browser without any downloads.</p>
         <p class="text-muted small">Need help? Check our audio troubleshooting guide or contact us.</p>
       </div>
       <div class="col-lg-3 col-md-6 mb-4">
-        <h6><i class="bi bi-mic me-2"></i>Audio Input Tools</h6>
+        <p class="h6 fw-semibold mb-2"><i class="bi bi-mic me-2"></i>Audio Input Tools</p>
         <ul class="list-unstyled small">
           <li class="mb-1"><a href="/" class="text-muted text-decoration-none" title="Free Online Microphone Test">Microphone Test</a></li>
           <li class="mb-1"><a href="/show-mic" class="text-muted text-decoration-none" title="View Microphone Details">Show My Mic</a></li>
@@ -370,7 +367,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </ul>
       </div>
       <div class="col-lg-3 col-md-6 mb-4">
-        <h6><i class="bi bi-speaker me-2"></i>Audio Output Tools</h6>
+        <p class="h6 fw-semibold mb-2"><i class="bi bi-speaker me-2"></i>Audio Output Tools</p>
         <ul class="list-unstyled small">
           <li class="mb-1"><a href="/show-speakers" class="text-muted text-decoration-none" title="View Speaker Details">Show My Speakers</a></li>
           <li class="mb-1"><a href="/tone-generator" class="text-muted text-decoration-none" title="Generate Test Tones">Tone Generator</a></li>
@@ -378,14 +375,14 @@ document.addEventListener('DOMContentLoaded', function() {
           <li class="mb-1"><a href="/bass-test" class="text-muted text-decoration-none" title="Test Low Frequencies">Bass Test</a></li>
           <li class="mb-1"><a href="/speaker-volume-test" class="text-muted text-decoration-none" title="Calibrate Volume">Speaker Volume Test</a></li>
         </ul>
-        <h6 class="mt-3"><i class="bi bi-headphones me-2"></i>Device Testing</h6>
+        <p class="h6 fw-semibold mb-2 mt-3"><i class="bi bi-headphones me-2"></i>Device Testing</p>
         <ul class="list-unstyled small">
           <li class="mb-1"><a href="/headphone-test" class="text-muted text-decoration-none" title="Test Your Headphones">Headphone Test</a></li>
           <li class="mb-1"><a href="/hearing-test" class="text-muted text-decoration-none" title="Online Hearing Test">Hearing Test</a></li>
         </ul>
       </div>
       <div class="col-lg-3 col-md-6 mb-4">
-        <h6><i class="bi bi-info-circle me-2"></i>Resources</h6>
+        <p class="h6 fw-semibold mb-2"><i class="bi bi-info-circle me-2"></i>Resources</p>
         <ul class="list-unstyled small">
           <li class="mb-1"><a href="/troubleshooting" class="text-muted text-decoration-none" title="Fix Audio Problems">Troubleshooting Guide</a></li>
         </ul>

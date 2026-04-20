@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Show My Speaker Details - Audio Output Device Information & Testing | MicTest</title>
+  <title>Show My Speakers - Audio Output Device Info & Testing</title>
   <meta content="See every audio output device connected to your system — device name, sample rate, channel configuration, and device ID. If audio is coming out the wrong device, or you're not sure which output is actually active, this is faster than digging through control panels."
         name="description">
   <meta content="speaker details, audio output specs, speaker information, audio device testing, speaker capabilities, audio output analysis, speaker quality test" name="keywords">
@@ -12,13 +12,10 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "WebPage",
     "name": "Show My Speaker Details",
     "url": "https://mic-tests.github.io/show-speakers",
     "description": "Explore detailed speaker specifications and audio output device capabilities. Test speaker quality, check channel configurations, and verify audio output functionality.",
-    "applicationCategory": "UtilitiesApplication",
-    "operatingSystem": "Any",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "isPartOf": { "@type": "WebSite", "name": "MicTest", "url": "https://mic-tests.github.io" }
   }
   </script>
@@ -258,7 +255,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-md-6">
-              <h5>Technical Specifications</h5>
+              <h2>Technical Specifications</h2>
               <table class="table table-striped device-detail-table">
                 <tbody>
                 <tr>
@@ -289,7 +286,7 @@
               </table>
             </div>
             <div class="col-md-6">
-              <h5>Additional Features</h5>
+              <h2>Additional Features</h2>
               <table class="table table-striped device-detail-table">
                 <tbody>
                 <tr>
@@ -315,7 +312,7 @@
 
           <div class="row mt-3">
             <div class="col-md-12">
-              <h5>Speaker Test</h5>
+              <h2>Speaker Test</h2>
               <p>Use the controls below to test your selected speaker:</p>
 
               <div class="form-group mb-3">
@@ -433,7 +430,7 @@
     <div class="col-md-4 mb-4">
       <div class="card h-100 feature-card">
         <div class="card-body">
-          <h5><i class="bi bi-activity me-2 text-primary"></i>Tone Generator</h5>
+          <h3><i class="bi bi-activity me-2 text-primary"></i>Tone Generator</h3>
           <p class="small">Generate test tones, sine waves, white noise, and pink noise at any frequency.</p>
           <a href="/tone-generator" class="btn btn-outline-primary btn-sm" title="Generate Test Tones">Generate Tones</a>
         </div>
@@ -442,7 +439,7 @@
     <div class="col-md-4 mb-4">
       <div class="card h-100 feature-card">
         <div class="card-body">
-          <h5><i class="bi bi-badge-hd me-2 text-primary"></i>Stereo Test</h5>
+          <h3><i class="bi bi-badge-hd me-2 text-primary"></i>Stereo Test</h3>
           <p class="small">Test left and right speaker channels separately to verify stereo configuration.</p>
           <a href="/stereo-test" class="btn btn-outline-primary btn-sm" title="Test Stereo Channels">Test Stereo</a>
         </div>
@@ -451,7 +448,7 @@
     <div class="col-md-4 mb-4">
       <div class="card h-100 feature-card">
         <div class="card-body">
-          <h5><i class="bi bi-disc me-2 text-primary"></i>Bass Test</h5>
+          <h3><i class="bi bi-disc me-2 text-primary"></i>Bass Test</h3>
           <p class="small">Test your subwoofer and speaker low frequency response with bass frequencies.</p>
           <a href="/bass-test" class="btn btn-outline-primary btn-sm" title="Test Bass Response">Test Bass</a>
         </div>
@@ -462,7 +459,7 @@
     <div class="col-md-4 mb-4">
       <div class="card h-100 feature-card">
         <div class="card-body">
-          <h5><i class="bi bi-volume-up me-2 text-primary"></i>Speaker Volume Test</h5>
+          <h3><i class="bi bi-volume-up me-2 text-primary"></i>Speaker Volume Test</h3>
           <p class="small">Calibrate and test your speaker volume levels with reference audio.</p>
           <a href="/speaker-volume-test" class="btn btn-outline-primary btn-sm" title="Test Speaker Volume">Test Volume</a>
         </div>
@@ -471,7 +468,7 @@
     <div class="col-md-4 mb-4">
       <div class="card h-100 feature-card">
         <div class="card-body">
-          <h5><i class="bi bi-headphones me-2 text-primary"></i>Headphone Test</h5>
+          <h3><i class="bi bi-headphones me-2 text-primary"></i>Headphone Test</h3>
           <p class="small">Comprehensive headphone testing for audio quality and channel balance.</p>
           <a href="/headphone-test" class="btn btn-outline-primary btn-sm" title="Test Headphones">Test Headphones</a>
         </div>
@@ -480,7 +477,7 @@
     <div class="col-md-4 mb-4">
       <div class="card h-100 feature-card">
         <div class="card-body">
-          <h5><i class="bi bi-ear me-2 text-primary"></i>Hearing Test</h5>
+          <h3><i class="bi bi-ear me-2 text-primary"></i>Hearing Test</h3>
           <p class="small">Check your hearing frequency range from 20Hz to 20kHz with our free online test.</p>
           <a href="/hearing-test" class="btn btn-outline-primary btn-sm" title="Online Hearing Test">Test Hearing</a>
         </div>
@@ -491,7 +488,7 @@
     <div class="col-md-4 mb-4">
       <div class="card h-100 feature-card">
         <div class="card-body">
-          <h5><i class="bi bi-mic-fill me-2 text-primary"></i>Microphone Test</h5>
+          <h3><i class="bi bi-mic-fill me-2 text-primary"></i>Microphone Test</h3>
           <p class="small">Test your microphone functionality and audio input quality.</p>
           <a href="/" class="btn btn-outline-primary btn-sm" title="Test Your Microphone">Test Mic</a>
         </div>
@@ -540,12 +537,12 @@ document.addEventListener('DOMContentLoaded', function() {
   <div class="container">
     <div class="row">
       <div class="col-lg-3 col-md-6 mb-4">
-        <h5><i class="bi bi-mic-fill me-2"></i>MicTest</h5>
+        <p class="h5 fw-bold mb-2"><i class="bi bi-mic-fill me-2"></i>MicTest</p>
         <p class="text-muted small">Free online microphone and audio testing tools. Test your microphone, speakers, and audio devices directly in your browser without any downloads.</p>
         <p class="text-muted small">Need help? Check our audio troubleshooting guide or contact us.</p>
       </div>
       <div class="col-lg-3 col-md-6 mb-4">
-        <h6><i class="bi bi-mic me-2"></i>Audio Input Tools</h6>
+        <p class="h6 fw-semibold mb-2"><i class="bi bi-mic me-2"></i>Audio Input Tools</p>
         <ul class="list-unstyled small">
           <li class="mb-1"><a href="/" class="text-muted text-decoration-none" title="Free Online Microphone Test">Microphone Test</a></li>
           <li class="mb-1"><a href="/show-mic" class="text-muted text-decoration-none" title="View Microphone Details">Show My Mic</a></li>
@@ -558,7 +555,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </ul>
       </div>
       <div class="col-lg-3 col-md-6 mb-4">
-        <h6><i class="bi bi-speaker me-2"></i>Audio Output Tools</h6>
+        <p class="h6 fw-semibold mb-2"><i class="bi bi-speaker me-2"></i>Audio Output Tools</p>
         <ul class="list-unstyled small">
           <li class="mb-1"><a href="/show-speakers" class="text-muted text-decoration-none" title="View Speaker Details">Show My Speakers</a></li>
           <li class="mb-1"><a href="/tone-generator" class="text-muted text-decoration-none" title="Generate Test Tones">Tone Generator</a></li>
@@ -566,14 +563,14 @@ document.addEventListener('DOMContentLoaded', function() {
           <li class="mb-1"><a href="/bass-test" class="text-muted text-decoration-none" title="Test Low Frequencies">Bass Test</a></li>
           <li class="mb-1"><a href="/speaker-volume-test" class="text-muted text-decoration-none" title="Calibrate Volume">Speaker Volume Test</a></li>
         </ul>
-        <h6 class="mt-3"><i class="bi bi-headphones me-2"></i>Device Testing</h6>
+        <p class="h6 fw-semibold mb-2 mt-3"><i class="bi bi-headphones me-2"></i>Device Testing</p>
         <ul class="list-unstyled small">
           <li class="mb-1"><a href="/headphone-test" class="text-muted text-decoration-none" title="Test Your Headphones">Headphone Test</a></li>
           <li class="mb-1"><a href="/hearing-test" class="text-muted text-decoration-none" title="Online Hearing Test">Hearing Test</a></li>
         </ul>
       </div>
       <div class="col-lg-3 col-md-6 mb-4">
-        <h6><i class="bi bi-info-circle me-2"></i>Resources</h6>
+        <p class="h6 fw-semibold mb-2"><i class="bi bi-info-circle me-2"></i>Resources</p>
         <ul class="list-unstyled small">
           <li class="mb-1"><a href="/troubleshooting" class="text-muted text-decoration-none" title="Fix Audio Problems">Troubleshooting Guide</a></li>
         </ul>

@@ -3,21 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Audio Latency Test - Measure Microphone Delay | MicTest</title>
-  <meta name="description" content="Measure the delay between when your system plays a sound and when your microphone captures it — your round-trip latency in milliseconds. Click Start Test, keep the room quiet, and you'll get a reading. Anything under 20ms is good for real-time use; above 150ms and you'll feel the lag during calls or live recording.">
+  <title>Audio Latency Test - Measure Microphone Delay</title>
+  <meta name="description" content="Measure round-trip audio latency in milliseconds. Click Start Test, stay quiet, and get your mic delay reading — anything under 20ms is good for calls and live recording.">
   <meta name="keywords" content="audio latency test, microphone latency, audio delay test, input latency, round-trip latency, real-time audio latency">
 
   <link rel="canonical" href="https://mic-tests.github.io/audio-latency-test">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "WebPage",
     "name": "Audio Latency Test",
     "url": "https://mic-tests.github.io/audio-latency-test",
     "description": "Measure audio latency and microphone delay in milliseconds. Test input/output latency for real-time audio applications, gaming, and music production.",
-    "applicationCategory": "UtilitiesApplication",
-    "operatingSystem": "Any",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "isPartOf": { "@type": "WebSite", "name": "MicTest", "url": "https://mic-tests.github.io" }
   }
   </script>
@@ -41,7 +38,7 @@
     }
     .latency-meter {
       height: 40px;
-      background: linear-gradient(to right, #28a745 0%, #28a745 20%, #ffc107 20%, #ffc107 50%, #dc3545 50%, #dc3545 100%);
+      background: linear-gradient(to right, #198754 0%, #198754 20%, #ffc107 20%, #ffc107 50%, #dc3545 50%, #dc3545 100%);
       border-radius: 8px;
       position: relative;
     }
@@ -173,7 +170,7 @@
               </div>
               <div class="col-md-6">
                 <div class="result-card bg-light rounded h-100">
-                  <h6 class="text-muted">Test Results</h6>
+                  <h2 class="text-muted">Test Results</h2>
                   <div class="row mt-3">
                     <div class="col-6">
                       <div class="small text-muted">Average</div>
@@ -262,7 +259,7 @@
         <!-- Latency Guide -->
         <div class="card mb-4">
           <div class="card-body">
-            <h5><i class="bi bi-book me-2"></i>Understanding Audio Latency</h5>
+            <h2><i class="bi bi-book me-2"></i>Understanding Audio Latency</h2>
             <table class="table table-sm">
               <thead>
                 <tr>
@@ -305,10 +302,10 @@
         <!-- Tips Card -->
         <div class="card mb-4">
           <div class="card-body">
-            <h5><i class="bi bi-lightbulb me-2"></i>Reducing Audio Latency</h5>
+            <h2><i class="bi bi-lightbulb me-2"></i>Reducing Audio Latency</h2>
             <div class="row">
               <div class="col-md-6">
-                <h6>Hardware Tips</h6>
+                <h3>Hardware Tips</h3>
                 <ul>
                   <li>Use a dedicated audio interface</li>
                   <li>Connect via USB 3.0 or Thunderbolt</li>
@@ -317,7 +314,7 @@
                 </ul>
               </div>
               <div class="col-md-6">
-                <h6>Software Tips</h6>
+                <h3>Software Tips</h3>
                 <ul>
                   <li>Use ASIO drivers on Windows</li>
                   <li>Reduce audio buffer size</li>
@@ -413,14 +410,14 @@
 
         <div class="card mb-4">
           <div class="card-body">
-            <h6><i class="bi bi-exclamation-triangle me-2 text-warning"></i>Important</h6>
+            <h3><i class="bi bi-exclamation-triangle me-2 text-warning"></i>Important</h3>
             <p class="small mb-0">For accurate measurements, use headphones to prevent audio feedback. Browser-based latency tests provide estimates - for precise measurements, use dedicated audio testing software.</p>
           </div>
         </div>
 
         <div class="card">
           <div class="card-body">
-            <h6><i class="bi bi-shield-check me-2 text-success"></i>Privacy</h6>
+            <h3><i class="bi bi-shield-check me-2 text-success"></i>Privacy</h3>
             <p class="small mb-0">All latency testing is performed locally. No audio data is recorded or transmitted.</p>
           </div>
         </div>
@@ -471,12 +468,12 @@ document.addEventListener('DOMContentLoaded', function() {
   <div class="container">
     <div class="row">
       <div class="col-lg-3 col-md-6 mb-4">
-        <h5><i class="bi bi-mic-fill me-2"></i>MicTest</h5>
+        <p class="h5 fw-bold mb-2"><i class="bi bi-mic-fill me-2"></i>MicTest</p>
         <p class="text-muted small">Free online microphone and audio testing tools. Test your microphone, speakers, and audio devices directly in your browser without any downloads.</p>
         <p class="text-muted small">Need help? Check our audio troubleshooting guide or contact us.</p>
       </div>
       <div class="col-lg-3 col-md-6 mb-4">
-        <h6><i class="bi bi-mic me-2"></i>Audio Input Tools</h6>
+        <p class="h6 fw-semibold mb-2"><i class="bi bi-mic me-2"></i>Audio Input Tools</p>
         <ul class="list-unstyled small">
           <li class="mb-1"><a href="/" class="text-muted text-decoration-none" title="Free Online Microphone Test">Microphone Test</a></li>
           <li class="mb-1"><a href="/show-mic" class="text-muted text-decoration-none" title="View Microphone Details">Show My Mic</a></li>
@@ -489,7 +486,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </ul>
       </div>
       <div class="col-lg-3 col-md-6 mb-4">
-        <h6><i class="bi bi-speaker me-2"></i>Audio Output Tools</h6>
+        <p class="h6 fw-semibold mb-2"><i class="bi bi-speaker me-2"></i>Audio Output Tools</p>
         <ul class="list-unstyled small">
           <li class="mb-1"><a href="/show-speakers" class="text-muted text-decoration-none" title="View Speaker Details">Show My Speakers</a></li>
           <li class="mb-1"><a href="/tone-generator" class="text-muted text-decoration-none" title="Generate Test Tones">Tone Generator</a></li>
@@ -497,14 +494,14 @@ document.addEventListener('DOMContentLoaded', function() {
           <li class="mb-1"><a href="/bass-test" class="text-muted text-decoration-none" title="Test Low Frequencies">Bass Test</a></li>
           <li class="mb-1"><a href="/speaker-volume-test" class="text-muted text-decoration-none" title="Calibrate Volume">Speaker Volume Test</a></li>
         </ul>
-        <h6 class="mt-3"><i class="bi bi-headphones me-2"></i>Device Testing</h6>
+        <p class="h6 fw-semibold mb-2 mt-3"><i class="bi bi-headphones me-2"></i>Device Testing</p>
         <ul class="list-unstyled small">
           <li class="mb-1"><a href="/headphone-test" class="text-muted text-decoration-none" title="Test Your Headphones">Headphone Test</a></li>
           <li class="mb-1"><a href="/hearing-test" class="text-muted text-decoration-none" title="Online Hearing Test">Hearing Test</a></li>
         </ul>
       </div>
       <div class="col-lg-3 col-md-6 mb-4">
-        <h6><i class="bi bi-info-circle me-2"></i>Resources</h6>
+        <p class="h6 fw-semibold mb-2"><i class="bi bi-info-circle me-2"></i>Resources</p>
         <ul class="list-unstyled small">
           <li class="mb-1"><a href="/troubleshooting" class="text-muted text-decoration-none" title="Fix Audio Problems">Troubleshooting Guide</a></li>
         </ul>
