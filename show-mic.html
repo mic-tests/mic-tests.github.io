@@ -232,7 +232,7 @@
   <h1 class="mb-2">Show My Mic — See Your Microphone Name, Specs &amp; Settings</h1>
 
 
-  <p class="lead mb-3"><strong>Show My Mic</strong> reads your browser's audio API and displays every microphone your system has available — your <strong>device list</strong> loads the moment the page opens, no button needed. For each mic you'll see the <strong>device name</strong>, <strong>sample rate</strong>, <strong>channel count</strong>, <strong>latency</strong>, and whether <strong>echo cancellation</strong> and <strong>noise suppression</strong> are active on that input. If you're wondering what microphone your computer is using right now, or why your mic settings look different across apps, this page pulls the raw specs straight from your browser's audio device API. <!-- SILO_START:slot_a -->Run an <a href="/audio-latency-test">audio latency test</a> to confirm your audio chain meets latency requirements for live performance.<!-- SILO_END:slot_a --></p>
+  <p class="lead mb-3"><strong>Show My Mic</strong> reads your browser's audio API and displays every microphone your system has available — your <strong>device list</strong> loads the moment the page opens, no button needed. For each mic you'll see the <strong>device name</strong>, <strong>sample rate</strong>, <strong>channel count</strong>, <strong>latency</strong>, and whether <strong>echo cancellation</strong> and <strong>noise suppression</strong> are active on that input. If you're wondering what microphone your computer is using right now, or why your mic settings look different across apps, this page pulls the raw specs straight from your browser's audio device API. <!-- SILO_START:slot_a -->An <a href="/audio-latency-test">audio latency test</a> shows whether your setup introduces noticeable lag for recording or live use.<!-- SILO_END:slot_a --></p>
 
 
   <div class="row">
@@ -410,7 +410,7 @@
       <div class="card mb-4">
         <div class="card-body">
           <h2>How to Find Out What Microphone You Have</h2>
-          <p>Not sure what microphone do I have connected right now? This tool reads your browser's audio device list and shows you every input device your system has registered — all without any software to install. <!-- SILO_START:slot_b -->The <a href="/mic-recorder">online mic recorder</a> captures audio from your microphone with no upload and no account required.<!-- SILO_END:slot_b --></p>
+          <p>Not sure what microphone do I have connected right now? This tool reads your browser's audio device list and shows you every input device your system has registered — all without any software to install. <!-- SILO_START:slot_b -->The <a href="/echo-test">echo test</a> routes your microphone input back through your speakers so you can hear how you sound.<!-- SILO_END:slot_b --></p>
           <ol>
             <li><strong>Click "Allow"</strong> when your browser asks for microphone permission. This is required for the tool to read device names and specs — no audio is recorded.</li>
             <li><strong>Browse the detected devices</strong> in the Connected Microphones panel. Each card shows a device name and a partial device ID.</li>
@@ -426,7 +426,7 @@
         <div class="card-body">
           <h2>Understanding Your Microphone Details and Audio Input Specifications</h2>
           <h3>Device Name — What Microphone Do I Have?</h3>
-          <p>The device name is the most direct answer to the question: <em>what microphone do I have?</em> It's typically pulled from the device driver and reflects the model name your operating system registered when you connected the microphone. Built-in laptop mics often appear as "Built-in Microphone" or "Internal Mic". USB microphones usually show their product name (e.g. "Blue Yeti USB Microphone"). Headset mics connected via a combined audio jack may display the headset brand, or sometimes just "Headset Microphone". If the name is blank or shows only a device ID string, your browser hasn't yet been granted full permission — click Allow to get full details. <!-- SILO_START:slot_c --><!-- SILO_END:slot_c --></p>
+          <p>The device name is the most direct answer to the question: <em>what microphone do I have?</em> It's typically pulled from the device driver and reflects the model name your operating system registered when you connected the microphone. Built-in laptop mics often appear as "Built-in Microphone" or "Internal Mic". USB microphones usually show their product name (e.g. "Blue Yeti USB Microphone"). Headset mics connected via a combined audio jack may display the headset brand, or sometimes just "Headset Microphone". If the name is blank or shows only a device ID string, your browser hasn't yet been granted full permission — click Allow to get full details. <!-- SILO_START:slot_c -->Record your voice directly in the browser with the <a href="/mic-recorder">online mic recorder</a> and download as MP3 or WAV.<!-- SILO_END:slot_c --></p>
 
           <h3>Sample Rate — 44.1 kHz vs 48 kHz for Audio Input</h3>
           <p>The sample rate tells you how many audio samples per second your microphone captures. The two most common values are:</p>
