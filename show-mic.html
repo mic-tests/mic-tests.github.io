@@ -232,7 +232,7 @@
   <h1 class="mb-2">Show My Mic — See Your Microphone Name, Specs &amp; Settings</h1>
 
 
-  <p class="lead mb-3"><strong>Show My Mic</strong> reads your browser's audio API and displays every microphone your system has available — your <strong>device list</strong> loads the moment the page opens, no button needed. For each mic you'll see the <strong>device name</strong>, <strong>sample rate</strong>, <strong>channel count</strong>, <strong>latency</strong>, and whether <strong>echo cancellation</strong> and <strong>noise suppression</strong> are active on that input. If you're wondering what microphone your computer is using right now, or why your mic settings look different across apps, this page pulls the raw specs straight from your browser's audio device API.</p>
+  <p class="lead mb-3"><strong>Show My Mic</strong> reads your browser's audio API and displays every microphone your system has available — your <strong>device list</strong> loads the moment the page opens, no button needed. For each mic you'll see the <strong>device name</strong>, <strong>sample rate</strong>, <strong>channel count</strong>, <strong>latency</strong>, and whether <strong>echo cancellation</strong> and <strong>noise suppression</strong> are active on that input. If you're wondering what microphone your computer is using right now, or why your mic settings look different across apps, this page pulls the raw specs straight from your browser's audio device API. <!-- SILO_START:slot_a -->Run an <a href="/audio-latency-test">audio latency test</a> to confirm your audio chain meets latency requirements for live performance.<!-- SILO_END:slot_a --></p>
 
 
   <div class="row">
@@ -398,7 +398,6 @@
               </div>
             </div>
           </div>
-          <p class="mt-3 mb-0">Test your recording setup with the <a href="/audio-latency-test">audio latency test</a>, or check for feedback loops with the <a href="/echo-test">echo test</a>.</p>
         </div>
       </div>
     </div>
@@ -411,7 +410,7 @@
       <div class="card mb-4">
         <div class="card-body">
           <h2>How to Find Out What Microphone You Have</h2>
-          <p>Not sure what microphone do I have connected right now? This tool reads your browser's audio device list and shows you every input device your system has registered — all without any software to install.</p>
+          <p>Not sure what microphone do I have connected right now? This tool reads your browser's audio device list and shows you every input device your system has registered — all without any software to install. <!-- SILO_START:slot_b -->Run an <a href="/echo-test">echo test</a> to confirm your echo cancellation settings are working correctly.<!-- SILO_END:slot_b --></p>
           <ol>
             <li><strong>Click "Allow"</strong> when your browser asks for microphone permission. This is required for the tool to read device names and specs — no audio is recorded.</li>
             <li><strong>Browse the detected devices</strong> in the Connected Microphones panel. Each card shows a device name and a partial device ID.</li>

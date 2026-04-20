@@ -241,7 +241,7 @@
   <h1 class="mb-2">Show My Speakers — See Your Audio Output Devices &amp; Specs</h1>
 
 
-  <p class="lead mb-3"><strong>Show My Speakers</strong> reads your browser's audio output API and lists every speaker and audio device your system has available. Your <strong>device list</strong> loads automatically — for each output you'll see the <strong>device name</strong>, <strong>sample rate</strong>, <strong>channel configuration</strong>, and <strong>device ID</strong> pulled directly from your system. If you're troubleshooting why audio is routing to the wrong output, or you want to confirm what your browser sees before a call or recording session, your full <strong>output device inventory</strong> is here.</p>
+  <p class="lead mb-3"><strong>Show My Speakers</strong> reads your browser's audio output API and lists every speaker and audio device your system has available. Your <strong>device list</strong> loads automatically — for each output you'll see the <strong>device name</strong>, <strong>sample rate</strong>, <strong>channel configuration</strong>, and <strong>device ID</strong> pulled directly from your system. If you're troubleshooting why audio is routing to the wrong output, or you want to confirm what your browser sees before a call or recording session, your full <strong>output device inventory</strong> is here. <!-- SILO_START:slot_a -->The free <a href="/tone-generator">tone generator</a> is the fastest way to check if your speakers reproduce bass and treble accurately.<!-- SILO_END:slot_a --></p>
 
 
   <div class="row">
@@ -427,7 +427,6 @@
               </div>
             </div>
           </div>
-          <p class="mt-3 mb-0">Use the <a href="/tone-generator">tone generator</a> to play test tones through your speakers. Calibrate output levels with the <a href="/speaker-volume-test">speaker test online</a>, or measure ambient room levels with the <a href="/sound-level-meter">sound level meter online</a>.</p>
         </div>
       </div>
     </div>
@@ -440,7 +439,7 @@
       <div class="card mb-4">
         <div class="card-body">
           <h2>How to Find Out What Speakers You Have</h2>
-          <p>This tool reads your system's audio output devices using the browser's Web Audio API and <code>MediaDevices.enumerateDevices()</code> method. Unlike checking your OS control panel, it shows you exactly what your <em>browser</em> sees — which matters when you're troubleshooting audio in a web app or video call that behaves differently from your desktop applications. The tool lists every audio output endpoint your system exposes: built-in speakers, connected headphones, HDMI outputs, USB audio devices, and Bluetooth speakers.</p>
+          <p>This tool reads your system's audio output devices using the browser's Web Audio API and <code>MediaDevices.enumerateDevices()</code> method. Unlike checking your OS control panel, it shows you exactly what your <em>browser</em> sees — which matters when you're troubleshooting audio in a web app or video call that behaves differently from your desktop applications. The tool lists every audio output endpoint your system exposes: built-in speakers, connected headphones, HDMI outputs, USB audio devices, and Bluetooth speakers. <!-- SILO_START:slot_b -->The <a href="/speaker-volume-test">speaker test online</a> plays tones at preset volume levels to check audio output consistency.<!-- SILO_END:slot_b --></p>
           <p>Click any device card to expand its full technical specifications — device ID, group ID, sample rate, channel count, and latency. Use the built-in speaker test controls to confirm the device actually produces sound before deciding whether it's the one you want as your default.</p>
         </div>
       </div>
@@ -450,7 +449,7 @@
           <h2>Understanding Your Audio Output Device Specifications</h2>
 
           <h3>Device Name and Group ID — What They Tell You</h3>
-          <p>The device name is what your OS and browser expose to web applications — it may be a generic label ("Speakers") or a specific model name ("Realtek Audio Output"). The group ID links audio input and output devices that share the same physical hardware: for example, a headset's microphone and headphone driver will share a group ID, confirming they are part of the same device. This is useful when troubleshooting mixed-device setups where audio goes to the wrong endpoint.</p>
+          <p>The device name is what your OS and browser expose to web applications — it may be a generic label ("Speakers") or a specific model name ("Realtek Audio Output"). The group ID links audio input and output devices that share the same physical hardware: for example, a headset's microphone and headphone driver will share a group ID, confirming they are part of the same device. This is useful when troubleshooting mixed-device setups where audio goes to the wrong endpoint. <!-- SILO_START:slot_c -->The <a href="/sound-level-meter">sound level meter online</a> uses your microphone to display decibel levels as you speak or move.<!-- SILO_END:slot_c --></p>
 
           <h3>Sample Rate — What 44.1 kHz and 48 kHz Mean for Your Speaker</h3>
           <p>The sample rate shown is the rate at which your audio hardware processes digital audio samples per second. 44.1 kHz (44,100 samples/second) is the CD standard and the most common setting for consumer audio. 48 kHz is the professional audio and video standard used in film, TV, and video production. Most modern systems default to 48 kHz. If your sample rate differs from your audio software's setting, the OS resamples the audio — this is harmless but can introduce very subtle quality changes in critical listening environments.</p>
