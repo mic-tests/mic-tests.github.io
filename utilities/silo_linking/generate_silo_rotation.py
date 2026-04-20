@@ -577,7 +577,19 @@ def run(today: datetime.date, dry_run: bool = False) -> None:
 
 if __name__ == "__main__":
     dry_run = "--dry-run" in sys.argv
-    today   = datetime.date.today()
+
+    # Optional --date YYYY-MM override (useful for testing or backfilling)
+    today = datetime.date.today()
+    for arg in sys.argv[1:]:
+        if arg.startswith("--date=") or (arg == "--date" and sys.argv.index(arg) + 1 < len(sys.argv)):
+            raw = arg.split("=", 1)[1] if "=" in arg else sys.argv[sys.argv.index(arg) + 1]
+            try:
+                year, month = map(int, raw.split("-"))
+                today = datetime.date(year, month, 1)
+            except ValueError:
+                print(f"Invalid --date value {raw!r}. Expected YYYY-MM.", file=sys.stderr)
+                sys.exit(1)
+
     print(f"Silo rotation — {today.year}-{today.month:02d}"
           + (" [DRY RUN]" if dry_run else ""))
     run(today, dry_run=dry_run)
