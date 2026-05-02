@@ -1,12 +1,12 @@
-name: Monthly Silo Link Rotation
+name: Quarterly Silo Link Rotation
 
 on:
   schedule:
-    - cron: '0 16 1-3 * *'  # midnight SGT (UTC+8) on the 1st, 2nd, and 3rd of each month
+    - cron: '0 16 1-3 1,4,7,10 *'  # midnight SGT (UTC+8) on the 1st–3rd of each quarter start month
   workflow_dispatch:
     inputs:
       date:
-        description: 'Override month to rotate (YYYY-MM). Leave empty to use today.'
+        description: 'Override date to rotate (YYYY-MM). Leave empty to use today.'
         required: false
         default: ''
 
@@ -36,7 +36,7 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           LABEL="${{ github.event.inputs.date }}"
-          if [ -z "$LABEL" ]; then LABEL="$(date +%Y-%m)"; fi
+          if [ -z "$LABEL" ]; then LABEL="$(python3 -c "import datetime; t=datetime.date.today(); print(f'{t.year}-Q{(t.month-1)//3+1}')")"; fi
           if git diff --quiet; then
             echo "No changes — already up to date."
           else
