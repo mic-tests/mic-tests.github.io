@@ -4,27 +4,6 @@ strong, b {
   font-weight: 700;
 }
 
-/* Footer Styles */
-.footer {
-  margin-top: 50px;
-  padding: 20px 0;
-  background-color: #f8f9fa;
-  border-top: 1px solid #dee2e6;
-}
-
-.footer h6 {
-  font-weight: 600;
-  margin-bottom: 15px;
-}
-
-.footer a {
-  transition: color 0.2s ease;
-}
-
-.footer a:hover {
-  color: #0d6efd !important;
-}
-
 /* Card Styles */
 .feature-card {
   margin-bottom: 20px;
