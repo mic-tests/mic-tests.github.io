@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sound Level Meter - Online Decibel (dB) Meter</title>
   <meta name="description" content="Online sound level meter — measure decibels with your microphone. Click Start Measuring to see a live dB reading, peak level, and noise rating update.">
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <meta name="keywords" content="sound level meter, decibel meter, dB meter online, noise level meter, audio level meter, volume meter, sound intensity meter">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
   <link rel="canonical" href="https://mic-tests.github.io/sound-level-meter">
   <script type="application/ld+json">
@@ -241,20 +241,20 @@
           <div class="card-body">
             <div class="row text-center">
               <div class="col-4">
-                <h2>Current</h2>
+                <h3>Current</h3>
                 <div class="h3 text-primary" id="stat-current">-- dB</div>
               </div>
               <div class="col-4">
-                <h2>Average</h2>
+                <h3>Average</h3>
                 <div class="h3 text-success" id="stat-avg">-- dB</div>
               </div>
               <div class="col-4">
-                <h2>Peak</h2>
+                <h3>Peak</h3>
                 <div class="h3 text-danger" id="stat-peak">-- dB</div>
               </div>
             </div>
             <hr>
-            <h2>Level History</h2>
+            <h3>Level History</h3>
             <canvas class="history-canvas" id="history-canvas"></canvas>
             <button class="btn btn-sm btn-outline-secondary mt-2" id="reset-stats-btn">
               <i class="bi bi-arrow-counterclockwise me-1"></i>Reset Statistics
@@ -651,7 +651,7 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" defer></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const startBtn = document.getElementById('start-btn');
