@@ -63,6 +63,34 @@
     .testimonial:last-of-type { border-bottom: none; padding-bottom: 0; }
     .testimonial p { font-size: .82rem; color: var(--text-2); font-style: italic; margin: 0 0 2px; }
     .review-form { display: none; margin-top: 12px; padding: 13px; background: var(--subtle); border-radius: var(--r-sm); border: 1px solid var(--border); }
+    /* Pro-tip aside */
+    aside.pro-tip { display: flex; gap: .7rem; align-items: flex-start; background: var(--blue-glow); border-left: 3px solid var(--blue); border-radius: 0 var(--r-sm) var(--r-sm) 0; padding: .85rem 1rem; margin-top: 1.25rem; font-size: .9rem; color: var(--text); }
+    aside.pro-tip > i { color: var(--blue); flex-shrink: 0; font-size: 1rem; line-height: 1.55; }
+    /* Ordered / unordered lists in content sections */
+    .content-section ol, .content-section ul { padding-left: 1.4rem; }
+    .content-section li { margin-bottom: .55rem; line-height: 1.65; }
+    /* Definition list — mic stats */
+    dl.mic-stats { display: grid; grid-template-columns: minmax(160px, 22%) 1fr; gap: .3rem .9rem; align-items: baseline; }
+    dl.mic-stats dt { font-weight: 600; color: var(--text); padding: .55rem 0 .1rem; border-top: 1px solid var(--border-lt); }
+    dl.mic-stats dd { margin: 0; padding: .55rem 0 .1rem; border-top: 1px solid var(--border-lt); color: var(--text-2); line-height: 1.6; }
+    dl.mic-stats dt:first-child, dl.mic-stats dd:first-of-type { border-top: none; }
+    @media (max-width: 575px) { dl.mic-stats { grid-template-columns: 1fr; } dl.mic-stats dd { border-top: none; padding-top: 0; } }
+    /* Details / summary collapsible panels */
+    details.panel { border: 1px solid var(--border-lt); border-radius: var(--r-sm); margin-bottom: .45rem; overflow: hidden; }
+    details.panel > summary { display: flex; align-items: center; justify-content: space-between; padding: .7rem 1rem; cursor: pointer; background: var(--subtle); list-style: none; gap: .5rem; font-size: .95rem; }
+    details.panel > summary::-webkit-details-marker { display: none; }
+    details.panel > summary::after { content: "﹀"; font-size: .8rem; color: var(--primary, #0055ff); flex-shrink: 0; }
+    details.panel[open] > summary::after { content: "︿"; }
+    details.panel[open] > summary { border-bottom: 1px solid var(--border-lt); }
+    details.panel > :not(summary) { padding: .8rem 1rem; }
+    details.panel ol, details.panel ul { margin-bottom: 0; padding-left: 1.3rem; }
+    details.panel li { margin-bottom: .4rem; }
+    /* Compatibility table */
+    .compat-table th, .compat-table td { font-size: .84rem; vertical-align: middle; }
+    /* Content section heading spacing */
+    .content-section h3 { margin-top: 1.75rem; margin-bottom: .45rem; }
+    /* Inline code */
+    code { background: var(--subtle); padding: .15em .4em; border-radius: 4px; font-size: .87em; color: var(--text); font-family: ui-monospace, 'Cascadia Code', 'Fira Code', monospace; }
   </style>
   <meta name="google-adsense-account" content="ca-pub-5426315045205785">
 </head>
@@ -240,21 +268,19 @@
         </div>
       </div>
 
-      <!-- Why test -->
+      <!-- How it works -->
       <div class="card mb-4 why-card">
-        <div class="card-body">
-          <h2>Why Run a Mic Test Online?</h2>
-          <p>A microphone that looks connected is not always a microphone that is working. Running a quick <strong>mic test online</strong> takes under 30 seconds and catches problems before your audience, interviewer, or teammates hear them first.</p>
-          <ul>
-            <li>Confirm your mic is live before joining <strong>Zoom</strong>, <strong>Google Meet</strong>, <strong>Microsoft Teams</strong>, or <strong>Discord</strong></li>
-            <li>Verify a new USB microphone, headset, or audio interface is detected and performing at spec</li>
-            <li>Check <strong>input volume level</strong> and adjust mic gain before a recording or broadcast</li>
-            <li>Test for <strong>echo</strong>, distortion, and background noise before a podcast or voiceover session</li>
-            <li>Confirm your gaming headset mic is live and latency is low before a session</li>
-            <li>Discover whether your webcam has a built-in microphone and how it performs</li>
-            <li>Test Bluetooth and wireless headset microphone quality and <strong>sample rate</strong></li>
-          </ul>
-          <p class="mb-0">Pair your <strong>microphone test</strong> with our tone generator to verify speaker output at the same time.</p>
+        <div class="card-body content-section">
+          <h2>How the Microphone Test Online Works in Your Browser</h2>
+          <p>This tool operates entirely inside your browser — no download, no plug-in, no Adobe Flash or Microsoft Silverlight required. It uses the modern Web Audio API and the <code>getUserMedia</code> interface to <strong>detect multimedia devices</strong> connected to your system, request access, and begin capturing audio input in real time. Your <strong>privacy is safe</strong>: all processing happens locally on your device, audio is never transmitted to any server, and recorded clips are deleted from memory the moment you close the page — unless you choose to save them yourself.</p>
+
+          <h3>How Is Your Microphone Being Tested for Background Noise and Signal Quality?</h3>
+          <p>Once you grant <strong>microphone access</strong>, the tool checks whether your browser supports the required media-device functions. It then enumerates all available input devices — including <strong>built-in microphone detection</strong> for integrated laptop and webcam mics — and selects the active one. A live visualiser renders <strong>real-time audio levels</strong> as a waveform that moves with your voice. Simultaneously, the engine samples the stream to determine <strong>supported browser features</strong> such as <strong>echo cancellation</strong>, noise suppression, and automatic gain control. If <strong>background noise</strong> is present in your environment, you will see the waveform fluctuate even when you are silent — a useful cue to move to a quieter space or adjust your gain settings before a live session.</p>
+
+          <h3>Why Run a Mic Test Before You Start — and What Echo Cancellation Reveals</h3>
+          <p class="mb-0">A pre-session <strong>microphone test</strong> is the fastest form of <strong>microphone troubleshooting</strong> available. It catches permission blocks, wrong device selection, and driver failures before they derail a live recording or important video calls. Checking <strong>echo cancellation</strong> status in the results table is especially useful: if the feature is unsupported by your browser or hardware, you will need to use headphones during <strong>video conferencing</strong> to prevent acoustic feedback. For audio production, broadcasting, and content creation, knowing your microphone's true capabilities — rather than assuming they are fine — is the difference between a professional-sounding result and one that loses your audience in the first minute.</p>
+
+          <aside class="pro-tip"><i class="bi bi-lightbulb-fill"></i><span><strong>Pro tip:</strong> Run the test with your usual <strong>audio setup</strong> — headset plugged in, USB hub connected, Bluetooth paired — so the results reflect real-world conditions rather than an idealised bench test.</span></aside>
         </div>
       </div>
 
@@ -376,232 +402,160 @@
   </div>
 
   <!-- How to run -->
-  <div class="row mt-4" id="how-to">
-    <div class="col-12">
-      <h2><i class="bi bi-play-circle-fill"></i>How to Run the Mic Test Online</h2>
-      <p>The <strong>mic test online</strong> runs entirely in your browser — no downloads, no sign-ups, no plugins needed. Your audio is processed locally using the <strong>Web Audio API</strong>; nothing is uploaded or stored. Here is how the <strong>microphone test</strong> works in four steps:</p>
-      <div class="row g-3">
-        <div class="col-md-6 col-lg-3">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="d-flex align-items-center gap-2 mb-2">
-                <span class="badge bg-primary rounded-pill px-3 py-2">1</span>
-                <h3 class="mb-0">Select Your Mic</h3>
-              </div>
-              <p class="mb-0">Choose your input device from the <strong>mic selector</strong> dropdown. If you only have one microphone connected, it is selected automatically.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="d-flex align-items-center gap-2 mb-2">
-                <span class="badge bg-primary rounded-pill px-3 py-2">2</span>
-                <h3 class="mb-0">Click Test My Mic</h3>
-              </div>
-              <p class="mb-0">Hit <strong>Test my mic</strong> and click <strong>Allow</strong> when your browser asks for permission. This is a standard browser security prompt — your voice never leaves your device.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="d-flex align-items-center gap-2 mb-2">
-                <span class="badge bg-primary rounded-pill px-3 py-2">3</span>
-                <h3 class="mb-0">Speak and Watch</h3>
-              </div>
-              <p class="mb-0">Say a few words. If the <strong>audio waveform</strong> moves and the <strong>input volume bar</strong> rises when you speak, your mic is capturing sound correctly.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="d-flex align-items-center gap-2 mb-2">
-                <span class="badge bg-primary rounded-pill px-3 py-2">4</span>
-                <h3 class="mb-0">Read Your Results</h3>
-              </div>
-              <p class="mb-0">The <strong>Mic Info panel</strong> auto-fills with your device name, <strong>sample rate</strong>, channels, latency, <strong>echo cancellation</strong> status, and overall <strong>quality rating</strong>.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="card mt-4" id="how-to">
+    <div class="card-body content-section">
+      <h2>Run Your Microphone Test Online: Stats, Steps, and Platform Notes</h2>
+      <p>Ready to <strong>test your microphone online</strong>? The process takes under sixty seconds on any modern device. Click the <em>Test my mic</em> button, grant browser permission when prompted, then speak or make noise. Watch the waveform respond — if it moves, your microphone is live. Once the test completes, the <strong>microphone information table</strong> populates with a full set of <strong>audio quality</strong> metrics that tell you far more than a simple pass/fail.</p>
 
-  <!-- What results mean -->
-  <div class="row mt-4">
-    <div class="col-12">
-      <h2><i class="bi bi-bar-chart-fill"></i>What Your Mic Test Results Tell You</h2>
-      <p>After the <strong>online microphone test</strong>, the Mic Info panel fills automatically with live readings from your browser&#8217;s audio API. Every value is a real system reading — not an estimate. Here is what each result means:</p>
-      <div class="row g-3">
-        <div class="col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3><i class="bi bi-star-fill me-2"></i>Quality Rating</h3>
-              <p class="mb-0">An overall score — Excellent, Very Good, Good, Fair, or Poor — based on your mic&#8217;s reported capabilities. <strong>Good</strong> or above means your microphone is ready for calls, recording, and streaming. <strong>Fair</strong> is passable for casual use. <strong>Poor</strong> usually points to a very low <strong>sample rate</strong> or high <strong>latency</strong> — common with cheap built-in mics or Bluetooth headsets operating in headset mode.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3><i class="bi bi-volume-up-fill me-2"></i>Input Volume Level</h3>
-              <p class="mb-0">Shows how loud your mic is capturing audio in real time. A healthy level sits in the middle range — not clipping at the top, not flatlined at the bottom. If you are consistently too quiet, increase your microphone <strong>input gain</strong> in your OS sound settings. Too loud and you risk distortion on calls and recordings.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3><i class="bi bi-soundwave me-2"></i>Sample Rate</h3>
-              <p class="mb-0">Measured in Hz — typically 44,100Hz or 48,000Hz. Higher <strong>sample rates</strong> mean audio is captured with more detail. 44.1kHz is standard for music recording; 48kHz is standard for video calls, podcasting, and broadcast. A very low sample rate like 8,000Hz will limit your audio quality regardless of the physical microphone.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3><i class="bi bi-toggles me-2"></i>Echo Cancellation &amp; Noise Suppression</h3>
-              <p class="mb-0">Shows whether your browser is applying software <strong>echo cancellation</strong> and <strong>noise suppression</strong> to your mic input. Echo cancellation prevents your speakers from feeding back into your mic during calls. <strong>Noise suppression</strong> filters steady background sounds — fan hum, air conditioning, keyboard noise — before audio reaches the other person.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3><i class="bi bi-diagram-2 me-2"></i>Channels</h3>
-              <p class="mb-0">Shows whether your mic captures in <strong>mono</strong> (1 channel) or <strong>stereo</strong> (2 channels). Most headset and built-in laptop microphones are mono, which is correct for voice calls and recording. Stereo matters mainly for instruments, ambience recording, and ASMR content.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3><i class="bi bi-clock-fill me-2"></i>Latency</h3>
-              <p class="mb-0">The delay between when you speak and when your microphone captures the audio, in milliseconds. Under 20ms is ideal for live calls and recording. High latency — 50ms or above — causes noticeable delay in monitoring and can make video call audio feel out of sync. For a full round-trip measurement, use the audio latency test tool.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+      <h3>Step-by-Step: Testing Your Mic and Reading Your Sample Rate</h3>
+      <ol>
+        <li><strong>Click the Test My Mic button.</strong> The tool immediately attempts to <strong>allow browser to use microphone</strong> access via the Web Audio API — no extra software needed to <strong>test microphone without software</strong> installations.</li>
+        <li><strong>Grant permission.</strong> A browser prompt asks whether to allow <strong>microphone permission browser</strong> access. Click <em>Allow</em>. If you accidentally click <em>Block</em>, see the troubleshooting section below.</li>
+        <li><strong>Speak into your mic.</strong> Say something aloud — the waveform should animate immediately, confirming that your <strong>microphone captures sound</strong> and is not muted.</li>
+        <li><strong>Review the stats table.</strong> Once testing completes, the <strong>microphone information table</strong> displays all detected parameters. Check your <strong>sample rate</strong> first — a value of 44,100 Hz or 48,000 Hz indicates standard CD-quality or broadcast-quality audio input.</li>
+        <li><strong>Check playback.</strong> Hit the <em>Play Recording</em> button to hear exactly how you sound. Use this <strong>playback</strong> to judge tone, volume, and whether your <strong>microphone does not distort voice</strong> at your normal speaking level.</li>
+        <li><strong>Download your clip.</strong> If you want a reference recording for your sound configuration, use the audio player download option to save the clip to your device.</li>
+      </ol>
 
-  <!-- Use cases -->
-  <div class="row mt-4">
-    <div class="col-12">
-      <h2><i class="bi bi-people-fill"></i>Mic Test Online — Built for Every Situation</h2>
-      <p>Whether you&#8217;re preparing for a call, setting up a studio, or troubleshooting audio, a quick <strong>mic test</strong> is the fastest way to confirm everything is working before it matters.</p>
-      <div class="row g-3">
-        <div class="col-lg-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3><i class="bi bi-camera-video-fill me-2"></i>Video Calls &amp; Online Meetings</h3>
-              <p>Muted by mistake, wrong input selected, or volume too low — these are the top reasons people can&#8217;t be heard on <strong>Zoom</strong>, <strong>Google Meet</strong>, <strong>Microsoft Teams</strong>, and <strong>Discord</strong>. A 30-second <strong>microphone test online</strong> before you join confirms your mic is live, your <strong>input level</strong> is right, and your <strong>echo cancellation</strong> is active — so you are not the person everyone is asking to repeat themselves.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3><i class="bi bi-controller me-2"></i>Gaming &amp; Live Streaming</h3>
-              <p>Your teammates can&#8217;t hear you mid-game, or your stream audio sounds distorted — these issues come from mic settings that look correct but aren&#8217;t. Run your <strong>mic test</strong> before a session to catch <strong>input level</strong>, <strong>background noise</strong>, and latency issues before they affect your content. Check your background noise level and your gaming headset&#8217;s <strong>sample rate</strong> while you are at it.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3><i class="bi bi-mic-fill me-2"></i>Podcasting &amp; Voice Recording</h3>
-              <p>Before you record a long session, verify your microphone&#8217;s <strong>sample rate</strong>, channel configuration, and <strong>input volume</strong> match your recording software&#8217;s expectations. A sample rate mismatch or clipping input can ruin hours of audio. Running a quick <strong>online microphone test</strong> before you hit record takes under a minute and saves hours of post-production time.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3><i class="bi bi-usb-symbol me-2"></i>New Microphone Setup</h3>
-              <p>USB microphones, headsets, and audio interfaces all need browser permission before they work in web apps. The <strong>mic test online</strong> confirms your new device is detected, recognized by name, and performing at spec — <strong>sample rate</strong>, <strong>latency</strong>, and all. If something is wrong, you know immediately rather than mid-call.</p>
-            </div>
-          </div>
-        </div>
+      <h3>Platform-Specific Notes: Windows, macOS, Android, iOS, and More</h3>
+      <p>This tool is designed for broad <strong>microphone compatibility</strong> across operating systems and browsers. Below are the minimum browser versions confirmed to support all required media-device features. The tool uses standard <strong>WebRTC</strong> and the browser's <strong>getUserMedia API</strong> — no plugins, no Flash, no extensions required.</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped compat-table">
+          <thead class="table-primary">
+            <tr><th>Platform</th><th>Browser</th><th>Minimum Version</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Windows 10 / Windows 11</strong></td><td>Chrome, Edge, Firefox, Opera</td><td>Chrome 51 &middot; Edge 12 &middot; Firefox 68 &middot; Opera 60</td></tr>
+            <tr><td><strong>Windows 7</strong></td><td>Chrome, Firefox, Opera, Edge</td><td>Chrome 56 &middot; Firefox 56 &middot; Opera 40 &middot; Edge 87</td></tr>
+            <tr><td><strong>Windows 8 / Windows 8.1</strong></td><td>Chrome, Firefox, Opera</td><td>Chrome 63 &middot; Firefox 74 &middot; Opera 68</td></tr>
+            <tr><td><strong>macOS</strong></td><td>Chrome, Safari, Firefox, Opera</td><td>Chrome 80 &middot; Safari 11.1 &middot; Firefox 76 &middot; Opera 68</td></tr>
+            <tr><td><strong>iOS / iPadOS</strong></td><td>Safari, Chrome, Firefox for iOS</td><td>Safari 12.1 &middot; Chrome 87 &middot; Firefox 112</td></tr>
+            <tr><td><strong>Android</strong></td><td>Chrome, Firefox, Edge, Samsung Browser</td><td>Chrome 50 &middot; Firefox 68 &middot; Edge 45 &middot; Samsung 5.2</td></tr>
+            <tr><td><strong>Linux / Ubuntu</strong></td><td>Firefox, Chrome, Chromium, Opera</td><td>Firefox 38 &middot; Chrome 60 &middot; Chromium 65 &middot; Opera 71</td></tr>
+            <tr><td><strong>Chrome OS</strong></td><td>Chrome</td><td>Chrome 58</td></tr>
+          </tbody>
+        </table>
       </div>
-    </div>
-  </div>
 
-  <!-- Compatibility -->
-  <div class="row mt-4">
-    <div class="col-12">
-      <h2><i class="bi bi-globe2"></i>Which Devices &amp; Browsers Support the Mic Test?</h2>
-      <p>The <strong>mic test</strong> uses standard <strong>WebRTC</strong> and the browser&#8217;s <strong>getUserMedia API</strong> — it works on any device with a microphone and a modern browser. No plugins, no Flash, no extensions required.</p>
-      <div class="row g-3">
-        <div class="col-md-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3><i class="bi bi-laptop me-2"></i>Desktop &amp; Laptop</h3>
-              <p class="mb-0">Works on <strong>Windows 10/11</strong>, <strong>macOS</strong>, and <strong>Linux</strong> across Chrome, Firefox, Edge, Safari, and Brave. On Windows, set your mic as the default recording device in Sound Settings. On macOS, grant browser access under System Settings &#8594; Privacy &#8594; Microphone. Supports <strong>USB microphones</strong>, built-in mics, and audio interfaces.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3><i class="bi bi-phone me-2"></i>iPhone &amp; Android</h3>
-              <p class="mb-0">The <strong>microphone test online</strong> works on <strong>Android</strong> via Chrome and on <strong>iPhone and iPad</strong> via Safari. On iOS, only Safari supports microphone API access — Chrome and other third-party browsers on iPhone are restricted by Apple from using the mic API, so use Safari for best results.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3><i class="bi bi-plug-fill me-2"></i>USB &amp; External Microphones</h3>
-              <p class="mb-0">Plug in your <strong>USB microphone</strong>, headset, or audio interface before opening the page, then select it from the <strong>mic selector</strong> dropdown. It appears alongside any built-in microphone. Refresh the page if you connect a new device after the page has already loaded.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h3>Reading Your Microphone Stats: Latency, Channels, and Playback Quality</h3>
+      <p>After a successful test, the <strong>microphone information table</strong> reveals a set of measurements. Understanding each one helps you diagnose sound clarity issues and decide whether your current mic suits your intended use case — be it <strong>online meetings</strong>, music production, or broadcast content delivery.</p>
+      <dl class="mic-stats">
+        <dt>Microphone Name</dt>
+        <dd>The system label for the active input device. Confirms the correct mic is selected, especially important when multiple inputs are connected.</dd>
+        <dt>Sample Rate</dt>
+        <dd>Expressed in Hz. The <strong>sample rate</strong> determines how many audio samples are captured per second. 44,100 Hz is CD quality; 48,000 Hz is standard for video production. Higher rates support better frequency reproduction.</dd>
+        <dt>Sample Size</dt>
+        <dd>Bit depth per sample (commonly 16-bit or 32-bit). Greater bit depth means more dynamic range and less quantisation noise in your <strong>recording</strong>.</dd>
+        <dt>Estimated Latency</dt>
+        <dd>The <strong>estimated microphone latency</strong> measures the delay (in milliseconds) between sound entering the mic and reaching the browser. Lower latency is critical for real-time remote calls and live performance. Values under 20 ms are generally imperceptible.</dd>
+        <dt>Number of Audio Channels</dt>
+        <dd>The <strong>number of audio channels detected</strong> indicates mono (1) or stereo (2) input. Most speech microphones are mono; stereo mics capture directional ambience useful in music or spatial audio production.</dd>
+        <dt>Echo Cancellation</dt>
+        <dd>Reports whether the browser and hardware support <strong>echo cancellation</strong>. When enabled, it suppresses acoustic feedback caused by speaker output re-entering the mic — essential for open-speaker <strong>video conferencing</strong>.</dd>
+        <dt>Noise Suppression</dt>
+        <dd>Indicates whether the browser applies algorithmic filtering to reduce steady-state <strong>background noise</strong> such as fans, air conditioning, or keyboard clicks.</dd>
+        <dt>Automatic Gain Control</dt>
+        <dd>When active, the browser dynamically adjusts microphone input gain to maintain consistent volume levels — helpful for casual calls but potentially undesirable in audio recording or music production where you want raw levels.</dd>
+        <dt>Volume</dt>
+        <dd>A real-time reading of input amplitude. This confirms whether your mic is picking up signal at a usable level without clipping.</dd>
+        <dt>Quality Rating</dt>
+        <dd>A composite score derived from the measurements above. Use it as a quick indicator of overall <strong>audio quality</strong> — and as a basis for a <strong>microphone rating and review</strong> if you want to share results with the community.</dd>
+      </dl>
+
+      <h3>Tips for an Accurate Microphone Test and Better Recording Results</h3>
+      <ul>
+        <li><strong>Use headphones</strong> during the test to prevent speaker output from causing feedback and skewing your noise suppression readings.</li>
+        <li><strong>Close other audio apps</strong> — Zoom, Discord, Teams, and DAWs can all claim exclusive microphone access, leaving the tester unable to <strong>allow microphone access</strong> to the stream.</li>
+        <li><strong>Test at speaking distance</strong> — position the mic as you would during a real call or <strong>recording</strong> session, typically 15–30 cm from your mouth.</li>
+        <li><strong>Run multiple tests</strong> in sequence using the <strong>playback</strong> feature to <strong>record audio clips in browser</strong> and compare takes side by side.</li>
+        <li>Enable only one microphone at a time for the most accurate stats — multiple active inputs can interfere with channel detection and the <strong>latency</strong> reading.</li>
+        <li>For a cordless or Bluetooth mic, ensure your connection is stable before testing, as packet loss degrades the waveform response.</li>
+      </ul>
     </div>
   </div>
 
   <!-- Common problems -->
-  <div class="row mt-4">
-    <div class="col-12">
-      <h2><i class="bi bi-exclamation-triangle-fill"></i>Common Microphone Problems the Mic Test Catches</h2>
-      <p>The <strong>online mic test</strong> surfaces the most common microphone issues in seconds — before they cause problems on a call, stream, or recording.</p>
-      <div class="row g-3">
-        <div class="col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3>Audio Waveform Stays Flat — Nothing Detected</h3>
-              <p class="mb-0">Your browser has not been granted microphone permission, or the wrong input device is selected. Click the <strong>mic selector</strong>, choose your device, and check your OS has not muted or disabled that input. On Windows: Sound &#8594; Recording tab. On macOS: System Settings &#8594; Sound &#8594; Input.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3>Input Volume Too Low or Clipping</h3>
-              <p class="mb-0">The <strong>audio waveform</strong> moves but the level bar barely rises (too quiet) or constantly hits the top (clipping). Adjust your <strong>microphone input gain</strong> in your OS sound settings. Windows: Recording &#8594; Properties &#8594; Levels. macOS: Sound &#8594; Input &#8594; Input Volume slider.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3>Quality Rating Is Poor or Fair</h3>
-              <p class="mb-0">Your mic is capturing audio but the <strong>quality rating</strong> is Poor or Fair. This usually means a very low <strong>sample rate</strong> (under 16kHz) or high <strong>latency</strong> — typical of cheap built-in laptop microphones or Bluetooth headsets operating in headset mode. Try a wired microphone for comparison.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card h-100">
-            <div class="card-body">
-              <h3>Browser Blocked Microphone Access</h3>
-              <p class="mb-0">Look for the blocked permissions icon in your browser&#8217;s address bar, click it, and set microphone to Allow. Refresh and run the <strong>mic test</strong> again. If still blocked, check that your OS allows the browser to access the mic — on macOS this is under Privacy &amp; Security &#8594; Microphone.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="card mt-4">
+    <div class="card-body content-section">
+      <h2>Why Your Microphone Isn&#8217;t Working &#8212; Online Mic Test Troubleshooting Guide</h2>
+      <p>If the waveform stays flat after you start the <strong>online mic test</strong>, one of a handful of common issues is almost always responsible. The good news: most are fixable in under two minutes with the right steps. This <strong>microphone troubleshooting</strong> guide covers every layer — from browser permissions to OS-level settings — so you can <strong>check if microphone is working properly</strong> without installing anything extra.</p>
+
+      <h3>Common Reasons Your Microphone Fails &#8212; Including When It&#8217;s Being Used by Another Application</h3>
+      <ul>
+        <li><strong>Microphone permission denied:</strong> The most frequent cause. If you clicked <em>Block</em> at the browser prompt, the browser stores that decision and continues to refuse access. The mic will appear silent, producing <strong>microphone not outputting audio</strong> behaviour even though the hardware is fine.</li>
+        <li><strong>Microphone being used by another application:</strong> Zoom, Google Meet, Skype, Discord, OBS, or any DAW may hold an exclusive lock on the audio device. Close all audio applications, then retest.</li>
+        <li><strong>Wrong input device selected:</strong> If your system has both a built-in mic and an external one, the browser may default to the wrong source. Use the device selector within the tool to switch inputs.</li>
+        <li><strong>Driver issues:</strong> Outdated, corrupted, or missing audio drivers prevent the OS from exposing the mic to the browser. Update via Device Manager on <strong>Windows</strong> or check your manufacturer&#8217;s support page.</li>
+        <li><strong>OS privacy settings blocking mic:</strong> Modern operating systems restrict app-level microphone access independently of the browser. Both <strong>Windows 10</strong> / <strong>Windows 11</strong> and <strong>macOS</strong> have dedicated privacy toggles that must be enabled.</li>
+        <li><strong>Microphone not working</strong> after a system update: OS updates occasionally reset audio driver state or revoke previously granted privacy permissions. Re-grant them manually after updating.</li>
+        <li><strong>Hardware fault:</strong> If the mic is silent on every device and every browser, the hardware itself may be defective. Plug it into a second computer to confirm before assuming a software problem.</li>
+      </ul>
+
+      <h3>How to Change Microphone Settings in Your Browser &#8212; Fixing Microphone Permission Denied</h3>
+      <details class="panel" open>
+        <summary><strong>Google Chrome</strong> (Windows, macOS, Linux, Chrome OS)</summary>
+        <ol>
+          <li>Click the <strong>lock icon</strong> (or camera/mic icon) in the address bar to the left of the URL.</li>
+          <li>Set <em>Microphone</em> to <strong>Allow</strong>.</li>
+          <li>Reload the page. The browser will re-request <strong>microphone permission browser</strong> access and the test will start normally.</li>
+        </ol>
+      </details>
+      <details class="panel" open>
+        <summary><strong>Mozilla Firefox</strong> (Windows, macOS, Linux, Ubuntu)</summary>
+        <ol>
+          <li>Click the <strong>shield or lock icon</strong> in the address bar.</li>
+          <li>Find <em>Blocked Temporarily</em> or <em>Permissions</em> and remove the microphone block.</li>
+          <li>Alternatively, go to <em>Settings &rarr; Privacy &amp; Security &rarr; Permissions &rarr; Microphone</em> and remove the site from the blocked list.</li>
+          <li>Reload to trigger a fresh permission request.</li>
+        </ol>
+      </details>
+      <details class="panel" open>
+        <summary><strong>Microsoft Edge</strong> (Windows 10, Windows 11)</summary>
+        <ol>
+          <li>Click the <strong>lock icon</strong> in the address bar.</li>
+          <li>Select <em>Permissions for this site</em>.</li>
+          <li>Set <em>Microphone</em> to <strong>Allow</strong> and reload the page.</li>
+        </ol>
+      </details>
+      <details class="panel" open>
+        <summary><strong>Safari</strong> (macOS, iOS, iPadOS)</summary>
+        <ol>
+          <li>On <strong>macOS</strong>: Go to <em>Safari &rarr; Settings for This Website</em> and set <em>Microphone</em> to <em>Allow</em>.</li>
+          <li>On <strong>iOS</strong> / <strong>iPadOS</strong>: Open <em>Settings &rarr; Safari &rarr; Microphone</em> and enable access for the site.</li>
+        </ol>
+      </details>
+      <details class="panel" open>
+        <summary><strong>OS-Level Fix: Windows</strong> Sound Settings &amp; Privacy</summary>
+        <ol>
+          <li>Open <em>Settings &rarr; System &rarr; Sound &rarr; Input</em> and confirm the correct device is listed.</li>
+          <li>Open <em>Settings &rarr; Privacy &rarr; Microphone</em> and ensure <em>Allow apps to access your microphone</em> is toggled <strong>On</strong>, and that your browser is individually permitted.</li>
+        </ol>
+      </details>
+      <details class="panel" open>
+        <summary><strong>OS-Level Fix: macOS</strong> Microphone Privacy</summary>
+        <ol>
+          <li>Go to <em>System Settings &rarr; Privacy &amp; Security &rarr; Microphone</em>.</li>
+          <li>Enable the toggle next to your browser (Chrome, Firefox, Safari, or Edge).</li>
+          <li>If the mic is still unresponsive after granting permission, restart the Core Audio daemon via Terminal: <code>sudo killall coreaudiod</code></li>
+        </ol>
+      </details>
+      <details class="panel" open>
+        <summary><strong>Android</strong> Microphone Fix</summary>
+        <ol>
+          <li>Open <em>Settings &rarr; Apps &rarr; [Your Browser] &rarr; Permissions &rarr; Microphone</em> and set to <strong>Allow</strong>.</li>
+          <li>Return to the browser, reload the page, and <strong>allow microphone access</strong> when prompted again.</li>
+        </ol>
+      </details>
+
+      <h3>Fixing Echo During a Recording and Preventing Feedback</h3>
+      <p>Echo during a <strong>recording</strong> session or call is almost always caused by speaker output looping back into the microphone. The <strong>microphone information table</strong> will flag whether <strong>echo cancellation</strong> is active — if it shows <em>Unsupported</em> or <em>Disabled</em>, use these fixes:</p>
+      <ul>
+        <li><strong>Switch to headphones.</strong> Headphones are the single most effective way to eliminate echo in any <strong>digital communication</strong> scenario.</li>
+        <li><strong>Lower speaker volume</strong> so the mic cannot pick up playback audio from across the room.</li>
+        <li><strong>Enable echo cancellation in browser settings</strong> where supported — Chromium-based browsers offer this as a constraint on the <code>getUserMedia</code> call.</li>
+        <li><strong>Position the mic closer to your mouth</strong> and reduce gain so that distant room reflections fall below the noise floor.</li>
+        <li>For persistent echo in <strong>online meetings</strong>, ask other participants to mute when not speaking — remote echo can originate from their end rather than yours.</li>
+      </ul>
     </div>
   </div>
 
@@ -622,129 +576,45 @@
   </div>
 
   <!-- FAQ -->
-  <div class="row mt-4" id="faq">
-    <div class="col-12">
-      <h2><i class="bi bi-question-circle-fill"></i>Mic Test — Frequently Asked Questions</h2>
-      <div class="accordion" id="faqAccordion">
-
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="faqH1">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqA1">
-              Is the mic test completely free?
-            </button>
-          </h2>
-          <div id="faqA1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              Yes — 100% free, no account, no download, no time limit. Open the page, click <strong>Test my mic</strong>, and your <strong>microphone test</strong> is done in under 30 seconds. MicTest is browser-based and works without any software installation.
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="faqH2">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqA2">
-              Does MicTest record or store my audio?
-            </button>
-          </h2>
-          <div id="faqA2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              No. All audio processing happens locally in your browser using the <strong>Web Audio API</strong> and <strong>getUserMedia</strong>. Nothing is uploaded, stored, or transmitted to any server. Your voice never leaves your device — the <strong>mic test online</strong> is entirely private by design.
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="faqH3">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqA3">
-              Why does my browser ask for microphone permission?
-            </button>
-          </h2>
-          <div id="faqA3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              All browser-based microphone access requires an explicit permission prompt — it is a built-in browser security requirement enforced on every site, not something specific to MicTest. The permission is only active while you are on the page. Closing the tab ends all mic access automatically.
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="faqH4">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqA4">
-              Why isn&#8217;t my microphone showing up in the dropdown?
-            </button>
-          </h2>
-          <div id="faqA4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              Make sure your mic is plugged in before you open the page. The <strong>mic selector</strong> populates on page load — refresh after connecting a new device. Also confirm your browser has microphone permission granted and that your OS has not muted or disabled that input device.
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="faqH5">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqA5">
-              Can I use the mic test on my iPhone or iPad?
-            </button>
-          </h2>
-          <div id="faqA5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              Yes — open the <strong>mic test online</strong> in <strong>Safari</strong> on iPhone or iPad. Chrome and other third-party browsers on iOS do not support microphone API access due to Apple&#8217;s restrictions. On Android, Chrome works correctly.
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="faqH6">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqA6">
-              My waveform moves but people still can&#8217;t hear me on Zoom — why?
-            </button>
-          </h2>
-          <div id="faqA6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              The <strong>mic test</strong> confirms your hardware and browser mic access are both working correctly. Zoom, Teams, and Meet apply their own audio routing on top of the browser. Open Zoom &#8594; Settings &#8594; Audio and make sure the same input device is selected there as the one that passed your <strong>microphone test</strong> here.
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="faqH7">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqA7">
-              What is a good quality rating for a microphone?
-            </button>
-          </h2>
-          <div id="faqA7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              <strong>Good</strong>, <strong>Very Good</strong>, or <strong>Excellent</strong> means your microphone is performing well for calls, recording, and streaming. <strong>Fair</strong> is passable for casual calls but may struggle in noisy environments or at high <strong>input volume</strong>. <strong>Poor</strong> typically indicates a very low <strong>sample rate</strong> or high <strong>latency</strong> — common with budget built-in mics or Bluetooth headsets in headset (HFP) mode.
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="faqH8">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqA8">
-              How is this different from the built-in mic check in Zoom or Teams?
-            </button>
-          </h2>
-          <div id="faqA8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              Built-in mic checks in Zoom and Teams only confirm your mic produces audio within their app. The <strong>online mic test</strong> here gives you more: a real-time <strong>audio waveform</strong>, full technical specs (sample rate, latency, <strong>echo cancellation</strong>, <strong>noise suppression</strong>, channels), a <strong>quality rating</strong>, and access to related tools like the sound level meter and echo test — all in one place, without opening a meeting.
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="faqH9">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqA9">
-              How accurate is the mic test compared to professional audio equipment?
-            </button>
-          </h2>
-          <div id="faqA9" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              The <strong>mic test</strong> reports real values your browser&#8217;s audio API returns — device name, <strong>sample rate</strong>, channel count, <strong>latency</strong>, and processing flags like <strong>echo cancellation</strong>. These are actual system readings, not estimates. For casual use, calls, podcasting, gaming, and streaming, these readings are more than sufficient to diagnose problems and confirm your setup is working.
-            </div>
-          </div>
-        </div>
-
-      </div>
+  <div class="card mt-4" id="faq">
+    <div class="card-body">
+      <h2>Frequently Asked Questions About the Microphone Tester and How to Test Your Microphone</h2>
+      <details class="panel" open>
+        <summary><strong>Is this mic test tool free and does it require any installation?</strong></summary>
+        <p>Yes — this is a completely free <strong>online microphone test</strong> that runs entirely in your browser. There is nothing to <strong>download</strong>, install, or configure. It is a true <strong>test microphone without software</strong> solution that works on any modern browser across <strong>Windows</strong>, <strong>macOS</strong>, <strong>Android</strong>, <strong>iOS</strong>, <strong>Linux</strong>, and <strong>Chrome OS</strong>.</p>
+      </details>
+      <details class="panel" open>
+        <summary><strong>Is my audio private? Are recordings stored on your servers?</strong></summary>
+        <p>Your <strong>privacy is safe</strong>. All audio processing happens locally in your browser. The tool never uploads your voice or recordings to any external server. If you choose to <strong>record your voice</strong> and then close the page without saving, the clip is permanently discarded from device memory — ideal for corporate calls and confidential <strong>digital communication</strong>.</p>
+      </details>
+      <details class="panel" open>
+        <summary><strong>Why does the waveform show no movement even though my mic is connected?</strong></summary>
+        <p>The most common causes are <strong>microphone permission denied</strong> in your browser, or the device being held by another application. Check that you clicked <em>Allow</em> when prompted. If you missed the prompt, use the browser address-bar icon to manually grant access. Also confirm that Zoom, Teams, Discord, or any recording software is fully closed — a <strong>microphone being used by another application</strong> will block this tool from accessing the stream.</p>
+      </details>
+      <details class="panel" open>
+        <summary><strong>What does the Quality Rating mean in the microphone stats table?</strong></summary>
+        <p>The <strong>Quality Rating</strong> is a composite score based on the <strong>sample rate</strong>, bit depth, <strong>latency</strong>, and detected channel count. It gives you a quick snapshot for a <strong>microphone rating and review</strong> — useful when comparing two mics side by side. A higher rating generally means better fidelity for audio production, live broadcasting, and professional recording applications.</p>
+      </details>
+      <details class="panel" open>
+        <summary><strong>Does this tool work with USB microphones and wireless microphones?</strong></summary>
+        <p>Yes. This tool is compatible with any input your OS exposes to the browser — including a <strong>USB microphone</strong> (class-compliant devices work plug-and-play), a <strong>wireless microphone</strong> paired via Bluetooth or a USB dongle, a 3.5 mm headset mic, an XLR mic routed through a USB audio interface, and built-in laptop or webcam microphones. <strong>Microphone compatibility</strong> depends on your OS and browser combination — see the platform table above for specifics.</p>
+      </details>
+      <details class="panel" open>
+        <summary><strong>Can I record and download clips with this mic tester?</strong></summary>
+        <p>Yes. The built-in recording feature lets you <strong>record audio clips in browser</strong> without any third-party software. Once captured, use the <strong>playback</strong> control to review the clip, then save it locally. This is particularly useful for checking how you sound before important video calls, or for quick quality checks when configuring a new input device for live-streaming sessions.</p>
+      </details>
+      <details class="panel" open>
+        <summary><strong>What is a good sample rate for calls and podcasting?</strong></summary>
+        <p>For general communication and remote meetings, a <strong>sample rate</strong> of 44,100 Hz (44.1 kHz) is more than sufficient. For audio broadcasting and broadcast-standard production, 48,000 Hz is the professional norm. The stats table in this <strong>mic check</strong> tool reports the rate your browser and hardware negotiate — if it falls below 22,050 Hz, you may notice reduced clarity, especially in high-frequency speech sounds like sibilants.</p>
+      </details>
+      <details class="panel" open>
+        <summary><strong>How is this different from the built-in mic check in Zoom or Teams?</strong></summary>
+        <p>Built-in mic checks in Zoom and Teams only confirm your mic produces audio within their app. The <strong>online mic test</strong> here gives you more: a real-time <strong>audio waveform</strong>, full technical specs (sample rate, latency, <strong>echo cancellation</strong>, <strong>noise suppression</strong>, channels), a <strong>quality rating</strong>, and access to related tools like the sound level meter and echo test — all in one place, without opening a meeting.</p>
+      </details>
+      <details class="panel" open>
+        <summary><strong>Why is my microphone not working on Windows XP or very old browsers?</strong></summary>
+        <p>The Web Audio API and <code>getUserMedia</code> are not supported on legacy systems like <strong>Windows XP</strong> or Internet Explorer. This <strong>online tool</strong> requires a modern browser — the minimum versions are listed in the compatibility table above. If you are on an older system, consider upgrading to a supported browser or checking your microphone status via your operating system&#8217;s native sound recorder application.</p>
+      </details>
     </div>
   </div>
 
