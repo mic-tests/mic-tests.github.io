@@ -73,6 +73,21 @@ Each page should have:
 - `googlecb346f17d96186ee.html` — Google Search Console verification (do not modify)
 - `utilities/silo_linking/generate_silo_rotation.py` — monthly rotation script
 - `.github/workflows/silo-rotation.yml` — GitHub Actions workflow (runs 1st–3rd of each month at midnight SGT)
+- `utilities/content_export/content-db.json` — generated content database (see below); do not hand-edit, regenerate instead
+
+---
+
+## Content Database (`utilities/content_export/`)
+
+`content-db.json` is a generated, read-only snapshot of every page's long-form content, keyed by URL slug (e.g. `"/hearing-test"`). Each page entry is a flat, ordered list of `{level, heading, content}` blocks, one per H2–H6 heading and per FAQ/troubleshooting accordion panel (`<details class="panel">`). `content` is plain text — tags stripped, entities decoded, with list items flattened to `- item` lines, definition lists to `Term: Definition` lines, and tables to `cell | cell | cell` rows.
+
+Deliberately excluded from every page, since none of it is backed by heading markup: the `<h1>` and its lead/intro paragraph, the interactive tool controls, sidebar testimonials/review-form chrome, the live device-readout panel on `show-mic.html`/`show-speakers.html` (`id="device-details"`), and any "Related ... Tools" card grid (same navigational-chrome exemption CLAUDE.md already applies to sidebar "Related Tools" cards, see below).
+
+Regenerate after editing any page's content:
+```bash
+python3 utilities/content_export/export_content_db.py
+```
+The generator (`export_content_db.py`) is dependency-free (stdlib `html.parser` only, no bs4/lxml), consistent with the site's no-build-step, no-package-manager setup.
 
 ---
 

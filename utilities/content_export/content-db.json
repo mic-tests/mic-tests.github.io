@@ -1,0 +1,1982 @@
+{
+  "/": {
+    "file": "index.html",
+    "sections": [
+      {
+        "level": "h2",
+        "heading": "How the Microphone Test Online Works in Your Browser",
+        "content": "This tool operates entirely inside your browser — no download, no plug-in, no Adobe Flash or Microsoft Silverlight required. It uses the modern Web Audio API and the getUserMedia interface to detect multimedia devices connected to your system, request access, and begin capturing audio input in real time. Your privacy is safe: all processing happens locally on your device, audio is never transmitted to any server, and recorded clips are deleted from memory the moment you close the page — unless you choose to save them yourself."
+      },
+      {
+        "level": "h3",
+        "heading": "How Is Your Microphone Being Tested for Background Noise and Signal Quality?",
+        "content": "Once you grant microphone access, the tool checks whether your browser supports the required media-device functions. It then enumerates all available input devices — including built-in microphone detection for integrated laptop and webcam mics — and selects the active one. A live visualiser renders real-time audio levels as a waveform that moves with your voice. Simultaneously, the engine samples the stream to determine supported browser features such as echo cancellation, noise suppression, and automatic gain control. If background noise is present in your environment, you will see the waveform fluctuate even when you are silent — a useful cue to move to a quieter space or adjust your gain settings before a live session."
+      },
+      {
+        "level": "h3",
+        "heading": "Why Run a Mic Test Before You Start — and What Echo Cancellation Reveals",
+        "content": "A pre-session microphone test is the fastest form of microphone troubleshooting available. It catches permission blocks, wrong device selection, and driver failures before they derail a live recording or important video calls. Checking echo cancellation status in the results table is especially useful: if the feature is unsupported by your browser or hardware, you will need to use headphones during video conferencing to prevent acoustic feedback. For audio production, broadcasting, and content creation, knowing your microphone's true capabilities — rather than assuming they are fine — is the difference between a professional-sounding result and one that loses your audience in the first minute.\nPro tip: Run the test with your usual audio setup — headset plugged in, USB hub connected, Bluetooth paired — so the results reflect real-world conditions rather than an idealised bench test."
+      },
+      {
+        "level": "h2",
+        "heading": "Run Your Microphone Test Online: Stats, Steps, and Platform Notes",
+        "content": "Ready to test your microphone online? The process takes under sixty seconds on any modern device. Click the Test my mic button, grant browser permission when prompted, then speak or make noise. Watch the waveform respond — if it moves, your microphone is live. Once the test completes, the microphone information table populates with a full set of audio quality metrics that tell you far more than a simple pass/fail."
+      },
+      {
+        "level": "h3",
+        "heading": "Step-by-Step: Testing Your Mic and Reading Your Sample Rate",
+        "content": "- Click the Test My Mic button. The tool immediately attempts to allow browser to use microphone access via the Web Audio API — no extra software needed to test microphone without software installations.\n- Grant permission. A browser prompt asks whether to allow microphone permission browser access. Click Allow. If you accidentally click Block, see the troubleshooting section below.\n- Speak into your mic. Say something aloud — the waveform should animate immediately, confirming that your microphone captures sound and is not muted.\n- Review the stats table. Once testing completes, the microphone information table displays all detected parameters. Check your sample rate first — a value of 44,100 Hz or 48,000 Hz indicates standard CD-quality or broadcast-quality audio input.\n- Check playback. Hit the Play Recording button to hear exactly how you sound. Use this playback to judge tone, volume, and whether your microphone does not distort voice at your normal speaking level.\n- Download your clip. If you want a reference recording for your sound configuration, use the audio player download option to save the clip to your device."
+      },
+      {
+        "level": "h3",
+        "heading": "Platform-Specific Notes: Windows, macOS, Android, iOS, and More",
+        "content": "This tool is designed for broad microphone compatibility across operating systems and browsers. Below are the minimum browser versions confirmed to support all required media-device features. The tool uses standard WebRTC and the browser's getUserMedia API — no plugins, no Flash, no extensions required.\nPlatform | Browser | Minimum Version\nWindows 10 / Windows 11 | Chrome, Edge, Firefox, Opera | Chrome 51 · Edge 12 · Firefox 68 · Opera 60\nWindows 7 | Chrome, Firefox, Opera, Edge | Chrome 56 · Firefox 56 · Opera 40 · Edge 87\nWindows 8 / Windows 8.1 | Chrome, Firefox, Opera | Chrome 63 · Firefox 74 · Opera 68\nmacOS | Chrome, Safari, Firefox, Opera | Chrome 80 · Safari 11.1 · Firefox 76 · Opera 68\niOS / iPadOS | Safari, Chrome, Firefox for iOS | Safari 12.1 · Chrome 87 · Firefox 112\nAndroid | Chrome, Firefox, Edge, Samsung Browser | Chrome 50 · Firefox 68 · Edge 45 · Samsung 5.2\nLinux / Ubuntu | Firefox, Chrome, Chromium, Opera | Firefox 38 · Chrome 60 · Chromium 65 · Opera 71\nChrome OS | Chrome | Chrome 58"
+      },
+      {
+        "level": "h3",
+        "heading": "Reading Your Microphone Stats: Latency, Channels, and Playback Quality",
+        "content": "After a successful test, the microphone information table reveals a set of measurements. Understanding each one helps you diagnose sound clarity issues and decide whether your current mic suits your intended use case — be it online meetings, music production, or broadcast content delivery.\nMicrophone Name: The system label for the active input device. Confirms the correct mic is selected, especially important when multiple inputs are connected.\nSample Rate: Expressed in Hz. The sample rate determines how many audio samples are captured per second. 44,100 Hz is CD quality; 48,000 Hz is standard for video production. Higher rates support better frequency reproduction.\nSample Size: Bit depth per sample (commonly 16-bit or 32-bit). Greater bit depth means more dynamic range and less quantisation noise in your recording.\nEstimated Latency: The estimated microphone latency measures the delay (in milliseconds) between sound entering the mic and reaching the browser. Lower latency is critical for real-time remote calls and live performance. Values under 20 ms are generally imperceptible.\nNumber of Audio Channels: The number of audio channels detected indicates mono (1) or stereo (2) input. Most speech microphones are mono; stereo mics capture directional ambience useful in music or spatial audio production.\nEcho Cancellation: Reports whether the browser and hardware support echo cancellation. When enabled, it suppresses acoustic feedback caused by speaker output re-entering the mic — essential for open-speaker video conferencing.\nNoise Suppression: Indicates whether the browser applies algorithmic filtering to reduce steady-state background noise such as fans, air conditioning, or keyboard clicks.\nAutomatic Gain Control: When active, the browser dynamically adjusts microphone input gain to maintain consistent volume levels — helpful for casual calls but potentially undesirable in audio recording or music production where you want raw levels.\nVolume: A real-time reading of input amplitude. This confirms whether your mic is picking up signal at a usable level without clipping.\nQuality Rating: A composite score derived from the measurements above. Use it as a quick indicator of overall audio quality — and as a basis for a microphone rating and review if you want to share results with the community."
+      },
+      {
+        "level": "h3",
+        "heading": "Tips for an Accurate Microphone Test and Better Recording Results",
+        "content": "- Use headphones during the test to prevent speaker output from causing feedback and skewing your noise suppression readings.\n- Close other audio apps — Zoom, Discord, Teams, and DAWs can all claim exclusive microphone access, leaving the tester unable to allow microphone access to the stream.\n- Test at speaking distance — position the mic as you would during a real call or recording session, typically 15–30 cm from your mouth.\n- Run multiple tests in sequence using the playback feature to record audio clips in browser and compare takes side by side.\n- Enable only one microphone at a time for the most accurate stats — multiple active inputs can interfere with channel detection and the latency reading.\n- For a cordless or Bluetooth mic, ensure your connection is stable before testing, as packet loss degrades the waveform response."
+      },
+      {
+        "level": "h2",
+        "heading": "Why Your Microphone Isn’t Working — Online Mic Test Troubleshooting Guide",
+        "content": "If the waveform stays flat after you start the online mic test, one of a handful of common issues is almost always responsible. The good news: most are fixable in under two minutes with the right steps. This microphone troubleshooting guide covers every layer — from browser permissions to OS-level settings — so you can check if microphone is working properly without installing anything extra."
+      },
+      {
+        "level": "h3",
+        "heading": "Common Reasons Your Microphone Fails — Including When It’s Being Used by Another Application",
+        "content": "- Microphone permission denied: The most frequent cause. If you clicked Block at the browser prompt, the browser stores that decision and continues to refuse access. The mic will appear silent, producing microphone not outputting audio behaviour even though the hardware is fine.\n- Microphone being used by another application: Zoom, Google Meet, Skype, Discord, OBS, or any DAW may hold an exclusive lock on the audio device. Close all audio applications, then retest.\n- Wrong input device selected: If your system has both a built-in mic and an external one, the browser may default to the wrong source. Use the device selector within the tool to switch inputs.\n- Driver issues: Outdated, corrupted, or missing audio drivers prevent the OS from exposing the mic to the browser. Update via Device Manager on Windows or check your manufacturer’s support page.\n- OS privacy settings blocking mic: Modern operating systems restrict app-level microphone access independently of the browser. Both Windows 10 / Windows 11 and macOS have dedicated privacy toggles that must be enabled.\n- Microphone not working after a system update: OS updates occasionally reset audio driver state or revoke previously granted privacy permissions. Re-grant them manually after updating.\n- Hardware fault: If the mic is silent on every device and every browser, the hardware itself may be defective. Plug it into a second computer to confirm before assuming a software problem."
+      },
+      {
+        "level": "h3",
+        "heading": "How to Change Microphone Settings in Your Browser — Fixing Microphone Permission Denied",
+        "content": ""
+      },
+      {
+        "level": "panel",
+        "heading": "Google Chrome (Windows, macOS, Linux, Chrome OS)",
+        "content": "- Click the lock icon (or camera/mic icon) in the address bar to the left of the URL.\n- Set Microphone to Allow.\n- Reload the page. The browser will re-request microphone permission browser access and the test will start normally."
+      },
+      {
+        "level": "panel",
+        "heading": "Mozilla Firefox (Windows, macOS, Linux, Ubuntu)",
+        "content": "- Click the shield or lock icon in the address bar.\n- Find Blocked Temporarily or Permissions and remove the microphone block.\n- Alternatively, go to Settings → Privacy & Security → Permissions → Microphone and remove the site from the blocked list.\n- Reload to trigger a fresh permission request."
+      },
+      {
+        "level": "panel",
+        "heading": "Microsoft Edge (Windows 10, Windows 11)",
+        "content": "- Click the lock icon in the address bar.\n- Select Permissions for this site.\n- Set Microphone to Allow and reload the page."
+      },
+      {
+        "level": "panel",
+        "heading": "Safari (macOS, iOS, iPadOS)",
+        "content": "- On macOS: Go to Safari → Settings for This Website and set Microphone to Allow.\n- On iOS / iPadOS: Open Settings → Safari → Microphone and enable access for the site."
+      },
+      {
+        "level": "panel",
+        "heading": "OS-Level Fix: Windows Sound Settings & Privacy",
+        "content": "- Open Settings → System → Sound → Input and confirm the correct device is listed.\n- Open Settings → Privacy → Microphone and ensure Allow apps to access your microphone is toggled On, and that your browser is individually permitted."
+      },
+      {
+        "level": "panel",
+        "heading": "OS-Level Fix: macOS Microphone Privacy",
+        "content": "- Go to System Settings → Privacy & Security → Microphone.\n- Enable the toggle next to your browser (Chrome, Firefox, Safari, or Edge).\n- If the mic is still unresponsive after granting permission, restart the Core Audio daemon via Terminal: sudo killall coreaudiod"
+      },
+      {
+        "level": "panel",
+        "heading": "Android Microphone Fix",
+        "content": "- Open Settings → Apps → [Your Browser] → Permissions → Microphone and set to Allow.\n- Return to the browser, reload the page, and allow microphone access when prompted again."
+      },
+      {
+        "level": "h3",
+        "heading": "Fixing Echo During a Recording and Preventing Feedback",
+        "content": "Echo during a recording session or call is almost always caused by speaker output looping back into the microphone. The microphone information table will flag whether echo cancellation is active — if it shows Unsupported or Disabled, use these fixes:\n- Switch to headphones. Headphones are the single most effective way to eliminate echo in any digital communication scenario.\n- Lower speaker volume so the mic cannot pick up playback audio from across the room.\n- Enable echo cancellation in browser settings where supported — Chromium-based browsers offer this as a constraint on the getUserMedia call.\n- Position the mic closer to your mouth and reduce gain so that distant room reflections fall below the noise floor.\n- For persistent echo in online meetings, ask other participants to mute when not speaking — remote echo can originate from their end rather than yours."
+      },
+      {
+        "level": "h2",
+        "heading": "Frequently Asked Questions About the Microphone Tester and How to Test Your Microphone",
+        "content": ""
+      },
+      {
+        "level": "panel",
+        "heading": "Is this mic test tool free and does it require any installation?",
+        "content": "Yes — this is a completely free online microphone test that runs entirely in your browser. There is nothing to download, install, or configure. It is a true test microphone without software solution that works on any modern browser across Windows, macOS, Android, iOS, Linux, and Chrome OS."
+      },
+      {
+        "level": "panel",
+        "heading": "Is my audio private? Are recordings stored on your servers?",
+        "content": "Your privacy is safe. All audio processing happens locally in your browser. The tool never uploads your voice or recordings to any external server. If you choose to record your voice and then close the page without saving, the clip is permanently discarded from device memory — ideal for corporate calls and confidential digital communication."
+      },
+      {
+        "level": "panel",
+        "heading": "Why does the waveform show no movement even though my mic is connected?",
+        "content": "The most common causes are microphone permission denied in your browser, or the device being held by another application. Check that you clicked Allow when prompted. If you missed the prompt, use the browser address-bar icon to manually grant access. Also confirm that Zoom, Teams, Discord, or any recording software is fully closed — a microphone being used by another application will block this tool from accessing the stream."
+      },
+      {
+        "level": "panel",
+        "heading": "What does the Quality Rating mean in the microphone stats table?",
+        "content": "The Quality Rating is a composite score based on the sample rate, bit depth, latency, and detected channel count. It gives you a quick snapshot for a microphone rating and review — useful when comparing two mics side by side. A higher rating generally means better fidelity for audio production, live broadcasting, and professional recording applications."
+      },
+      {
+        "level": "panel",
+        "heading": "Does this tool work with USB microphones and wireless microphones?",
+        "content": "Yes. This tool is compatible with any input your OS exposes to the browser — including a USB microphone (class-compliant devices work plug-and-play), a wireless microphone paired via Bluetooth or a USB dongle, a 3.5 mm headset mic, an XLR mic routed through a USB audio interface, and built-in laptop or webcam microphones. Microphone compatibility depends on your OS and browser combination — see the platform table above for specifics."
+      },
+      {
+        "level": "panel",
+        "heading": "Can I record and download clips with this mic tester?",
+        "content": "Yes. The built-in recording feature lets you record audio clips in browser without any third-party software. Once captured, use the playback control to review the clip, then save it locally. This is particularly useful for checking how you sound before important video calls, or for quick quality checks when configuring a new input device for live-streaming sessions."
+      },
+      {
+        "level": "panel",
+        "heading": "What is a good sample rate for calls and podcasting?",
+        "content": "For general communication and remote meetings, a sample rate of 44,100 Hz (44.1 kHz) is more than sufficient. For audio broadcasting and broadcast-standard production, 48,000 Hz is the professional norm. The stats table in this mic check tool reports the rate your browser and hardware negotiate — if it falls below 22,050 Hz, you may notice reduced clarity, especially in high-frequency speech sounds like sibilants."
+      },
+      {
+        "level": "panel",
+        "heading": "How is this different from the built-in mic check in Zoom or Teams?",
+        "content": "Built-in mic checks in Zoom and Teams only confirm your mic produces audio within their app. The online mic test here gives you more: a real-time audio waveform, full technical specs (sample rate, latency, echo cancellation, noise suppression, channels), a quality rating, and access to related tools like the sound level meter and echo test — all in one place, without opening a meeting."
+      },
+      {
+        "level": "panel",
+        "heading": "Why is my microphone not working on Windows XP or very old browsers?",
+        "content": "The Web Audio API and getUserMedia are not supported on legacy systems like Windows XP or Internet Explorer. This online tool requires a modern browser — the minimum versions are listed in the compatibility table above. If you are on an older system, consider upgrading to a supported browser or checking your microphone status via your operating system’s native sound recorder application."
+      }
+    ]
+  },
+  "/about": {
+    "file": "about.html",
+    "sections": [
+      {
+        "level": "h2",
+        "heading": "A Little About Me",
+        "content": "I'm a designer and developer from Palakkad, Kerala, India. My background spans textile and apparel design into digital design and web development. I've always believed that building things for the web is just as creative as designing — maybe even more so.\nI focus on creating free tools that solve real problems — ones I've personally run into and couldn't find a good solution for."
+      },
+      {
+        "level": "h2",
+        "heading": "Why I Built MicTest",
+        "content": "The frustration started when I needed a quick way to check if a microphone was working properly before a call or recording session. Most tools either required a download, asked for sign-ups, or were buried under layers of ads and popups.\nMicTest was built as a straightforward alternative — open your browser, test your mic, done. No account, no download, no nonsense. The same idea extends to every tool on the platform: speakers, headphones, tone generation, hearing range — all free, all instant."
+      },
+      {
+        "level": "h2",
+        "heading": "Privacy First",
+        "content": "All audio processing happens locally in your browser. Nothing is recorded, uploaded, or stored on any server. Your microphone input never leaves your device — the Web Audio API handles everything right there in your tab.\nThis isn't a compromise — it's how it was designed from the start."
+      },
+      {
+        "level": "h2",
+        "heading": "What's on MicTest",
+        "content": "MicTest offers 18 free browser-based audio tools covering microphone testing, voice recording, speaker output, stereo channels, bass response, frequency analysis, hearing range, latency measurement, and more.\nEvery tool works across Windows, macOS, Linux, iOS, and Android — on Chrome, Firefox, Safari, and Edge."
+      },
+      {
+        "level": "h2",
+        "heading": "My Philosophy",
+        "content": "\"Tools should just work. They should be simple, fast, and respect your time.\""
+      }
+    ]
+  },
+  "/contact": {
+    "file": "contact.html",
+    "sections": [
+      {
+        "level": "h2",
+        "heading": "Email",
+        "content": "vinithablog@gmail.com\nI typically respond within 24–48 hours on business days."
+      },
+      {
+        "level": "h2",
+        "heading": "What to Include",
+        "content": "To help me look into your issue quickly, please mention:\n- Browser and version — e.g. Chrome 120, Firefox 121, Safari 17\n- Operating system — e.g. Windows 11, macOS Sonoma, Android 14\n- Device type — desktop, laptop, smartphone, or tablet\n- Microphone or speaker — built-in, USB, Bluetooth, etc.\n- Which tool — e.g. Mic Test, Recorder, Stereo Test\n- What happened — describe the issue and what you expected\n- Any error messages — copy them in if you see any"
+      },
+      {
+        "level": "h2",
+        "heading": "Before You Write",
+        "content": "Most common issues — microphone not detected, no sound, echo, low volume — are covered in the troubleshooting guide. It's worth a quick check before reaching out, as the fix is often a browser permission or system setting."
+      }
+    ]
+  },
+  "/sitemap": {
+    "file": "sitemap.html",
+    "sections": [
+      {
+        "level": "h2",
+        "heading": "Main",
+        "content": "- Microphone Test — Test your mic directly in the browser"
+      },
+      {
+        "level": "h2",
+        "heading": "Mic Tools",
+        "content": "- Show My Mic — Identify your connected microphone device\n- Mic Recorder — Record and play back your voice in the browser\n- Sound Level Meter — Measure ambient noise in decibels\n- Voice Frequency Analyzer — Visualise the frequency content of your voice\n- Background Noise Analyzer — Detect and categorise background noise by frequency band\n- Echo Test — Check whether your audio setup produces echo\n- Audio Latency Test — Measure the round-trip delay in your audio chain"
+      },
+      {
+        "level": "h2",
+        "heading": "Speaker Tools",
+        "content": "- Show My Speakers — Identify the speaker or output device in use\n- Tone Generator — Generate sine, square, or sawtooth tones at any frequency\n- Stereo Test — Verify left and right channel separation\n- Bass Test — Check low-frequency response from 20 Hz upward\n- Speaker Volume Test — Calibrate and compare speaker output levels"
+      },
+      {
+        "level": "h2",
+        "heading": "Headphones & Hearing",
+        "content": "- Headphone Test — Test channel balance, frequency response, and driver health\n- Hearing Test — Check your hearing range across common frequencies"
+      },
+      {
+        "level": "h2",
+        "heading": "Resources",
+        "content": "- Troubleshooting Guide — Solutions for common microphone and audio issues\n- About MicTest — What MicTest is, how it works, and who built it\n- Contact — Get in touch with a question or feedback"
+      }
+    ]
+  },
+  "/troubleshooting": {
+    "file": "troubleshooting.html",
+    "sections": [
+      {
+        "level": "h2",
+        "heading": "Microphone Not Working - Solutions",
+        "content": "Ensure your microphone is properly plugged in. For USB mics, try a different port. For wireless, check battery.\nClick the lock icon in your browser's address bar → Site Settings → Allow Microphone access.\nWindows: Settings → Privacy → Microphone → Enable access Mac: System Preferences → Security & Privacy → Microphone\nIn your system sound settings, ensure the correct microphone is selected as the default input device. View detected devices.\nOutdated drivers can cause issues. Check your device manufacturer's website for updates."
+      },
+      {
+        "level": "h2",
+        "heading": "No Sound from Speakers - Solutions",
+        "content": "Check system volume, browser volume, and physical speaker/headphone volume controls.\nEnsure correct output device is selected. Check speaker details.\nTry playing audio from another website or application to isolate the issue. Use our speaker test.\nWindows: services.msc → Windows Audio → Restart Mac: sudo killall coreaudiod"
+      },
+      {
+        "level": "h2",
+        "heading": "Browser Permission Denied - Solutions",
+        "content": "Click the lock/info icon in your address bar → Reset permissions → Reload the page.\nGo to chrome://settings/content/microphone → Remove this site from blocked list → Reload.\nWindows: Settings → Privacy → Microphone → Allow apps to access Mac: System Preferences → Security & Privacy → Microphone → Enable for your browser"
+      },
+      {
+        "level": "h2",
+        "heading": "Echo or Feedback - Solutions",
+        "content": "The most effective solution. Prevents speaker audio from being picked up by the mic. Test your headphones.\nReduce volume to minimize audio reaching the microphone.\nMove your microphone away from speakers.\nCheck your app/software settings for echo cancellation options. Test for echo."
+      },
+      {
+        "level": "h2",
+        "heading": "Low Volume - Solutions",
+        "content": "System volume, app volume, browser volume, and physical device volume.\nWindows: Sound settings → Recording → Properties → Levels → Increase Microphone Boost Mac: System Preferences → Sound → Input → Increase input volume\nMove closer to your microphone, typically 6-12 inches for best results. Check audio levels."
+      },
+      {
+        "level": "h2",
+        "heading": "Distorted Sound - Solutions",
+        "content": "Audio clipping causes distortion. Reduce microphone gain/boost in system settings.\nLoose or damaged cables cause crackling. Try different cables.\nMove away from electronic devices, routers, and phones that may cause interference. Analyze background noise."
+      },
+      {
+        "level": "h2",
+        "heading": "Wrong Device Selected - Solutions",
+        "content": "Open system sound settings and verify the correct input/output device is selected as default.\nMany of our tools have device selectors. View your microphones or view your speakers."
+      },
+      {
+        "level": "h2",
+        "heading": "Bluetooth Audio Issues - Solutions",
+        "content": "Remove the Bluetooth device and pair it again.\nLow battery can cause audio issues. Charge your device.\nStay within range of your computer. Walls and obstacles can affect signal.\nSome Bluetooth profiles have poor microphone quality. Try using \"Hands-Free\" profile for calls. Test latency.\n- Microphone Test\n- View Mic Details\n- Speaker Volume Test\n- Echo Test\n- Latency Test\n- Noise Analyzer"
+      },
+      {
+        "level": "h3",
+        "heading": "Still Need Help?",
+        "content": "If you're still experiencing issues after trying these solutions, contact us with details about your problem and we'll try to help."
+      },
+      {
+        "level": "h3",
+        "heading": "About",
+        "content": "Learn more about our audio testing tools on our about page."
+      }
+    ]
+  },
+  "/tone-generator": {
+    "file": "tone-generator.html",
+    "sections": [
+      {
+        "level": "h2",
+        "heading": "Noise Types",
+        "content": ""
+      },
+      {
+        "level": "h2",
+        "heading": "Musical Notes",
+        "content": ""
+      },
+      {
+        "level": "h2",
+        "heading": "Test Frequencies",
+        "content": ""
+      },
+      {
+        "level": "h2",
+        "heading": "Stereo Test",
+        "content": ""
+      },
+      {
+        "level": "h2",
+        "heading": "How to Use This Tone Generator",
+        "content": "Using the tone generator takes a few seconds. Follow these steps to play a precise audio frequency directly in your browser:\n- Set the frequency — Drag the slider or type a value into the Hz input. The range runs from 20 Hz (deep sub-bass) to 20,000 Hz (upper limit of human hearing).\n- Choose a waveform — Select Sine for the purest tone, Square for a harsh electronic sound, Sawtooth for a bright buzzy signal, or Triangle for a softer blend.\n- Adjust the volume — Start low and raise gradually. High-frequency tones at high volume can damage hearing quickly.\n- Click Play — The tone plays instantly via the Web Audio API. Click Stop to end playback at any time.\nUse the Preset Frequencies section to jump instantly to standard musical notes (A4 = 440 Hz) or common test tones like 1 kHz and 10 kHz."
+      },
+      {
+        "level": "h2",
+        "heading": "What Is a Tone Generator?",
+        "content": "A tone generator is a tool that produces a continuous audio signal at a precise frequency. Frequency determines pitch — lower numbers produce bass, higher numbers produce treble. The unit of measurement is the hertz (Hz), where 1 Hz equals one complete sound cycle per second.\nThis online tone generator uses the Web Audio API built into modern browsers to synthesise a mathematically exact audio signal — no recordings, no samples. The result is a stable, locked frequency ideal for any task requiring precision: speaker testing, instrument tuning, tinnitus assessment, or acoustic experiments.\nTraditional hardware signal generators and function generators serve the same purpose in studio and lab settings. This free online frequency generator delivers equivalent accuracy in your browser with no downloads or installation required."
+      },
+      {
+        "level": "h2",
+        "heading": "Waveform Types Explained",
+        "content": "Each waveform produces a different sound character at the same frequency. Understanding the differences helps you pick the right signal for your test."
+      },
+      {
+        "level": "h3",
+        "heading": "Sine Wave",
+        "content": "The sine wave is the purest audio tone — a single frequency with zero harmonics or overtones. It sounds smooth and clear, like a tuning fork or a flute. Use it for precision speaker testing, tinnitus pitch matching, and any task requiring an exact single-frequency signal. Sine is the default waveform in most professional tone generators."
+      },
+      {
+        "level": "h3",
+        "heading": "Square Wave",
+        "content": "The square wave contains the fundamental frequency plus all odd harmonics, giving it a harsh, buzzy, electronic character similar to classic 8-bit game audio. It is useful for testing how a speaker handles complex harmonic content and for diagnosing audio equipment response."
+      },
+      {
+        "level": "h3",
+        "heading": "Sawtooth Wave",
+        "content": "The sawtooth wave contains both odd and even harmonics, producing a bright, raspy sound similar to a bowed string instrument. It carries the richest harmonic content of the four standard waveforms and is commonly used for synthesiser-style audio tests and speaker stress testing."
+      },
+      {
+        "level": "h3",
+        "heading": "Triangle Wave",
+        "content": "The triangle wave sits between sine and square: it has odd harmonics like the square wave but they decay much faster, resulting in a softer, mellower tone. It is a good choice when you need some harmonic content without the harshness of a square or sawtooth signal."
+      },
+      {
+        "level": "h3",
+        "heading": "White Noise vs Pink Noise",
+        "content": "White noise plays all audible frequencies simultaneously at equal energy — it sounds bright and hissy, like radio static. Pink noise also covers the full audible spectrum but rolls off at higher frequencies to match how human hearing perceives loudness, making it the industry-standard signal for speaker calibration, room acoustics measurement, and audio system equalisation."
+      },
+      {
+        "level": "h2",
+        "heading": "Common Uses for a Tone Generator",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Speaker and Audio Equipment Testing",
+        "content": "Sweep through frequencies to expose weaknesses in your speaker or subwoofer. Play a 60 Hz sine wave to check bass extension, 1 kHz for midrange clarity, and 10–16 kHz for high-frequency response. If the tone distorts, rattles, or disappears at a specific frequency, your speaker has a measurable problem at that range. This is the most common professional application for an online frequency generator."
+      },
+      {
+        "level": "h3",
+        "heading": "Instrument Tuning",
+        "content": "Use the preset musical notes to generate a stable reference pitch. Play A4 at 440 Hz — the international tuning standard — and tune your guitar, violin, or wind instrument to match. A pure sine wave from a tone generator is easier to tune against than a physical tuning fork because it sustains indefinitely with no decay."
+      },
+      {
+        "level": "h3",
+        "heading": "Hearing Range Assessment",
+        "content": "Test your personal frequency hearing limit. Start at 1,000 Hz and slowly increase. Most adults can hear up to 15,000–18,000 Hz; the upper range declines with age. If you want per-ear results and a systematic frequency threshold assessment, use the dedicated hearing test online — it steps through frequencies and records your exact hearing range. A hearing test online reveals high-frequency loss before it becomes noticeable in conversation."
+      },
+      {
+        "level": "h3",
+        "heading": "Tinnitus Frequency Matching",
+        "content": "If you have ringing in the ears (tinnitus), you can adjust the tone generator frequency until the generated tone matches your tinnitus sound. This technique — called tinnitus pitch matching — helps audiologists recommend targeted masking sounds and notched audio therapy. Start around 4,000–8,000 Hz, the most common tinnitus range, and fine-tune from there using a sine wave. A bass test exposes port resonance, driver rattle, or missing low end in any speaker setup."
+      },
+      {
+        "level": "h3",
+        "heading": "Science and Educational Demonstrations",
+        "content": "Demonstrate resonance, standing waves, and acoustic physics without lab equipment. Show how different frequencies affect a speaker cone, compare waveforms on an oscilloscope app, or illustrate the relationship between Hz and musical pitch. The instant, no-install nature of this audio frequency generator makes it practical for classroom and home experiments."
+      },
+      {
+        "level": "h2",
+        "heading": "Frequently Asked Questions",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "What frequency should I use to test my speakers?",
+        "content": "Run through several key frequencies for a complete speaker test: 40–80 Hz for subwoofer/bass response, 200–500 Hz for lower midrange, 1–4 kHz for vocal presence, and 8–16 kHz for high-frequency extension. Distortion, rattling, or silence at a particular frequency indicates a weakness in that range."
+      },
+      {
+        "level": "h3",
+        "heading": "Why can't I hear some frequencies?",
+        "content": "Human hearing spans roughly 20 Hz to 20,000 Hz, but most adults hear only up to 15,000–17,000 Hz, and the upper limit decreases with age. Very low frequencies (below 40 Hz) may be felt as vibration rather than heard as pitch. If you cannot hear above 12,000 Hz, consider a full hearing test online to assess your audible range."
+      },
+      {
+        "level": "h3",
+        "heading": "What is 440 Hz used for?",
+        "content": "440 Hz (A4) is the international standard tuning reference established by ISO in 1955. Musicians tune instruments relative to this pitch. When you select A4 in the preset section, you get the exact reference used by orchestras, recording studios, and electronic tuners worldwide."
+      },
+      {
+        "level": "h3",
+        "heading": "Can a tone generator help with tinnitus?",
+        "content": "Yes — audiologists use tone generators for tinnitus pitch matching, adjusting the frequency until it matches the patient's perceived ringing. Knowing the tinnitus frequency helps guide masking therapy and sound desensitisation treatments. Use a sine wave for the most accurate pitch comparison."
+      },
+      {
+        "level": "h3",
+        "heading": "What is the difference between white noise and pink noise?",
+        "content": "White noise has equal energy at all frequencies — it sounds bright and hissy, like static. Pink noise has equal energy per octave, rolling off at higher frequencies in a way that matches human perception — it sounds fuller and more balanced. Pink noise is the professional standard for speaker measurement and room acoustic testing."
+      },
+      {
+        "level": "h3",
+        "heading": "Can I use this to tune an instrument?",
+        "content": "Yes. Select the desired musical note from the Preset Frequencies section (C4, D4, A4, etc.) and play alongside your instrument using a sine wave. You will hear beating — a rhythmic pulsing — when the pitches are close but not matched. When the beating stops, the instrument is in tune with the reference frequency."
+      },
+      {
+        "level": "h3",
+        "heading": "Is it safe to use at high volume?",
+        "content": "No — always start at a low volume and raise gradually. High-frequency tones at high volume concentrate energy at a single Hz and can cause permanent hearing damage faster than broadband audio. Bass tones at high volume can physically over-excite speakers and subwoofers. Keep sessions short and never exceed a comfortable listening level.\n- Stereo Test\n- Bass Test\n- Speaker Volume Test\n- Hearing Test\n- View Speaker Details\n- Headphone Test\n- Microphone Test"
+      },
+      {
+        "level": "h3",
+        "heading": "Frequency Guide",
+        "content": "- 20-60 Hz: Sub-bass, feel more than hear\n- 60-250 Hz: Bass, warmth of sound\n- 250-2000 Hz: Midrange, voice clarity\n- 2000-4000 Hz: Presence, definition\n- 4000-20000 Hz: Brilliance, air"
+      },
+      {
+        "level": "h3",
+        "heading": "Safety Notice",
+        "content": "Start with low volume. High frequencies at high volume can cause hearing damage. If testing bass frequencies, be careful with speaker/subwoofer limits."
+      }
+    ]
+  },
+  "/headphone-test": {
+    "file": "headphone-test.html",
+    "sections": [
+      {
+        "level": "h2",
+        "heading": "What to Check",
+        "content": "- Both ears work: Sound should be clear in both left and right\n- Correct channels: Left plays in left ear, right in right ear\n- Equal volume: Both sides should be equally loud\n- No distortion: Sound should be clean without crackling\n- Good bass: Check with a bass test"
+      },
+      {
+        "level": "h2",
+        "heading": "What Does the Headphone Test Check?",
+        "content": "A proper headphone test covers several distinct properties that affect audio quality and usability. This tool tests all of them in one place: The free speaker test online works with any speakers or audio output device connected to your browser."
+      },
+      {
+        "level": "h3",
+        "heading": "Left/Right Channel Separation",
+        "content": "The most fundamental headphone test. Click Play Left — sound should come from your left ear only. Click Play Right — sound should come from your right ear only. If the channels are swapped, your headphone cable is connected in reverse, or your audio output device has its channels crossed. Use the stereo test to verify your computer's audio output channel mapping."
+      },
+      {
+        "level": "h3",
+        "heading": "Bass Response",
+        "content": "The bass test plays a low-frequency tone (around 60–80 Hz) to check whether your headphone drivers can reproduce deep bass. Over-ear headphones with large drivers typically perform well here; small earbuds and in-ear monitors may roll off bass below 60–80 Hz depending on their driver size and ear seal."
+      },
+      {
+        "level": "h3",
+        "heading": "Treble and High-Frequency Response",
+        "content": "The treble test plays high-frequency tones (above 8,000 Hz) to check whether your headphones reproduce the high end of the audible spectrum. Thin or tinny treble suggests a weaker tweeter element, while complete silence at high frequencies may indicate driver damage. For a full frequency sweep, the Full Range test gradually steps from 20 Hz to 20,000 Hz."
+      },
+      {
+        "level": "h3",
+        "heading": "Audio Quality and Distortion",
+        "content": "Listen for crackling, buzzing, or rattling during playback. Clean tones should sound smooth without any mechanical or electronic interference. Persistent crackling often indicates a loose driver connection or a worn cable. Buzzing at specific frequencies may point to a resonance defect in the headphone housing."
+      },
+      {
+        "level": "h2",
+        "heading": "Common Headphone Problems and Their Causes",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Sound Coming from the Wrong Ear",
+        "content": "If Play Left produces sound in your right ear, your channels are swapped. The most common causes are: a 3.5mm cable plugged in partially, left/right cups physically swapped on the headband (some over-ear headphones allow this), or an audio output setting in Windows or macOS that has swapped channels. Check your system audio balance settings first — on Windows: System → Sound → Output → Mono audio or Channel Balance; on Mac: System Settings → Sound → Output → Balance. The tool tells you what speakers do i have — along with sample rate, channel count, and device type."
+      },
+      {
+        "level": "h3",
+        "heading": "One Side Is Silent or Much Quieter",
+        "content": "A completely silent ear typically means a broken driver or a severed wire inside the cable — usually at the plug or where the cable enters the ear cup, where bending stress is highest. Unplug and replug the cable first. If the problem persists, try a different audio source to rule out a port fault. A side that is consistently quieter (but not silent) during the channel test usually points to a damaged driver or an unbalanced audio setting."
+      },
+      {
+        "level": "h3",
+        "heading": "Crackling or Distortion",
+        "content": "Intermittent crackling during playback is almost always a cable or connection problem — the signal path is breaking contact as the cable moves. Try holding the cable still during playback to confirm. Constant distortion at certain frequencies can indicate a blown driver (exceeding power limits) or a loose dust cover on the driver. Wired crackling that only appears at high volume usually means the amplifier is clipping."
+      },
+      {
+        "level": "h3",
+        "heading": "Weak or Muddy Bass",
+        "content": "Poor bass from in-ear monitors is most often caused by an improper ear seal — try different ear tip sizes until the seal is airtight. For over-ear headphones, weak bass can result from worn-out ear cushions that no longer form a complete seal around your ear. Replacing the cushions often restores the original bass response. If the bass test produces normal results but music sounds bass-light, the issue may be equalisation settings on your device rather than the headphones themselves."
+      },
+      {
+        "level": "h2",
+        "heading": "Frequently Asked Questions",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Can I test earbuds with this?",
+        "content": "Yes — this test works for all stereo audio output devices: over-ear headphones, on-ear headphones, in-ear monitors (IEMs), and standard earbuds. The channel test, bass test, and sweep are all hardware-independent. For single-driver earbuds, the bass test at 20–40 Hz may show no output simply because small drivers cannot reproduce those frequencies physically."
+      },
+      {
+        "level": "h3",
+        "heading": "How do I fix channels that are swapped?",
+        "content": "Start with the simplest cause: unplug the 3.5mm jack completely and reinsert firmly. If that doesn't fix it, check Windows: Right-click the speaker icon → Sound settings → Output → Mono/Balance; Mac: System Settings → Sound → Output → Balance slider. If the channels are still reversed in software, swap the headphone cups physically on the headband if the design allows it, or use an audio adapter that reverses channels."
+      },
+      {
+        "level": "h3",
+        "heading": "What should the full frequency sweep sound like?",
+        "content": "The 20 Hz–20 kHz sweep should start as a very low rumble you may feel more than hear, rise through a deep bass thump, continue through clear midrange and vocal frequencies, and end in a high-pitched tone you may not be able to hear clearly above 16,000–18,000 Hz (depending on your age and the headphones). Any sudden drop-out, distortion, or rattle at a specific frequency during the sweep identifies a problem at that range."
+      },
+      {
+        "level": "h3",
+        "heading": "Why is one earbud louder than the other?",
+        "content": "Check your system balance setting first — this is the most common cause. On Windows, search for \"Sound settings\" and check the Output balance. On Mac, check System Settings → Sound → Output. If the balance is centred and one side is still quieter, the driver in that ear may be damaged, or the cable connection inside one cup has partially failed."
+      },
+      {
+        "level": "h3",
+        "heading": "Are wireless Bluetooth headphones affected differently?",
+        "content": "Yes. Bluetooth headphones add a digital audio codec layer (SBC, AAC, aptX, LDAC) that can affect perceived quality depending on connection strength and codec negotiation. If your headphone test shows inconsistent channel levels or dropouts on wireless headphones, try moving closer to the paired device or switching the codec in your Bluetooth settings. For precision audio testing, wired mode (if available) eliminates Bluetooth codec variability."
+      },
+      {
+        "level": "h3",
+        "heading": "What is stereo headphone imaging?",
+        "content": "Stereo imaging is a headphone's ability to position sounds convincingly in the left-right and front-back space — a property that matters for gaming, music production, and critical listening. Good stereo imaging means an orchestra recording sounds like the instruments are spread across a wide soundstage. The channel separation test checks the most basic aspect of imaging: that left-channel content reaches only the left ear and vice versa.\n- Stereo Test\n- Bass Test\n- Hearing Test\n- Tone Generator\n- Echo Test\n- Microphone Test"
+      },
+      {
+        "level": "h3",
+        "heading": "Issues?",
+        "content": "If one side isn't working, check your cable connection. For wireless, check battery and pairing. See troubleshooting for more help."
+      }
+    ]
+  },
+  "/stereo-test": {
+    "file": "stereo-test.html",
+    "sections": [
+      {
+        "level": "h2",
+        "heading": "Stereo Issues?",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Common Problems",
+        "content": "- One channel not working\n- Channels reversed (left/right swapped)\n- Uneven volume between channels\n- Mono audio instead of stereo"
+      },
+      {
+        "level": "h3",
+        "heading": "Solutions",
+        "content": "- Check cable connections\n- Verify audio output settings\n- Update audio drivers\n- Check system balance settings"
+      },
+      {
+        "level": "h2",
+        "heading": "How to Run the Stereo Test",
+        "content": "- Put on headphones or sit centred in front of your speakers so each driver is equidistant from your ears.\n- Lower your volume to about 30–50% before starting — you can raise it once you know the channels are working.\n- Click Play Left and confirm you hear sound only in your left ear. If it comes from the right, your channels are swapped.\n- Click Play Right and confirm you hear sound only in your right ear.\n- Click Both to verify balanced, centred audio. Use the Balance slider to fine-tune if one side sounds louder.\n- Run the Automatic Test Sequence for a continuous sweep — useful for spotting dropouts or intermittent faults."
+      },
+      {
+        "level": "h2",
+        "heading": "What Is Stereo Sound?",
+        "content": "Stereo audio uses two independent channels — left and right — to recreate the sense of sound coming from different directions. Your brain uses the tiny differences in timing and volume between the two channels to place sounds in three-dimensional space. A mono signal plays the same audio through both channels simultaneously, which flattens that spatial effect. If you need to know what speakers do i have, the browser's audio API lists every connected output device."
+      },
+      {
+        "level": "h3",
+        "heading": "Left and Right Channels Explained",
+        "content": "Every stereo audio signal consists of two tracks recorded or mixed separately. The left channel carries audio intended for your left ear; the right channel carries audio for your right ear. When the channels are properly aligned, music, films, and games sound as the creator intended — instruments pan left to right, dialogue stays centred, and sound effects emerge from the correct direction."
+      },
+      {
+        "level": "h3",
+        "heading": "2.0, 2.1, and Surround Sound",
+        "content": "A 2.0 setup is two speakers with no subwoofer — pure stereo. A 2.1 setup adds a subwoofer for dedicated low-frequency reproduction. Surround systems (5.1, 7.1) add rear and side channels. This stereo test covers left/right channel balance for 2.0 and 2.1 systems; surround channel mapping requires dedicated surround test tones."
+      },
+      {
+        "level": "h2",
+        "heading": "What the Stereo Test Detects",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Reversed Channels (Left/Right Swapped)",
+        "content": "If you click Play Left and hear sound in your right ear, the left and right channels are reversed somewhere in the signal chain. Common culprits: headphones worn back-to-front, a cable with reversed soldering, or an audio driver setting. Check your system's sound settings and look for a \"swap channels\" option, or physically flip the headphone cable. Use a background noise analyzer to check your recording environment before a session."
+      },
+      {
+        "level": "h3",
+        "heading": "Dead or Silent Channel",
+        "content": "No sound at all from one side usually indicates a broken driver, a faulty cable connection, a bent headphone jack, or a damaged port. Try a different device to isolate whether the fault is in the headphones, cable, or audio output. A loose 3.5 mm jack can also cause intermittent channel loss."
+      },
+      {
+        "level": "h3",
+        "heading": "Unbalanced Volume Between Channels",
+        "content": "If one channel sounds noticeably louder than the other, check your operating system's balance setting first — it's easy to accidentally nudge the slider. If balance is centred but the imbalance persists, a partially damaged driver, a worn potentiometer on an amplifier, or a kinked cable could be reducing output on one side."
+      },
+      {
+        "level": "h3",
+        "heading": "Mono Audio Instead of Stereo",
+        "content": "When the same audio plays equally from both channels even while testing left or right independently, your device may be outputting mono. This is common with Bluetooth connections using hands-free (HFP) profile instead of stereo (A2DP), certain HDMI receivers in compatibility mode, or when a system-level \"Mono audio\" accessibility setting is enabled."
+      },
+      {
+        "level": "h2",
+        "heading": "Stereo Test by Device Type",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Wired Headphones",
+        "content": "Insert the headphone plug fully — a 3.5 mm jack needs a firm click into the port. If audio cuts in and out during the test, try wiggling the cable near the plug to locate a worn section. Check that L/R markers on the ear cups match your ears before assuming the channels are reversed."
+      },
+      {
+        "level": "h3",
+        "heading": "Bluetooth Earbuds",
+        "content": "Bluetooth earbuds can fail the stereo test for two reasons: the device is connected in mono mode (often the handsfree/call profile), or the earbuds themselves default to mono when battery is low. Disconnect and reconnect, selecting the stereo or A2DP profile if your OS lets you choose. Ensure both earbuds are paired — some earbuds only activate the second unit once the first is in the ear."
+      },
+      {
+        "level": "h3",
+        "heading": "Gaming Headsets",
+        "content": "Gaming headsets with virtual surround (7.1 simulated) may behave unexpectedly during a two-channel stereo test. Disable virtual surround in the companion software before testing, then re-enable it afterward. USB gaming headsets also bypass the system audio driver — check both your OS mixer and the headset's own software for balance settings."
+      },
+      {
+        "level": "h3",
+        "heading": "Desktop Speakers",
+        "content": "Sit equidistant from both speakers before clicking Play Left or Play Right. If you hear the wrong channel from a speaker, check the cables at the back of the amplifier — left/right outputs are sometimes labelled L and R on a small tag. For 2.1 setups, the subwoofer receives a summed mono signal and will always play during both channel tests — that's normal."
+      },
+      {
+        "level": "h2",
+        "heading": "Frequently Asked Questions",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Why do I hear sound in both ears when I click Play Left?",
+        "content": "A few causes: your device is set to mono output, Bluetooth is using a hands-free profile, or room acoustics are reflecting the sound from your speakers. With headphones, if both ears still play during a single-channel test, check the Mono Audio accessibility setting in your OS and disable it."
+      },
+      {
+        "level": "h3",
+        "heading": "My left and right channels are reversed — how do I fix it?",
+        "content": "First, confirm the issue is in the device and not the headphones: try flipping the headphones so the ear cups switch sides. If the problem persists on other headphones, go to your OS sound settings and look for a balance or channel swap option. On Windows, open Sound Control Panel → Properties → Levels. On macOS, use Audio MIDI Setup to swap channels."
+      },
+      {
+        "level": "h3",
+        "heading": "Can I use this stereo test for surround sound (5.1 or 7.1)?",
+        "content": "This tool tests front-left and front-right channels only. It cannot route audio to rear, side, or centre speakers. For surround channel verification, use dedicated surround speaker test tracks or your receiver's built-in speaker test sweep."
+      },
+      {
+        "level": "h3",
+        "heading": "Why does the test show mono even though my headphones support stereo?",
+        "content": "Mono output is usually a software setting rather than a hardware fault. Check: Windows Ease of Access → Hearing → Mono audio (toggle off), or macOS Accessibility → Audio → Play stereo audio as mono (uncheck). Also verify the Bluetooth profile — hands-free/HFP is mono; A2DP is stereo."
+      },
+      {
+        "level": "h3",
+        "heading": "Is it safe to play test tones at high volume?",
+        "content": "Start with your volume at 30% and raise it only if needed. Sustained tones at high volume can cause ear fatigue faster than normal music. If you experience ringing after the test, lower your listening levels. Take a hearing test online periodically if you're concerned about your high-frequency sensitivity."
+      },
+      {
+        "level": "h3",
+        "heading": "Why do the test results differ between my headphones and speakers?",
+        "content": "Headphones route each channel directly to one ear, making channel separation obvious. Speakers in a room produce acoustic crosstalk — sound from the left speaker reaches your right ear and vice versa — so reversed channels are harder to detect. Use headphones for the most reliable stereo test results."
+      },
+      {
+        "level": "h3",
+        "heading": "Can I use this test to calibrate audio balance for mixing music?",
+        "content": "Yes. Use the Balance slider to sweep between channels and listen for consistency in volume and tone on both sides. For music production, also run a pink noise reference through both channels and compare perceived loudness. Combine this with the tone generator to sweep specific frequencies and verify flat frequency response on both sides.\n- Microphone Test\n- Tone Generator\n- Bass Test\n- Headphone Test\n- Speaker Volume Test\n- View Speaker Details\n- Hearing Test"
+      },
+      {
+        "level": "h3",
+        "heading": "Tip",
+        "content": "For best results, use headphones to clearly distinguish between left and right channels without room acoustics affecting the test. You can also check your hearing range to ensure you can perceive all test frequencies."
+      }
+    ]
+  },
+  "/bass-test": {
+    "file": "bass-test.html",
+    "sections": [
+      {
+        "level": "h2",
+        "heading": "How to Use the Bass Test",
+        "content": "- Set volume to 20–30% before you start — low frequencies carry a lot of energy and can damage drivers at high volume.\n- Click Play Bass with the slider at 60 Hz to confirm your speakers reproduce normal bass.\n- Drag the slider down to 20 Hz and listen. If you hear nothing, your speakers don't reproduce sub-bass.\n- Work your way up in 10 Hz steps — the frequency where the tone first becomes clearly audible is your speaker's bass cutoff point.\n- Run the 10-second Bass Sweep for a continuous scan. Listen for the point where sound drops out or distortion begins.\n- Use the Quick Test Frequency buttons (20, 30, 40 Hz) to jump directly to the sub-bass range."
+      },
+      {
+        "level": "h2",
+        "heading": "Understanding Bass Frequency Ranges",
+        "content": "The bass test covers 20 Hz to 200 Hz — the entire low-frequency band. Different parts of this range have distinct sonic characters, and not all speakers or headphones can reproduce every sub-range. Use the speaker test online to confirm your speakers respond correctly from low to maximum volume."
+      },
+      {
+        "level": "h3",
+        "heading": "Sub-Bass: 20–60 Hz",
+        "content": "Sub-bass is felt more than heard — it's the rumble in cinema explosions, the vibration in EDM drops, and the fundamental pitch of a bass guitar's lowest notes. Reproducing these frequencies requires a subwoofer or large, high-excursion drivers. Laptop speakers and most desktop monitors roll off entirely below 60 Hz."
+      },
+      {
+        "level": "h3",
+        "heading": "Deep Bass: 60–80 Hz",
+        "content": "Deep bass is where kick drums thump and bass guitars start to become tonally recognisable. Quality headphones and bookshelf speakers can typically reach into this range. If your bass test shows no output below 80 Hz, your setup is missing a significant portion of recorded music."
+      },
+      {
+        "level": "h3",
+        "heading": "Bass: 80–120 Hz",
+        "content": "The core bass region is reproduced by most full-range speakers and better headphones. Warmth, body, and fullness in vocals and instruments live here. If your bass test sounds thin or nasal, insufficient output in this band is usually the cause."
+      },
+      {
+        "level": "h3",
+        "heading": "Upper Bass: 120–200 Hz",
+        "content": "Upper bass overlaps with the lower midrange. This frequency band affects how \"boomy\" or \"muddy\" audio sounds. Over-emphasis here creates the boxy colouration common in small, enclosed speakers. The bass test slider makes it easy to isolate and hear this region independently."
+      },
+      {
+        "level": "h2",
+        "heading": "Subwoofer Test: What Your Results Mean",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Speaker Bass Response by Device Type",
+        "content": "Different devices have very different bass response limits. Understanding where your device sits helps you interpret the bass test results correctly:\n- Laptop/tablet speakers: typically cut off around 150–200 Hz — no real bass at all\n- Phone speakers: most roll off below 100–150 Hz\n- Earbuds: vary widely; budget earbuds often cut off around 80 Hz; quality ones reach 20 Hz\n- Over-ear headphones: good models extend to 20 Hz; bass-boosted headphones peak around 60–80 Hz\n- Bookshelf speakers: usually reach 60–80 Hz without a subwoofer\n- Subwoofer + satellite system: the subwoofer extends to 20–30 Hz; use the low-frequency bass test to verify the crossover is working"
+      },
+      {
+        "level": "h3",
+        "heading": "Why Laptop Speakers Fail the Low-Frequency Bass Test",
+        "content": "Laptop speaker drivers are typically 15–40 mm in diameter with a short excursion distance. Reproducing 40 Hz requires a cone to move several millimetres — impossible in that form factor. Even with EQ or bass enhancement software, the speaker physically cannot displace enough air to produce sub-bass. The bass test will confirm silence below 150 Hz on most laptops."
+      },
+      {
+        "level": "h3",
+        "heading": "Headphone Bass Test: What a Good Result Looks Like",
+        "content": "Quality over-ear headphones should play a clear, undistorted tone from 200 Hz all the way down to 20 Hz, though volume drops naturally as frequency decreases. Bass-boosted headphones sound loudest around 60–80 Hz but may distort at very high volumes below 40 Hz. If you hear rattling or buzzing during the bass test, the driver may be overdriving or the ear cup seal is broken."
+      },
+      {
+        "level": "h2",
+        "heading": "Common Bass Problems and Solutions",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "No Bass Response at Low Frequencies",
+        "content": "If you can't hear anything below 80 Hz, first rule out hardware limits (most laptops genuinely can't produce sub-bass). If the device should be capable, check: equaliser settings cutting the bass, Bluetooth connection using a narrow-band codec, or a subwoofer crossover set too low. Also check if the subwoofer power switch is on — a surprisingly common miss."
+      },
+      {
+        "level": "h3",
+        "heading": "Distorted or Muddy Bass During the Test",
+        "content": "Distortion during the bass test is the clearest sign your speakers are being pushed beyond their limits. Reduce volume first. If distortion persists at moderate levels at a specific frequency, the driver cone may be damaged or the enclosure is resonating. A port duct vibrating against the cabinet body is another common source of bass distortion."
+      },
+      {
+        "level": "h3",
+        "heading": "Bass Test Results Differ Between Headphones and Speakers",
+        "content": "This is normal — speakers interact with the room. Room modes create bass build-up at specific frequencies depending on room dimensions. A frequency that sounds exaggerated through speakers may sound accurate through headphones. The bass test is most reliable through headphones because it bypasses room acoustics entirely."
+      },
+      {
+        "level": "h3",
+        "heading": "Setting the Subwoofer Crossover for a 2.1 Bass Test",
+        "content": "If you're running a 2.1 speaker system, the subwoofer's crossover dial determines which frequencies the sub handles and which the satellite speakers reproduce. The standard crossover point is 80 Hz — the THX reference setting. Use the bass test to play an 80 Hz tone first through your satellites alone, then confirm the subwoofer takes over smoothly as you sweep down toward 60 Hz. If you hear a gap or dip around the crossover frequency, raise the crossover dial slightly. If the bass sounds boomy or thick at your primary listening position, try moving the subwoofer closer to a wall corner — room reinforcement can compensate for under-powered bass output without changing the crossover setting."
+      },
+      {
+        "level": "h2",
+        "heading": "Frequently Asked Questions About the Bass Test",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "What is the lowest frequency the bass test can produce?",
+        "content": "The slider goes down to 20 Hz, the accepted lower boundary of human hearing. Frequencies below 20 Hz are infrasound — you may feel vibration but won't hear a pitch. The Quick Test buttons also include 20 Hz and 30 Hz for direct access to the sub-bass range."
+      },
+      {
+        "level": "h3",
+        "heading": "Why can't I hear anything below 40 Hz?",
+        "content": "Either your speakers don't reproduce those frequencies, or you're listening at a volume too low for them to be audible. Sub-bass tones at 20–40 Hz need more volume to be perceived than mid-bass tones. Slowly increase volume while at 30 Hz — if you still hear nothing at a moderate level, your speaker's low-frequency bass response cuts off above that point."
+      },
+      {
+        "level": "h3",
+        "heading": "Is the bass test safe for my subwoofer?",
+        "content": "Yes, if you keep volume at 50% or below. Extended sine waves at very high volume and extremely low frequencies (under 25 Hz) can over-excite the driver and damage the voice coil over time. The bass sweep test is a better choice for safety — it keeps the driver moving rather than dwelling on one frequency for too long."
+      },
+      {
+        "level": "h3",
+        "heading": "What frequency should a good subwoofer reach?",
+        "content": "A quality home theatre subwoofer should reproduce tones clearly down to 20–25 Hz. A budget subwoofer typically reaches 35–40 Hz. Car subwoofers vary widely but most quality units extend to 25 Hz. Use the bass test slider at 20 Hz and 30 Hz to benchmark your subwoofer's actual low-frequency extension."
+      },
+      {
+        "level": "h3",
+        "heading": "Why does bass sound distorted at high volumes?",
+        "content": "Distortion at high bass volumes is called \"clipping\" at the amplifier level, or \"cone breakup\" at the speaker level. When the driver tries to move further than its mechanical limits allow, it can't reproduce the waveform cleanly. Reduce volume, or if distortion persists at moderate levels, the driver may be damaged."
+      },
+      {
+        "level": "h3",
+        "heading": "Can I use this as a subwoofer polarity test?",
+        "content": "Partially. Play a 60–80 Hz tone and then have someone swap the subwoofer's phase switch (0°/180°). If the bass sounds fuller in one position, that phase setting is correct for your room. For a proper polarity test, use a dedicated polarity checker or compare bass level changes with and without the satellite speakers playing simultaneously.\n- Tone Generator\n- Stereo Test\n- Speaker Volume Test\n- Headphone Test\n- View Speaker Details\n- Hearing Test\n- Microphone Test"
+      },
+      {
+        "level": "h2",
+        "heading": "Tips",
+        "content": "If you can't hear frequencies below 40Hz, your speakers may not support sub-bass. Try with a subwoofer or bass-capable headphones. Use our hearing test to check the lowest frequencies you can perceive."
+      }
+    ]
+  },
+  "/speaker-volume-test": {
+    "file": "speaker-volume-test.html",
+    "sections": [
+      {
+        "level": "h2",
+        "heading": "No Sound?",
+        "content": "- Check system volume is not muted\n- Verify correct output device in audio settings\n- Check cable connections\n- Try a different browser\n- See troubleshooting guide"
+      },
+      {
+        "level": "h2",
+        "heading": "How to Run the Speaker Test Online",
+        "content": "- Set system volume to 50% before starting — use your OS volume control, not just this tool's slider, to avoid sudden loud output.\n- Select a Test Sound from the dropdown: start with 1 kHz Tone for a clean reference signal.\n- Click Play Test Sound and confirm you hear audio from both speakers.\n- Use the Quick Volume Tests (25%, 50%, 75%, 100%) to step through levels and check that volume scales smoothly without crackling.\n- Switch to Frequency Sweep to scan from 200 Hz to 2000 Hz — listen for any frequencies that sound distorted or absent.\n- Try White Noise to check speaker response across the full audio spectrum simultaneously."
+      },
+      {
+        "level": "h2",
+        "heading": "What Does the Online Speaker Test Check?",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Speaker Channel Test — Left, Right, and Both",
+        "content": "The speaker test confirms that audio output reaches both channels at the correct volume. If one speaker plays noticeably louder, the audio output is unbalanced — check the balance slider in your OS sound settings. Run a stereo test if you need to verify that left and right channels are not swapped. A bass test exposes port resonance, driver rattle, or missing low end in any speaker setup."
+      },
+      {
+        "level": "h3",
+        "heading": "Frequency Sweep Speaker Test",
+        "content": "The sweep option ramps from 200 Hz to 2000 Hz over three seconds. A healthy speaker plays every point in the sweep at consistent volume. If you notice a sudden drop, a resonance buzz, or complete silence at a specific frequency, that region of the speaker's response is problematic — it may indicate a damaged driver or port resonance."
+      },
+      {
+        "level": "h3",
+        "heading": "Noise-Based Speaker Sound Test",
+        "content": "White noise contains all frequencies at equal energy, making it ideal for identifying colouration or gaps in your speaker's audio output. Pink noise reduces high-frequency energy to better match how the ear perceives loudness — audiophiles use it for level-matching multiple speakers. If one speaker sounds brighter or duller than the other during a noise test, the two units are not matched."
+      },
+      {
+        "level": "h2",
+        "heading": "Speaker Test Results by Volume Level",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Low Volume Speaker Test (25%)",
+        "content": "At 25% volume, you're testing that your audio output chain functions at minimum levels — essential for quiet listening environments and background audio. If you can't hear anything at 25% with system volume at 50%, your speaker's sensitivity rating may be low, or a hardware volume control (physical knob on a monitor or amplifier) is set too low. Before a long listening session, a quick headphone test confirms both channels are performing correctly."
+      },
+      {
+        "level": "h3",
+        "heading": "Medium Volume Audio Output Test (50%)",
+        "content": "50% is the standard reference level for most speaker tests. A well-functioning speaker should play cleanly, with no distortion, at this level. If you hear rattling, buzzing, or crackling at 50% volume, something is wrong — driver damage, a loose enclosure component, or excessive bass boost in your EQ settings are the most common causes."
+      },
+      {
+        "level": "h3",
+        "heading": "High Volume Check (75–100%)",
+        "content": "Testing at high volume reveals how much headroom your speakers have before they clip or distort. Distortion at 75–100% is normal for budget speakers operating at their limit. If distortion appears at 50% or below, the driver is likely damaged or the amplifier is underpowered for the speaker load. Never sustain 100% volume for extended periods — it accelerates driver wear."
+      },
+      {
+        "level": "h2",
+        "heading": "Speaker Test Troubleshooting — No Sound or Poor Audio Output",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Speaker Test Shows No Audio Output",
+        "content": "If the speaker test plays but you hear nothing: check that the correct output device is selected in your OS sound settings — if you recently plugged in headphones or an HDMI monitor, the OS may have switched the default output. Also verify system volume is not muted at the OS level. On laptops, a function key (Fn+F8 or similar) may be muting audio independently."
+      },
+      {
+        "level": "h3",
+        "heading": "One Speaker Channel Is Silent During the Test",
+        "content": "A silent channel points to a physical connection issue, a damaged driver, or an OS balance setting pushed fully to one side. Check your OS sound settings and confirm the balance is centred. Try different cables or ports to isolate the fault. If the silent channel works in a different audio app, the issue may be browser-specific — try a different browser for the online speaker test."
+      },
+      {
+        "level": "h3",
+        "heading": "Audio Output Sounds Distorted at Any Volume",
+        "content": "Consistent distortion at all volume levels usually means a damaged voice coil or blown driver. Distortion that appears only at high volumes is more likely an overloaded amplifier or EQ-boosted bass exceeding the speaker's limits. Remove any bass boost or loudness enhancement in your audio driver software and retest."
+      },
+      {
+        "level": "h3",
+        "heading": "Speaker Test Passes But Overall Sound Quality Is Poor",
+        "content": "A passing speaker test means the hardware is functional — but sound quality issues often come from software: equaliser settings, audio enhancement software (spatial sound, room correction), or a low-quality audio driver. Disable enhancements in your OS audio settings and test again. Outdated or generic audio drivers can also degrade quality — install the manufacturer's driver from their website."
+      },
+      {
+        "level": "h2",
+        "heading": "Frequently Asked Questions About the Speaker Test Online",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Is the online speaker test safe for my speakers?",
+        "content": "Yes, as long as you start at a moderate volume and avoid sustained maximum-volume playback. The test tones are standard sine waves and noise signals — the same types used in professional audio calibration. Start at 25–50% volume and only increase if needed. If you hear distortion at any level, stop immediately and reduce volume."
+      },
+      {
+        "level": "h3",
+        "heading": "Why does the speaker test sound different at different volume levels?",
+        "content": "All speakers have a non-linear frequency response that changes with volume. At low volumes, bass frequencies sound thinner (the equal-loudness contour effect — the ear is less sensitive to bass at low levels). At high volumes, the speaker's physical limits cause harmonic distortion. This is normal speaker behaviour, not a fault."
+      },
+      {
+        "level": "h3",
+        "heading": "Can I use this as a subwoofer test?",
+        "content": "For subwoofer testing, the bass test is better suited — it covers 20–200 Hz with a dedicated sweep. The 1 kHz tone and frequency sweep in this speaker test focus on the mid-range. That said, playing white noise through all speakers simultaneously (including the subwoofer) gives a useful overall balance check."
+      },
+      {
+        "level": "h3",
+        "heading": "Why does the speaker test only play through one channel?",
+        "content": "Check your OS balance control first — it may be set fully left or right. Also verify your cable: a mono-to-stereo adaptor or a partially-inserted 3.5 mm jack will only output to one channel. If using Bluetooth, check that the speaker is connected in stereo mode, not mono/hands-free profile."
+      },
+      {
+        "level": "h3",
+        "heading": "Does the speaker test work with Bluetooth speakers?",
+        "content": "Yes. Select your Bluetooth speaker as the audio output device in your OS sound settings before running the test. Note that Bluetooth audio introduces 50–200 ms of latency — the tone will play with a slight delay after you click Play. This is normal and does not affect the volume or quality test results."
+      },
+      {
+        "level": "h3",
+        "heading": "What is white noise and why is it used in speaker testing?",
+        "content": "White noise is a random signal that contains all audible frequencies simultaneously at equal power. It's used in speaker testing because it exercises the full frequency range of the driver in a single pass. If a speaker has a weak tweeter, the white noise will sound muffled. If the woofer is damaged, the noise will have a hollow, thin quality.\n- Stereo Test\n- Tone Generator\n- Bass Test\n- Headphone Test\n- View Speaker Details\n- Hearing Test\n- Microphone Test"
+      }
+    ]
+  },
+  "/show-speakers": {
+    "file": "show-speakers.html",
+    "sections": [
+      {
+        "level": "h3",
+        "heading": "Audio Quality Verification",
+        "content": "Ensure your speakers meet the requirements for high-quality audio playback, music production, or gaming experience."
+      },
+      {
+        "level": "h3",
+        "heading": "Channel Configuration",
+        "content": "Verify that your audio output setup correctly supports stereo, surround sound, or other multi-channel configurations."
+      },
+      {
+        "level": "h3",
+        "heading": "Troubleshooting",
+        "content": "Identify potential issues with your audio output devices that might be affecting sound quality or performance."
+      },
+      {
+        "level": "h2",
+        "heading": "How to Find Out What Speakers You Have",
+        "content": "This tool reads your system's audio output devices using the browser's Web Audio API and MediaDevices.enumerateDevices() method. Unlike checking your OS control panel, it shows you exactly what your browser sees — which matters when you're troubleshooting audio in a web app or video call that behaves differently from your desktop applications. The tool lists every audio output endpoint your system exposes: built-in speakers, connected headphones, HDMI outputs, USB audio devices, and Bluetooth speakers. Use the headphone test to confirm both ear channels are balanced and undamaged.\nClick any device card to expand its full technical specifications — device ID, group ID, sample rate, channel count, and latency. Use the built-in speaker test controls to confirm the device actually produces sound before deciding whether it's the one you want as your default."
+      },
+      {
+        "level": "h2",
+        "heading": "Understanding Your Audio Output Device Specifications",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Device Name and Group ID — What They Tell You",
+        "content": "The device name is what your OS and browser expose to web applications — it may be a generic label (\"Speakers\") or a specific model name (\"Realtek Audio Output\"). The group ID links audio input and output devices that share the same physical hardware: for example, a headset's microphone and headphone driver will share a group ID, confirming they are part of the same device. This is useful when troubleshooting mixed-device setups where audio goes to the wrong endpoint. A stereo test confirms your speakers are delivering true stereo rather than summed mono."
+      },
+      {
+        "level": "h3",
+        "heading": "Sample Rate — What 44.1 kHz and 48 kHz Mean for Your Speaker",
+        "content": "The sample rate shown is the rate at which your audio hardware processes digital audio samples per second. 44.1 kHz (44,100 samples/second) is the CD standard and the most common setting for consumer audio. 48 kHz is the professional audio and video standard used in film, TV, and video production. Most modern systems default to 48 kHz. If your sample rate differs from your audio software's setting, the OS resamples the audio — this is harmless but can introduce very subtle quality changes in critical listening environments."
+      },
+      {
+        "level": "h3",
+        "heading": "Channel Count — Stereo vs Surround Audio Output",
+        "content": "The channel count indicates how many independent audio streams your output device supports. Channel count 2 is stereo (left and right). Channel count 6 indicates 5.1 surround (front-left, front-right, centre, rear-left, rear-right, subwoofer). Channel count 8 indicates 7.1 surround. Most browsers and web applications output stereo (2-channel) audio regardless of your hardware's capability — hardware surround is typically handled by your audio driver and receiver, not the browser."
+      },
+      {
+        "level": "h2",
+        "heading": "Common Audio Output Device Types and What Speakers You Might Have",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Built-In Laptop and Desktop Speakers",
+        "content": "Built-in speakers appear in the device list as entries like \"Speakers (Realtek Audio)\" or \"Internal Speakers\". These are driven directly by the motherboard's integrated audio chipset. They are the most common default output device and the first place to check if you hear no audio — if the built-in speaker is listed but produces no sound, the driver may need updating or the physical speaker connection may be loose."
+      },
+      {
+        "level": "h3",
+        "heading": "USB and External Speakers",
+        "content": "USB speakers and audio interfaces appear as separate devices with names that match their manufacturer labels (e.g., \"Focusrite USB Audio\" or \"Logitech Z506 Audio\"). They register as independent audio endpoints and typically show 48 kHz sample rate. If a USB speaker doesn't appear in the list, it may need to be reconnected, or the USB audio driver may not be installed. Try unplugging and replugging the device, then clicking Refresh."
+      },
+      {
+        "level": "h3",
+        "heading": "HDMI and DisplayPort Audio Output",
+        "content": "When a monitor, TV, or projector is connected via HDMI or DisplayPort, it registers as an audio output device (e.g., \"HDMI Audio Output\" or \"LG ULTRAGEAR HDMI\"). If audio is unexpectedly coming from a TV or monitor speaker, it is because the system has set this HDMI endpoint as the default output. Select it in the device list to confirm it is active, then change your default output in OS sound settings if needed."
+      },
+      {
+        "level": "h3",
+        "heading": "Bluetooth Speakers",
+        "content": "Bluetooth speakers appear in the list only while they are paired and connected. They typically show reduced capabilities compared to wired devices — 48 kHz sample rate and stereo channel count. The device name usually matches the Bluetooth device's name as configured in its companion app. If a Bluetooth speaker has disconnected and you hear no audio, check that it's still the system default output; the OS does not automatically fall back to the built-in speaker in all cases."
+      },
+      {
+        "level": "h2",
+        "heading": "Speaker Details FAQ — Frequently Asked Questions",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Why can't I see all my connected speakers in the list?",
+        "content": "Browser audio device enumeration requires microphone permission — the browser uses mic permission as a gate to prevent fingerprinting via device enumeration. If you denied microphone access previously, the device list may be incomplete or show only the default output. Grant microphone access when prompted (even if you have no microphone) and refresh the page. Also, some audio devices register only as input devices and will not appear in the speaker output list."
+      },
+      {
+        "level": "h3",
+        "heading": "What does \"Default Device\" mean in my speaker details?",
+        "content": "The default device is the audio output endpoint that applications use unless they specify a different one. When you play a YouTube video or join a Zoom call without selecting a specific output, the audio goes to the default device. You can change the default in OS sound settings (Windows: Sound Control Panel → Playback tab; macOS: System Settings → Sound → Output). The speaker detail table shows whether a device is currently set as your default."
+      },
+      {
+        "level": "h3",
+        "heading": "Why does my speaker show as \"disconnected\" even though I can hear audio?",
+        "content": "Some browsers cannot always determine the live connection status of audio endpoints, particularly for HDMI outputs and Bluetooth devices. The status shown is reported by the OS driver, which may lag behind the actual hardware state. If audio is playing through the device, it is functionally connected regardless of what the status label says. Use the built-in speaker test in this tool to confirm audio output rather than relying solely on the status indicator."
+      },
+      {
+        "level": "h3",
+        "heading": "Can I see the model name and specifications of my speakers through the browser?",
+        "content": "The browser can only access what the OS audio driver exposes — typically the device name, device ID, group ID, sample rate, and channel count. Detailed hardware specifications like driver size, power rating, or frequency response are not available through any browser API. For full hardware details on a specific speaker model, check the manufacturer's product page using the model name shown in the device list."
+      }
+    ]
+  },
+  "/hearing-test": {
+    "file": "hearing-test.html",
+    "sections": [
+      {
+        "level": "h2",
+        "heading": "About Hearing Range",
+        "content": "- Normal range: 20 Hz - 20,000 Hz (declines with age)\n- Age 20-30: Typically hear up to 16-18 kHz\n- Age 40-50: Typically hear up to 12-14 kHz\n- Age 60+: Typically hear up to 8-10 kHz"
+      },
+      {
+        "level": "h2",
+        "heading": "How to Take the Hearing Test",
+        "content": "Getting accurate results takes less than two minutes. Follow these steps before you start: For speaker calibration or tinnitus matching, the tone generator gives you precise frequency control.\n- Use headphones — Built-in laptop or phone speakers cannot isolate left and right channels accurately. Over-ear or in-ear headphones give significantly more reliable results.\n- Find a quiet room — Background noise masks the softest test tones, especially at high frequencies. Even moderate room noise can shift your apparent hearing threshold by 10–15 Hz.\n- Set a comfortable volume — Adjust the volume slider to 40–50% before starting. You can raise it slightly if you can't hear the low frequency tones, but avoid going above 70% to protect your hearing.\n- Select your ear — Use the Test Ear selector to test each ear separately. Comparing left and right results is the most valuable part of a screening test — differences between ears can indicate one-sided hearing loss.\n- Click each frequency — Press each frequency button. If you clearly hear the tone, click \"I Heard It.\" If you hear nothing or are unsure, click \"Didn't Hear.\""
+      },
+      {
+        "level": "h2",
+        "heading": "Understanding Your Hearing Test Results",
+        "content": "Once you have tested all frequencies, the Detected Range display shows the lowest and highest frequencies you were able to hear. Here is how to interpret what you find: Run an audio latency test to confirm your audio chain meets latency requirements for live performance."
+      },
+      {
+        "level": "h3",
+        "heading": "What Is a Normal Hearing Range?",
+        "content": "The textbook human hearing range is 20 Hz to 20,000 Hz, but in practice no one hears the full range without decline. What matters is whether your range is appropriate for your age and whether both ears match."
+      },
+      {
+        "level": "h3",
+        "heading": "Hearing Range by Age",
+        "content": "- Under 20: Up to 18,000–20,000 Hz typically detectable\n- Age 20–30: Upper limit typically 16,000–18,000 Hz\n- Age 40–50: Upper limit typically 12,000–14,000 Hz\n- Age 60+: Upper limit typically 8,000–10,000 Hz\nGradual high-frequency decline with age is entirely normal. A sharp difference between ears — or sudden loss at any age — warrants professional evaluation."
+      },
+      {
+        "level": "h3",
+        "heading": "Hearing Loss Categories",
+        "content": "Audiologists classify hearing loss by the softest sound level (in decibels) a person can detect. This online test does not measure decibel thresholds — it only identifies which frequencies you can detect at a fixed volume level. For a full audiogram with dB thresholds, consult a licensed audiologist.\n- Normal: You can hear all or most frequencies tested at moderate volume\n- Mild loss (likely): You miss the 16 kHz–20 kHz range and/or low frequencies below 40 Hz\n- Moderate loss (possible): You cannot hear above 12 kHz or miss multiple mid-range frequencies\n- Significant concern: Missing frequencies below 8 kHz or a clear left/right mismatch — see an audiologist"
+      },
+      {
+        "level": "h2",
+        "heading": "Common Causes of High-Frequency Hearing Loss",
+        "content": "The most common pattern detected by an online hearing test is reduced sensitivity at high frequencies. The usual causes include: A background noise analyzer shows whether your noise floor is within acceptable limits for podcast or voiceover work."
+      },
+      {
+        "level": "h3",
+        "heading": "Age-Related Hearing Loss (Presbycusis)",
+        "content": "The inner ear's hair cells — which convert sound vibrations into nerve signals — gradually degrade over time. High-frequency hair cells at the base of the cochlea are the first affected. This is the most common cause of high-frequency hearing loss and affects nearly every adult to some degree by age 60."
+      },
+      {
+        "level": "h3",
+        "heading": "Noise-Induced Hearing Loss",
+        "content": "Exposure to loud sounds — concerts, power tools, headphones at high volume — permanently damages cochlear hair cells. Like age-related loss, it strikes high frequencies first (especially around 4,000 Hz, a characteristic notch seen on professional audiograms). Unlike age-related loss, it can affect people of any age."
+      },
+      {
+        "level": "h3",
+        "heading": "Ear Infections and Wax Buildup",
+        "content": "Temporary conductive hearing loss — caused by fluid in the middle ear, infections, or earwax blockage — can reduce sensitivity across all frequencies. If your hearing test shows broad, symmetric loss that appeared suddenly, a blocked ear canal or middle ear infection is the likely cause and is often easily treated."
+      },
+      {
+        "level": "h2",
+        "heading": "Online Hearing Test vs Clinical Audiogram — What's the Difference?",
+        "content": "An online hearing test and a clinical audiogram both measure your ability to detect tones at different frequencies, but they differ significantly in precision, environment, and what they can diagnose."
+      },
+      {
+        "level": "h3",
+        "heading": "What the Online Hearing Test Online Can Tell You",
+        "content": "This browser-based hearing test identifies the approximate frequency range you can detect — the lowest and highest tones audible at a fixed volume. It is a useful screening tool for spotting obvious asymmetry between ears, checking whether high-frequency sensitivity has declined since your last test, or confirming that your headphones are performing correctly. Because the test runs at a single volume level rather than measuring decibel thresholds, it cannot produce a clinical audiogram. Think of it as an annual home screen that tells you whether a professional visit is warranted."
+      },
+      {
+        "level": "h3",
+        "heading": "When to See an Audiologist After Your Hearing Test",
+        "content": "Book a professional evaluation if your online hearing test shows: a clear difference between left and right ear results at any frequency; inability to detect frequencies below 6,000 Hz; sudden change in results compared to a previous test taken under the same conditions; or any frequencies in the speech-critical 500 Hz–4,000 Hz range showing reduced sensitivity. An audiologist can perform a calibrated pure-tone audiometry test that maps your hearing thresholds in decibels across the full speech range — information that online testing cannot provide but that is essential for diagnosing hearing loss type and severity."
+      },
+      {
+        "level": "h2",
+        "heading": "How to Get Accurate Online Hearing Test Results",
+        "content": "The reliability of an online hearing test depends heavily on equipment and environment. Small changes in setup can shift your apparent hearing threshold by 10–20 Hz or more."
+      },
+      {
+        "level": "h3",
+        "heading": "Choosing the Right Headphones for the Hearing Test Online",
+        "content": "Over-ear headphones with a good seal give the most accurate results. They block ambient noise physically, allowing even the softest test tones to be heard clearly. In-ear monitors (IEMs) can also work well if the ear tip creates a complete seal. Avoid open-back headphones for testing — they allow room noise to bleed into the signal and suppress perceived low frequencies. Never use laptop or phone speakers: they cannot isolate left and right channels and have a limited frequency response that will make your results appear worse than your actual hearing."
+      },
+      {
+        "level": "h3",
+        "heading": "Room Noise, Volume Calibration, and Repeat Testing",
+        "content": "Take the hearing test in the quietest room available and close windows and doors. Even 40 dB of background noise (typical of a quiet office) can mask tones at the threshold of audibility. Set your device volume to 50–60% before starting — the same level each time you test, so results are comparable across sessions. To track your hearing over time, save the frequency range result after each session and note the date and equipment used. Consistent methodology is more valuable than any single result."
+      },
+      {
+        "level": "h2",
+        "heading": "Frequently Asked Questions",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Can this replace a professional hearing exam?",
+        "content": "No. This is a screening tool, not a clinical audiological examination. A professional audiogram uses calibrated equipment in a sound-treated booth and measures your hearing threshold in decibels at each frequency — information this browser test cannot provide. If the results concern you, or if you notice a significant left/right difference, see a licensed audiologist for a full evaluation."
+      },
+      {
+        "level": "h3",
+        "heading": "Why do I need headphones?",
+        "content": "Headphones allow the test to play each frequency to one ear at a time and block out background noise that would otherwise mask the softest test tones. Laptop speakers and phone speakers mix both channels together and pick up room echo, making left/right comparison impossible and low-frequency results unreliable."
+      },
+      {
+        "level": "h3",
+        "heading": "What does it mean if I can't hear high frequencies?",
+        "content": "Not hearing frequencies above 14,000–16,000 Hz is common in adults over 30 and is usually normal age-related decline. If you cannot hear above 10,000 Hz, or if you notice a significant difference between your left and right ear, consult an audiologist. Loss of speech-range frequencies (500 Hz–4 kHz) is more clinically significant and warrants prompt evaluation."
+      },
+      {
+        "level": "h3",
+        "heading": "What is an audiogram?",
+        "content": "An audiogram is a chart produced by a clinical hearing test showing the softest sound (in decibels, dBHL) you can detect at each tested frequency. It maps your hearing thresholds across the speech-critical range (250 Hz–8,000 Hz). This online hearing test produces a simplified version — a frequency range display — rather than a full audiogram with dB measurements."
+      },
+      {
+        "level": "h3",
+        "heading": "How accurate is an online hearing test?",
+        "content": "Online hearing tests are approximate screening tools. Accuracy depends heavily on your headphones, your room noise level, and volume calibration. Studies suggest consumer-grade online tests can estimate hearing thresholds within roughly 10–15 dB of clinical measurements under good conditions. They are best used to track changes over time and to flag potential problems — not to diagnose hearing loss."
+      },
+      {
+        "level": "h3",
+        "heading": "Why are very low frequencies (below 40 Hz) hard to hear on this test?",
+        "content": "Most headphones and earbuds cannot reproduce frequencies below 40–50 Hz accurately due to the physical size of their drivers. Even if your hearing is perfect at those frequencies, your headphones may not be able to generate the sound. If you want to test bass-range response, use a full-size over-ear headphone or a dedicated subwoofer test with the bass test tool."
+      },
+      {
+        "level": "h3",
+        "heading": "What should I do if my results show a left/right difference?",
+        "content": "A consistent difference between ears — where one ear clearly hears higher frequencies than the other — is called asymmetric hearing loss and warrants professional evaluation. It can indicate wax buildup on one side, a middle ear problem, or (rarely) more serious conditions. Use our audio latency test to rule out equipment-side issues before concluding the difference is in your hearing.\n- Headphone Test\n- Tone Generator\n- Voice Analyzer\n- Bass Test\n- Stereo Test\n- Microphone Test"
+      },
+      {
+        "level": "h3",
+        "heading": "Tips",
+        "content": "- Use quality headphones\n- Test in a quiet room\n- Start with medium volume\n- Don't increase volume too high for high frequencies"
+      },
+      {
+        "level": "h3",
+        "heading": "Important",
+        "content": "This test is for entertainment only. If you have hearing concerns, please see an audiologist for a professional evaluation."
+      }
+    ]
+  },
+  "/mic-recorder": {
+    "file": "mic-recorder.html",
+    "sections": [
+      {
+        "level": "h2",
+        "heading": "Your Recording",
+        "content": ""
+      },
+      {
+        "level": "h2",
+        "heading": "How to Use the Recorder",
+        "content": "- Click the red record button to start recording\n- Allow microphone access when prompted by your browser\n- Speak into your microphone - watch the waveform to confirm audio input\n- Click the stop button when finished\n- Preview your recording and download as MP3 or WAV\nTip: For best quality, use a quiet environment. Check your background noise levels and use our sound level meter to monitor input levels."
+      },
+      {
+        "level": "h2",
+        "heading": "Recording Tips",
+        "content": "- Position mic 6-12 inches from your mouth\n- Avoid touching or bumping the microphone\n- Reduce background noise - close windows/doors\n- Use headphones to prevent echo feedback\n- Test your audio latency for monitoring\n- Check mic settings for optimal quality"
+      },
+      {
+        "level": "h2",
+        "heading": "What Is an Online Mic Recorder and How Does It Work?",
+        "content": "An online mic recorder captures audio directly through your browser using the Web Audio API and the MediaRecorder interface — no plugin, no app, no server upload involved. When you click Record, the browser requests microphone access, opens an audio stream, and writes the incoming audio data into memory chunks. When you click Stop, those chunks are assembled into an audio file (WAV or MP3) that can be played back and downloaded directly from the page. The entire process happens locally on your device: no audio is ever sent to a remote server, making it one of the most private ways to capture voice recordings. For the answer to what microphone do i have, the tool reads your audio input devices without any software."
+      },
+      {
+        "level": "h2",
+        "heading": "Common Uses for the Online Voice Recorder",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Voice Memos and Quick Audio Notes",
+        "content": "The online mic recorder is ideal for capturing ideas, reminders, or observations faster than typing. Open the page, hit Record, speak your thought, and download the file in seconds. Unlike phone voice memo apps, the browser recorder produces a standard MP3 or WAV file that is immediately transferable to any device or application without proprietary formats or cloud sync requirements."
+      },
+      {
+        "level": "h3",
+        "heading": "Podcast and Voiceover Recording Online",
+        "content": "For first drafts, test reads, or short podcast segments, an online voice recorder eliminates the setup overhead of a DAW. Record a segment, listen back, and determine whether you need to adjust microphone position, delivery pace, or room acoustics before investing in a full production session. The waveform visualization in this tool lets you see breath sounds, plosives, and silence gaps before you download the file."
+      },
+      {
+        "level": "h3",
+        "heading": "Interview and Meeting Audio Recording",
+        "content": "When you need to capture a spoken interview, briefing, or meeting audio for transcription, the online mic recorder provides a simple one-click solution. Record the session, download the WAV file, and upload it to a transcription service. For best results in an interview context, position the microphone equidistant between you and your subject, or use a directional microphone pointed at the primary speaker."
+      },
+      {
+        "level": "h3",
+        "heading": "Testing Microphone Quality Before a Call or Recording Session",
+        "content": "Before a video call, podcast, or recording session, make a 30-second test recording and listen back critically: Are there hiss or hum artefacts? Is the voice clear and present? Does the room echo? Addressing these issues before going live saves embarrassment and post-production effort. Pair the recorder with the audio latency test to confirm your monitoring delay is acceptable."
+      },
+      {
+        "level": "h2",
+        "heading": "Audio Quality Settings for Your Mic Recording",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "MP3 vs WAV — Which Download Format to Choose?",
+        "content": "WAV is an uncompressed audio format. Every sample is stored at full resolution, which means the file is large but perfectly preserves the original quality of your recording — ideal for further editing, transcription, or archiving. MP3 applies lossy compression that reduces file size significantly (roughly 10:1 at 192 kbps) at the cost of some very high-frequency detail that is largely inaudible to most listeners. For voice recordings, 192 kbps MP3 is indistinguishable from WAV to most ears. Choose WAV if you plan to edit the file in a DAW; choose MP3 for sharing, emailing, or uploading."
+      },
+      {
+        "level": "h3",
+        "heading": "Sample Rate: 44.1 kHz vs 48 kHz",
+        "content": "44.1 kHz is the CD standard — it captures all frequencies up to 22.05 kHz, well above the human hearing limit of 20 kHz. 48 kHz is the professional audio and video standard used in film, TV, and video production. For voice-only recordings destined for podcasting or general use, 44.1 kHz is perfectly adequate. If your recording will be mixed with video footage or used in a video production, choose 48 kHz to avoid resampling artefacts."
+      },
+      {
+        "level": "h3",
+        "heading": "Bitrate Settings for Voice Recording Online",
+        "content": "Bitrate controls how much data is used per second of MP3 audio. For voice recordings, 128 kbps is more than sufficient — voice frequencies sit between 80 Hz and 8 kHz, well within 128 kbps's reproduction capability. The 192 kbps setting (selected by default) provides extra headroom for any music, ambient sound, or high-frequency sibilants (s, sh, t sounds) in the recording. 320 kbps is overkill for voice-only content and produces unnecessarily large files."
+      },
+      {
+        "level": "h2",
+        "heading": "Tips for Better Browser Microphone Recordings",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Set Up a Good Recording Environment",
+        "content": "The room you record in is as important as the microphone you use. Hard, parallel walls create flutter echo; soft furnishings, curtains, and bookshelves absorb reflections. Before recording, check your ambient noise floor with the sound level meter online — aim for below 40 dB. Close doors and windows, turn off HVAC systems and fans, and avoid recording near a running refrigerator or desktop fan. A quiet room transforms a mediocre microphone into an adequate one."
+      },
+      {
+        "level": "h3",
+        "heading": "Microphone Positioning for Clearest Voice Recording",
+        "content": "Position the microphone 15–30 cm (6–12 inches) from your mouth and slightly off-axis (angled 15–30° away from direct mouth position) to reduce plosive sounds (\"p\" and \"b\" bursts). Too close and plosives will overload the capsule; too far and room reverb becomes audible. Using a pop filter (or improvising with a piece of nylon stretched over a hoop) eliminates most plosive issues. Avoid pointing the microphone directly at a hard wall behind you — the reflection will add a slight comb-filtering colouration."
+      },
+      {
+        "level": "h3",
+        "heading": "Reducing Echo and Background Noise Before You Record",
+        "content": "If you hear echo on playback, there are two possible causes: acoustic room echo (reverb from hard surfaces) or digital echo (feedback loop from monitor speakers). For room echo, add soft furnishings or record in a walk-in wardrobe surrounded by clothing. For digital echo, use headphones instead of speakers while recording — this prevents the played-back audio from being re-captured by the microphone. Use the echo test to confirm there is no feedback loop before starting a recording session."
+      },
+      {
+        "level": "h2",
+        "heading": "Online Mic Recorder Privacy — No Upload, No Storage",
+        "content": "Every step of the recording process in this tool runs locally in your browser. When you click Record, the MediaRecorder API writes audio data to a Blob object in your browser's memory. When you download the file, it is transferred directly from memory to your local filesystem. No audio data is sent to any server at any point — there is no account, no cloud storage, no analytics that capture audio content. The recording exists only in your browser session; when you close the tab, it is gone unless you downloaded it first. The sound level meter online uses your microphone to display decibel levels as you speak or move."
+      },
+      {
+        "level": "h2",
+        "heading": "Online Mic Recorder — Frequently Asked Questions",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Does the online mic recorder work on mobile phones?",
+        "content": "Yes — the tool works on iOS Safari (version 14.3+) and Android Chrome. On iOS, you must use Safari; Chrome for iOS does not support the MediaRecorder API. On Android, Chrome, Firefox, and Edge all support browser-based recording. Note that mobile microphones typically have higher noise floors and more aggressive noise cancellation than desktop microphones, which may affect recording quality."
+      },
+      {
+        "level": "h3",
+        "heading": "Why does my recording sound muffled or very quiet?",
+        "content": "Common causes: the microphone input volume in OS settings is set too low (check Sound settings → Input level), a noise cancellation or microphone boost setting is interfering, or you are positioned too far from the microphone. Also check that the correct microphone is selected in the device dropdown — some laptops have multiple microphone inputs (built-in mic, webcam mic, headset mic) and the wrong one may be selected."
+      },
+      {
+        "level": "h3",
+        "heading": "Is there a maximum recording length?",
+        "content": "There is no hard time limit — the tool records until you click Stop. However, long recordings accumulate in your browser's memory. Recordings above 30–60 minutes may cause memory pressure on devices with limited RAM, particularly on older phones or tablets. For very long recordings (hours), a dedicated desktop recording application is more appropriate."
+      },
+      {
+        "level": "h3",
+        "heading": "Why does the waveform not move when I click Record?",
+        "content": "This usually means the browser did not receive microphone audio. Check: (1) microphone permission was granted in the browser — look for the microphone icon in the address bar; (2) the correct microphone is selected in the dropdown; (3) your microphone is physically connected and not muted at the hardware level (some headsets have an inline mute button). If the permission was previously denied, reset it in the browser's site settings."
+      },
+      {
+        "level": "h3",
+        "heading": "Can I record system audio (computer sounds) as well as my microphone?",
+        "content": "Browser-based mic recorders can only capture microphone input — they cannot record system audio (music playing, game sound, etc.) due to browser security restrictions. To record system audio alongside your microphone, use a desktop screen recorder or a virtual audio cable routing tool. The browser MediaRecorder API is limited to microphone streams for privacy reasons."
+      },
+      {
+        "level": "h3",
+        "heading": "What browsers support the online voice recorder?",
+        "content": "The tool works in any browser that supports the MediaRecorder API: Chrome 49+, Firefox 25+, Safari 14.3+, and Edge 79+. Internet Explorer is not supported. For the best audio quality and most consistent behaviour, use the latest version of Chrome or Firefox on a desktop or laptop. If the record button is unresponsive, update your browser — older versions may lack the required Web Audio API features.\n- Test Your Microphone\n- View Mic Specifications\n- Sound Level Meter\n- Voice Frequency Analyzer\n- Echo Test\n- Troubleshooting Guide"
+      },
+      {
+        "level": "h3",
+        "heading": "Privacy Note",
+        "content": "All recordings are processed locally in your browser. No audio data is uploaded to any server. Your recordings stay on your device."
+      }
+    ]
+  },
+  "/audio-latency-test": {
+    "file": "audio-latency-test.html",
+    "sections": [
+      {
+        "level": "h2",
+        "heading": "Test Results",
+        "content": "No tests recorded yet"
+      },
+      {
+        "level": "h2",
+        "heading": "Understanding Audio Latency",
+        "content": "Latency | Rating | Suitable For\n<10 ms | Excellent | Professional music production, live monitoring\n10-20 ms | Very Good | Music production, gaming with audio\n20-40 ms | Good | Video calls, casual gaming, streaming\n40-100 ms | Acceptable | Voice calls, video conferencing\n>100 ms | High | Noticeable delay - may cause echo issues"
+      },
+      {
+        "level": "h2",
+        "heading": "Reducing Audio Latency",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Hardware Tips",
+        "content": "- Use a dedicated audio interface\n- Connect via USB 3.0 or Thunderbolt\n- Avoid Bluetooth for low-latency needs\n- Use wired headphones"
+      },
+      {
+        "level": "h3",
+        "heading": "Software Tips",
+        "content": "- Use ASIO drivers on Windows\n- Reduce audio buffer size\n- Close unnecessary audio applications\n- Update audio drivers regularly\nHaving issues? Check our troubleshooting guide for more solutions."
+      },
+      {
+        "level": "h2",
+        "heading": "How to Take the Audio Latency Test",
+        "content": "- Put on headphones — open-air speakers cause acoustic feedback that corrupts the measurement. Wired headphones give the most accurate round-trip latency reading.\n- Click Allow when the browser asks for microphone access. The test needs your mic to capture the reference tone it plays.\n- Keep the room quiet — any background noise can interfere with the detection algorithm and inflate the latency reading.\n- Click Start Test and wait for the progress bar to complete. The tool plays a short tone, listens for it through your microphone, and calculates the round-trip delay.\n- Run the test three to five times and use the average reading — individual results can vary slightly due to browser scheduling.\n- Compare your result to the latency rating table: under 20ms is excellent for music and calls; above 100ms indicates a problem worth addressing."
+      },
+      {
+        "level": "h2",
+        "heading": "What Is Audio Latency? Understanding Sound Delay in Your System",
+        "content": "Audio latency is the total time between a sound event (a key pressed, a voice spoken, a signal triggered) and when it is audible through speakers or headphones. Every device in your signal chain adds a small delay: the driver, the audio engine, the digital-to-analogue converter, and the amplifier all contribute. The sum of all these delays is your system's total audio latency, measured in milliseconds. Check your full audible range with a hearing test online — from 20Hz bass to 20kHz treble."
+      },
+      {
+        "level": "h3",
+        "heading": "Base Latency vs Output Latency vs Round-Trip Latency",
+        "content": "Base latency is the minimum processing delay of the audio engine — the time from when software sends a signal to when the hardware begins outputting it. Output latency is the delay introduced by the output device's buffer. Round-trip latency is what this test measures: the full loop from output to microphone capture — which includes both output and input delays simultaneously. For real-time recording and live monitoring, round-trip latency is the most relevant measurement."
+      },
+      {
+        "level": "h3",
+        "heading": "Browser Audio Latency vs DAW Input Latency",
+        "content": "Browser-based audio latency tests give a useful estimate but cannot match the precision of dedicated DAW buffer analysis. Browsers add an inherent processing overhead — typically 20–40ms even on fast hardware — because the Web Audio API runs through a non-realtime scheduler. A DAW using ASIO drivers on Windows or Core Audio on macOS bypasses this overhead and can achieve sub-5ms round-trip latency. Use this online audio latency test to diagnose general system performance; use your DAW's built-in latency report for music production calibration."
+      },
+      {
+        "level": "h2",
+        "heading": "Audio Latency by Use Case — What Is an Acceptable Sound Delay?",
+        "content": "The right latency threshold depends entirely on what you are doing with the audio. A video call tolerates delays that would be completely unacceptable in a live recording session."
+      },
+      {
+        "level": "h3",
+        "heading": "Music Production and Live Monitoring: Minimum Input Latency Required",
+        "content": "When recording instruments or vocals, musicians monitor their own performance through headphones in real time. Any latency above 10ms is perceivable as a slight \"doubling\" effect — the direct sound from the instrument arrives slightly before the monitored sound through the headphones. Professional recordings target under 5ms total round-trip latency. If your audio latency test returns 10–20ms, it is workable for most home recording; above 30ms, you will notice the delay while singing or playing."
+      },
+      {
+        "level": "h3",
+        "heading": "Gaming and Live Streaming — Audio Delay and Sync Issues",
+        "content": "Gaming audio latency above 100ms makes it difficult to use audio cues to react to in-game events (gunshots, footsteps). For streamers, audio delay causes the voice commentary to fall out of sync with on-screen action. Most streaming software lets you add a video delay offset to compensate, but reducing the underlying audio latency in the first place is always preferable. A result of 20–50ms is acceptable for casual gaming; competitive play benefits from anything below 20ms."
+      },
+      {
+        "level": "h3",
+        "heading": "Video Calls and Online Meetings",
+        "content": "Conference call software (Zoom, Teams, Meet) buffers and resamples audio, adding 40–150ms of its own delay on top of your system latency. For this use case, your microphone latency reading from this test is less critical — the app's own processing dominates. That said, a high system latency above 100ms can compound the app's delay and make you sound consistently late in conversations. Under 50ms system latency is ideal for smooth call audio."
+      },
+      {
+        "level": "h2",
+        "heading": "How to Reduce Audio Latency and Minimise Sound Delay",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "ASIO Drivers for Low-Latency Audio on Windows",
+        "content": "ASIO (Audio Stream Input/Output) is a driver protocol developed by Steinberg that bypasses Windows' standard audio engine, dramatically cutting latency. If you use a USB audio interface, install its ASIO driver from the manufacturer's website. If no dedicated driver is available, ASIO4ALL is a free wrapper that gives most Windows machines access to low-latency ASIO routing. Most DAWs let you switch between WASAPI and ASIO — always choose ASIO for recording work. On macOS, Core Audio already provides near-ASIO performance natively. The online mic recorder captures audio from your microphone with no upload and no account required."
+      },
+      {
+        "level": "h3",
+        "heading": "Reducing Buffer Size to Lower Microphone Latency",
+        "content": "The audio buffer is a short memory queue that holds samples before they are processed. A smaller buffer reduces latency but increases CPU load — if the CPU cannot fill the buffer in time, you get audio dropouts and glitches. For recording, set the buffer to 64–256 samples. For mixing or playback only, 512–1024 samples is fine. If you get crackling at low buffer sizes, close all background applications and check that no other software is claiming exclusive audio access to your device."
+      },
+      {
+        "level": "h3",
+        "heading": "Wired vs Bluetooth: Which Has Lower Audio Delay?",
+        "content": "Bluetooth audio introduces 100–300ms of codec-dependent latency. Aptx Low Latency (aptX LL) reduces this to 40ms; Bluetooth LE Audio (LC3) targets 20–30ms. Even the best Bluetooth codecs cannot match a wired USB or 3.5 mm connection, which typically adds under 5ms at the hardware level. If your audio latency test returns values above 100ms and you are on Bluetooth, switching to a wired connection is the single most effective change you can make."
+      },
+      {
+        "level": "h2",
+        "heading": "Audio Latency Test — Frequently Asked Questions",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "What causes high audio latency in a browser?",
+        "content": "Browsers process audio through the Web Audio API, which runs on a non-realtime scheduler. This adds inherent overhead of 20–40ms regardless of your hardware. Additional causes include: a large audio buffer set in your OS driver settings, background applications competing for CPU, Bluetooth audio routing, or an outdated audio driver. For the browser-based audio latency test to show a low reading, all these factors need to be minimised simultaneously."
+      },
+      {
+        "level": "h3",
+        "heading": "Why does Bluetooth always show high audio latency?",
+        "content": "Bluetooth audio uses lossy compression codecs (SBC, AAC, aptX) that add encoding and decoding time. The Bluetooth radio protocol also adds packet transmission delay. Even with modern low-latency codecs, you should expect 40–200ms of additional delay versus a wired connection. Some earbuds in \"gaming mode\" switch to a lower-latency codec specifically to reduce this — check if your device has this option in its companion app."
+      },
+      {
+        "level": "h3",
+        "heading": "Is the audio latency test the same as a network ping test?",
+        "content": "No — they measure completely different things. A network ping test measures how long a data packet takes to travel across a network. This audio latency test measures how long it takes for your device to produce a sound and for that sound to be captured by your microphone — entirely local, no network involved. Poor network ping does not directly cause audio latency within your computer's sound system."
+      },
+      {
+        "level": "h3",
+        "heading": "My latency reading is 5ms but audio still feels delayed — why?",
+        "content": "Browser-based tests estimate latency using AudioContext.baseLatency and AudioContext.outputLatency — values reported by the browser, not directly measured. The browser may report a low hardware latency while adding its own scheduling delay on top. Additionally, if you are experiencing perceived audio delay in a specific application (video call, DAW, game), that application may be adding its own buffering that this test does not account for. Test within the specific application's own latency settings."
+      },
+      {
+        "level": "h3",
+        "heading": "What is ASIO and does it reduce audio latency significantly?",
+        "content": "ASIO bypasses the Windows Kernel Mixer, which adds up to 30ms of extra latency. With a quality audio interface and ASIO driver, total round-trip latency of 3–6ms is achievable on modern hardware. Without ASIO (using WASAPI or DirectSound), typical Windows latency is 20–50ms. The improvement is significant for music production. ASIO has no equivalent in browser audio — this is why browser-based tests always show higher latency than DAW measurements."
+      },
+      {
+        "level": "h3",
+        "heading": "Can I use this test to calibrate latency for my DAW recording setup?",
+        "content": "Use it as a starting point for diagnosing whether your audio interface is performing as expected. For precise DAW calibration, use your DAW's built-in round-trip latency measurement or a dedicated hardware latency tester. The online mic recorder is also useful for checking whether your recorded audio drifts out of sync over time, which indicates a clock rate mismatch rather than a latency issue.\n- Microphone Test\n- View Mic Settings\n- Echo Test\n- Mic Recorder\n- Headphone Test\n- Troubleshooting Guide"
+      },
+      {
+        "level": "h3",
+        "heading": "Important",
+        "content": "For accurate measurements, use headphones to prevent audio feedback. Browser-based latency tests provide estimates - for precise measurements, use dedicated audio testing software."
+      },
+      {
+        "level": "h3",
+        "heading": "Privacy",
+        "content": "All latency testing is performed locally. No audio data is recorded or transmitted."
+      }
+    ]
+  },
+  "/echo-test": {
+    "file": "echo-test.html",
+    "sections": [
+      {
+        "level": "h2",
+        "heading": "Fixing Echo Issues",
+        "content": "If you're experiencing echo during calls or recordings, try these solutions:"
+      },
+      {
+        "level": "h3",
+        "heading": "Common Causes",
+        "content": "- Speakers too close to microphone\n- High speaker volume\n- Echo cancellation disabled\n- Multiple audio inputs active\n- Room acoustics (hard surfaces)"
+      },
+      {
+        "level": "h3",
+        "heading": "Solutions",
+        "content": "- Use headphones instead of speakers\n- Lower speaker/playback volume\n- Enable echo cancellation in mic settings\n- Move mic away from speakers\n- Add soft materials to reduce reflections\nStill having issues? Check our troubleshooting guide for more solutions."
+      },
+      {
+        "level": "h2",
+        "heading": "Understanding Audio Echo",
+        "content": "Audio echo occurs when sound from your speakers is picked up by your microphone and retransmitted. This creates a feedback loop that can range from a slight delay to a loud screeching sound. For the answer to what microphone do i have, the tool reads your audio input devices without any software."
+      },
+      {
+        "level": "h3",
+        "heading": "Types of Echo:",
+        "content": "- Acoustic Echo: Sound bouncing off walls and surfaces\n- Electronic Echo: Audio looping through your system\n- Network Echo: Delay in VoIP/video call systems"
+      },
+      {
+        "level": "h2",
+        "heading": "How to Use the Echo Test",
+        "content": "- Put on headphones before starting — if you use open speakers, the playback will be picked up by your microphone and create a real feedback loop during the test.\n- Set the Playback Delay slider to 500ms for an initial test. This introduces a deliberate half-second offset between your speech and the playback, making it easy to hear the echo effect clearly.\n- Click Record (3 sec) and say a short phrase. Click Play Back to hear what your microphone captured — if you hear the audio clearly with the delay you set, the microphone and playback path are working correctly.\n- For a real-time echo check, use Live Monitor Test with headphones. This routes your microphone input directly to your headphones in real time so you can hear exactly what others on a call would hear from you.\n- Adjust the Monitor Delay slider to simulate specific latency scenarios — 0ms for direct monitoring, 100–200ms to approximate typical VoIP call latency."
+      },
+      {
+        "level": "h2",
+        "heading": "What Causes Audio Echo — Three Types Explained",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Acoustic Echo — Room Reflections and Speaker-to-Mic Feedback",
+        "content": "Acoustic echo occurs when your speakers play audio that bounces off room surfaces (walls, desk, monitor) and reaches your microphone. The microphone captures the direct sound of your voice and the reflected speaker audio simultaneously. This manifests as a double voice to call participants — they hear you once directly and again after a room-reflection delay. The fix is physical: use headphones, reduce speaker volume, or position the microphone further from the speakers. Adding soft furnishings to the room reduces reflective surfaces that carry speaker sound back to the mic."
+      },
+      {
+        "level": "h3",
+        "heading": "Electronic Echo — Loopback and Monitoring Feedback",
+        "content": "Electronic echo happens when audio is routed in a software loop: your microphone input is passed through a monitoring or recording application that sends it back to your speakers, which the microphone then picks up again. This creates a rapidly escalating feedback loop — the characteristic loud screech in recording software. Common triggers: Stereo Mix or \"What U Hear\" enabled in Windows sound settings, recording software set to monitor microphone through speakers rather than headphones, or video call applications with monitoring enabled. Disable all monitoring-through-speakers settings and use headphone monitoring exclusively."
+      },
+      {
+        "level": "h3",
+        "heading": "Network Echo — VoIP Delay in Calls",
+        "content": "Network echo in video calls (Zoom, Teams, Meet) is actually your own voice being delayed by the network and returned to your ears by the far-end participant's speaker and microphone. Most modern video call platforms include Acoustic Echo Cancellation (AEC) that automatically suppresses this — but AEC fails when the far-end participant has speakers set too loud or sits in a reverberant room. If you hear yourself echoed back during calls, the echo cancellation is failing on the other participant's side, not yours. Ask them to lower their speaker volume or switch to headphones."
+      },
+      {
+        "level": "h2",
+        "heading": "How to Stop Echo — Microphone Echo Cancellation Settings",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Enable Echo Cancellation in Your Browser or OS",
+        "content": "Most modern browsers apply echo cancellation by default when a website uses microphone access through getUserMedia. This is a software AEC filter that processes the microphone signal to subtract known speaker output from the captured audio. It works well for standard video calls but can degrade recording quality by adding artifacts. To verify it is enabled: in Chrome, open chrome://settings/content/microphone and confirm the site has microphone access. On Windows, check Sound → Recording → Properties → Enhancements and confirm \"Acoustic echo cancellation\" is ticked."
+      },
+      {
+        "level": "h3",
+        "heading": "Using Headphones to Stop the Audio Feedback Loop",
+        "content": "Headphones are the most reliable way to prevent acoustic echo. Over-ear and in-ear headphones physically isolate the speaker output from the microphone — sound from the headphone driver cannot travel through air to reach the microphone capsule. If you must use open speakers, reduce their volume until the noise floor contribution is below the microphone's noise reduction threshold. The echo test's live monitor mode with headphones lets you verify there is no remaining feedback before joining an important call."
+      },
+      {
+        "level": "h2",
+        "heading": "Echo Test — Frequently Asked Questions",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Why do I hear myself echoed back on video calls?",
+        "content": "If you hear your own voice echoed back during a video call, the problem is almost always on the other participant's side — their speaker audio is being picked up by their microphone and sent back to you. Ask them to lower their speaker volume, switch to headphones, or check their echo cancellation settings. If the echo appears even in a 1-on-1 call with yourself (browser tab), it means your own monitoring setup has a feedback loop — check that no monitoring-through-speakers setting is active."
+      },
+      {
+        "level": "h3",
+        "heading": "What is the difference between echo and reverb?",
+        "content": "Echo is a distinct delayed repetition of a sound — you hear a clear separate copy of the original sound after a perceptible delay. Reverb is a dense cluster of many tiny reflections arriving so quickly that they blur into a continuous \"wash\" rather than a distinct repeat. A large empty room produces reverb (less than 20ms delay between reflections); a canyon produces echo (several hundred milliseconds of delay between the original sound and the reflection). In recording contexts, room reverb is the more common problem; electronic echo (feedback loop) is what the echo test helps diagnose."
+      },
+      {
+        "level": "h3",
+        "heading": "Can I use the echo test to simulate how I sound on calls?",
+        "content": "Yes — enable Live Monitor Test with headphones and speak normally. You will hear exactly what your microphone is capturing in real time, which closely approximates what call participants hear from you. This is the fastest way to check whether your voice sounds clear, whether background noise is audible, and whether any processing (noise cancellation, echo suppression) is working correctly before a call. For a complete pre-call audio check, also run the background noise analyzer to confirm your room's noise floor is acceptable.\nRun a test to see results\n- Microphone Test\n- Mic Recorder\n- Audio Latency Test\n- Headphone Test\n- Background Noise Analyzer\n- Troubleshooting Guide"
+      },
+      {
+        "level": "h3",
+        "heading": "Pro Tip",
+        "content": "For professional recording without echo, use a closed-back headphone and position your mic away from reflective surfaces. Check your microphone's echo cancellation settings. Also verify your hearing range to ensure you can detect subtle echo artifacts."
+      }
+    ]
+  },
+  "/show-mic": {
+    "file": "show-mic.html",
+    "sections": [
+      {
+        "level": "h3",
+        "heading": "Compatibility Check",
+        "content": "Ensure your microphone meets the requirements for your conferencing software, recording setup, or gaming needs."
+      },
+      {
+        "level": "h3",
+        "heading": "Audio Quality Assessment",
+        "content": "Understand the technical capabilities of your microphone to determine if it's suitable for your specific audio requirements."
+      },
+      {
+        "level": "h3",
+        "heading": "Troubleshooting",
+        "content": "Identify potential issues with your microphone settings that might be affecting your audio quality or performance."
+      },
+      {
+        "level": "h2",
+        "heading": "How to Find Out What Microphone You Have",
+        "content": "Not sure what microphone do I have connected right now? This tool reads your browser's audio device list and shows you every input device your system has registered — all without any software to install. The online mic recorder captures audio from your microphone with no upload and no account required.\n- Click \"Allow\" when your browser asks for microphone permission. This is required for the tool to read device names and specs — no audio is recorded.\n- Browse the detected devices in the Connected Microphones panel. Each card shows a device name and a partial device ID.\n- Click a device card to expand its full microphone details: sample rate, channel count, echo cancellation status, estimated quality rating, and more.\n- Press \"Test Microphone\" to confirm it's picking up audio and to visualise the frequency response in the spectrogram.\n- Click Refresh if you've just plugged in a new microphone and it hasn't appeared yet.\nIf the device name shows as \"Default\" or a generic label, you may be on a browser or OS that restricts full device enumeration. Granting full permission (Allow, not Block) gives the most complete results. For latency measurements, run the audio latency test after identifying your microphone here."
+      },
+      {
+        "level": "h2",
+        "heading": "Understanding Your Microphone Details and Audio Input Specifications",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Device Name — What Microphone Do I Have?",
+        "content": "The device name is the most direct answer to the question: what microphone do I have? It's typically pulled from the device driver and reflects the model name your operating system registered when you connected the microphone. Built-in laptop mics often appear as \"Built-in Microphone\" or \"Internal Mic\". USB microphones usually show their product name (e.g. \"Blue Yeti USB Microphone\"). Headset mics connected via a combined audio jack may display the headset brand, or sometimes just \"Headset Microphone\". If the name is blank or shows only a device ID string, your browser hasn't yet been granted full permission — click Allow to get full details. A quick echo test reveals echo problems before they affect a live call or recording."
+      },
+      {
+        "level": "h3",
+        "heading": "Sample Rate — 44.1 kHz vs 48 kHz for Audio Input",
+        "content": "The sample rate tells you how many audio samples per second your microphone captures. The two most common values are:\n- 44,100 Hz (44.1 kHz) — the CD-quality standard, used most often for music recording and consumer audio devices.\n- 48,000 Hz (48 kHz) — the broadcast and video production standard; the default rate for many professional USB microphones, webcams, and conference systems.\nHigher is generally better, but for voice calls, podcasting, and video conferencing, 48 kHz is more than sufficient. If your microphone is reporting a lower rate (e.g. 8 kHz or 16 kHz), it may be a low-quality built-in device or a telephony-mode mic that's been configured for voice-only capture."
+      },
+      {
+        "level": "h3",
+        "heading": "Channel Count — Mono vs Stereo Microphone Input",
+        "content": "Most microphones are mono (1 channel) — they capture a single audio stream regardless of whether your headphones are stereo. A channel count of 2 means the audio input device is reporting a stereo signal, which is less common but does occur with some USB audio interfaces and conference microphones. For recording purposes, mono is standard for vocals and podcasting; stereo input is more relevant to room microphones or binaural recording setups. If you need to verify your speaker output channels separately, use the echo test to check for audio loopback issues."
+      },
+      {
+        "level": "h2",
+        "heading": "Audio Processing Features — Echo Cancellation, Noise Suppression, and Auto Gain",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Echo Cancellation — What It Does and When to Disable It",
+        "content": "Echo cancellation is a browser-level audio processing feature that removes the sound of your speakers from the microphone signal. It's useful for video calls where the other person's voice would otherwise be picked up by your mic and sent back to them as an echo. Most modern browsers enable it by default. However, if you're recording music, voiceovers, or any audio where you want to capture the full sound of your room, echo cancellation can alter the frequency response and should be turned off. The status shown here reflects the current browser constraint setting — changing it requires code-level control, not the OS settings panel."
+      },
+      {
+        "level": "h3",
+        "heading": "Noise Suppression — Automatic vs Manual Control",
+        "content": "Noise suppression (sometimes listed as noise reduction) applies a real-time filter to attenuate background noise — fans, air conditioning, keyboard clicks — from the microphone signal. Like echo cancellation, it's helpful for calls but counterproductive for music recording. Browser-based noise suppression is less aggressive than dedicated apps (such as Krisp or NVIDIA RTX Voice) but is built into Chrome, Edge, and Firefox at the WebRTC layer. If you're testing a mic for a specific recording application, check whether suppression is on and compare results with it toggled via browser flags."
+      },
+      {
+        "level": "h3",
+        "heading": "Auto Gain Control — Microphone Level Management",
+        "content": "Auto gain control (AGC) automatically adjusts microphone input sensitivity to keep the recorded volume consistent regardless of how loud or quiet you speak. While convenient for casual use, it can cause problems for singers and podcasters — it may boost background noise during pauses or compress dynamic range during louder passages. Professional recording setups typically disable AGC and set input levels manually. The AGC status displayed here is browser-reported and may not always match the OS-level audio setting."
+      },
+      {
+        "level": "h2",
+        "heading": "Common Audio Input Device Types — What Microphone Might You Have?",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Built-In Laptop and Desktop Microphones",
+        "content": "The most common result when asking \"what microphone do I have?\" is a built-in device. Laptop internal mics are typically compact electret condenser elements with limited frequency range — adequate for calls but not ideal for recording. They usually operate at 44.1 kHz or 48 kHz, mono, with echo cancellation and noise suppression enabled by default. Desktop PCs rarely have built-in microphones unless it's an all-in-one model."
+      },
+      {
+        "level": "h3",
+        "heading": "USB Microphones — Plug-and-Play Audio Input Devices",
+        "content": "USB microphones appear by their product name in the device list and are among the easiest audio input devices to identify. Models like the Blue Yeti, Audio-Technica AT2020 USB, and Rode NT-USB typically report 48 kHz sample rate, 16-bit or 24-bit sample size, and appear as a dedicated audio interface. USB mics bypass the computer's built-in sound card, which is why they often produce cleaner microphone details in this tool than integrated audio hardware."
+      },
+      {
+        "level": "h3",
+        "heading": "Headset and 3.5mm Microphones",
+        "content": "Gaming headsets and 3.5mm combo audio jacks (TRRS plug) are detected as audio input devices but may show a shared device name with the headphone output. If your headset mic is connected via USB, it will appear as its own device. If via 3.5mm, it shares the sound card with the speakers and may show as \"Realtek Audio\" or similar chipset name rather than the headset brand. These typically support 44.1 kHz, mono, with variable quality depending on the headset."
+      },
+      {
+        "level": "h3",
+        "heading": "XLR Microphones via Audio Interface",
+        "content": "If you're using an XLR condenser or dynamic microphone connected via an audio interface (e.g. Focusrite Scarlett, Audient iD4), the device name displayed will be the audio interface, not the microphone itself. For example, you'd see \"Scarlett Solo USB\" rather than \"Shure SM7B\". The audio input specifications shown (sample rate, channel count) reflect the interface's capabilities, which are typically 44.1–192 kHz and may offer stereo input if the interface has two inputs."
+      },
+      {
+        "level": "h2",
+        "heading": "Show My Microphone — Frequently Asked Questions",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Why does my browser show the wrong microphone?",
+        "content": "Browsers default to the system's \"Default Input Device\" setting, not necessarily the last microphone you plugged in. To check which one the browser is using, open your OS sound settings (Windows: Sound → Input; macOS: System Settings → Sound → Input) and confirm which device is set as the default. After changing it, refresh this page — the device list will update to reflect the new default at the top of the selection order."
+      },
+      {
+        "level": "h3",
+        "heading": "What does it mean if my microphone name shows as \"Default\" or a partial ID?",
+        "content": "This usually means the browser hasn't been granted full microphone permission yet, or your browser version limits device label exposure for privacy reasons. Click Allow on the permission prompt to unlock full device names and specifications. In Firefox, you may need to select \"Remember this decision\" to retain access across sessions. In Brave or Safari, device enumeration may be partially restricted even with permission granted."
+      },
+      {
+        "level": "h3",
+        "heading": "Can this tool identify my exact microphone model?",
+        "content": "The tool reads exactly what your browser's MediaDevices API reports, which comes from your operating system's audio driver registration. If your OS has the correct driver installed, you'll see the full product name. If the driver is generic or the device uses a shared USB audio class driver, the name may be a chipset or class identifier rather than a brand name. To confirm the exact model, check Device Manager (Windows) or System Information (macOS) for the full hardware descriptor."
+      },
+      {
+        "level": "h3",
+        "heading": "My microphone has a \"Fair\" or \"Basic\" quality rating — what should I check?",
+        "content": "The quality rating is calculated from five factors: sample rate, sample size, channel count, latency, and whether audio processing features are active. A low rating most often means your sample rate is below 44.1 kHz, your sample size is 8-bit, or your mic is operating in a degraded mode (e.g. via a heavily compressed Bluetooth connection). Check your OS audio settings to ensure the device isn't forced into a telephony mode (8 kHz or 16 kHz). For Bluetooth mics, switching the device out of \"hands-free\" mode into a higher-quality audio profile can significantly improve the rating."
+      }
+    ]
+  },
+  "/sound-level-meter": {
+    "file": "sound-level-meter.html",
+    "sections": [
+      {
+        "level": "h2",
+        "heading": "Decibel Reference Guide",
+        "content": "Level (dB) | Example | Description\n0-30 dB | Quiet room, whisper | Very quiet - ideal for recording\n30-50 dB | Library, quiet office | Quiet - good for calls and meetings\n50-70 dB | Normal conversation | Moderate - typical indoor environment\n70-85 dB | Busy traffic, vacuum | Loud - may affect audio quality\n85-100 dB | Power tools, concert | Very loud - hearing protection recommended\n100+ dB | Jet engine, sirens | Dangerous - limit exposure time"
+      },
+      {
+        "level": "h2",
+        "heading": "How to Use the Online Sound Level Meter",
+        "content": "- Grant microphone access — the browser will prompt you the first time you click Start Measuring. The tool uses your mic to capture ambient sound; no audio is recorded or uploaded.\n- Click Start Measuring and watch the dB meter needle rise and fall in real time as your room's sound level changes.\n- Check the Current, Average, and Peak readings at the bottom of the meter. For most use cases, the average reading is the most meaningful — a single loud noise inflates the peak without reflecting the overall environment.\n- To test a specific scenario — AC unit, traffic noise, a fan — click Start, wait 30 seconds, then click Stop and read the average dB.\n- Use the Level History graph to see how noise levels fluctuate over time. A flat line means consistent ambient noise; spikes indicate transient noise events.\n- Click Reset Statistics between tests to clear the peak and average accumulation for a fresh reading."
+      },
+      {
+        "level": "h2",
+        "heading": "What Is a Decibel? Understanding Sound Level Measurement in dB",
+        "content": "A decibel (dB) is the unit used to express the ratio of a sound's pressure relative to a reference value. Because the human ear can detect sounds across an enormous range — from the faintest whisper to a jet engine — the decibel scale is logarithmic rather than linear. This means each increase of 10 dB represents roughly ten times the sound intensity and about twice the perceived loudness. A 70 dB office is not just 40% louder than a 50 dB library — it is 100 times more intense in physical energy terms. See the live frequency spectrum of your voice with a voice frequency analyzer."
+      },
+      {
+        "level": "h3",
+        "heading": "dBFS vs dB SPL — What the Online dB Meter Measures",
+        "content": "Professional sound meters measure dB SPL (Sound Pressure Level), calibrated against a physical reference (20 micropascals). This requires certified hardware. Browser-based tools measure dBFS (Decibels relative to Full Scale) — the signal level relative to the maximum value the microphone and audio driver can capture. Without hardware calibration, the readings are relative rather than absolute. Two important practical implications: (1) the exact dB number may differ from a certified meter; (2) the relative changes — whether sound gets louder or quieter — are accurate and useful for comparing environments or monitoring consistency."
+      },
+      {
+        "level": "h3",
+        "heading": "Why the Decibel Scale Is Logarithmic",
+        "content": "The ear uses a logarithmic response because it evolved to process sound over an enormous dynamic range — from 0 dB (threshold of hearing) to 140 dB (pain threshold). A linear scale would require representing numbers from 1 to 100,000,000,000,000 just to cover normal hearing range. The log scale compresses this into a manageable 0–140 dB range. This also explains why \"turning it up by 3 dB\" sounds slightly louder but requires double the amplifier power — the physics and the perception do not scale the same way."
+      },
+      {
+        "level": "h2",
+        "heading": "Sound Level Guide — What Your dB Reading Means",
+        "content": "Use these ranges to interpret the dB readings from the online sound level meter and understand whether your environment is safe or noisy for recording, calls, or long-term occupancy. The online mic recorder runs locally in your browser — your audio is never sent to any server."
+      },
+      {
+        "level": "h3",
+        "heading": "Quiet Environments: 0–40 dB",
+        "content": "Below 30 dB is acoustically near-silent — a recording studio's target ambient noise level. A quiet bedroom at night typically reads 25–35 dB. A quiet library measures around 35–40 dB. These environments are ideal for podcast recording, studio work, and online calls where microphone sensitivity will pick up everything. If your sound level meter reads below 40 dB with no specific noise sources present, you have a high-quality acoustic environment."
+      },
+      {
+        "level": "h3",
+        "heading": "Moderate Noise Levels: 40–70 dB",
+        "content": "This is the range most people live and work in. Normal conversation at one metre is approximately 60–65 dB. An open-plan office typically runs 55–65 dB continuously. These levels are comfortable for extended exposure and generally produce acceptable recording conditions, though a directional microphone positioned close to the speaker will help reject background noise in the 50–65 dB range. Anything above 65 dB will noticeably bleed into recordings."
+      },
+      {
+        "level": "h3",
+        "heading": "Loud Noise Levels: 70–85 dB",
+        "content": "Busy traffic from indoors reads around 70–75 dB. A vacuum cleaner at 1 metre is approximately 75 dB. A food blender runs around 80–85 dB. These levels are tiring over several hours and will contaminate recordings. At 85 dB, NIOSH (National Institute for Occupational Safety and Health) considers exposure beyond 8 hours per day to pose a risk of noise-induced hearing loss. Use the sound level meter to identify when your environment reaches this threshold."
+      },
+      {
+        "level": "h3",
+        "heading": "Harmful and Dangerous Sound Levels: 85–130+ dB",
+        "content": "Power tools (90–100 dB), concerts and clubs (100–115 dB), and emergency sirens (120 dB) represent increasingly hazardous exposure levels. At 110 dB, safe exposure time without hearing protection is under 2 minutes per day according to NIOSH guidelines. At 120 dB or above — the threshold of pain — any unprotected exposure carries immediate risk of permanent hearing damage. If your sound level meter reaches these values, move away immediately or wear hearing protection."
+      },
+      {
+        "level": "h2",
+        "heading": "Safe Noise Exposure Times — Protecting Your Hearing",
+        "content": "NIOSH applies the \"3 dB exchange rate\" to calculate safe daily noise exposure limits. Every 3 dB increase in sound level halves the safe exposure time:\nSound Level | Max Daily Exposure (NIOSH) | Example Source\n85 dB | 8 hours | Heavy traffic, vacuum cleaner\n88 dB | 4 hours | Hand drill, busy restaurant\n91 dB | 2 hours | Lawn mower, power saw\n94 dB | 1 hour | Motorcycle at close range\n100 dB | 15 minutes | Pneumatic drill, concert near stage\n110 dB | 2 minutes | Rock concert, chainsaw\nIf your workspace or listening environment regularly exceeds 85 dB, consider taking a hearing test online to check whether your high-frequency sensitivity has already been affected."
+      },
+      {
+        "level": "h2",
+        "heading": "Common Uses for an Online Sound Level Meter",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Checking Room Noise Before Recording or a Call",
+        "content": "Before starting a podcast, voiceover session, or video call, run the sound level meter for 30 seconds to check your average ambient noise floor. A room with an average below 40 dB will produce clean recordings. Between 40–55 dB you will hear background hiss in quiet passages but it is manageable. Above 60 dB, the background noise will be audible to all participants on a call or audible in recordings even with noise-reduction software applied."
+      },
+      {
+        "level": "h3",
+        "heading": "Workplace Noise Level Monitoring",
+        "content": "Workers in manufacturing, construction, and hospitality environments are often exposed to noise above 85 dB without realising it. While an online dB meter does not replace a certified occupational hygienist's measurement, it provides a useful first-pass awareness check. If readings consistently exceed 80 dB in your workspace, request a formal noise assessment from your employer — workers have statutory rights regarding hearing protection in most countries once noise exceeds 80–85 dB daily average."
+      },
+      {
+        "level": "h3",
+        "heading": "Verifying Speaker and Headphone Output Levels",
+        "content": "The sound level meter is useful for calibrating speaker playback levels for mixing and mastering. Place the microphone at listening distance, play pink noise through your speakers, and note the average dB reading. This lets you match levels between sessions for consistent monitoring. The same principle applies to headphones — play a reference tone and note the dB reading before and after adjusting volume to establish a repeatable, safe listening level. Pair this with the voice frequency analyzer to check the frequency balance of your mic or speakers."
+      },
+      {
+        "level": "h3",
+        "heading": "Environmental and Neighbourhood Noise Assessment",
+        "content": "The online sound level meter can help document noise from traffic, neighbours, HVAC systems, or construction. Collect 5-minute average readings at different times of day to establish a pattern. This data can support noise complaints to building management or local authorities, though certified acoustic measurements are required for any legal proceeding. For detailed noise frequency breakdown beyond a simple dB level, use the background noise analyzer."
+      },
+      {
+        "level": "h2",
+        "heading": "Accuracy and Limitations of Browser-Based Decibel Measurement",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Why Online dB Meter Readings Are Relative, Not Absolute",
+        "content": "Your device's microphone has a built-in sensitivity rating (typically −38 dBFS at 1 Pa for a phone mic) and the OS applies automatic gain control (AGC) that adjusts input sensitivity dynamically. This means the raw reading from a browser-based sound level meter cannot be directly mapped to an absolute dB SPL value without a known reference measurement and hardware calibration. The readings are most useful for relative comparisons: checking whether your room is quieter than another room, or whether a noise source is getting louder or quieter over time."
+      },
+      {
+        "level": "h3",
+        "heading": "Tips for More Accurate Online Sound Level Meter Readings",
+        "content": "- Disable audio enhancements: Turn off noise cancellation, spatial sound, and microphone boost in your OS audio settings. These processing layers distort the input signal and skew dB readings.\n- Keep the microphone position consistent: Move the laptop or phone 30 cm closer and the reading will jump 3–6 dB. Fix your measurement position and repeat tests from the same spot.\n- Wait 5 seconds after starting: AGC takes a moment to stabilise. Ignore the first few seconds of readings.\n- Use average, not peak: A single door slam can push the peak reading to 90+ dB. The average reading over 30–60 seconds is a far better indicator of your ambient noise environment.\n- For absolute dB SPL: Use a calibrated hardware SPL meter for any measurement that needs to be legally defensible or professionally accurate."
+      },
+      {
+        "level": "h2",
+        "heading": "Sound Level Meter — Frequently Asked Questions",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Is this online sound level meter accurate?",
+        "content": "It is useful for relative measurements and awareness — comparing environments, identifying noise sources, and checking recording conditions. It is not a certified SPL meter. Accuracy depends heavily on your microphone's sensitivity and your OS audio processing settings. For regulatory compliance (OSHA, workplace health and safety), you need a certified Class 1 or Class 2 sound level meter."
+      },
+      {
+        "level": "h3",
+        "heading": "What is a safe noise level for a home office or workspace?",
+        "content": "The WHO recommends an average noise level below 35 dB for sleeping environments and below 50 dB for offices for concentration and productivity. NIOSH sets the occupational exposure limit at 85 dB for 8-hour workdays. For home recording, an ambient noise floor below 40 dB is the target. Use this dB meter to measure your space before setting up a microphone."
+      },
+      {
+        "level": "h3",
+        "heading": "How loud is too loud for headphone listening?",
+        "content": "The WHO warns that 1.1 billion young people are at risk of hearing loss from unsafe headphone use. Listening at 85 dB through headphones for more than 8 hours daily is considered unsafe by most guidelines. A practical rule: if someone next to you can hear your headphones clearly, the volume is likely above 85 dB and too loud for extended use. Take a periodic hearing test online if you are a heavy headphone user."
+      },
+      {
+        "level": "h3",
+        "heading": "What is the difference between dBA and dBC weighting?",
+        "content": "dBA (A-weighted) applies frequency correction that mimics the ear's sensitivity — it de-emphasises very low and very high frequencies because the ear is less sensitive to them. dBA is the most common measurement for occupational noise exposure and environmental regulations. dBC (C-weighted) is relatively flat and is used for measuring peak noise events like gunshots or explosions. The readings shown in this online dB meter are unweighted (dBFS), which means they treat all frequencies equally."
+      },
+      {
+        "level": "h3",
+        "heading": "Can I use the sound level meter on my phone?",
+        "content": "Yes — the tool works in any modern browser including Chrome and Safari on iOS and Android. Grant microphone permission when prompted. Note that phone microphones typically have higher noise floors than dedicated measurement microphones, which slightly reduces accuracy at very low sound levels (below 30 dB). For best results on a phone, disable any noise cancellation in the microphone settings and hold the phone still during measurement."
+      },
+      {
+        "level": "h3",
+        "heading": "My readings seem too low or too high — what should I do?",
+        "content": "If the reading seems wrong, first check your OS microphone input volume — if it is set very low, the meter will read artificially quiet. If it is boosted above 100%, readings will be artificially high. Disable microphone boost and noise cancellation in your OS audio settings. Also check that the correct microphone is selected in the tool's device dropdown — a headset microphone and a built-in laptop mic will give very different sensitivity levels.\n- Microphone Test\n- Record Audio\n- Background Noise Analyzer\n- Voice Frequency Analyzer\n- View Mic Details\n- Speaker Volume Test"
+      },
+      {
+        "level": "h3",
+        "heading": "Tips",
+        "content": "- For accurate readings, calibrate against a known sound source\n- Browser dB readings are relative, not absolute measurements\n- Use noise analyzer for detailed analysis\n- Check troubleshooting if levels seem wrong\n- Prolonged exposure to 85+ dB can damage hearing — test your hearing"
+      },
+      {
+        "level": "h3",
+        "heading": "Privacy",
+        "content": "Sound level analysis is performed locally in your browser. No audio is recorded or transmitted."
+      }
+    ]
+  },
+  "/background-noise-analyzer": {
+    "file": "background-noise-analyzer.html",
+    "sections": [
+      {
+        "level": "h2",
+        "heading": "Frequency Band Analysis",
+        "content": ""
+      },
+      {
+        "level": "h2",
+        "heading": "Recommendations",
+        "content": "Start the analysis to receive personalized recommendations for improving your audio environment."
+      },
+      {
+        "level": "h2",
+        "heading": "Reducing Background Noise",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Common Noise Sources",
+        "content": "- Air conditioning / HVAC systems\n- Computer fans and hard drives\n- Traffic and outside sounds\n- Electrical hum (50/60 Hz)\n- Appliances and refrigerators"
+      },
+      {
+        "level": "h3",
+        "heading": "Noise Reduction Tips",
+        "content": "- Use a directional microphone\n- Enable noise suppression in mic settings\n- Add soft furnishings to reduce echo\n- Close windows and doors\n- Position mic away from noise sources\nFor echo issues, try our echo test tool. Check troubleshooting guide for more help."
+      },
+      {
+        "level": "h2",
+        "heading": "How to Use the Background Noise Analyzer",
+        "content": "- Click Start Analysis and grant microphone access when the browser prompts.\n- Stay silent — the tool is measuring what your microphone captures when you are not speaking, so any voice input will skew the ambient noise reading.\n- Let the analysis run for at least 20–30 seconds to accumulate a stable average dB level and frequency distribution.\n- Look at the frequency spectrum for concentrations of energy: peaks at specific frequencies identify distinct noise sources; a broadly elevated floor indicates diffuse broadband noise like HVAC or traffic.\n- Note the Average Level reading — below 40 dB is excellent for recording; 40–55 dB is workable with noise reduction software; above 60 dB requires physical noise mitigation before recording.\n- Use the frequency band breakdown (Low, Mid-Low, Mid-High, High) to pinpoint which frequency range is contributing most to your noise floor."
+      },
+      {
+        "level": "h2",
+        "heading": "Reading the Background Noise Frequency Spectrum",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "What Causes Noise in Each Frequency Band",
+        "content": "The frequency spectrum display reveals the character of background noise — not just how loud it is, but what is causing it. Different noise sources have distinctive frequency signatures: Use a voice frequency analyzer to check whether your voice is captured across its full frequency range.\n- Low (20–250 Hz): HVAC rumble, traffic passing outside, building vibration, and electrical mains hum (50 Hz in Europe/Asia, 60 Hz in North America). A sharp spike at exactly 50 or 60 Hz almost always indicates electrical interference — a ground loop, poor cable shielding, or a power supply near the microphone.\n- Mid-Low (250–500 Hz): Air conditioning fan blades, refrigerator compressors, and mechanical resonances from computer cases. These frequencies often bleed into the vocal body range and can make voices sound hollow or boxy in recordings.\n- Mid-High (500 Hz–2 kHz): Human speech bleed from other rooms, television or music playing in adjacent spaces, and some HVAC systems with metal ductwork. This band affects speech intelligibility most directly — noise here competes directly with the fundamental vocal range.\n- High (2 kHz–20 kHz): Microphone self-noise (the hiss inherent to all microphones), electronic interference from cheap USB cables and power supplies, fluorescent light ballast noise, and high-frequency computer fan whine. This band contributes to the \"noise floor\" that software noise reduction targets."
+      },
+      {
+        "level": "h3",
+        "heading": "What Good Background Noise Analysis Results Look Like",
+        "content": "An ideal recording environment shows: average dB below 35, a flat or gently declining spectrum with no sharp peaks, low-band and mid-band levels significantly below high-band, and no visible spikes at 50 or 60 Hz. A good room for voice recording looks like a ski slope on the spectrum display — energy declining smoothly from left to right with no jagged peaks."
+      },
+      {
+        "level": "h2",
+        "heading": "Identifying and Fixing Background Noise Sources",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Low-Frequency Noise: HVAC, Traffic, and Electrical Hum",
+        "content": "HVAC and traffic produce broadband low-frequency rumble that is difficult to eliminate without physical isolation. Short-term solutions: close all windows and doors, turn off the AC unit during recording sessions, and move the microphone away from the room's main ventilation duct. Electrical hum (the characteristic 60 Hz tone in North America) is fixed by addressing the ground loop: use a balanced XLR microphone instead of unbalanced 3.5 mm, replace cheap USB cables, and avoid running microphone cables parallel to power cables. A stereo test confirms your speakers are delivering true stereo rather than summed mono."
+      },
+      {
+        "level": "h3",
+        "heading": "Mid-Frequency Noise: Fans, Appliances, and Mechanical Sources",
+        "content": "Computer fan noise is often the largest contributor to mid-frequency background noise in a home studio. Solutions: use a directional (cardioid) microphone positioned away from the computer, place the computer behind a physical barrier, or record with the computer at a greater distance. Refrigerators and appliances: unplug nearby appliances during recording sessions, or move to a different room. For permanent solutions, acoustic panels on walls and heavy door seals significantly reduce mid-frequency transmission from adjacent spaces."
+      },
+      {
+        "level": "h3",
+        "heading": "High-Frequency Noise: Microphone Hiss and Electronic Interference",
+        "content": "High-frequency noise is usually microphone self-noise (measurable as dB(A) in the microphone's specification sheet) or USB/power supply interference. To reduce it: use a microphone with a lower self-noise rating (under 20 dB(A) for studio work), use a quality audio interface instead of a direct USB connection, and keep the microphone cable away from power supplies and screens. Software noise reduction (Nvidia RTX Voice, Krisp, or a noise reduction plugin in your DAW) can reduce residual high-frequency hiss that physical measures cannot eliminate."
+      },
+      {
+        "level": "h2",
+        "heading": "Background Noise Analyzer — Frequently Asked Questions",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "What is a good ambient noise level for recording?",
+        "content": "Below 40 dB average is the target for podcast and voiceover recording — this equates to a quiet room with no HVAC running. Professional recording studios typically measure 20–25 dB. A typical home office with a running computer measures 40–55 dB, which is workable if the microphone is positioned close enough to achieve a strong signal-to-noise ratio. Check your room with this background noise analyzer before investing time in a recording session."
+      },
+      {
+        "level": "h3",
+        "heading": "Why does my analyzer show a spike at exactly 50 or 60 Hz?",
+        "content": "A sharp spike at 50 or 60 Hz is almost always electrical mains hum caused by a ground loop or inadequate shielding. Common causes: a cheap 3.5 mm microphone cable near a power cable, a USB microphone drawing power from an electrically noisy port, or multiple devices connected to the same power strip with different ground references. Fix by switching to a balanced XLR microphone, using a USB isolator, or plugging audio equipment into a dedicated power strip with proper earthing."
+      },
+      {
+        "level": "h3",
+        "heading": "Can I use the background noise analyzer to check noise before a recording or call?",
+        "content": "Yes — that is one of its most practical uses. Run the analyzer for 30 seconds in the space where you plan to record or make a call. If the average level is above 55 dB, background noise will be audible to your call participants or on your recording. Take the action steps in the recommendations section and re-run the analyzer until the level drops to an acceptable range. For calls specifically, pairing this with an echo test gives you a complete pre-call audio environment check."
+      },
+      {
+        "level": "h3",
+        "heading": "How is this different from the sound level meter?",
+        "content": "The sound level meter online gives you a single dB reading that represents the overall volume of everything — voice, noise, and silence combined. The background noise analyzer is specifically designed to measure what the microphone picks up when you are not speaking, and it adds the frequency spectrum display that lets you identify the character and sources of that noise. For a quick volume check, use the sound level meter. For diagnosing recording environment problems, use the background noise analyzer.\n- Microphone Test\n- Sound Level Meter\n- Mic Recorder\n- Voice Frequency Analyzer\n- Echo Test\n- View Mic Settings\n- ● <30 dB - Excellent for recording\n- ● 30-40 dB - Good for calls\n- ● 40-50 dB - Acceptable\n- ● 50-60 dB - May affect quality\n- ● >60 dB - Too noisy"
+      },
+      {
+        "level": "h3",
+        "heading": "Privacy",
+        "content": "All audio analysis is performed locally in your browser. No sound data is recorded or transmitted to any server."
+      }
+    ]
+  },
+  "/voice-frequency-analyzer": {
+    "file": "voice-frequency-analyzer.html",
+    "sections": [
+      {
+        "level": "h2",
+        "heading": "Waveform",
+        "content": ""
+      },
+      {
+        "level": "h2",
+        "heading": "Frequency Distribution",
+        "content": ""
+      },
+      {
+        "level": "h2",
+        "heading": "Voice Range Reference",
+        "content": "Voice Type | Typical Range | Frequency\nBass | E2 - E4 | 82 - 330 Hz\nBaritone | A2 - A4 | 110 - 440 Hz\nTenor | C3 - C5 | 130 - 523 Hz\nAlto | F3 - F5 | 175 - 698 Hz\nMezzo-Soprano | A3 - A5 | 220 - 880 Hz\nSoprano | C4 - C6 | 262 - 1047 Hz"
+      },
+      {
+        "level": "h2",
+        "heading": "How to Use the Voice Frequency Analyzer",
+        "content": "- Click Start Analysis and grant microphone access when the browser prompts.\n- Speak in your normal voice — sustain a vowel sound (\"ahhh\") for 2–3 seconds to get a stable fundamental frequency reading.\n- Watch the Frequency Spectrum graph: the tallest bar is your fundamental frequency; the bars to the right of it are your harmonics.\n- Read the Fundamental Frequency display (in Hz) and the Voice Type classification below the graph.\n- Switch between Bars and Line view modes to see the spectrum in different visualisations. Line mode makes it easier to spot narrow peaks and notches.\n- Speak different sounds, whisper, and project — watch how the spectrum shifts. High consonants like \"s\" and \"sh\" create energy above 4 kHz; vowels centre energy in the 300 Hz–3 kHz range."
+      },
+      {
+        "level": "h2",
+        "heading": "Understanding Your Voice Frequency Analysis Results",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Fundamental Frequency — Your Speaking Pitch in Hz",
+        "content": "The fundamental frequency (F0) is the rate at which your vocal folds vibrate per second, measured in Hertz. It is the lowest and typically strongest frequency component of your voice. When the analyzer displays \"120 Hz\", it means your vocal cords are vibrating 120 times per second at that moment — a frequency that corresponds roughly to B2 on a musical scale, which sits in the typical range for adult male speaking voices. The fundamental frequency is the clearest indicator of whether your voice pitch is high or low. Use a background noise analyzer to check your recording environment before a session."
+      },
+      {
+        "level": "h3",
+        "heading": "Harmonics and Their Role in Your Voice Character",
+        "content": "Harmonics are integer multiples of the fundamental frequency. If your F0 is 120 Hz, your first harmonic is 240 Hz, the second is 360 Hz, and so on. These harmonic overtones give your voice its unique tonal character — the difference between a warm baritone and a bright tenor, or a rich alto and a bright soprano, is largely a matter of which harmonics are emphasised by the shape of your vocal tract. On the frequency spectrum display, harmonics appear as a series of regularly spaced peaks that trail off in height to the right of the fundamental."
+      },
+      {
+        "level": "h3",
+        "heading": "Voice Frequency Distribution: Bass, Mid, Presence, and Brilliance",
+        "content": "The four frequency bands displayed below the spectrum graph each describe a different aspect of your voice's energy:\n- Bass (80–300 Hz): The fundamental pitch and body of the voice. A high level here suggests a deep voice; too much can make the voice sound muddy on recordings.\n- Mid (300 Hz–2 kHz): The core intelligibility zone. Most of the energy that makes speech understandable lives here — vowel formants, consonant body, and voice warmth.\n- Presence (2–4 kHz): The \"cut\" of the voice. High presence makes a voice forward and prominent; insufficient presence makes it sound distant or recessed, which is a common complaint about conference call audio.\n- Brilliance (4 kHz+): Air, sibilance, and brightness. High-frequency content above 4 kHz gives the voice its crispness and \"air\". If this band is flat, the voice sounds dull or muffled — often a sign the microphone's frequency response rolls off above 4 kHz."
+      },
+      {
+        "level": "h2",
+        "heading": "Voice Frequency Ranges by Voice Type",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Typical Speaking Frequency for Men",
+        "content": "Adult men typically speak with a fundamental frequency between 85 Hz and 180 Hz, with an average around 120 Hz. Men with very deep voices (bass voice type) may centre around 85–100 Hz. Tenor voices tend to speak around 150–180 Hz. These ranges apply to habitual speaking pitch — the frequency a person naturally gravitates towards in relaxed conversation, as distinct from the higher pitches used when excited or the lower pitches when authoritative."
+      },
+      {
+        "level": "h3",
+        "heading": "Typical Speaking Frequency for Women",
+        "content": "Adult women typically speak between 165 Hz and 255 Hz, with an average around 200–210 Hz. Women with alto voice types gravitate toward the lower end (165–190 Hz); sopranos often speak at 220–260 Hz. The substantial overlap between male and female speaking frequency ranges — roughly 150–200 Hz — is the \"androgynous zone\" where voice gender is ambiguous to the ear without additional cues like vocabulary and speech patterns."
+      },
+      {
+        "level": "h3",
+        "heading": "How Voice Frequency Changes with Age",
+        "content": "Children's voices are not yet differentiated by gender — both boys and girls typically speak at 250–300 Hz. Male voice frequency drops dramatically during puberty as the larynx grows and vocal folds lengthen, typically settling 60–70% lower. Female voices also drop slightly during puberty but much less dramatically. In older adults, vocal fold thinning and reduced muscular tension cause voice frequency to drift — men's voices often rise slightly after 60, while women's voices may drop slightly post-menopause."
+      },
+      {
+        "level": "h2",
+        "heading": "Practical Uses for the Voice Frequency Analyzer",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "Checking Microphone Frequency Response on Calls",
+        "content": "If your voice sounds thin, muffled, or tinny on video calls, the voice frequency analyzer helps diagnose the problem. Speak into your microphone and compare the spectrum to what you expect. If the mid-range (300 Hz–2 kHz) is weak, the microphone or its positioning is cutting fundamental vocal energy. If the presence band (2–4 kHz) is missing, the voice will sound recessed — a common issue with laptop microphones and cheap webcam mics. If the bass band dominates, you may be too close to a cardioid microphone experiencing proximity effect. Use a sound level meter online to check whether your recording environment is quiet enough for clean audio."
+      },
+      {
+        "level": "h3",
+        "heading": "Vocal Training and Pitch Monitoring",
+        "content": "Singers and vocal coaches use frequency analysis to verify pitch accuracy and consistency. Sustain a note and watch the fundamental frequency display — ideally the number should stay stable for the duration of the note. Wobble in the Hz reading indicates pitch instability; a slow drift upward or downward indicates pitch drift (flat or sharp tendency). The closest note display and cent deviation readout let you see exactly how far off a target pitch you are in real time, which is useful for ear training exercises."
+      },
+      {
+        "level": "h3",
+        "heading": "Diagnosing Recording Problems with the Audio Spectrum Analyzer",
+        "content": "When a recording sounds wrong but you cannot immediately identify why, the live spectrum display can pinpoint the problem. Unusual peaks at specific frequencies may indicate resonances in the room or recording environment. A \"hole\" in the spectrum at 1–3 kHz is a common symptom of comb filtering from microphone placement near a reflective surface. Excessive bass build-up below 200 Hz often comes from proximity effect on condenser microphones. The background noise analyzer can help identify the specific frequency content of any noise that appears in the spectrum even when you are not speaking."
+      },
+      {
+        "level": "h2",
+        "heading": "Voice Frequency Analyzer — Frequently Asked Questions",
+        "content": ""
+      },
+      {
+        "level": "h3",
+        "heading": "What is a normal voice frequency for speaking?",
+        "content": "Adult men typically speak at 85–180 Hz (average: ~120 Hz); adult women at 165–255 Hz (average: ~210 Hz). There is no \"correct\" speaking frequency — it is determined by the length and mass of your vocal folds, which are set by genetics. However, habitual pitch can be consciously raised or lowered with training, and many people unconsciously shift their speaking pitch depending on context (formal vs casual, authoritative vs empathetic)."
+      },
+      {
+        "level": "h3",
+        "heading": "Why does my fundamental frequency change throughout the day?",
+        "content": "Voice frequency is influenced by hydration, muscle warm-up, and hormonal cycles. Immediately after waking, vocal folds are less hydrated and the voice typically runs 5–15 Hz lower than usual. After speaking for 10–15 minutes, folds warm up and frequency stabilises. Dehydration throughout the day causes progressive stiffening that raises the fundamental frequency slightly. Menstrual cycle hormones in women can cause measurable frequency shifts. Stress increases laryngeal muscle tension, which raises pitch."
+      },
+      {
+        "level": "h3",
+        "heading": "Can I use the voice frequency analyzer to tune my singing voice?",
+        "content": "Yes — sustain a note, read the fundamental frequency in Hz, and compare it to the target note frequency (A4 = 440 Hz, C4 = 261.6 Hz, etc.). The \"Closest Note\" display and cents deviation reading show you how close to the target pitch you are. However, for dedicated pitch training, a chromatic tuner designed for vocal use gives more musical feedback. This voice frequency analyzer is more useful for understanding the full spectral character of your voice than for precise pitch-by-pitch tuning exercises."
+      },
+      {
+        "level": "h3",
+        "heading": "Why is my fundamental frequency display showing \"--\" or fluctuating wildly?",
+        "content": "The analyzer needs a sustained, tonal sound to detect a clear fundamental frequency. Background noise, consonants, whispers, and ambient room sounds produce complex, atonal spectra where pitch detection algorithms struggle to identify a single dominant frequency. Sustain a clear \"ahhh\" vowel and hold it steady for 2–3 seconds to get a stable reading. Also check that the room is reasonably quiet — constant noise above 60 dB can swamp the microphone signal and make pitch detection unreliable."
+      },
+      {
+        "level": "h3",
+        "heading": "What do the Hz numbers mean for my voice quality?",
+        "content": "The Hz value on its own does not indicate voice quality — it only indicates pitch. A deep voice at 100 Hz is not better or worse than a higher voice at 220 Hz. What matters for voice quality is the distribution of frequency energy: a well-balanced voice with strong presence (2–4 kHz) is clear and intelligible; a voice with weak mids is muffled; one with excessive bass is boomy. Use the frequency distribution bands below the spectrum graph to assess quality, not just the fundamental frequency reading.\n- Microphone Test\n- Mic Recorder\n- Tone Generator\n- Background Noise Analyzer\n- Hearing Test\n- View Mic Specifications"
+      },
+      {
+        "level": "h3",
+        "heading": "Tips for Analysis",
+        "content": "- Speak or sing clearly into the microphone\n- Maintain consistent distance from mic\n- Reduce background noise for accurate results\n- Try different vowel sounds to see frequency changes\n- Compare your voice with generated tones"
+      },
+      {
+        "level": "h3",
+        "heading": "Privacy",
+        "content": "All audio analysis is performed locally in your browser. No audio data is recorded or transmitted."
+      }
+    ]
+  }
+}
