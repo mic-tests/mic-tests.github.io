@@ -31,7 +31,6 @@
   <style>
     .freq-btn { width: 100%; margin-bottom: 8px; position: relative; }
     .freq-btn .heard-badge { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); }
-    .ear-section { padding: 20px; border-radius: 10px; }
     .range-indicator { height: 30px; border-radius: 5px; position: relative; }
     .range-marker { position: absolute; height: 100%; width: 4px; background: #dc3545; top: 0; }
   </style>
@@ -141,7 +140,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-4">
-                <label class="form-label">Test Ear</label>
+                <label class="form-label" for="ear-select">Test Ear</label>
                 <select class="form-select" id="ear-select">
                   <option value="both">Both Ears</option>
                   <option value="left">Left Ear Only</option>
@@ -149,12 +148,12 @@
                 </select>
               </div>
               <div class="col-md-4">
-                <label class="form-label">Volume</label>
+                <label class="form-label" for="volume">Volume</label>
                 <input type="range" class="form-range" id="volume" min="10" max="100" value="40">
                 <div class="text-center" id="vol-display">40%</div>
               </div>
               <div class="col-md-4">
-                <label class="form-label">Tone Duration</label>
+                <label class="form-label" for="duration">Tone Duration</label>
                 <select class="form-select" id="duration">
                   <option value="0.5">0.5 seconds</option>
                   <option value="1" selected>1 second</option>
@@ -460,7 +459,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <h3 class="mb-4"><i class="bi bi-chat-dots me-2 text-primary"></i>Comments & Feedback</h3>
+                <h3 class="mb-4"><i class="bi bi-chat-dots me-2 text-primary"></i>Comments &amp; Feedback</h3>
 <script defer src="https://comments.tickspike.com/comentario.js"></script>
 <comentario-comments theme="light"></comentario-comments>
             </div>

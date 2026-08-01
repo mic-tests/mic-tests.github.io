@@ -182,14 +182,14 @@
           <div class="card-body">
             <div class="row mb-4">
               <div class="col-6">
-                <div class="channel-card bg-light" id="left-channel">
+                <div class="channel-card bg-light" id="left-channel" role="button" tabindex="0" aria-label="Select left channel">
                   <i class="bi bi-speaker speaker-icon" id="left-icon"></i>
                   <p class="h3 fw-bold mt-3">LEFT</p>
                   <p class="text-muted mb-0">Click to test</p>
                 </div>
               </div>
               <div class="col-6">
-                <div class="channel-card bg-light" id="right-channel">
+                <div class="channel-card bg-light" id="right-channel" role="button" tabindex="0" aria-label="Select right channel">
                   <i class="bi bi-speaker speaker-icon" id="right-icon"></i>
                   <p class="h3 fw-bold mt-3">RIGHT</p>
                   <p class="text-muted mb-0">Click to test</p>
@@ -229,7 +229,7 @@
                 <span id="balance-value">Center</span>
                 <span>Right <i class="bi bi-speaker-fill"></i></span>
               </div>
-              <input type="range" class="form-range balance-slider" id="balance-slider" min="-100" max="100" value="0">
+              <input type="range" class="form-range balance-slider" id="balance-slider" min="-100" max="100" value="0" aria-label="Stereo balance">
             </div>
 
             <div class="row text-center">
@@ -293,7 +293,7 @@
 
         <!-- Troubleshooting -->
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2><i class="bi bi-wrench me-2"></i>Stereo Issues?</h2>
             <div class="row">
               <div class="col-md-6">
@@ -337,7 +337,7 @@
       </div>
 
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2>How to Run the Stereo Test</h2>
             <ol>
               <li><strong>Put on headphones</strong> or sit centred in front of your speakers so each driver is equidistant from your ears.</li>
@@ -351,7 +351,7 @@
         </div>
 
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2>What Is Stereo Sound?</h2>
             <p>Stereo audio uses two independent channels — left and right — to recreate the sense of sound coming from different directions. Your brain uses the tiny differences in timing and volume between the two channels to place sounds in three-dimensional space. A mono signal plays the same audio through both channels simultaneously, which flattens that spatial effect. <!-- SILO_START:slot_b -->If you need to know <a href="/show-speakers">what speakers do i have</a>, the browser's audio API lists every connected output device.<!-- SILO_END:slot_b --></p>
 
@@ -364,7 +364,7 @@
         </div>
 
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2>What the Stereo Test Detects</h2>
 
             <h3>Reversed Channels (Left/Right Swapped)</h3>
@@ -382,7 +382,7 @@
         </div>
 
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2>Stereo Test by Device Type</h2>
 
             <h3>Wired Headphones</h3>
@@ -400,7 +400,7 @@
         </div>
 
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2>Frequently Asked Questions</h2>
 
             <h3>Why do I hear sound in both ears when I click Play Left?</h3>
@@ -455,7 +455,7 @@
           </div>
           <div class="card-body">
             <div class="mb-3">
-              <label class="form-label">Test Frequency</label>
+              <label class="form-label" for="frequency-select">Test Frequency</label>
               <select class="form-select" id="frequency-select">
                 <option value="440">440 Hz (A4 - Standard)</option>
                 <option value="261">261 Hz (C4)</option>
@@ -465,7 +465,7 @@
               </select>
             </div>
             <div class="mb-3">
-              <label class="form-label">Volume</label>
+              <label class="form-label" for="volume-slider">Volume</label>
               <input type="range" class="form-range" id="volume-slider" min="0" max="100" value="30">
               <div class="text-center"><span id="volume-display">30%</span></div>
             </div>
@@ -533,7 +533,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <h3 class="mb-4"><i class="bi bi-chat-dots me-2 text-primary"></i>Comments & Feedback</h3>
+                <h3 class="mb-4"><i class="bi bi-chat-dots me-2 text-primary"></i>Comments &amp; Feedback</h3>
 <script defer src="https://comments.tickspike.com/comentario.js"></script>
 <comentario-comments theme="light"></comentario-comments>
             </div>
@@ -779,6 +779,12 @@ document.addEventListener('DOMContentLoaded', function() {
       // Event listeners
       leftChannel.addEventListener('click', () => playTone(-1));
       rightChannel.addEventListener('click', () => playTone(1));
+
+      [leftChannel, rightChannel].forEach(function(el) {
+        el.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+        });
+      });
       playLeftBtn.addEventListener('click', () => playTone(-1));
       playRightBtn.addEventListener('click', () => playTone(1));
       playBothBtn.addEventListener('click', () => playTone(0));

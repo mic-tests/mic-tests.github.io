@@ -31,8 +31,8 @@
   <style>
     .headphone-icon { font-size: 8rem; }
     .ear-indicator { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; transition: all 0.3s; }
-    .ear-indicator.active { animation: pulse 0.5s infinite; }
-    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    .ear-indicator.active { animation: pulse-scale 0.5s infinite; }
+    @keyframes pulse-scale { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
     .test-card { cursor: pointer; transition: transform 0.2s; }
     .test-card:hover { transform: translateY(-3px); }
   </style>
@@ -126,7 +126,7 @@
 
     <p class="lead mb-3">The <strong>Headphone Test</strong> plays tones through each ear independently so you can confirm both channels on your headphones are working correctly. Put on your headphones, click <strong>Play Left</strong> and the tone should come only from your left ear — then click <strong>Play Right</strong> and it should shift entirely to your right ear. If both ears play at once or one side stays silent, the <strong>channel result</strong> display tells you whether you're dealing with swapped channels, a wiring fault, or a driver issue on your device. <!-- SILO_START:slot_a -->A <a href="/tone-generator">tone generator</a> lets you play any frequency from 20Hz to 20kHz directly in your browser.<!-- SILO_END:slot_a --></p>
 
-    <div class="row">
+    <div class="row g-4">
       <div class="col-lg-8">
         
 
@@ -175,7 +175,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-4 mb-3">
-                <div class="card test-card h-100" id="bass-card">
+                <div class="card test-card h-100" id="bass-card" role="button" tabindex="0" aria-label="Run bass frequency quick test">
                   <div class="card-body text-center">
                     <i class="bi bi-disc fs-1 text-primary"></i>
                     <p class="fw-bold mt-2 mb-1">Bass Test</p>
@@ -184,7 +184,7 @@
                 </div>
               </div>
               <div class="col-md-4 mb-3">
-                <div class="card test-card h-100" id="treble-card">
+                <div class="card test-card h-100" id="treble-card" role="button" tabindex="0" aria-label="Run treble frequency quick test">
                   <div class="card-body text-center">
                     <i class="bi bi-graph-up fs-1 text-warning"></i>
                     <p class="fw-bold mt-2 mb-1">Treble Test</p>
@@ -193,7 +193,7 @@
                 </div>
               </div>
               <div class="col-md-4 mb-3">
-                <div class="card test-card h-100" id="fullrange-card">
+                <div class="card test-card h-100" id="fullrange-card" role="button" tabindex="0" aria-label="Run full range frequency sweep quick test">
                   <div class="card-body text-center">
                     <i class="bi bi-soundwave fs-1 text-success"></i>
                     <p class="fw-bold mt-2 mb-1">Full Range Sweep</p>
@@ -224,7 +224,7 @@
   </div>
 
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2><i class="bi bi-check-circle me-2"></i>What to Check</h2>
             <ul>
               <li><strong>Both ears work:</strong> Sound should be clear in both left and right</li>
@@ -256,7 +256,7 @@
 
         <!-- What Does This Test Check -->
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2>What Does the Headphone Test Check?</h2>
             <p>A proper <strong>headphone test</strong> covers several distinct properties that affect audio quality and usability. This tool tests all of them in one place: <!-- SILO_START:slot_b -->The free <a href="/speaker-volume-test">speaker test online</a> works with any speakers or audio output device connected to your browser.<!-- SILO_END:slot_b --></p>
 
@@ -276,7 +276,7 @@
 
         <!-- Common Headphone Problems -->
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2>Common Headphone Problems and Their Causes</h2>
 
             <h3>Sound Coming from the Wrong Ear</h3>
@@ -295,7 +295,7 @@
 
         <!-- FAQ -->
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2>Frequently Asked Questions</h2>
 
             <h3>Can I test earbuds with this?</h3>
@@ -344,7 +344,7 @@
           <div class="card-header bg-primary text-white">Test Settings</div>
           <div class="card-body">
             <div class="mb-3">
-              <label class="form-label">Test Frequency</label>
+              <label class="form-label" for="freq-select">Test Frequency</label>
               <select class="form-select" id="freq-select">
                 <option value="440">440 Hz (Standard)</option>
                 <option value="1000">1000 Hz</option>
@@ -353,7 +353,7 @@
               </select>
             </div>
             <div class="mb-3">
-              <label class="form-label">Volume</label>
+              <label class="form-label" for="volume">Volume</label>
               <input type="range" class="form-range" id="volume" min="0" max="100" value="30">
               <div class="text-center" id="vol-display">30%</div>
             </div>
@@ -389,7 +389,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <h3 class="mb-4"><i class="bi bi-chat-dots me-2 text-primary"></i>Comments & Feedback</h3>
+                <h3 class="mb-4"><i class="bi bi-chat-dots me-2 text-primary"></i>Comments &amp; Feedback</h3>
 <script defer src="https://comments.tickspike.com/comentario.js"></script>
 <comentario-comments theme="light"></comentario-comments>
             </div>
@@ -576,6 +576,12 @@ document.addEventListener('DOMContentLoaded', function() {
       bassCard.addEventListener('click', () => playSweep(20, 200, 3));
       trebleCard.addEventListener('click', () => playSweep(2000, 16000, 3));
       fullrangeCard.addEventListener('click', () => playSweep(20, 20000, 5));
+
+      [bassCard, trebleCard, fullrangeCard].forEach(function(card) {
+        card.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
+        });
+      });
     });
   </script>
 </body>

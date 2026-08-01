@@ -79,7 +79,7 @@
     details.panel { border: 1px solid var(--border-lt); border-radius: var(--r-sm); margin-bottom: .45rem; overflow: hidden; }
     details.panel > summary { display: flex; align-items: center; justify-content: space-between; padding: .7rem 1rem; cursor: pointer; background: var(--subtle); list-style: none; gap: .5rem; font-size: .95rem; }
     details.panel > summary::-webkit-details-marker { display: none; }
-    details.panel > summary::after { content: "﹀"; font-size: .8rem; color: var(--primary, #0055ff); flex-shrink: 0; }
+    details.panel > summary::after { content: "﹀"; font-size: .8rem; color: var(--blue); flex-shrink: 0; }
     details.panel[open] > summary::after { content: "︿"; }
     details.panel[open] > summary { border-bottom: 1px solid var(--border-lt); }
     details.panel > :not(summary) { padding: .8rem 1rem; }
@@ -211,7 +211,7 @@
           </div>
 
           <div class="d-flex gap-2 mt-3 align-items-center">
-            <select class="form-select" disabled id="mic-select">
+            <select class="form-select" disabled id="mic-select" aria-label="Select microphone">
               <option value="">Click "Test my mic" to detect microphones</option>
             </select>
             <button class="btn btn-primary flex-shrink-0" id="test-button">
@@ -727,8 +727,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const restartButton = document.getElementById('restart-button');
     const shareButton = document.getElementById('share-button');
     const recordingProgress = document.getElementById('recording-progress');
-    const browserMessage = document.getElementById('browser-message');
-    const browserAlert = document.getElementById('browser-alert');
     const statusMessage = document.getElementById('status-message');
     const recordingInstructions = document.getElementById('recording-instructions');
     const amplitudeBars = document.querySelectorAll('.amplitude-bar');

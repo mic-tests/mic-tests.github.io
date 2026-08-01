@@ -150,7 +150,7 @@
 
     <p class="lead mb-3">The <strong>Tone Generator</strong> plays a pure audio tone through your speakers or headphones at whatever frequency you choose. Drag the <strong>frequency slider</strong> between 20Hz and 20,000Hz — or type a value directly — pick a <strong>waveform type</strong> (sine, square, triangle, or sawtooth), set your <strong>volume</strong>, and click <strong>Play</strong>; the tone runs continuously until you click <strong>Stop</strong>. You can also use <strong>sweep mode</strong> to glide automatically through a frequency range, which makes it easy to hear how your speakers respond across the full spectrum. <!-- SILO_START:slot_a -->A <a href="/">microphone test online</a> is the fastest way to rule out hardware problems before a session.<!-- SILO_END:slot_a --></p>
 
-    <div class="row">
+    <div class="row g-4">
       <div class="col-lg-8">
         
 
@@ -172,7 +172,7 @@
             </div>
 
             <div class="mb-4">
-              <label class="form-label">Frequency (20 Hz - 20,000 Hz)</label>
+              <label class="form-label" for="freq-slider">Frequency (20 Hz - 20,000 Hz)</label>
               <input type="range" class="form-range" id="freq-slider" min="20" max="20000" value="440">
               <div class="d-flex justify-content-between small text-muted">
                 <span>20 Hz</span>
@@ -184,11 +184,11 @@
 
             <div class="row mb-4">
               <div class="col-md-6">
-                <label class="form-label">Manual Input (Hz)</label>
+                <label class="form-label" for="freq-input">Manual Input (Hz)</label>
                 <input type="number" class="form-control" id="freq-input" min="20" max="20000" value="440">
               </div>
               <div class="col-md-6">
-                <label class="form-label">Volume</label>
+                <label class="form-label" for="volume-slider">Volume</label>
                 <div class="d-flex align-items-center">
                   <i class="bi bi-volume-down me-2"></i>
                   <input type="range" class="form-range volume-slider" id="volume-slider" min="0" max="100" value="30">
@@ -344,7 +344,7 @@
 
         <!-- How to Use -->
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2>How to Use This Tone Generator</h2>
             <p>Using the tone generator takes a few seconds. Follow these steps to play a precise audio frequency directly in your browser:</p>
             <ol>
@@ -359,7 +359,7 @@
 
         <!-- What Is a Tone Generator -->
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2>What Is a Tone Generator?</h2>
             <p>A <strong>tone generator</strong> is a tool that produces a continuous audio signal at a precise frequency. Frequency determines pitch — lower numbers produce bass, higher numbers produce treble. The unit of measurement is the <strong>hertz (Hz)</strong>, where 1 Hz equals one complete sound cycle per second. <!-- SILO_START:slot_b --><!-- SILO_END:slot_b --></p>
             <p>This online tone generator uses the <strong>Web Audio API</strong> built into modern browsers to synthesise a mathematically exact audio signal — no recordings, no samples. The result is a stable, locked frequency ideal for any task requiring precision: speaker testing, instrument tuning, tinnitus assessment, or acoustic experiments.</p>
@@ -369,7 +369,7 @@
 
         <!-- Waveform Types -->
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2>Waveform Types Explained</h2>
             <p>Each waveform produces a different sound character at the same frequency. Understanding the differences helps you pick the right signal for your test.</p>
 
@@ -392,7 +392,7 @@
 
         <!-- Common Uses -->
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2>Common Uses for a Tone Generator</h2>
 
             <h3>Speaker and Audio Equipment Testing</h3>
@@ -414,7 +414,7 @@
 
         <!-- FAQ -->
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2>Frequently Asked Questions</h2>
 
             <h3>What frequency should I use to test my speakers?</h3>
@@ -537,7 +537,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <h3 class="mb-4"><i class="bi bi-chat-dots me-2 text-primary"></i>Comments & Feedback</h3>
+                <h3 class="mb-4"><i class="bi bi-chat-dots me-2 text-primary"></i>Comments &amp; Feedback</h3>
 <script defer src="https://comments.tickspike.com/comentario.js"></script>
 <comentario-comments theme="light"></comentario-comments>
             </div>

@@ -146,7 +146,7 @@
 
     <p class="lead mb-3">The <strong>Bass Test</strong> plays low-frequency tones between 20Hz and 200Hz so you can find out how deep your speakers or subwoofer actually reach. Drag the <strong>frequency slider</strong> to a target frequency, click <strong>Play</strong>, and listen — if you hear the tone clearly, your speakers reproduce that frequency; if you get nothing or just a faint vibration, your speakers roll off before that point. The <strong>current frequency display</strong> updates in real time as you move through the range, making it easy to find your speaker's low-end limit. <!-- SILO_START:slot_a -->A <a href="/tone-generator">tone generator</a> lets you play any frequency from 20Hz to 20kHz directly in your browser.<!-- SILO_END:slot_a --></p>
 
-    <div class="row">
+    <div class="row g-4">
       <div class="col-lg-8">
         
 
@@ -180,12 +180,12 @@
             </div>
 
             <div class="mb-4">
-              <label class="form-label">Frequency (20 Hz - 200 Hz)</label>
+              <label class="form-label" for="freq-slider">Frequency (20 Hz - 200 Hz)</label>
               <input type="range" class="form-range" id="freq-slider" min="20" max="200" value="60">
             </div>
 
             <div class="mb-4">
-              <label class="form-label">Volume</label>
+              <label class="form-label" for="volume-slider">Volume</label>
               <input type="range" class="form-range" id="volume-slider" min="0" max="100" value="20">
               <div class="text-center"><span id="volume-display">20%</span></div>
             </div>
@@ -242,11 +242,6 @@
           </div>
         </div>
 
-        <div class="card mb-4">
-          <div class="card-body">
-          </div>
-        </div>
-
       <div class="card mb-4">
         <div class="card-header bg-light">
           <i class="bi bi-star-fill me-2"></i>Advertisements
@@ -266,7 +261,7 @@
       </div>
 
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2>How to Use the Bass Test</h2>
             <ol>
               <li><strong>Set volume to 20–30%</strong> before you start — low frequencies carry a lot of energy and can damage drivers at high volume.</li>
@@ -280,7 +275,7 @@
         </div>
 
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2>Understanding Bass Frequency Ranges</h2>
             <p>The bass test covers 20 Hz to 200 Hz — the entire low-frequency band. Different parts of this range have distinct sonic characters, and not all speakers or headphones can reproduce every sub-range. <!-- SILO_START:slot_b -->Use the <a href="/speaker-volume-test">speaker test online</a> to confirm your speakers respond correctly from low to maximum volume.<!-- SILO_END:slot_b --></p>
 
@@ -299,7 +294,7 @@
         </div>
 
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2>Subwoofer Test: What Your Results Mean</h2>
 
             <h3>Speaker Bass Response by Device Type</h3>
@@ -322,7 +317,7 @@
         </div>
 
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2>Common Bass Problems and Solutions</h2>
 
             <h3>No Bass Response at Low Frequencies</h3>
@@ -340,7 +335,7 @@
         </div>
 
         <div class="card mb-4">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2>Frequently Asked Questions About the Bass Test</h2>
 
             <h3>What is the lowest frequency the bass test can produce?</h3>
@@ -399,7 +394,7 @@
         </div>
 
         <div class="card">
-          <div class="card-body">
+          <div class="card-body content-section">
             <h2><i class="bi bi-lightbulb me-2 text-warning"></i>Tips</h2>
             <p class="small mb-0">If you can't hear frequencies below 40Hz, your speakers may not support sub-bass. Try with a subwoofer or bass-capable headphones. Use our hearing test to check the lowest frequencies you can perceive.</p>
           </div>
@@ -415,7 +410,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <h3 class="mb-4"><i class="bi bi-chat-dots me-2 text-primary"></i>Comments & Feedback</h3>
+                <h3 class="mb-4"><i class="bi bi-chat-dots me-2 text-primary"></i>Comments &amp; Feedback</h3>
 <script defer src="https://comments.tickspike.com/comentario.js"></script>
 <comentario-comments theme="light"></comentario-comments>
             </div>

@@ -40,9 +40,9 @@
       height: 20px;
       background-color: #dc3545;
       border-radius: 50%;
-      animation: pulse 1s infinite;
+      animation: pulse-opacity 1s infinite;
     }
-    @keyframes pulse {
+    @keyframes pulse-opacity {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.5; }
     }
@@ -178,17 +178,17 @@
 
             <!-- Microphone Selection -->
             <div class="mb-4">
-              <select class="form-select" id="mic-select" disabled>
+              <select class="form-select" id="mic-select" disabled aria-label="Select microphone">
                 <option value="">Select microphone...</option>
               </select>
             </div>
 
             <!-- Recording Controls -->
             <div class="d-flex justify-content-center gap-3 mb-4">
-              <button class="btn btn-danger recorder-btn" id="record-btn" title="Start Recording">
+              <button class="btn btn-danger recorder-btn" id="record-btn" title="Start Recording" aria-label="Start Recording">
                 <i class="bi bi-circle-fill"></i>
               </button>
-              <button class="btn btn-secondary recorder-btn" id="stop-btn" disabled title="Stop Recording">
+              <button class="btn btn-secondary recorder-btn" id="stop-btn" disabled title="Stop Recording" aria-label="Stop Recording">
                 <i class="bi bi-stop-fill"></i>
               </button>
             </div>
@@ -404,7 +404,7 @@
           </div>
           <div class="card-body">
             <div class="mb-3">
-              <label class="form-label">Audio Quality</label>
+              <label class="form-label" for="quality-select">Audio Quality</label>
               <select class="form-select" id="quality-select">
                 <option value="128">Standard (128 kbps)</option>
                 <option value="192" selected>High (192 kbps)</option>
@@ -412,7 +412,7 @@
               </select>
             </div>
             <div class="mb-3">
-              <label class="form-label">Sample Rate</label>
+              <label class="form-label" for="sample-rate-select">Sample Rate</label>
               <select class="form-select" id="sample-rate-select">
                 <option value="44100" selected>44.1 kHz (CD Quality)</option>
                 <option value="48000">48 kHz (Professional)</option>
@@ -477,7 +477,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <h3 class="mb-4"><i class="bi bi-chat-dots me-2 text-primary"></i>Comments & Feedback</h3>
+                <h3 class="mb-4"><i class="bi bi-chat-dots me-2 text-primary"></i>Comments &amp; Feedback</h3>
 <script defer src="https://comments.tickspike.com/comentario.js"></script>
 <comentario-comments theme="light"></comentario-comments>
             </div>

@@ -45,40 +45,6 @@
       border-width: 2px;
     }
 
-    .device-detail-table {
-      font-size: 0.9rem;
-    }
-
-    .device-detail-table th {
-      width: 40%;
-    }
-
-    .btn-refresh {
-      position: absolute;
-      right: 15px;
-      top: 15px;
-    }
-
-    .status-dot {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      margin-right: 5px;
-    }
-
-    .status-dot.connected {
-      background-color: #198754;
-    }
-
-    .status-dot.disconnected {
-      background-color: #dc3545;
-    }
-
-    .status-dot.default {
-      background-color: #ffc107;
-    }
-
     #spectrogram-container {
       position: relative;
       height: 200px;
@@ -345,7 +311,7 @@
         <div class="card-header bg-primary text-white">
           <i class="bi bi-gear-fill me-2"></i>Why Check Your Microphone Details?
         </div>
-        <div class="card-body">
+        <div class="card-body content-section">
           <div class="row">
             <div class="col-md-4">
               <div class="feature-card text-center p-3">
@@ -385,7 +351,7 @@
     <div class="col-md-12">
 
       <div class="card mb-4">
-        <div class="card-body">
+        <div class="card-body content-section">
           <h2>How to Find Out What Microphone You Have</h2>
           <p>Not sure what microphone do I have connected right now? This tool reads your browser's audio device list and shows you every input device your system has registered — all without any software to install. <!-- SILO_START:slot_b -->The <a href="/mic-recorder">online mic recorder</a> captures audio from your microphone with no upload and no account required.<!-- SILO_END:slot_b --></p>
           <ol>
@@ -400,7 +366,7 @@
       </div>
 
       <div class="card mb-4">
-        <div class="card-body">
+        <div class="card-body content-section">
           <h2>Understanding Your Microphone Details and Audio Input Specifications</h2>
           <h3>Device Name — What Microphone Do I Have?</h3>
           <p>The device name is the most direct answer to the question: <em>what microphone do I have?</em> It's typically pulled from the device driver and reflects the model name your operating system registered when you connected the microphone. Built-in laptop mics often appear as "Built-in Microphone" or "Internal Mic". USB microphones usually show their product name (e.g. "Blue Yeti USB Microphone"). Headset mics connected via a combined audio jack may display the headset brand, or sometimes just "Headset Microphone". If the name is blank or shows only a device ID string, your browser hasn't yet been granted full permission — click Allow to get full details. <!-- SILO_START:slot_c -->A quick <a href="/echo-test">echo test</a> reveals echo problems before they affect a live call or recording.<!-- SILO_END:slot_c --></p>
@@ -419,7 +385,7 @@
       </div>
 
       <div class="card mb-4">
-        <div class="card-body">
+        <div class="card-body content-section">
           <h2>Audio Processing Features — Echo Cancellation, Noise Suppression, and Auto Gain</h2>
           <h3>Echo Cancellation — What It Does and When to Disable It</h3>
           <p>Echo cancellation is a browser-level audio processing feature that removes the sound of your speakers from the microphone signal. It's useful for video calls where the other person's voice would otherwise be picked up by your mic and sent back to them as an echo. Most modern browsers enable it by default. However, if you're recording music, voiceovers, or any audio where you want to capture the full sound of your room, echo cancellation can alter the frequency response and should be turned off. The status shown here reflects the current browser constraint setting — changing it requires code-level control, not the OS settings panel.</p>
@@ -433,7 +399,7 @@
       </div>
 
       <div class="card mb-4">
-        <div class="card-body">
+        <div class="card-body content-section">
           <h2>Common Audio Input Device Types — What Microphone Might You Have?</h2>
           <h3>Built-In Laptop and Desktop Microphones</h3>
           <p>The most common result when asking "what microphone do I have?" is a built-in device. Laptop internal mics are typically compact electret condenser elements with limited frequency range — adequate for calls but not ideal for recording. They usually operate at 44.1 kHz or 48 kHz, mono, with echo cancellation and noise suppression enabled by default. Desktop PCs rarely have built-in microphones unless it's an all-in-one model.</p>
@@ -450,7 +416,7 @@
       </div>
 
       <div class="card mb-4">
-        <div class="card-body">
+        <div class="card-body content-section">
           <h2>Show My Microphone — Frequently Asked Questions</h2>
           <h3>Why does my browser show the wrong microphone?</h3>
           <p>Browsers default to the system's "Default Input Device" setting, not necessarily the last microphone you plugged in. To check which one the browser is using, open your OS sound settings (Windows: Sound → Input; macOS: System Settings → Sound → Input) and confirm which device is set as the default. After changing it, refresh this page — the device list will update to reflect the new default at the top of the selection order.</p>
@@ -542,7 +508,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <h3 class="mb-4"><i class="bi bi-chat-dots me-2 text-primary"></i>Comments & Feedback</h3>
+                <h3 class="mb-4"><i class="bi bi-chat-dots me-2 text-primary"></i>Comments &amp; Feedback</h3>
 <script defer src="https://comments.tickspike.com/comentario.js"></script>
 <comentario-comments theme="light"></comentario-comments>
             </div>
@@ -789,7 +755,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <p class="card-text text-muted">
                                     ${device.deviceId.substring(0, 8)}...
                                 </p>
-                                <button class="btn btn-outline-primary btn-sm view-details-btn">
+                                <button class="btn btn-outline-primary btn-sm">
                                     <i class="bi bi-info-circle me-1"></i>View Details
                                 </button>
                             </div>

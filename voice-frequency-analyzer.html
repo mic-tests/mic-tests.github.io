@@ -202,7 +202,7 @@
 
             <div class="row mb-3">
               <div class="col-md-6">
-                <label class="form-label">Select Microphone</label>
+                <label class="form-label" for="mic-select">Select Microphone</label>
                 <select class="form-select" id="mic-select" disabled>
                   <option value="">Loading...</option>
                 </select>
@@ -540,7 +540,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <h3 class="mb-4"><i class="bi bi-chat-dots me-2 text-primary"></i>Comments & Feedback</h3>
+                <h3 class="mb-4"><i class="bi bi-chat-dots me-2 text-primary"></i>Comments &amp; Feedback</h3>
 <script defer src="https://comments.tickspike.com/comentario.js"></script>
 <comentario-comments theme="light"></comentario-comments>
             </div>
@@ -706,19 +706,19 @@ document.addEventListener('DOMContentLoaded', function() {
         let octave = Math.floor(Math.log2(freq / 16.35));
         let noteInOctave = freq / Math.pow(2, octave);
 
-        let closestNote = noteFrequencies[0];
+        let nearestNote = noteFrequencies[0];
         let minDiff = Math.abs(noteInOctave - noteFrequencies[0].freq);
 
         for (let note of noteFrequencies) {
           const diff = Math.abs(noteInOctave - note.freq);
           if (diff < minDiff) {
             minDiff = diff;
-            closestNote = note;
+            nearestNote = note;
           }
         }
 
-        const cents = Math.round(1200 * Math.log2(freq / (closestNote.freq * Math.pow(2, octave))));
-        return { note: closestNote.note + octave, cents };
+        const cents = Math.round(1200 * Math.log2(freq / (nearestNote.freq * Math.pow(2, octave))));
+        return { note: nearestNote.note + octave, cents };
       }
 
       function getVoiceType(freq) {
