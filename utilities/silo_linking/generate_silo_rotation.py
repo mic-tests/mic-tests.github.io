@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Monthly silo link rotation for mic-tests.github.io.
+Monthly silo link rotation for mictest.dev.
 
 Full rotation each month:
   - Pillar rotates which hub it links to (deterministic shuffle, pick index 0).

@@ -1,4 +1,4 @@
-Sitemap: https://mic-tests.github.io/sitemap.xml
+Sitemap: https://mictest.dev/sitemap.xml
 
 User-agent: *
 Disallow:
