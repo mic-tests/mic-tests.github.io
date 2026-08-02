@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**MicTest** is a static website hosted on GitHub Pages at https://mic-tests.github.io. It provides browser-based audio testing tools (microphone, speaker, headphone, hearing tests) using the Web Audio API.
+**MicTest** is a static website hosted on GitHub Pages, served from the custom domain https://mictest.dev (migrated from `mic-tests.github.io` on 2026-08-02 — see Custom Domain section below). It provides browser-based audio testing tools (microphone, speaker, headphone, hearing tests) using the Web Audio API.
 
 ## Deployment
 
@@ -15,6 +15,16 @@ git push origin main
 ```
 
 GitHub Pages serves the site automatically from the `main` branch.
+
+### Custom Domain
+
+The site moved from `mic-tests.github.io` to `mictest.dev` on 2026-08-02. Key points for anyone touching URLs, SEO metadata, or DNS:
+
+- The repo root `CNAME` file contains `mictest.dev` — this is what GitHub Pages uses to serve the custom domain.
+- DNS is managed in Cloudflare. The apex (`mictest.dev`) and `www` records are `A`/`AAAA`/`CNAME` set to **DNS only** (grey cloud, not proxied) — this is required for GitHub Pages to issue and renew its own HTTPS certificate. Do not re-enable Cloudflare proxying on these records without accounting for cert renewal.
+- `mic-tests.github.io` still works and 301-redirects automatically to `mictest.dev` (GitHub Pages' built-in behavior once a custom domain is set) — no manual redirect config needed.
+- `www.mictest.dev` similarly redirects to the apex automatically via GitHub Pages.
+- All canonical `<link>` tags, JSON-LD `url`/`logo` fields, `sitemap.xml`, and `robots.txt` were bulk-updated to `mictest.dev` on 2026-08-02. Any new page must use `https://mictest.dev/...` for its canonical URL and structured data, not the old `.github.io` domain.
 
 ## Local Development
 
@@ -52,7 +62,7 @@ DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,4
 
 ### SEO Structure
 Each page should have:
-- A canonical `<link>` tag using an extensionless URL (e.g. `https://mic-tests.github.io/tone-generator`)
+- A canonical `<link>` tag using an extensionless URL (e.g. `https://mictest.dev/tone-generator`)
 - JSON-LD structured data (Schema.org `WebPage` or `SoftwareApplication`)
 - Meta description and keywords
 - Entry in `sitemap.xml`
@@ -360,9 +370,9 @@ When checking silo compliance always use **body content links only** — ignore 
 
 All pages should be validated using live URLs via the Nu HTML Checker:
 ```
-https://validator.w3.org/nu/?doc=https://mic-tests.github.io/<page-path>
+https://validator.w3.org/nu/?doc=https://mictest.dev/<page-path>
 ```
 
-Example: `https://validator.w3.org/nu/?doc=https://mic-tests.github.io/`
+Example: `https://validator.w3.org/nu/?doc=https://mictest.dev/`
 
 No pages have been validated yet. After each deploy, re-run the validator on changed pages to catch any new issues.
