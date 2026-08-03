@@ -133,21 +133,14 @@
             <i class="bi bi-volume-up me-2"></i>Volume Level Test
           </div>
           <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-md-4 text-center">
-                <i class="bi bi-speaker volume-icon text-primary" id="speaker-icon"></i>
-                <div class="h3 mt-3" id="volume-percent">50%</div>
-              </div>
-              <div class="col-md-4 text-center">
-                <div class="volume-bar mx-auto">
-                  <div class="volume-fill" id="volume-fill" style="height: 50%;"></div>
-                </div>
-              </div>
-              <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-6">
                 <div class="mb-3">
                   <label class="form-label" for="volume-slider">Test Volume</label>
                   <input type="range" class="form-range" id="volume-slider" min="0" max="100" value="50">
                 </div>
+              </div>
+              <div class="col-md-6">
                 <div class="mb-3">
                   <label class="form-label" for="sound-type">Test Sound</label>
                   <select class="form-select" id="sound-type">
@@ -160,10 +153,22 @@
               </div>
             </div>
 
-            <div class="text-center mt-4">
+            <div class="text-center mb-4">
               <button class="btn btn-success test-sound-btn" id="play-btn">
                 <i class="bi bi-play-fill me-2"></i>Play Test Sound
               </button>
+            </div>
+
+            <div class="row align-items-center">
+              <div class="col-md-6 text-center">
+                <i class="bi bi-speaker volume-icon text-primary" id="speaker-icon"></i>
+                <div class="h3 mt-3" id="volume-percent">50%</div>
+              </div>
+              <div class="col-md-6 text-center">
+                <div class="volume-bar mx-auto">
+                  <div class="volume-fill" id="volume-fill" style="height: 50%;"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -171,11 +171,6 @@
       <div class="col-lg-8">
         
 
-        <div class="alert alert-info" id="status-alert">
-          <i class="bi bi-info-circle-fill me-2"></i>
-          <span id="status-message">Click "Start Analysis" to begin analyzing your voice frequencies.</span>
-        </div>
-
         <!-- Main Spectrum Card -->
         <div class="card mb-4">
           <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
@@ -186,20 +181,6 @@
             </div>
           </div>
           <div class="card-body">
-            <div class="spectrum-container mb-3">
-              <canvas id="spectrum-canvas"></canvas>
-              <span class="freq-label" style="left: 5%;">100Hz</span>
-              <span class="freq-label" style="left: 25%;">500Hz</span>
-              <span class="freq-label" style="left: 50%;">1kHz</span>
-              <span class="freq-label" style="left: 75%;">5kHz</span>
-              <span class="freq-label" style="right: 5%;">10kHz+</span>
-            </div>
-
-            <h2>Waveform</h2>
-            <div class="waveform-container mb-3">
-              <canvas id="waveform-canvas"></canvas>
-            </div>
-
             <div class="row mb-3">
               <div class="col-md-6">
                 <label class="form-label" for="mic-select">Select Microphone</label>
@@ -213,7 +194,26 @@
                 </button>
               </div>
             </div>
+
+            <div class="spectrum-container mb-3">
+              <canvas id="spectrum-canvas"></canvas>
+              <span class="freq-label" style="left: 5%;">100Hz</span>
+              <span class="freq-label" style="left: 25%;">500Hz</span>
+              <span class="freq-label" style="left: 50%;">1kHz</span>
+              <span class="freq-label" style="left: 75%;">5kHz</span>
+              <span class="freq-label" style="right: 5%;">10kHz+</span>
+            </div>
+
+            <h2>Waveform</h2>
+            <div class="waveform-container mb-3">
+              <canvas id="waveform-canvas"></canvas>
+            </div>
           </div>
+        </div>
+
+        <div class="alert alert-info" id="status-alert">
+          <i class="bi bi-info-circle-fill me-2"></i>
+          <span id="status-message">Click "Start Analysis" to begin analyzing your voice frequencies.</span>
         </div>
 
             <div class="card mt-4 mb-4">

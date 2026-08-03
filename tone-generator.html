@@ -171,6 +171,13 @@
               <div class="text-muted" id="note-display">A4</div>
             </div>
 
+            <!-- Play Button -->
+            <div class="text-center mb-4">
+              <button class="btn btn-success btn-lg px-5" id="play-btn">
+                <i class="bi bi-play-fill me-2"></i>Play Tone
+              </button>
+            </div>
+
             <div class="mb-4">
               <label class="form-label" for="freq-slider">Frequency (20 Hz - 20,000 Hz)</label>
               <input type="range" class="form-range" id="freq-slider" min="20" max="20000" value="440">
@@ -199,15 +206,8 @@
             </div>
 
             <!-- Waveform Visualization -->
-            <div class="visualizer-container mb-4">
+            <div class="visualizer-container">
               <canvas id="visualizer"></canvas>
-            </div>
-
-            <!-- Play Button -->
-            <div class="text-center">
-              <button class="btn btn-success btn-lg px-5" id="play-btn">
-                <i class="bi bi-play-fill me-2"></i>Play Tone
-              </button>
             </div>
           </div>
         </div>

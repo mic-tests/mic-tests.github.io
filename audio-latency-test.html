@@ -162,18 +162,31 @@
       <div class="col-lg-8">
         
 
-        <div class="alert alert-info" id="status-alert">
-          <i class="bi bi-info-circle-fill me-2"></i>
-          <span id="status-message">Click "Start Test" to measure your audio latency. Use headphones for accurate results.</span>
-        </div>
-
         <!-- Main Test Card -->
         <div class="card mb-4">
           <div class="card-header bg-primary text-white">
             <i class="bi bi-speedometer me-2"></i>Latency Measurement
           </div>
           <div class="card-body">
+            <div class="progress test-progress mb-3 d-none" id="test-progress-container">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" id="test-progress" style="width: 0%"></div>
+            </div>
+
             <div class="row">
+              <div class="col-md-6 mb-2">
+                <label class="form-label" for="mic-select">Select Microphone</label>
+                <select class="form-select" id="mic-select" disabled>
+                  <option value="">Loading...</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-2 d-flex align-items-end">
+                <button class="btn btn-primary btn-lg w-100" id="start-btn">
+                  <i class="bi bi-play-fill me-2"></i>Start Test
+                </button>
+              </div>
+            </div>
+
+            <div class="row mt-3">
               <div class="col-md-6 text-center">
                 <div class="latency-display text-primary" id="latency-value">--</div>
                 <div class="latency-unit">milliseconds</div>
@@ -215,27 +228,12 @@
                 <span>200+</span>
               </div>
             </div>
-
-            <div class="mt-4">
-              <div class="progress test-progress mb-3 d-none" id="test-progress-container">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" id="test-progress" style="width: 0%"></div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6 mb-2">
-                  <label class="form-label" for="mic-select">Select Microphone</label>
-                  <select class="form-select" id="mic-select" disabled>
-                    <option value="">Loading...</option>
-                  </select>
-                </div>
-                <div class="col-md-6 mb-2 d-flex align-items-end">
-                  <button class="btn btn-primary btn-lg w-100" id="start-btn">
-                    <i class="bi bi-play-fill me-2"></i>Start Test
-                  </button>
-                </div>
-              </div>
-            </div>
           </div>
+        </div>
+
+        <div class="alert alert-info" id="status-alert">
+          <i class="bi bi-info-circle-fill me-2"></i>
+          <span id="status-message">Click "Start Test" to measure your audio latency. Use headphones for accurate results.</span>
         </div>
 
             <div class="card mt-4 mb-4">

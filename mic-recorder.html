@@ -157,25 +157,12 @@
       <div class="col-lg-8">
         
 
-        <div class="alert alert-info" id="status-alert">
-          <i class="bi bi-info-circle-fill me-2"></i>
-          <span id="status-message">Click the record button to start recording your voice.</span>
-        </div>
-
         <!-- Recorder Card -->
         <div class="card mb-4">
           <div class="card-header bg-primary text-white">
             <i class="bi bi-mic-fill me-2"></i>Voice Recorder
           </div>
           <div class="card-body text-center">
-            <!-- Recording Time -->
-            <div class="recording-time mb-3" id="recording-time">00:00</div>
-
-            <!-- Waveform Visualization -->
-            <div class="waveform-container mb-4">
-              <canvas id="waveform"></canvas>
-            </div>
-
             <!-- Microphone Selection -->
             <div class="mb-4">
               <select class="form-select" id="mic-select" disabled aria-label="Select microphone">
@@ -191,6 +178,14 @@
               <button class="btn btn-secondary recorder-btn" id="stop-btn" disabled title="Stop Recording" aria-label="Stop Recording">
                 <i class="bi bi-stop-fill"></i>
               </button>
+            </div>
+
+            <!-- Recording Time -->
+            <div class="recording-time mb-3" id="recording-time">00:00</div>
+
+            <!-- Waveform Visualization -->
+            <div class="waveform-container mb-4">
+              <canvas id="waveform"></canvas>
             </div>
 
             <!-- Playback Section (hidden initially) -->
@@ -211,6 +206,11 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="alert alert-info" id="status-alert">
+          <i class="bi bi-info-circle-fill me-2"></i>
+          <span id="status-message">Click the record button to start recording your voice.</span>
         </div>
 
             <div class="card mt-4 mb-4">

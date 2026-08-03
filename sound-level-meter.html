@@ -178,39 +178,13 @@
       <div class="col-lg-8">
         
 
-        <div class="alert alert-info" id="status-alert">
-          <i class="bi bi-info-circle-fill me-2"></i>
-          <span id="status-message">Click "Start Measuring" to begin monitoring sound levels.</span>
-        </div>
-
         <!-- Main Meter Card -->
         <div class="card mb-4">
           <div class="card-header bg-primary text-white">
             <i class="bi bi-speedometer2 me-2"></i>Real-Time Sound Level
           </div>
           <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-md-6 text-center">
-                <div class="db-display" id="db-value">--</div>
-                <span class="db-unit">dB</span>
-                <div class="level-indicator mt-3" id="level-indicator">--</div>
-              </div>
-              <div class="col-md-6">
-                <div class="meter-container" id="meter-container">
-                  <div class="meter-fill" id="meter-fill" style="height: 100%;"></div>
-                  <div class="meter-scale">
-                    <span>100</span>
-                    <span>80</span>
-                    <span>60</span>
-                    <span>40</span>
-                    <span>20</span>
-                    <span>0</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="row mt-4">
+            <div class="row">
               <div class="col-md-6">
                 <div class="mb-3">
                   <label class="form-label" for="mic-select">Select Microphone</label>
@@ -230,7 +204,33 @@
                 </div>
               </div>
             </div>
+
+            <div class="row align-items-center mt-3">
+              <div class="col-md-6 text-center">
+                <div class="db-display" id="db-value">--</div>
+                <span class="db-unit">dB</span>
+                <div class="level-indicator mt-3" id="level-indicator">--</div>
+              </div>
+              <div class="col-md-6">
+                <div class="meter-container" id="meter-container">
+                  <div class="meter-fill" id="meter-fill" style="height: 100%;"></div>
+                  <div class="meter-scale">
+                    <span>100</span>
+                    <span>80</span>
+                    <span>60</span>
+                    <span>40</span>
+                    <span>20</span>
+                    <span>0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+
+        <div class="alert alert-info" id="status-alert">
+          <i class="bi bi-info-circle-fill me-2"></i>
+          <span id="status-message">Click "Start Measuring" to begin monitoring sound levels.</span>
         </div>
 
         <!-- Statistics Card -->

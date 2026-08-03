@@ -154,11 +154,6 @@
       <div class="col-lg-8">
         
 
-        <div class="alert alert-info" id="status-alert">
-          <i class="bi bi-info-circle-fill me-2"></i>
-          <span id="status-message">Select a test mode below to check for echo issues in your audio setup.</span>
-        </div>
-
         <!-- Quick Echo Test -->
         <div class="card mb-4">
           <div class="card-header bg-primary text-white">
@@ -183,11 +178,7 @@
               </div>
             </div>
 
-            <div class="echo-visualizer mb-3">
-              <canvas id="visualizer"></canvas>
-            </div>
-
-            <div class="text-center">
+            <div class="text-center mb-3">
               <button class="btn btn-danger btn-lg me-2" id="record-btn">
                 <i class="bi bi-circle-fill me-2"></i>Record (3 sec)
               </button>
@@ -202,7 +193,16 @@
                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" id="record-progress" style="width: 0%"></div>
               </div>
             </div>
+
+            <div class="echo-visualizer mb-3">
+              <canvas id="visualizer"></canvas>
+            </div>
           </div>
+        </div>
+
+        <div class="alert alert-info" id="status-alert">
+          <i class="bi bi-info-circle-fill me-2"></i>
+          <span id="status-message">Select a test mode below to check for echo issues in your audio setup.</span>
         </div>
 
             <div class="card mt-4 mb-4">

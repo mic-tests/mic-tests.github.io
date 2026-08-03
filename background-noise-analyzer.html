@@ -169,21 +169,12 @@
       <div class="col-lg-8">
         
 
-        <div class="alert alert-info" id="status-alert">
-          <i class="bi bi-info-circle-fill me-2"></i>
-          <span id="status-message">Click "Start Analysis" to begin monitoring background noise.</span>
-        </div>
-
         <!-- Main Analysis Card -->
         <div class="card mb-4">
           <div class="card-header bg-primary text-white">
             <i class="bi bi-graph-up me-2"></i>Frequency Spectrum Analysis
           </div>
           <div class="card-body">
-            <div class="spectrum-container mb-3">
-              <canvas id="spectrum-canvas"></canvas>
-            </div>
-
             <div class="row mb-3">
               <div class="col-md-6">
                 <label class="form-label" for="mic-select">Select Microphone</label>
@@ -196,6 +187,10 @@
                   <i class="bi bi-play-fill me-2"></i>Start Analysis
                 </button>
               </div>
+            </div>
+
+            <div class="spectrum-container mb-3">
+              <canvas id="spectrum-canvas"></canvas>
             </div>
 
             <!-- Noise Level Meter -->
@@ -212,6 +207,12 @@
             </div>
           </div>
         </div>
+
+        <div class="alert alert-info" id="status-alert">
+          <i class="bi bi-info-circle-fill me-2"></i>
+          <span id="status-message">Click "Start Analysis" to begin monitoring background noise.</span>
+        </div>
+
             <div class="card mt-4 mb-4">
     <div class="card-header bg-light">
         <i class="bi bi-star-fill me-2"></i>Advertisement
