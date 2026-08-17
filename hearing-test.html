@@ -32,7 +32,7 @@
     .freq-btn { width: 100%; margin-bottom: 8px; position: relative; }
     .freq-btn .heard-badge { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); }
     .range-indicator { height: 30px; border-radius: 5px; position: relative; }
-    .range-marker { position: absolute; height: 100%; width: 4px; background: #dc3545; top: 0; }
+    .range-marker { position: absolute; height: 100%; width: 4px; background: var(--danger); top: 0; }
   </style>
   <meta name="google-adsense-account" content="ca-pub-5426315045205785">
 </head>
@@ -226,7 +226,7 @@
         <div class="card mb-4">
           <div class="card-header bg-primary text-white">Your Hearing Range</div>
           <div class="card-body">
-            <div class="range-indicator bg-light mb-2" style="background: linear-gradient(to right, #6610f2, #0055FF, #20c997, #ffc107, #dc3545);">
+            <div class="range-indicator bg-light mb-2" style="background: linear-gradient(to right, var(--violet), var(--blue), var(--teal), var(--warning), var(--danger));">
               <div class="range-marker" id="low-marker" style="left: 0%;"></div>
               <div class="range-marker" id="high-marker" style="left: 100%;"></div>
             </div>

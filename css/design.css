@@ -20,6 +20,18 @@
   --sh:        0 2px 12px rgba(0,0,0,.07), 0 1px 3px rgba(0,0,0,.04);
   --sh-md:     0 6px 24px rgba(0,0,0,.09), 0 2px 6px rgba(0,0,0,.05);
   --sh-lg:     0 12px 40px rgba(0,0,0,.12), 0 3px 10px rgba(0,0,0,.06);
+
+  /* Semantic status colors — reused for quality ratings, level meters, badges */
+  --success:      #059669;
+  --success-dk:   #047857;
+  --warning:      #D97706;
+  --warning-strong: #EA580C;
+  --danger:       #DC2626;
+  --danger-dk:    #B91C1C;
+  --purple:       #7C3AED;
+  --violet:       #6610F2;
+  --teal:         #20C997;
+  --blue-glow-2:  rgba(0,85,255,.5);
 }
 
 /* ── Base ── */
@@ -260,11 +272,11 @@ a:hover { color: var(--blue-dk); }
 
 /* ── Quality indicators ── */
 .quality-indicator { display: inline-block; font-weight: 700; }
-.quality-excellent { color: #059669; }
+.quality-excellent { color: var(--success); }
 .quality-verygood  { color: var(--blue); }
-.quality-good      { color: #7C3AED; }
-.quality-fair      { color: #D97706; }
-.quality-poor      { color: #DC2626; }
+.quality-good      { color: var(--purple); }
+.quality-fair      { color: var(--warning); }
+.quality-poor      { color: var(--danger); }
 .quality-unknown   { color: var(--text-3); }
 
 /* ── Info rows ── */
@@ -336,3 +348,18 @@ a:hover { color: var(--blue-dk); }
 /* ── Misc ── */
 .why-card { border-left: 3px solid var(--blue); }
 audio { width: 100%; border-radius: var(--r-sm); margin-top: 6px; }
+
+/* ── Long-form content sections (used across every tool/hub page) ── */
+.content-section ol, .content-section ul { padding-left: 1.4rem; }
+.content-section li { margin-bottom: .55rem; line-height: 1.65; }
+.content-section h3 { margin-top: 1.75rem; margin-bottom: .45rem; }
+
+/* ── Inline code ── */
+code {
+  background: var(--subtle);
+  padding: .15em .4em;
+  border-radius: 4px;
+  font-size: .87em;
+  color: var(--text);
+  font-family: ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
+}

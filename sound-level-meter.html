@@ -40,7 +40,7 @@
     }
     .meter-container {
       height: 300px;
-      background: linear-gradient(to top, #198754 0%, #198754 33%, #ffc107 33%, #ffc107 66%, #dc3545 66%, #dc3545 100%);
+      background: linear-gradient(to top, var(--success) 0%, var(--success) 33%, var(--warning) 33%, var(--warning) 66%, var(--danger) 66%, var(--danger) 100%);
       border-radius: 10px;
       position: relative;
       overflow: hidden;
@@ -50,7 +50,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: #e9ecef;
+      background: var(--subtle);
       transition: height 0.1s ease;
     }
     .meter-scale {
@@ -71,15 +71,15 @@
       font-weight: bold;
       text-align: center;
     }
-    .level-quiet { background-color: #198754; color: white; }
-    .level-moderate { background-color: #ffc107; color: black; }
-    .level-loud { background-color: #fd7e14; color: white; }
-    .level-very-loud { background-color: #dc3545; color: white; }
+    .level-quiet { background-color: var(--success); color: white; }
+    .level-moderate { background-color: var(--warning); color: black; }
+    .level-loud { background-color: var(--warning-strong); color: white; }
+    .level-very-loud { background-color: var(--danger); color: white; }
     .history-canvas {
       width: 100%;
       height: 150px;
-      background: #f8f9fa;
-      border: 1px solid #dee2e6;
+      background: var(--subtle);
+      border: 1px solid var(--border);
       border-radius: 5px;
     }
   </style>
