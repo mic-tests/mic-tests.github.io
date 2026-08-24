@@ -165,8 +165,7 @@ HUB_UP_ANCHORS = [
 
 
 def pick_hub_up_anchor(hub_file: str, today: datetime.date) -> str:
-    quarter = (today.month - 1) // 3 + 1
-    key = f"{today.year}-Q{quarter}-{hub_file}-slot_a"
+    key = f"{today.year}-M{today.month:02d}-{hub_file}-slot_a"
     idx = int(hashlib.md5(key.encode()).hexdigest(), 16) % len(HUB_UP_ANCHORS)
     return HUB_UP_ANCHORS[idx]
 
@@ -339,16 +338,14 @@ SENTENCES = {
 # ---------------------------------------------------------------------------
 
 def monthly_shuffle(items: list, seed_key: str, today: datetime.date) -> list:
-    quarter = (today.month - 1) // 3 + 1
-    seed = int(hashlib.md5(f"{today.year}-Q{quarter}-{seed_key}".encode()).hexdigest(), 16)
+    seed = int(hashlib.md5(f"{today.year}-M{today.month:02d}-{seed_key}".encode()).hexdigest(), 16)
     items = list(items)
     random.Random(seed).shuffle(items)
     return items
 
 
 def pick_sentence(source_file: str, anchor: str, today: datetime.date) -> str:
-    quarter = (today.month - 1) // 3 + 1
-    key = f"{today.year}-Q{quarter}-{source_file}-{anchor}"
+    key = f"{today.year}-M{today.month:02d}-{source_file}-{anchor}"
     idx = int(hashlib.md5(key.encode()).hexdigest(), 16) % 6
     return SENTENCES[anchor][idx]
 
@@ -593,7 +590,7 @@ if __name__ == "__main__":
                 print(f"Invalid --date value {raw!r}. Expected YYYY-MM.", file=sys.stderr)
                 sys.exit(1)
 
-    print(f"Silo rotation — {today.year}-Q{(today.month - 1) // 3 + 1}"
+    print(f"Silo rotation — {today.year}-M{today.month:02d}"
           + (" [DRY RUN]" if dry_run else ""))
     run(today, dry_run=dry_run)
     print("Done.")
