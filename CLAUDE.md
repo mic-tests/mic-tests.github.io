@@ -22,13 +22,11 @@ python3 utilities/silo_linking/generate_silo_rotation.py   # patches this month'
 
 `generate_silo_rotation.py` must run **after** `generate.py`, not before — it patches the already-rendered `public/*.html` files in place via comment markers, and never touches `src/content/`. Running `generate.py` again without re-running the rotation script afterward will silently revert the current month's rotation back to whatever's baked into each page's `src/content/<slug>.json`.
 
-Then commit the changes under `public/` (and `src/data/*.json` if `build_data.py` changed them) and push to `main`.
+Then commit the changes under `public/` (and `src/data/*.json` if `build_data.py` changed them) and push to `main`. Committing `public/` is still good practice — it's what `cd public && python3 -m http.server` serves for local preview (see Local Development below) and gives the rendered output its own history — but as of the deploy workflow below, it's no longer what's actually live: the production site never depends on whatever happens to be committed there.
 
-**⚠️ GitHub Pages caveat — the site is not currently being served from `public/`.** GitHub Pages only supports serving from the repo root or a `/docs` folder; it cannot serve an arbitrary `/public` folder directly. To go live from the new pipeline's output, either:
-- rename `public/` → `docs/` (and update `OUTPUT_DIR` in `src/generate.py` to match) and set the Pages source to `/docs`, or
-- add a GitHub Actions deploy step (e.g. `actions/deploy-pages`) that publishes `public/`'s contents.
+**GitHub Pages deploy — `.github/workflows/deploy.yml`.** GitHub Pages can't serve an arbitrary `/public` folder directly (only the repo root, a `/docs` folder, or a GitHub Actions publish step), so this repo uses the Actions route: on every push to `main` that touches `src/**` or `utilities/silo_linking/**` (or via manual `workflow_dispatch`), the workflow runs the exact three-step build order above from scratch on a clean runner — `build_data.py` → `generate.py` → `generate_silo_rotation.py` — then publishes the freshly generated `public/` via `actions/deploy-pages`. Because it always rebuilds from `src/content/` itself rather than trusting the committed `public/` snapshot, a human forgetting a build-order step locally (or forgetting to re-run the silo rotation after a rebuild — see `utilities/silo_linking/generate_silo_rotation.py`'s note below) can no longer leave the *live* site stale, even if the local commit under `public/` is momentarily out of sync.
 
-Until one of those is done, do not delete or rely on `public/` being live — check the actual GitHub Pages source setting before assuming what's serving the production site.
+**⚠️ One-time manual step required, not done yet:** the workflow only takes effect once Pages' source is switched to "GitHub Actions" in the repo's Settings → Pages — this can't be done via the API/CLI available in this environment and must be flipped by a repo admin in the GitHub UI. Until that switch is flipped, check the actual GitHub Pages source setting before assuming what's serving the production site — do not assume `deploy.yml` is live just because it exists in the repo.
 
 ### Custom Domain
 
@@ -109,7 +107,8 @@ Bootstrap (CSS framework, not the icon set) and DM Sans/Syne fonts are only used
 - `public/sitemap.xml`, `public/robots.txt`, `public/CNAME`, `public/ads.txt` — all **generated** by `src/generate.py` from `src/data/site.json` + the tools/pages lists. Never hand-edit; change the source and rebuild.
 - `src/static/googlecb346f17d96186ee.html` — Google Search Console verification (do not modify; copied verbatim into `public/`)
 - `utilities/silo_linking/generate_silo_rotation.py` — monthly rotation script; patches `public/*.html` in place (see Deployment's build-order note)
-- `.github/workflows/silo-rotation.yml` — GitHub Actions workflow (runs 1st–3rd of each month at midnight SGT)
+- `.github/workflows/silo-rotation.yml` — GitHub Actions workflow (runs 1st–3rd of each month at midnight SGT); commits the rotated `public/*.html` back to `main` so the repo's own `public/` snapshot stays in sync for local preview/history
+- `.github/workflows/deploy.yml` — GitHub Actions workflow that builds and publishes the live site (see Deployment above); runs the full `build_data.py` → `generate.py` → `generate_silo_rotation.py` sequence fresh on every relevant push and deploys via `actions/deploy-pages`, independent of whatever's committed under `public/`
 
 ---
 
@@ -251,7 +250,7 @@ on:
 
 Runs on days 1, 2, and 3 as a retry safety net. The workflow commits only when `git diff` shows actual changes, so repeated runs are safe. Uses the built-in `GITHUB_TOKEN` — no PAT required.
 
-**Note:** this workflow currently only runs `generate_silo_rotation.py` against whatever's already in `public/*.html` — it does not itself run `build_data.py`/`generate.py`. If content JSON changes and the full build hasn't been committed first, the rotation script will be patching stale rendered output.
+**Note:** this workflow only runs `generate_silo_rotation.py` against whatever's already committed in `public/*.html` — it does not itself run `build_data.py`/`generate.py`. If content JSON changes and the full build hasn't been committed first, the rotation script will be patching stale rendered output *in that commit*. This no longer affects the live site (see Deployment's `deploy.yml`, which rebuilds everything from `src/content/` independently on every relevant push) — but it does mean this workflow's own commits to `public/*.html` can drift from `src/content/` if the full local build order wasn't followed beforehand, which is still worth avoiding for repo history/local-preview accuracy.
 
 ---
 
