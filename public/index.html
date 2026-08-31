@@ -265,13 +265,8 @@
     .info-label{color:var(--ink-3);font-weight:500;font-family:'JetBrains Mono';font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;}
     .info-val{color:var(--ink);font-weight:600;text-align:right;max-width:55%;font-size:12.5px;font-family:'JetBrains Mono';}
 
-    /* ── Testimonials ── */
-    .testimonial{padding:.6rem 0;border-bottom:1px solid var(--border-lt);}
-    .testimonial:last-of-type{border-bottom:none;}
-    .testimonial p{font-size:12.5px;font-style:italic;color:var(--ink-2);margin:0 0 .2rem;}
     .text-muted{color:var(--ink-3);font-size:11px;}
     .mb-0{margin-bottom:0 !important;}
-    .review-form{display:none;margin-top:.85rem;padding:.9rem;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;}
 
     /* ── Pro tip ── */
     aside.pro-tip{display:flex;gap:.7rem;align-items:flex-start;background:var(--amber-dim);border-left:3px solid var(--amber);border-radius:0 4px 4px 0;padding:.85rem 1rem;margin-top:1.25rem;font-size:13.5px;color:var(--ink);}
@@ -443,13 +438,11 @@
         <div>
           <div class="ad-panel">
             <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
-            <div class="ad-panel-body" style="min-height:360px;">
+            <div class="ad-panel-body">
               <ins class="adsbygoogle"
-                   style="display:block;min-height:360px;"
+                   style="display:inline-block;width:250px;height:250px"
                    data-ad-client="ca-pub-5426315045205785"
-                   data-ad-slot="6193062550"
-                   data-ad-format="auto"
-                   data-full-width-responsive="true"></ins>
+                   data-ad-slot="6193062550"></ins>
               <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
             </div>
           </div>
@@ -507,9 +500,6 @@
                   </button>
                   <button type="button" class="btn btn-outline d-none" id="restart-button">
                     <i class="bi bi-arrow-repeat me-1"></i>Restart
-                  </button>
-                  <button type="button" class="btn btn-outline d-none" id="share-button">
-                    <i class="bi bi-share-fill me-1"></i>Share Results
                   </button>
                 </div>
                 <div class="mt-3 d-none" id="audio-player-container">
@@ -804,47 +794,6 @@
             </div>
           </div>
 
-          <div class="panel">
-            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-chat-quote-fill"></i>User Testimonials</span></div>
-            <div class="panel-body" id="testimonials-list">
-              <div class="testimonial">
-                <p>"Very good website I love it"</p>
-                <small class="text-muted">&mdash; Bob Smith</small>
-              </div>
-              <div class="testimonial">
-                <p>"I like this site"</p>
-                <small class="text-muted">&mdash; John Doe</small>
-              </div>
-              <div class="testimonial">
-                <p>"Good testing tool"</p>
-                <small class="text-muted">&mdash; Jane Brown</small>
-              </div>
-              <div class="testimonial">
-                <p>"Thank you"</p>
-                <small class="text-muted">&mdash; King S</small>
-              </div>
-              <div class="mt-3">
-                <button class="btn btn-outline btn-sm w-100" id="add-review-btn">
-                  <i class="bi bi-plus-circle me-1"></i>Add Your Review
-                </button>
-              </div>
-              <div class="review-form" id="review-form">
-                <div class="mb-3">
-                  <label class="form-label" for="review-text">Your Review</label>
-                  <textarea class="form-control" id="review-text" placeholder="Share your experience..." rows="3"></textarea>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label" for="reviewer-name">Your Name</label>
-                  <input class="form-control" id="reviewer-name" placeholder="John Doe" type="text">
-                </div>
-                <div class="d-grid">
-                  <button class="btn btn-primary" id="submit-review-btn" type="button">Submit Review</button>
-                  <button class="btn btn-outline" id="cancel-review-btn" type="button">Cancel</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
 
@@ -1037,7 +986,6 @@
     const pauseButton = document.getElementById('pause-button');
     const stopRecordingButton = document.getElementById('stop-recording-button');
     const restartButton = document.getElementById('restart-button');
-    const shareButton = document.getElementById('share-button');
     const recordingProgress = document.getElementById('recording-progress');
     const statusMessage = document.getElementById('status-message');
     const recordingInstructions = document.getElementById('recording-instructions');
@@ -1045,10 +993,6 @@
     const audioPlayerContainer = document.getElementById('audio-player-container');
     const audioPlayer = document.getElementById('audio-player');
 
-    const addReviewBtn = document.getElementById('add-review-btn');
-    const reviewForm = document.getElementById('review-form');
-    const submitReviewBtn = document.getElementById('submit-review-btn');
-    const cancelReviewBtn = document.getElementById('cancel-review-btn');
 
     const micNameEl = document.getElementById('mic-name');
     const gainControlEl = document.getElementById('gain-control');
@@ -1428,7 +1372,6 @@
 
         playButton.disabled = false;
         restartButton.classList.remove('d-none');
-        shareButton.classList.remove('d-none');
 
         currentState = 'complete';
         updateStatusMessage('success', 'Recording complete! Your microphone is working properly. You can now play back your recording or test again.');
@@ -1460,7 +1403,6 @@
       resetMicInfo();
       currentState = 'idle';
       updateStatusMessage('info', 'Press "Test my mic" to begin testing your microphone.');
-      shareButton.classList.add('d-none');
       restartButton.classList.add('d-none');
 
       micSelect.innerHTML = '<option value="">Click "Test my mic" to detect microphones</option>';
@@ -1618,56 +1560,9 @@
         currentState = 'recording';
         updateStatusMessage('recording', '<strong>Recording in progress: </strong> Testing your microphone and recording your voice.');
         restartButton.classList.add('d-none');
-        shareButton.classList.add('d-none');
       }
     });
 
-    shareButton.addEventListener('click', function () {
-      reviewForm.style.display = 'block';
-      this.disabled = true;
-    });
-
-    addReviewBtn.addEventListener('click', function () {
-      reviewForm.style.display = 'block';
-    });
-
-    cancelReviewBtn.addEventListener('click', function () {
-      reviewForm.style.display = 'none';
-      shareButton.disabled = false;
-    });
-
-    submitReviewBtn.addEventListener('click', function () {
-      const reviewText = document.getElementById('review-text').value;
-      const reviewerName = document.getElementById('reviewer-name').value;
-
-      if (reviewText && reviewerName) {
-        const testimonialDiv = document.createElement('div');
-        testimonialDiv.className = 'testimonial';
-
-        const reviewPara = document.createElement('p');
-        reviewPara.className = 'mb-0';
-        reviewPara.textContent = `"${reviewText}"`;
-
-        const nameSmall = document.createElement('small');
-        nameSmall.className = 'text-muted';
-        nameSmall.textContent = `— ${reviewerName}`;
-
-        testimonialDiv.appendChild(reviewPara);
-        testimonialDiv.appendChild(nameSmall);
-
-        const testimonialsContainer = document.getElementById('testimonials-list');
-        testimonialsContainer.insertBefore(testimonialDiv, testimonialsContainer.firstChild);
-
-        document.getElementById('review-text').value = '';
-        document.getElementById('reviewer-name').value = '';
-        reviewForm.style.display = 'none';
-        shareButton.disabled = false;
-
-        alert('Thank you for your review!');
-      } else {
-        alert('Please fill in both fields');
-      }
-    });
 
     function resizeCanvas() {
       visualizer.width = visualizer.clientWidth;
