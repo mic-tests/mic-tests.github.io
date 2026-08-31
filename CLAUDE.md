@@ -90,6 +90,9 @@ Each page gets, automatically from its content JSON + the shared template — no
 ### Legacy archive (`legacy-bootstrap-site/`)
 A frozen, read-only snapshot of the pre-migration hand-authored site: the original 19 tool/info pages + `404.html`, `css/`, `js/`, and the old root-level `CNAME`/`ads.txt`/`robots.txt`/`sitemap.xml`. Kept for reference/history only — it is not linked from the build, not served, and should not be edited. `legacy-bootstrap-site/content_export/` holds the old content-export tooling (`export_content_db.py` + its `content-db.json` output), which read root-level page filenames directly and is now broken by the file move; it predates the JSON content model and was already unwired from the pipeline before the move — treat it as historical, not something to fix and run.
 
+### Design exploration (`design-mockups/`)
+Three standalone HTML mockups (`1-waveform-lab.html`, `2-studio-paper.html`, `3-signal.html`) explored while designing the homepage's current "instrument-panel" Tailwind template. Not linked from the build, not part of the pipeline, and not referenced by any generated page — kept at repo root purely as design-decision reference. Don't wire these into the build; the shipped design lives in `src/template.html` / `src/content/index.json`.
+
 ## External Dependencies (CDN only)
 
 | Dependency | Version | Purpose |
