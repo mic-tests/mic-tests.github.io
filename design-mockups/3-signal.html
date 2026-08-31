@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direction 3 — Signal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg:#EAF3EE; --panel:#FBFEFC; --border:#CBDED3; --border-lt:#DCEAE2;
+    --ink:#12241F; --ink-2:#4B615A; --ink-3:#78897F;
+    --coral:#FF6A4D; --coral-soft:rgba(255,106,77,.12);
+    --indigo:#1F3A5F;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0F1A16; --panel:#16241F; --border:#26382F; --border-lt:#1D2C25;
+      --ink:#EAF3EE; --ink-2:#9FB3AA; --ink-3:#647970;
+      --coral:#FF8264; --coral-soft:rgba(255,130,100,.14);
+      --indigo:#9FC1EE;
+    }
+  }
+  :root[data-theme="dark"]{
+      --bg:#0F1A16; --panel:#16241F; --border:#26382F; --border-lt:#1D2C25;
+      --ink:#EAF3EE; --ink-2:#9FB3AA; --ink-3:#647970;
+      --coral:#FF8264; --coral-soft:rgba(255,130,100,.14);
+      --indigo:#9FC1EE;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:'Manrope',system-ui,sans-serif;}
+  .display{font-family:'Bricolage Grotesque',system-ui,sans-serif;}
+  .mono{font-family:'DM Mono',ui-monospace,monospace;}
+  a{color:var(--indigo)}
+  h1,h2{text-wrap:balance}
+  ::selection{background:var(--coral);color:#171b19}
+  .blob{
+    position:absolute; border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, var(--coral-soft), transparent 70%);
+  }
+</style>
+</head>
+<body class="overflow-x-hidden">
+
+<!-- TOP NAV -->
+<header class="max-w-[1240px] mx-auto px-6 sm:px-10 py-6 flex items-center justify-between">
+  <div class="flex items-center gap-2.5">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+      <rect x="9" y="2" width="6" height="12" rx="3" fill="var(--coral)"/>
+      <path d="M5 11a7 7 0 0 0 14 0" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M12 18v3M9 21h6" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"/>
+    </svg>
+    <span class="display font-bold text-[19px] tracking-tight">MicTest</span>
+  </div>
+  <nav class="hidden md:flex items-center gap-8 text-[14px] font-medium" style="color:var(--ink-2)">
+    <a href="#" class="no-underline" style="color:var(--ink)">Microphone</a>
+    <a href="#" class="no-underline">Speakers</a>
+    <a href="#" class="no-underline">Hearing</a>
+    <a href="#" class="no-underline">Latency</a>
+  </nav>
+  <button class="text-[13.5px] font-semibold px-5 py-2.5 rounded-full" style="background:var(--coral);color:#1A1512">
+    Test my mic
+  </button>
+</header>
+
+<!-- HERO -->
+<section class="relative max-w-[1240px] mx-auto px-6 sm:px-10 pt-6 pb-20 overflow-hidden">
+  <div class="blob w-[520px] h-[520px] -top-40 right-[-120px]"></div>
+
+  <div class="relative grid lg:grid-cols-[1fr_.85fr] gap-14 items-center">
+    <div>
+      <div class="inline-flex items-center gap-2 text-[12.5px] font-semibold px-3.5 py-1.5 rounded-full mb-6" style="background:var(--coral-soft);color:var(--coral)">
+        <span class="w-1.5 h-1.5 rounded-full" style="background:var(--coral)"></span>
+        Free · Runs instantly in your browser
+      </div>
+      <h1 class="display font-extrabold leading-[1.02] mb-6" style="font-size:clamp(38px,5.2vw,64px)">
+        Hear what your<br>mic actually sounds like.
+      </h1>
+      <p class="max-w-[440px] text-[16.5px] leading-relaxed mb-8" style="color:var(--ink-2)">
+        One click, no download. See your levels, catch background
+        noise, and know your microphone works before your next call.
+      </p>
+      <div class="flex items-center gap-4">
+        <button class="text-[15px] font-semibold px-7 py-3.5 rounded-full" style="background:var(--indigo);color:var(--bg)">
+          Start free test →
+        </button>
+        <span class="text-[13.5px]" style="color:var(--ink-3)">No sign-up needed</span>
+      </div>
+    </div>
+
+    <div class="relative rotate-2 rounded-3xl border p-5 shadow-xl" style="border-color:var(--border);background:var(--panel)">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-[13px] font-semibold">Live input</span>
+        <span class="flex items-center gap-1.5 text-[12px] font-medium" style="color:var(--coral)">
+          <span class="w-1.5 h-1.5 rounded-full animate-pulse" style="background:var(--coral)"></span> Recording
+        </span>
+      </div>
+      <div class="rounded-2xl h-[130px] flex items-end gap-[3px] px-4 pb-4" style="background:var(--coral-soft)">
+        <div class="flex-1 flex items-end gap-[3px] h-full">
+          <div class="flex-1 rounded-t-full" style="height:35%;background:var(--coral)"></div>
+          <div class="flex-1 rounded-t-full" style="height:62%;background:var(--coral)"></div>
+          <div class="flex-1 rounded-t-full" style="height:28%;background:var(--coral)"></div>
+          <div class="flex-1 rounded-t-full" style="height:80%;background:var(--coral)"></div>
+          <div class="flex-1 rounded-t-full" style="height:48%;background:var(--coral)"></div>
+          <div class="flex-1 rounded-t-full" style="height:70%;background:var(--coral)"></div>
+          <div class="flex-1 rounded-t-full" style="height:20%;background:var(--coral)"></div>
+          <div class="flex-1 rounded-t-full" style="height:55%;background:var(--coral)"></div>
+          <div class="flex-1 rounded-t-full" style="height:40%;background:var(--coral)"></div>
+          <div class="flex-1 rounded-t-full" style="height:65%;background:var(--coral)"></div>
+          <div class="flex-1 rounded-t-full" style="height:30%;background:var(--coral)"></div>
+          <div class="flex-1 rounded-t-full" style="height:75%;background:var(--coral)"></div>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-3 mt-4">
+        <div class="rounded-xl p-3" style="background:var(--border-lt)">
+          <div class="mono text-[10px] uppercase tracking-wide" style="color:var(--ink-3)">Level</div>
+          <div class="font-bold text-[15px] mt-0.5">Good</div>
+        </div>
+        <div class="rounded-xl p-3" style="background:var(--border-lt)">
+          <div class="mono text-[10px] uppercase tracking-wide" style="color:var(--ink-3)">Rate</div>
+          <div class="font-bold text-[15px] mt-0.5">48 kHz</div>
+        </div>
+        <div class="rounded-xl p-3" style="background:var(--border-lt)">
+          <div class="mono text-[10px] uppercase tracking-wide" style="color:var(--ink-3)">Echo</div>
+          <div class="font-bold text-[15px] mt-0.5">Off</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOL CARD ROW (horizontal, carousel-style) -->
+<section class="max-w-[1240px] mx-auto px-6 sm:px-10 pb-20">
+  <div class="flex items-end justify-between mb-6">
+    <h2 class="display font-bold text-[24px]">More things to check</h2>
+    <span class="text-[13.5px] font-medium" style="color:var(--ink-3)">Swipe →</span>
+  </div>
+  <div class="flex gap-5 overflow-x-auto pb-3 -mx-1 px-1" style="scrollbar-width:thin">
+    <div class="shrink-0 w-[240px] rounded-2xl border p-6" style="border-color:var(--border);background:var(--panel)">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:var(--coral-soft)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 15V9a8 8 0 0 1 16 0v6" stroke="var(--coral)" stroke-width="1.8" stroke-linecap="round"/><rect x="2" y="14" width="4" height="6" rx="1.5" stroke="var(--coral)" stroke-width="1.8"/><rect x="18" y="14" width="4" height="6" rx="1.5" stroke="var(--coral)" stroke-width="1.8"/></svg>
+      </div>
+      <div class="font-semibold text-[15px] mb-1.5">Speaker test</div>
+      <p class="text-[13.5px] leading-relaxed" style="color:var(--ink-2)">Check left/right channels and bass response.</p>
+    </div>
+    <div class="shrink-0 w-[240px] rounded-2xl border p-6" style="border-color:var(--border);background:var(--panel)">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:var(--coral-soft)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3a5 5 0 0 0-5 5v4a5 5 0 0 0 10 0V8a5 5 0 0 0-5-5Z" stroke="var(--coral)" stroke-width="1.8"/><path d="M6 12v1a6 6 0 0 0 12 0v-1" stroke="var(--coral)" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </div>
+      <div class="font-semibold text-[15px] mb-1.5">Hearing test</div>
+      <p class="text-[13.5px] leading-relaxed" style="color:var(--ink-2)">Find the top of your audible frequency range.</p>
+    </div>
+    <div class="shrink-0 w-[240px] rounded-2xl border p-6" style="border-color:var(--border);background:var(--panel)">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:var(--coral-soft)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="var(--coral)" stroke-width="1.8"/><path d="M12 8v4l3 2" stroke="var(--coral)" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </div>
+      <div class="font-semibold text-[15px] mb-1.5">Latency test</div>
+      <p class="text-[13.5px] leading-relaxed" style="color:var(--ink-2)">Measure the round-trip delay on your setup.</p>
+    </div>
+    <div class="shrink-0 w-[240px] rounded-2xl border p-6" style="border-color:var(--border);background:var(--panel)">
+      <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background:var(--coral-soft)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 1 1 3.5 6.6" stroke="var(--coral)" stroke-width="1.8" stroke-linecap="round"/><path d="M4 16v-4h4" stroke="var(--coral)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="font-semibold text-[15px] mb-1.5">Echo test</div>
+      <p class="text-[13.5px] leading-relaxed" style="color:var(--ink-2)">Hear if your call setup is echoing back.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t py-8" style="border-color:var(--border)">
+  <div class="max-w-[1240px] mx-auto px-6 sm:px-10 flex flex-col sm:flex-row justify-between gap-2 text-[13px]" style="color:var(--ink-3)">
+    <span>MicTest — mic &amp; speaker checks for everyone</span>
+    <span>mictest.dev</span>
+  </div>
+</footer>
+
+</body>
+</html>

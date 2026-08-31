@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direction 2 — Studio Paper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=Source+Sans+3:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --bg:#EDE9E1; --panel:#F4F1EA; --border:#D8D2C6; --border-lt:#E3DED2;
+    --ink:#221F1C; --ink-2:#5C574F; --ink-3:#8B8579;
+    --wine:#6B2036; --wine-soft:rgba(107,32,54,.08); --wine-line:rgba(107,32,54,.35);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1C1815; --panel:#242019; --border:#3A342B; --border-lt:#2C2721;
+      --ink:#EFE9DD; --ink-2:#B8AF9E; --ink-3:#847C6C;
+      --wine:#E88CA6; --wine-soft:rgba(232,140,166,.10); --wine-line:rgba(232,140,166,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+      --bg:#1C1815; --panel:#242019; --border:#3A342B; --border-lt:#2C2721;
+      --ink:#EFE9DD; --ink-2:#B8AF9E; --ink-3:#847C6C;
+      --wine:#E88CA6; --wine-soft:rgba(232,140,166,.10); --wine-line:rgba(232,140,166,.35);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:'Source Sans 3',system-ui,sans-serif;}
+  .serif{font-family:'Newsreader',Georgia,serif;}
+  .mono{font-family:'Space Mono',ui-monospace,monospace;}
+  a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--wine-line)}
+  a:hover{opacity:.75}
+  h1,h2{text-wrap:balance}
+  ::selection{background:var(--wine);color:var(--panel)}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="border-b" style="border-color:var(--border)">
+  <div class="max-w-[1180px] mx-auto px-6 sm:px-10">
+    <div class="flex items-center justify-between py-3 mono text-[10.5px] tracking-[.14em] uppercase" style="color:var(--ink-3)">
+      <span>Vol. 01 — Browser Audio</span>
+      <span>No. 004 · Microphone</span>
+    </div>
+    <div class="flex flex-col items-center border-t py-6" style="border-color:var(--border)">
+      <div class="serif italic text-[13px] mb-1" style="color:var(--ink-3)">the</div>
+      <div class="serif font-medium text-[30px] tracking-tight">MicTest</div>
+    </div>
+    <nav class="flex items-center justify-center gap-8 border-t py-4 mono text-[11px] tracking-[.1em] uppercase flex-wrap" style="border-color:var(--border);color:var(--ink-2)">
+      <a href="#" class="border-b-0" style="color:var(--wine)">Microphone</a>
+      <a href="#" class="border-b-0">Speakers</a>
+      <a href="#" class="border-b-0">Hearing</a>
+      <a href="#" class="border-b-0">Headphones</a>
+      <a href="#" class="border-b-0">Field Guide</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO / MASTHEAD FEATURE -->
+<section class="max-w-[1180px] mx-auto px-6 sm:px-10 py-14 sm:py-20">
+  <div class="grid lg:grid-cols-[1.3fr_.7fr] gap-12 lg:gap-16 items-end">
+    <div>
+      <div class="mono text-[11px] tracking-[.16em] uppercase mb-5" style="color:var(--wine)">Feature — On Test</div>
+      <h1 class="serif font-medium leading-[1.06] mb-6" style="font-size:clamp(36px,5vw,58px)">
+        Does your microphone actually hear you clearly?
+      </h1>
+      <p class="max-w-[480px] leading-relaxed text-[16px]" style="color:var(--ink-2)">
+        A short, unhurried test for the microphone you're using right now —
+        the waveform, the level, and the quiet technical details your
+        operating system rarely shows you.
+      </p>
+    </div>
+    <div class="border-l pl-8" style="border-color:var(--border)">
+      <div class="serif italic leading-relaxed text-[17px]" style="color:var(--ink-2)">
+        &ldquo;Most microphone problems are invisible until you watch the input
+        move — or fail to.&rdquo;
+      </div>
+      <div class="mono text-[10.5px] tracking-[.1em] uppercase mt-3" style="color:var(--ink-3)">— Editor's Note</div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOL, AS A DIAGRAM INSERT -->
+<section class="max-w-[1180px] mx-auto px-6 sm:px-10 pb-16">
+  <div class="border rounded-sm overflow-hidden" style="border-color:var(--border);background:var(--panel)">
+    <div class="flex items-center justify-between px-6 sm:px-8 py-4 border-b" style="border-color:var(--border)">
+      <span class="mono text-[11px] tracking-[.1em] uppercase" style="color:var(--ink-3)">Fig. 1 — Live Input Reading</span>
+      <span class="mono text-[11px]" style="color:var(--ink-3)">Interactive</span>
+    </div>
+
+    <div class="grid md:grid-cols-[1fr_320px]">
+      <div class="p-6 sm:p-8 md:border-r" style="border-color:var(--border)">
+        <div class="rounded-sm border h-[160px] flex items-center px-4" style="border-color:var(--border-lt);background:var(--bg)">
+          <svg width="100%" height="90" viewBox="0 0 700 90" preserveAspectRatio="none">
+            <polyline points="0,45 20,40 40,54 60,28 80,50 100,20 120,53 140,36 160,12 180,46 200,33 220,58 240,24 260,44 280,16 300,48 320,34 340,55 360,22 380,42 400,45 420,30 440,52 460,27 480,44 500,38 520,50 540,19 560,45 580,33 600,55 620,28 640,44 660,38 680,48 700,41"
+              fill="none" stroke="#6B2036" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3 mt-5">
+          <select class="flex-1 text-[13.5px] px-3.5 py-2.5 rounded-sm border" style="border-color:var(--border);background:var(--bg);color:var(--ink-2)">
+            <option>Select microphone…</option>
+          </select>
+          <button class="text-[13px] font-semibold px-6 py-2.5 rounded-sm" style="background:var(--wine);color:var(--panel)">
+            Begin Reading
+          </button>
+        </div>
+      </div>
+
+      <dl class="p-6 sm:p-8 grid grid-cols-2 gap-y-5 gap-x-4 content-start">
+        <div>
+          <dt class="mono text-[10px] tracking-[.1em] uppercase" style="color:var(--ink-3)">Sample Rate</dt>
+          <dd class="serif text-[19px] mt-1">48 kHz</dd>
+        </div>
+        <div>
+          <dt class="mono text-[10px] tracking-[.1em] uppercase" style="color:var(--ink-3)">Channels</dt>
+          <dd class="serif text-[19px] mt-1">1 · Mono</dd>
+        </div>
+        <div>
+          <dt class="mono text-[10px] tracking-[.1em] uppercase" style="color:var(--ink-3)">Noise Suppr.</dt>
+          <dd class="serif text-[19px] mt-1" style="color:var(--wine)">Enabled</dd>
+        </div>
+        <div>
+          <dt class="mono text-[10px] tracking-[.1em] uppercase" style="color:var(--ink-3)">Echo Cancel</dt>
+          <dd class="serif text-[19px] mt-1" style="color:var(--wine)">Enabled</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- THREE-COLUMN EDITORIAL BODY -->
+<section class="max-w-[1180px] mx-auto px-6 sm:px-10 pb-20">
+  <div class="grid sm:grid-cols-3 gap-10 sm:gap-8 border-t pt-10" style="border-color:var(--border)">
+    <div>
+      <div class="serif italic text-[22px] mb-2" style="color:var(--wine)">I.</div>
+      <div class="font-semibold mb-2 text-[15px]">In the browser</div>
+      <p class="text-[14px] leading-relaxed" style="color:var(--ink-2)">No download, no account. The Web Audio API does the listening; the page does the showing.</p>
+    </div>
+    <div>
+      <div class="serif italic text-[22px] mb-2" style="color:var(--wine)">II.</div>
+      <div class="font-semibold mb-2 text-[15px]">Straight from the device</div>
+      <p class="text-[14px] leading-relaxed" style="color:var(--ink-2)">Every figure on this page — rate, channels, processing — is read from your microphone, not estimated.</p>
+    </div>
+    <div>
+      <div class="serif italic text-[22px] mb-2" style="color:var(--wine)">III.</div>
+      <div class="font-semibold mb-2 text-[15px]">Nothing kept</div>
+      <p class="text-[14px] leading-relaxed" style="color:var(--ink-2)">Audio is processed locally and discarded. Nothing you say here is uploaded or stored.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t py-8" style="border-color:var(--border)">
+  <div class="max-w-[1180px] mx-auto px-6 sm:px-10 flex flex-col sm:flex-row justify-between gap-2 mono text-[10.5px] tracking-[.08em] uppercase" style="color:var(--ink-3)">
+    <span>MicTest — Printed for the screen</span>
+    <span>mictest.dev</span>
+  </div>
+</footer>
+
+</body>
+</html>

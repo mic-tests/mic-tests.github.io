@@ -40,662 +40,888 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="/css/common.css" rel="stylesheet">
-  <link href="/css/design.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
   <script async crossorigin="anonymous"
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5426315045205785"></script>
+  <meta name="google-adsense-account" content="ca-pub-5426315045205785">
 
   <style>
-    /* ── Visualizer canvas ── */
-    canvas { width: 100%; height: 200px; background-color: var(--subtle); border: 1px solid var(--border-lt); border-radius: var(--r-sm); display: block; }
-    #visualizer-container { position: relative; border-radius: var(--r-sm); overflow: hidden; }
-    .amplitude-bars { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: flex-end; padding: 0 4px; }
-    .amplitude-bar { flex: 1; background: linear-gradient(to top, rgba(0,85,255,.55), rgba(0,195,220,.22)); margin: 0 1px; max-height: 100%; transition: height .08s ease; border-radius: 2px 2px 0 0; }
-    /* Mic select fills remaining space next to button */
-    #mic-select { flex: 1; min-width: 0; }
-    /* Info panel value (right-aligned) */
-    .info-val { color: var(--text); font-weight: 600; text-align: right; max-width: 55%; font-size: .8rem; }
-    /* Testimonials */
-    .testimonial { padding: 9px 0; border-bottom: 1px solid var(--border-lt); }
-    .testimonial:last-of-type { border-bottom: none; padding-bottom: 0; }
-    .testimonial p { font-size: .82rem; color: var(--text-2); font-style: italic; margin: 0 0 2px; }
-    .review-form { display: none; margin-top: 12px; padding: 13px; background: var(--subtle); border-radius: var(--r-sm); border: 1px solid var(--border); }
-    /* Pro-tip aside */
-    aside.pro-tip { display: flex; gap: .7rem; align-items: flex-start; background: var(--blue-glow); border-left: 3px solid var(--blue); border-radius: 0 var(--r-sm) var(--r-sm) 0; padding: .85rem 1rem; margin-top: 1.25rem; font-size: .9rem; color: var(--text); }
-    aside.pro-tip > i { color: var(--blue); flex-shrink: 0; font-size: 1rem; line-height: 1.55; }
-    /* Definition list — mic stats */
-    dl.mic-stats { display: grid; grid-template-columns: minmax(160px, 22%) 1fr; gap: .3rem .9rem; align-items: baseline; }
-    dl.mic-stats dt { font-weight: 600; color: var(--text); padding: .55rem 0 .1rem; border-top: 1px solid var(--border-lt); }
-    dl.mic-stats dd { margin: 0; padding: .55rem 0 .1rem; border-top: 1px solid var(--border-lt); color: var(--text-2); line-height: 1.6; }
-    dl.mic-stats dt:first-child, dl.mic-stats dd:first-of-type { border-top: none; }
-    @media (max-width: 575px) { dl.mic-stats { grid-template-columns: 1fr; } dl.mic-stats dd { border-top: none; padding-top: 0; } }
-    /* Details / summary collapsible panels */
-    details.panel { border: 1px solid var(--border-lt); border-radius: var(--r-sm); margin-bottom: .45rem; overflow: hidden; }
-    details.panel > summary { display: flex; align-items: center; justify-content: space-between; padding: .7rem 1rem; cursor: pointer; background: var(--subtle); list-style: none; gap: .5rem; font-size: .95rem; }
-    details.panel > summary::-webkit-details-marker { display: none; }
-    details.panel > summary::after { content: "﹀"; font-size: .8rem; color: var(--blue); flex-shrink: 0; }
-    details.panel[open] > summary::after { content: "︿"; }
-    details.panel[open] > summary { border-bottom: 1px solid var(--border-lt); }
-    details.panel > :not(summary) { padding: .8rem 1rem; }
-    details.panel ol, details.panel ul { margin-bottom: 0; padding-left: 1.3rem; }
-    details.panel li { margin-bottom: .4rem; }
-    /* Compatibility table */
-    .compat-table th, .compat-table td { font-size: .84rem; vertical-align: middle; }
+    :root{
+      --bg:#EEF0F2; --panel:#F8F9FA; --panel-2:#FFFFFF; --border:#D3D7DC; --border-lt:#E4E7EA;
+      --ink:#14161A; --ink-2:#565B63; --ink-3:#868C94;
+      --amber:#B65C00; --amber-dim:rgba(182,92,0,.09); --amber-glow:rgba(182,92,0,.30);
+      --red:#C4432E; --success:#2E7D4F;
+    }
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme="light"]){
+        --bg:#111013; --panel:#18171B; --panel-2:#1F1D22; --border:#2A2830; --border-lt:#221F25;
+        --ink:#EDEAE4; --ink-2:#8B8780; --ink-3:#5F5C56;
+        --amber:#FFB13D; --amber-dim:rgba(255,177,61,.14); --amber-glow:rgba(255,177,61,.55);
+        --red:#FF5A4E; --success:#7AB85E;
+      }
+    }
+    :root[data-theme="dark"]{
+        --bg:#111013; --panel:#18171B; --panel-2:#1F1D22; --border:#2A2830; --border-lt:#221F25;
+        --ink:#EDEAE4; --ink-2:#8B8780; --ink-3:#5F5C56;
+        --amber:#FFB13D; --amber-dim:rgba(255,177,61,.14); --amber-glow:rgba(255,177,61,.55);
+        --red:#FF5A4E; --success:#7AB85E;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    /* Neutralize Tailwind's .container utility (kept only so the content-db exporter can scope this region) */
+    .container.main-wrap{width:100%;max-width:1260px;margin-left:auto;margin-right:auto;}
+    body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;}
+    .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
+    .display{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.02em;}
+    a{color:var(--amber);text-decoration:none}
+    a:hover{opacity:.8}
+    ::selection{background:var(--amber);color:var(--bg)}
+    h1,h2,h3,h4{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;color:var(--ink);}
+    h2{font-weight:700;font-size:1.5rem;line-height:1.25;margin:0 0 .9rem;}
+    h3{font-weight:600;font-size:1.1rem;line-height:1.3;margin:1.75rem 0 .5rem;}
+    p{margin:0 0 1rem;}
+    strong{color:var(--ink);font-weight:700;}
+    code{background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;font-size:.87em;color:var(--ink);font-family:'JetBrains Mono',monospace;}
+
+    .led{width:6px;height:6px;border-radius:999px;background:var(--amber);box-shadow:0 0 6px var(--amber);flex-shrink:0;}
+    .hairline{border-color:var(--border)}
+    .grid-bg{background-image:linear-gradient(var(--border-lt) 1px, transparent 1px),linear-gradient(90deg, var(--border-lt) 1px, transparent 1px);background-size:28px 28px;}
+
+    /* ── Rail nav ── */
+    .rail-group-label{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding:1.1rem 0 .4rem;}
+    .rail-link{display:flex;align-items:center;gap:8px;padding:.42rem .55rem;border-radius:3px;font-size:12px;color:var(--ink-2);font-family:'IBM Plex Sans';}
+    .rail-link:hover{background:var(--panel-2);color:var(--ink);opacity:1;}
+    .rail-link.active{background:var(--amber-dim);color:var(--amber);font-weight:600;}
+    .rail-link i{width:14px;text-align:center;font-size:12px;flex-shrink:0;}
+
+    /* ── Content panels (replace Bootstrap cards) ── */
+    .panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);}
+    .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .panel-body{padding:1.1rem;}
+    .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    .content-panel ol,.content-panel ul{padding-left:1.3rem;}
+    .content-panel li{margin-bottom:.5rem;line-height:1.65;}
+    .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
+    .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
+    .ad-panel-body{padding:1rem;text-align:center;}
+
+    /* ── Buttons ── */
+    .btn{display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:600;padding:.6rem 1.1rem;border-radius:4px;border:1px solid transparent;cursor:pointer;transition:opacity .15s;font-family:'IBM Plex Sans';}
+    .btn:hover{opacity:.88}
+    .btn:disabled{opacity:.45;cursor:not-allowed;}
+    .btn-primary{background:var(--amber);color:var(--bg);}
+    .btn-secondary{background:var(--panel-2);color:var(--ink-2);border-color:var(--border);}
+    .btn-danger{background:var(--red);color:#fff;}
+    .btn-warning{background:var(--amber);color:var(--bg);}
+    .btn-outline{background:transparent;color:var(--ink-2);border-color:var(--border);}
+    .btn-outline:hover{background:var(--panel-2);color:var(--ink);opacity:1;}
+    .btn-sm{padding:.4rem .8rem;font-size:11.5px;}
+    .btn-toolbar{display:flex;flex-wrap:wrap;gap:.5rem;}
+    .w-100{width:100%;}
+    .d-grid{display:grid;gap:.5rem;}
+    .d-none{display:none !important;}
+
+    /* ── Forms ── */
+    .form-label{display:block;font-size:10.5px;font-weight:600;margin-bottom:.4rem;color:var(--ink-2);font-family:'JetBrains Mono';text-transform:uppercase;letter-spacing:.06em;}
+    .form-select,.form-control{width:100%;padding:.6rem .75rem;border:1px solid var(--border);border-radius:4px;background:var(--panel-2);color:var(--ink);font-size:13px;font-family:'IBM Plex Sans';}
+    .form-select:focus,.form-control:focus{outline:none;border-color:var(--amber);}
+
+    /* ── Alerts / status ── */
+    .status-message{padding:.6rem .85rem;margin-bottom:.85rem;border-radius:4px;font-size:13px;border:1px solid var(--border);}
+    .status-step{display:flex;align-items:center;}
+    .status-icon{margin-right:8px;width:18px;text-align:center;flex-shrink:0;}
+    .alert-info{background:var(--panel-2);color:var(--ink-2);}
+    .alert-success{background:rgba(46,125,79,.10);color:var(--success);border-color:rgba(46,125,79,.3);}
+    .alert-warning{background:var(--amber-dim);color:var(--amber);border-color:rgba(182,92,0,.3);}
+    .alert-danger, .alert-recording{background:rgba(196,67,46,.10);color:var(--red);border-color:rgba(196,67,46,.3);}
+    .recording-pulse{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--red);margin-right:8px;animation:pulse 1.5s infinite;vertical-align:middle;}
+    @keyframes pulse{0%{transform:scale(.95);box-shadow:0 0 0 0 rgba(196,67,46,.6);}70%{transform:scale(1);box-shadow:0 0 0 7px rgba(196,67,46,0);}100%{transform:scale(.95);box-shadow:0 0 0 0 rgba(196,67,46,0);}}
+
+    /* ── Visualizer ── */
+    canvas{width:100%;height:200px;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;display:block;}
+    #visualizer-container{position:relative;border-radius:4px;overflow:hidden;}
+    .amplitude-bars{position:absolute;bottom:0;left:0;width:100%;height:100%;display:flex;align-items:flex-end;padding:0 4px;pointer-events:none;}
+    .amplitude-bar{flex:1;background:linear-gradient(to top, var(--amber), transparent);margin:0 1px;max-height:100%;transition:height .08s ease;border-radius:2px 2px 0 0;}
+
+    /* ── Progress ── */
+    .progress{height:4px;border-radius:99px;background:var(--border);overflow:hidden;margin-bottom:10px;}
+    .progress-bar{height:100%;background:var(--amber);border-radius:99px;transition:width .1s linear;}
+
+    /* ── Quality / info rows ── */
+    .quality-indicator{display:inline-block;font-weight:700;font-family:'JetBrains Mono';font-size:13px;}
+    .quality-excellent{color:var(--success);}
+    .quality-verygood{color:var(--amber);}
+    .quality-good{color:var(--amber);opacity:.85;}
+    .quality-fair{color:var(--red);opacity:.85;}
+    .quality-poor{color:var(--red);}
+    .quality-unknown{color:var(--ink-3);}
+    .info-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border-lt);}
+    .info-row:last-child{border-bottom:none;padding-bottom:0;}
+    .info-label{color:var(--ink-3);font-weight:500;font-family:'JetBrains Mono';font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;}
+    .info-val{color:var(--ink);font-weight:600;text-align:right;max-width:55%;font-size:12.5px;font-family:'JetBrains Mono';}
+
+    /* ── Testimonials ── */
+    .testimonial{padding:.6rem 0;border-bottom:1px solid var(--border-lt);}
+    .testimonial:last-of-type{border-bottom:none;}
+    .testimonial p{font-size:12.5px;font-style:italic;color:var(--ink-2);margin:0 0 .2rem;}
+    .text-muted{color:var(--ink-3);font-size:11px;}
+    .mb-0{margin-bottom:0 !important;}
+    .review-form{display:none;margin-top:.85rem;padding:.9rem;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;}
+
+    /* ── Pro tip ── */
+    aside.pro-tip{display:flex;gap:.7rem;align-items:flex-start;background:var(--amber-dim);border-left:3px solid var(--amber);border-radius:0 4px 4px 0;padding:.85rem 1rem;margin-top:1.25rem;font-size:13.5px;color:var(--ink);}
+    aside.pro-tip>i{color:var(--amber);flex-shrink:0;font-size:1rem;line-height:1.55;}
+
+    /* ── Mic stats dl ── */
+    dl.mic-stats{display:grid;grid-template-columns:minmax(180px,26%) 1fr;gap:.3rem 1.1rem;align-items:baseline;}
+    dl.mic-stats dt{font-weight:600;color:var(--ink);padding:.6rem 0 .1rem;border-top:1px solid var(--border-lt);font-family:'JetBrains Mono';font-size:12.5px;}
+    dl.mic-stats dd{margin:0;padding:.6rem 0 .1rem;border-top:1px solid var(--border-lt);color:var(--ink-2);line-height:1.65;font-size:13px;}
+    dl.mic-stats dt:first-child, dl.mic-stats dd:first-of-type{border-top:none;}
+    @media (max-width:575px){dl.mic-stats{grid-template-columns:1fr;}dl.mic-stats dd{border-top:none;padding-top:0;}}
+
+    /* ── Details / accordion panels ── */
+    details.panel{border:1px solid var(--border);border-radius:4px;margin-bottom:.5rem;overflow:hidden;background:var(--panel);}
+    details.panel>summary{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.05rem;cursor:pointer;background:var(--panel-2);list-style:none;gap:.5rem;font-size:14px;}
+    details.panel>summary::-webkit-details-marker{display:none;}
+    details.panel>summary::after{content:"\FE40";font-size:.8rem;color:var(--amber);flex-shrink:0;transform:rotate(90deg);}
+    details.panel[open]>summary::after{transform:rotate(-90deg);}
+    details.panel[open]>summary{border-bottom:1px solid var(--border);}
+    details.panel>:not(summary){padding:.9rem 1.05rem;}
+    details.panel ol,details.panel ul{margin-bottom:0;padding-left:1.3rem;}
+    details.panel li{margin-bottom:.4rem;}
+
+    /* ── Table ── */
+    .table-responsive{overflow-x:auto;}
+    .table{width:100%;border-collapse:collapse;font-size:12.5px;}
+    .table th,.table td{padding:.55rem .7rem;border:1px solid var(--border);text-align:left;vertical-align:middle;}
+    .table thead th{background:var(--panel-2);font-family:'JetBrains Mono';font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2);}
+    .table-striped tbody tr:nth-child(odd){background:var(--panel-2);}
+
+    /* ── Comments / footer ── */
+    .comments-panel{border-top:1px solid var(--border);background:var(--panel);padding:2.5rem 0;margin-top:2rem;}
+    footer.site-footer{background:var(--panel);border-top:1px solid var(--border);padding:2.75rem 0 0;}
+    .footer-brand{font-family:'JetBrains Mono';font-weight:700;font-size:15px;color:var(--ink);display:flex;align-items:center;gap:8px;margin-bottom:.75rem;}
+    .footer-desc{font-size:12.5px;color:var(--ink-3);line-height:1.65;max-width:320px;}
+    .footer-col-heading{font-family:'JetBrains Mono';font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.7rem;display:block;}
+    .footer-links{list-style:none;padding:0;margin:0 0 1.25rem;}
+    .footer-links li{margin-bottom:.4rem;}
+    .footer-links a{font-size:13px;color:var(--ink-2);}
+    .footer-links a:hover{color:var(--amber);opacity:1;}
+    .footer-bottom{border-top:1px solid var(--border);margin-top:1.5rem;padding:1rem 0;font-size:11px;color:var(--ink-3);font-family:'JetBrains Mono';}
+
+    /* ── Mobile drawer ── */
+    #mobile-drawer{position:fixed;inset:0;z-index:40;background:var(--bg);transform:translateX(-100%);transition:transform .2s ease;overflow-y:auto;}
+    #mobile-drawer.open{transform:translateX(0);}
   </style>
-  <meta name="google-adsense-account" content="ca-pub-5426315045205785">
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container">
-    <a class="navbar-brand" href="/" data-page="index" title="MicTest - Free Online Microphone Test">
-      <span class="brand-icon"><i class="bi bi-mic-fill"></i></span>MicTest
+<div class="flex min-h-screen">
+
+  <!-- DESKTOP RAIL -->
+  <aside class="hidden lg:flex flex-col w-[232px] shrink-0 border-r hairline px-5 py-6 sticky top-0 h-screen overflow-y-auto">
+    <a href="/" class="flex items-center gap-2.5 mb-6" title="MicTest Home">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+        <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+        <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M12 18v3M9 21h6" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      <span class="mono text-[13px] font-semibold tracking-tight" style="color:var(--ink)">MICTEST</span>
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+
+    <button type="button" class="theme-toggle-btn flex items-center gap-2.5 mb-2" aria-label="Toggle light or dark panel">
+      <span class="relative inline-flex items-center shrink-0" style="width:32px;height:17px;border-radius:999px;background:var(--border-lt);border:1px solid var(--border)">
+        <span class="theme-dot absolute" style="width:11px;height:11px;border-radius:999px;background:var(--amber);left:2px;top:2px;transition:left .15s ease"></span>
+      </span>
+      <span class="theme-label mono text-[10.5px] tracking-[.08em] uppercase" style="color:var(--ink-2)">Dark panel</span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/" data-page="index" title="MicTest Home">Home</a>
-        </li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mic Tools</a>
-          <ul class="dropdown-menu">
-            <li><span class="dropdown-category">Diagnostics</span></li>
-            <li><a class="dropdown-item" href="/show-mic" data-page="show-mic" title="View Microphone Details"><i class="bi bi-mic"></i>Show My Mic</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><span class="dropdown-category">Recording &amp; Analysis</span></li>
-            <li><a class="dropdown-item" href="/mic-recorder" data-page="mic-recorder" title="Record Your Voice Online"><i class="bi bi-record-circle"></i>Mic Recorder</a></li>
-            <li><a class="dropdown-item" href="/sound-level-meter" data-page="sound-level-meter" title="Measure Decibel Levels"><i class="bi bi-speedometer2"></i>Sound Level Meter</a></li>
-            <li><a class="dropdown-item" href="/voice-frequency-analyzer" data-page="voice-frequency-analyzer" title="Analyze Voice Frequencies"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a></li>
-            <li><a class="dropdown-item" href="/background-noise-analyzer" data-page="background-noise-analyzer" title="Analyze Ambient Noise"><i class="bi bi-soundwave"></i>Background Noise Analyzer</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><span class="dropdown-category">Testing</span></li>
-            <li><a class="dropdown-item" href="/echo-test" data-page="echo-test" title="Test for Audio Echo"><i class="bi bi-arrow-repeat"></i>Echo Test</a></li>
-            <li><a class="dropdown-item" href="/audio-latency-test" data-page="audio-latency-test" title="Measure Audio Latency"><i class="bi bi-stopwatch"></i>Audio Latency Test</a></li>
-          </ul>
-        </li>
+    <nav class="flex flex-col rail-nav">
+      <a href="/" data-page="index" class="rail-link"><i class="bi bi-mic-fill"></i>Microphone Test</a>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Speaker Tools</a>
-          <ul class="dropdown-menu">
-            <li><span class="dropdown-category">Diagnostics</span></li>
-            <li><a class="dropdown-item" href="/show-speakers" data-page="show-speakers" title="View Speaker Details"><i class="bi bi-speaker"></i>Show My Speakers</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><span class="dropdown-category">Testing</span></li>
-            <li><a class="dropdown-item" href="/tone-generator" data-page="tone-generator" title="Generate Test Tones"><i class="bi bi-activity"></i>Tone Generator</a></li>
-            <li><a class="dropdown-item" href="/stereo-test" data-page="stereo-test" title="Test Left Right Channels"><i class="bi bi-badge-hd"></i>Stereo Test</a></li>
-            <li><a class="dropdown-item" href="/bass-test" data-page="bass-test" title="Test Low Frequency Response"><i class="bi bi-disc"></i>Bass Test</a></li>
-            <li><a class="dropdown-item" href="/speaker-volume-test" data-page="speaker-volume-test" title="Calibrate Speaker Volume"><i class="bi bi-volume-up"></i>Speaker Volume Test</a></li>
-          </ul>
-        </li>
+      <div class="rail-group-label">Mic Tools</div>
+      <a href="/show-mic" data-page="show-mic" class="rail-link"><i class="bi bi-mic"></i>Show My Mic</a>
+      <a href="/mic-recorder" data-page="mic-recorder" class="rail-link"><i class="bi bi-record-circle"></i>Mic Recorder</a>
+      <a href="/sound-level-meter" data-page="sound-level-meter" class="rail-link"><i class="bi bi-speedometer2"></i>Sound Level Meter</a>
+      <a href="/voice-frequency-analyzer" data-page="voice-frequency-analyzer" class="rail-link"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a>
+      <a href="/background-noise-analyzer" data-page="background-noise-analyzer" class="rail-link"><i class="bi bi-soundwave"></i>Background Noise Analyzer</a>
+      <a href="/echo-test" data-page="echo-test" class="rail-link"><i class="bi bi-arrow-repeat"></i>Echo Test</a>
+      <a href="/audio-latency-test" data-page="audio-latency-test" class="rail-link"><i class="bi bi-stopwatch"></i>Audio Latency Test</a>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Headphones &amp; Hearing</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/headphone-test" data-page="headphone-test" title="Test Your Headphones"><i class="bi bi-headphones"></i>Headphone Test</a></li>
-            <li><a class="dropdown-item" href="/hearing-test" data-page="hearing-test" title="Online Hearing Test"><i class="bi bi-ear"></i>Hearing Test</a></li>
-          </ul>
-        </li>
+      <div class="rail-group-label">Speaker Tools</div>
+      <a href="/show-speakers" data-page="show-speakers" class="rail-link"><i class="bi bi-speaker"></i>Show My Speakers</a>
+      <a href="/tone-generator" data-page="tone-generator" class="rail-link"><i class="bi bi-activity"></i>Tone Generator</a>
+      <a href="/stereo-test" data-page="stereo-test" class="rail-link"><i class="bi bi-badge-hd"></i>Stereo Test</a>
+      <a href="/bass-test" data-page="bass-test" class="rail-link"><i class="bi bi-disc"></i>Bass Test</a>
+      <a href="/speaker-volume-test" data-page="speaker-volume-test" class="rail-link"><i class="bi bi-volume-up"></i>Speaker Volume Test</a>
 
-        <li class="nav-item">
-          <a class="nav-link" href="/troubleshooting" data-page="troubleshooting" title="Fix Audio Issues">Troubleshooting</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/about" data-page="about" title="About MicTest">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/contact" data-page="contact" title="Contact Us">Contact</a>
-        </li>
-      </ul>
+      <div class="rail-group-label">Headphones &amp; Hearing</div>
+      <a href="/headphone-test" data-page="headphone-test" class="rail-link"><i class="bi bi-headphones"></i>Headphone Test</a>
+      <a href="/hearing-test" data-page="hearing-test" class="rail-link"><i class="bi bi-ear"></i>Hearing Test</a>
+
+      <div class="rail-group-label">More</div>
+      <a href="/troubleshooting" data-page="troubleshooting" class="rail-link"><i class="bi bi-tools"></i>Troubleshooting</a>
+      <a href="/about" data-page="about" class="rail-link"><i class="bi bi-info-circle"></i>About</a>
+      <a href="/contact" data-page="contact" class="rail-link"><i class="bi bi-envelope"></i>Contact</a>
+    </nav>
+  </aside>
+
+  <!-- MOBILE TOP BAR -->
+  <div class="lg:hidden fixed top-0 inset-x-0 z-50 flex items-center justify-between px-5 py-4 border-b hairline" style="background:var(--bg)">
+    <a href="/" class="flex items-center gap-2" title="MicTest Home">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+        <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+        <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      <span class="mono text-[13px] font-semibold" style="color:var(--ink)">MICTEST</span>
+    </a>
+    <div class="flex items-center gap-3">
+      <button type="button" class="theme-toggle-btn flex items-center gap-2" aria-label="Toggle light or dark panel">
+        <span class="relative inline-flex items-center shrink-0" style="width:28px;height:16px;border-radius:999px;background:var(--border-lt);border:1px solid var(--border)">
+          <span class="theme-dot absolute" style="width:10px;height:10px;border-radius:999px;background:var(--amber);left:2px;top:2px;transition:left .15s ease"></span>
+        </span>
+      </button>
+      <button type="button" id="mobile-menu-btn" aria-label="Open menu" class="flex flex-col gap-[4px] p-1">
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+      </button>
     </div>
   </div>
-</nav>
-<script>
-(function() {
-  var path = window.location.pathname.replace(/\/$/, '');
-  var page = (path === '' || path === '/index' || path === '/index.html') ? 'index' : path.replace(/^\//, '').replace(/\.html$/, '');
-  var el = document.querySelector('.navbar [data-page="' + page + '"]');
-  if (el) {
-    el.classList.add('active');
-    el.setAttribute('aria-current', 'page');
-    var dd = el.closest('.dropdown');
-    if (dd) { var t = dd.querySelector('.dropdown-toggle'); if (t) t.classList.add('active'); }
-  }
-})();
-</script>
 
-<!-- Main content -->
-<div class="container main-wrap">
-
-  <h1 class="mb-2">Mic Test Online — Free Microphone Checker for Any Device</h1>
-
-  <p class="lead mb-3">This <strong>mic test online</strong> checks whether your microphone is capturing audio — select your input device from the <strong>mic selector</strong>, click <strong>Test my mic</strong>, speak a few words, and the <strong>audio waveform</strong> lights up in real time to confirm your mic is picking up sound. Your <strong>input volume level</strong> shows whether you're coming in too quiet or peaking too loud, while the <strong>quality rating</strong> and <strong>mic info panel</strong> surface live readings for sample rate, channels, noise suppression, and echo cancellation pulled directly from your device. If the waveform moves when you talk, your microphone is working; if it stays flat, the <strong>status message</strong> tells you exactly what's blocking your mic access so you can fix it. For other wave and frequency physics calculators, see <a href="https://joteo.net/">Joteo</a>. <!-- SILO_START:slot_a -->The free <a href="/tone-generator">tone generator</a> is the fastest way to check if your speakers reproduce bass and treble accurately.<!-- SILO_END:slot_a --></p>
-
-  <div class="row g-4">
-
-    <!-- LEFT: tool + content -->
-    <div class="col-lg-8">
-
-      <!-- Main tool card -->
-      <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-          <i class="bi bi-soundwave me-2"></i>Microphone Visualizer
-        </div>
-        <div class="card-body">
-
-          <div class="d-flex gap-2 align-items-center">
-            <select class="form-select" disabled id="mic-select" aria-label="Select microphone">
-              <option value="">Click "Test my mic" to detect microphones</option>
-            </select>
-            <button class="btn btn-primary flex-shrink-0" id="test-button">
-              <i class="bi bi-mic-fill me-2"></i>Test my mic
-            </button>
-          </div>
-
-          <div class="status-message alert alert-info mt-3" id="status-message">
-            <div class="status-step">
-              <span class="status-icon"><i class="bi bi-arrow-right-circle-fill"></i></span>
-              <span>Press "Test my mic" to begin testing your microphone.</span>
-            </div>
-          </div>
-
-          <div id="visualizer-container">
-            <canvas id="visualizer"></canvas>
-            <div class="amplitude-bars" id="amplitude-bars"></div>
-          </div>
-
-          <div class="mt-3 d-none" id="recording-controls">
-            <div class="progress">
-              <div class="progress-bar progress-bar-striped progress-bar-animated" id="recording-progress" role="progressbar" style="width: 0%"></div>
-            </div>
-            <div class="mic-instructions alert alert-primary" id="recording-instructions">
-              <i class="bi bi-info-circle-fill me-2"></i>
-              Please say "Hello" or make some noise. The tester records the sound captured by your mic and you will be able to playback it after testing is complete.
-            </div>
-            <div class="btn-toolbar gap-2">
-              <button class="btn btn-secondary" disabled id="play-button">
-                <i class="bi bi-play-fill me-1"></i>Play Recording
-              </button>
-              <button class="btn btn-warning d-none" id="pause-button">
-                <i class="bi bi-pause-fill me-1"></i>Pause
-              </button>
-              <button class="btn btn-danger" id="stop-recording-button">
-                <i class="bi bi-stop-fill me-1"></i>Stop Recording
-              </button>
-              <button class="btn btn-outline-secondary d-none" id="restart-button">
-                <i class="bi bi-arrow-repeat me-1"></i>Restart
-              </button>
-              <button class="btn btn-outline-primary d-none" id="share-button">
-                <i class="bi bi-share-fill me-1"></i>Share Results
-              </button>
-            </div>
-            <div class="mt-3 d-none" id="audio-player-container">
-              <audio controls id="audio-player"></audio>
-            </div>
-          </div>
-
-        </div><!-- /.card-body -->
-      </div><!-- /.card -->
-
-      <!-- Ad (mid) -->
-      <div class="card mb-4">
-        <div class="card-header bg-light">
-          <i class="bi bi-megaphone me-2"></i>Advertisement
-        </div>
-        <div class="card-body text-center">
-          <ins class="adsbygoogle"
-               data-ad-client="ca-pub-5426315045205785"
-               data-ad-format="auto"
-               data-ad-slot="7669795756"
-               data-full-width-responsive="true"
-               style="display:block"></ins>
-          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-      </div>
-
-      <!-- How it works -->
-      <div class="card mb-4 why-card">
-        <div class="card-body content-section">
-          <h2>How the Microphone Test Online Works in Your Browser</h2>
-          <p>This tool operates entirely inside your browser — no download, no plug-in, no Adobe Flash or Microsoft Silverlight required. It uses the modern Web Audio API and the <code>getUserMedia</code> interface to <strong>detect multimedia devices</strong> connected to your system, request access, and begin capturing audio input in real time. Your <strong>privacy is safe</strong>: all processing happens locally on your device, audio is never transmitted to any server, and recorded clips are deleted from memory the moment you close the page — unless you choose to save them yourself.</p>
-
-          <h3>How Is Your Microphone Being Tested for Background Noise and Signal Quality?</h3>
-          <p>Once you grant <strong>microphone access</strong>, the tool checks whether your browser supports the required media-device functions. It then enumerates all available input devices — including <strong>built-in microphone detection</strong> for integrated laptop and webcam mics — and selects the active one. A live visualiser renders <strong>real-time audio levels</strong> as a waveform that moves with your voice. Simultaneously, the engine samples the stream to determine <strong>supported browser features</strong> such as <strong>echo cancellation</strong>, noise suppression, and automatic gain control. If <strong>background noise</strong> is present in your environment, you will see the waveform fluctuate even when you are silent — a useful cue to move to a quieter space or adjust your gain settings before a live session.</p>
-
-          <h3>Why Run a Mic Test Before You Start — and What Echo Cancellation Reveals</h3>
-          <p class="mb-0">A pre-session <strong>microphone test</strong> is the fastest form of <strong>microphone troubleshooting</strong> available. It catches permission blocks, wrong device selection, and driver failures before they derail a live recording or important video calls. Checking <strong>echo cancellation</strong> status in the results table is especially useful: if the feature is unsupported by your browser or hardware, you will need to use headphones during <strong>video conferencing</strong> to prevent acoustic feedback. For audio production, broadcasting, and content creation, knowing your microphone's true capabilities — rather than assuming they are fine — is the difference between a professional-sounding result and one that loses your audience in the first minute.</p>
-
-          <aside class="pro-tip"><i class="bi bi-lightbulb-fill"></i><span><strong>Pro tip:</strong> Run the test with your usual <strong>audio setup</strong> — headset plugged in, USB hub connected, Bluetooth paired — so the results reflect real-world conditions rather than an idealised bench test.</span></aside>
-        </div>
-      </div>
-
+  <!-- MOBILE DRAWER -->
+  <div id="mobile-drawer">
+    <div class="flex items-center justify-between px-5 py-4 border-b hairline">
+      <span class="mono text-[13px] font-semibold" style="color:var(--ink)">MENU</span>
+      <button type="button" id="mobile-drawer-close" aria-label="Close menu" class="mono text-[20px] leading-none" style="color:var(--ink-2)">&times;</button>
     </div>
+    <nav class="flex flex-col rail-nav px-5 py-4">
+      <a href="/" data-page="index" class="rail-link"><i class="bi bi-mic-fill"></i>Microphone Test</a>
+      <div class="rail-group-label">Mic Tools</div>
+      <a href="/show-mic" data-page="show-mic" class="rail-link"><i class="bi bi-mic"></i>Show My Mic</a>
+      <a href="/mic-recorder" data-page="mic-recorder" class="rail-link"><i class="bi bi-record-circle"></i>Mic Recorder</a>
+      <a href="/sound-level-meter" data-page="sound-level-meter" class="rail-link"><i class="bi bi-speedometer2"></i>Sound Level Meter</a>
+      <a href="/voice-frequency-analyzer" data-page="voice-frequency-analyzer" class="rail-link"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a>
+      <a href="/background-noise-analyzer" data-page="background-noise-analyzer" class="rail-link"><i class="bi bi-soundwave"></i>Background Noise Analyzer</a>
+      <a href="/echo-test" data-page="echo-test" class="rail-link"><i class="bi bi-arrow-repeat"></i>Echo Test</a>
+      <a href="/audio-latency-test" data-page="audio-latency-test" class="rail-link"><i class="bi bi-stopwatch"></i>Audio Latency Test</a>
+      <div class="rail-group-label">Speaker Tools</div>
+      <a href="/show-speakers" data-page="show-speakers" class="rail-link"><i class="bi bi-speaker"></i>Show My Speakers</a>
+      <a href="/tone-generator" data-page="tone-generator" class="rail-link"><i class="bi bi-activity"></i>Tone Generator</a>
+      <a href="/stereo-test" data-page="stereo-test" class="rail-link"><i class="bi bi-badge-hd"></i>Stereo Test</a>
+      <a href="/bass-test" data-page="bass-test" class="rail-link"><i class="bi bi-disc"></i>Bass Test</a>
+      <a href="/speaker-volume-test" data-page="speaker-volume-test" class="rail-link"><i class="bi bi-volume-up"></i>Speaker Volume Test</a>
+      <div class="rail-group-label">Headphones &amp; Hearing</div>
+      <a href="/headphone-test" data-page="headphone-test" class="rail-link"><i class="bi bi-headphones"></i>Headphone Test</a>
+      <a href="/hearing-test" data-page="hearing-test" class="rail-link"><i class="bi bi-ear"></i>Hearing Test</a>
+      <div class="rail-group-label">More</div>
+      <a href="/troubleshooting" data-page="troubleshooting" class="rail-link"><i class="bi bi-tools"></i>Troubleshooting</a>
+      <a href="/about" data-page="about" class="rail-link"><i class="bi bi-info-circle"></i>About</a>
+      <a href="/contact" data-page="contact" class="rail-link"><i class="bi bi-envelope"></i>Contact</a>
+    </nav>
+  </div>
 
-    <!-- RIGHT: mic info + ad + testimonials -->
-    <div class="col-lg-4">
+  <!-- MAIN STAGE -->
+  <main class="flex-1 pt-16 lg:pt-0 min-w-0">
+    <div class="container main-wrap max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12 py-8 lg:py-12">
 
-      <!-- Mic info panel -->
-      <div class="card mb-3">
-        <div class="card-header bg-primary text-white">
-          <i class="bi bi-info-circle-fill me-2"></i>Microphone Information
+      <!-- HERO -->
+      <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
+        <div>
+          <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 01 &middot; Browser Input Diagnostics</div>
+          <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Mic Test Online &mdash; Free Microphone Checker for Any Device</h1>
+          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">This <strong>mic test online</strong> checks whether your microphone is capturing audio &mdash; select your input device from the <strong>mic selector</strong>, click <strong>Test my mic</strong>, speak a few words, and the <strong>audio waveform</strong> lights up in real time to confirm your mic is picking up sound. Your <strong>input volume level</strong> shows whether you're coming in too quiet or peaking too loud, while the <strong>quality rating</strong> and <strong>mic info panel</strong> surface live readings for sample rate, channels, noise suppression, and echo cancellation pulled directly from your device. If the waveform moves when you talk, your microphone is working; if it stays flat, the <strong>status message</strong> tells you exactly what's blocking your mic access so you can fix it. For other wave and frequency physics calculators, see <a href="https://joteo.net/">Joteo</a>. <!-- SILO_START:slot_a -->The free <a href="/tone-generator">tone generator</a> is the fastest way to check if your speakers reproduce bass and treble accurately.<!-- SILO_END:slot_a --></p>
         </div>
-        <div class="card-body p-3">
-          <div class="info-row">
-            <span class="info-label">Quality Rating</span>
-            <span class="quality-indicator quality-unknown" id="quality-rating">—</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Microphone Name</span>
-            <span class="info-val" id="mic-name">Not selected</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Auto Gain Control</span>
-            <span class="info-val" id="gain-control">—</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Audio Channels</span>
-            <span class="info-val" id="channels">—</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Echo Cancellation</span>
-            <span class="info-val" id="echo-cancellation">—</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Est. Latency</span>
-            <span class="info-val" id="latency">—</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Noise Suppression</span>
-            <span class="info-val" id="noise-suppression">—</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Sample Rate</span>
-            <span class="info-val" id="sample-rate">—</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Sample Size</span>
-            <span class="info-val" id="sample-size">—</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Volume</span>
-            <span class="info-val" id="volume">—</span>
-          </div>
+
+        <div class="hidden lg:block panel p-5">
+          <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
+          <dl class="mono text-[11.5px] flex flex-col gap-3">
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Model</dt><dd>MT&#8209;01 INPUT</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Interface</dt><dd>Web Audio API</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Install required</dt><dd style="color:var(--amber)">None</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Audio uploaded</dt><dd style="color:var(--amber)">Never</dd></div>
+          </dl>
         </div>
       </div>
 
-      <!-- Sidebar ad -->
-      <div class="card mb-3">
-        <div class="card-header bg-light">
-          <i class="bi bi-megaphone me-2"></i>Advertisement
+      <div class="grid lg:grid-cols-[1fr_320px] gap-8 items-start">
+
+        <!-- LEFT: tool + content -->
+        <div class="min-w-0">
+
+          <!-- Main tool panel -->
+          <div class="panel mb-6">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><span class="led"></span>Microphone Visualizer</span></div>
+            <div class="panel-body">
+
+              <div class="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center mb-3">
+                <select class="form-select flex-1" disabled id="mic-select" aria-label="Select microphone">
+                  <option value="">Click "Test my mic" to detect microphones</option>
+                </select>
+                <button class="btn btn-primary shrink-0" id="test-button">
+                  <i class="bi bi-mic-fill me-2"></i>Test my mic
+                </button>
+              </div>
+
+              <div class="status-message alert-info" id="status-message">
+                <div class="status-step">
+                  <span class="status-icon"><i class="bi bi-arrow-right-circle-fill"></i></span>
+                  <span>Press "Test my mic" to begin testing your microphone.</span>
+                </div>
+              </div>
+
+              <div id="visualizer-container">
+                <canvas id="visualizer"></canvas>
+                <div class="amplitude-bars" id="amplitude-bars"></div>
+              </div>
+
+              <div class="mt-3 d-none" id="recording-controls">
+                <div class="progress">
+                  <div class="progress-bar" id="recording-progress" role="progressbar" style="width: 0%"></div>
+                </div>
+                <div class="status-message alert-info" id="recording-instructions">
+                  <i class="bi bi-info-circle-fill me-2"></i>
+                  Please say "Hello" or make some noise. The tester records the sound captured by your mic and you will be able to playback it after testing is complete.
+                </div>
+                <div class="btn-toolbar">
+                  <button class="btn btn-secondary" disabled id="play-button">
+                    <i class="bi bi-play-fill me-1"></i>Play Recording
+                  </button>
+                  <button class="btn btn-warning d-none" id="pause-button">
+                    <i class="bi bi-pause-fill me-1"></i>Pause
+                  </button>
+                  <button class="btn btn-danger" id="stop-recording-button">
+                    <i class="bi bi-stop-fill me-1"></i>Stop Recording
+                  </button>
+                  <button class="btn btn-outline d-none" id="restart-button">
+                    <i class="bi bi-arrow-repeat me-1"></i>Restart
+                  </button>
+                  <button class="btn btn-outline d-none" id="share-button">
+                    <i class="bi bi-share-fill me-1"></i>Share Results
+                  </button>
+                </div>
+                <div class="mt-3 d-none" id="audio-player-container">
+                  <audio controls id="audio-player" class="w-100"></audio>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Ad (mid) -->
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body">
+              <ins class="adsbygoogle"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-format="auto"
+                   data-ad-slot="7669795756"
+                   data-full-width-responsive="true"
+                   style="display:block"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
+
+          <!-- How it works -->
+          <div class="content-panel">
+            <h2>How the Microphone Test Online Works in Your Browser</h2>
+            <p>This tool operates entirely inside your browser &mdash; no download, no plug-in, no Adobe Flash or Microsoft Silverlight required. It uses the modern Web Audio API and the <code>getUserMedia</code> interface to <strong>detect multimedia devices</strong> connected to your system, request access, and begin capturing audio input in real time. Your <strong>privacy is safe</strong>: all processing happens locally on your device, audio is never transmitted to any server, and recorded clips are deleted from memory the moment you close the page &mdash; unless you choose to save them yourself.</p>
+
+            <h3>How Is Your Microphone Being Tested for Background Noise and Signal Quality?</h3>
+            <p>Once you grant <strong>microphone access</strong>, the tool checks whether your browser supports the required media-device functions. It then enumerates all available input devices &mdash; including <strong>built-in microphone detection</strong> for integrated laptop and webcam mics &mdash; and selects the active one. A live visualiser renders <strong>real-time audio levels</strong> as a waveform that moves with your voice. Simultaneously, the engine samples the stream to determine <strong>supported browser features</strong> such as <strong>echo cancellation</strong>, noise suppression, and automatic gain control. If <strong>background noise</strong> is present in your environment, you will see the waveform fluctuate even when you are silent &mdash; a useful cue to move to a quieter space or adjust your gain settings before a live session.</p>
+
+            <h3>Why Run a Mic Test Before You Start &mdash; and What Echo Cancellation Reveals</h3>
+            <p class="mb-0">A pre-session <strong>microphone test</strong> is the fastest form of <strong>microphone troubleshooting</strong> available. It catches permission blocks, wrong device selection, and driver failures before they derail a live recording or important video calls. Checking <strong>echo cancellation</strong> status in the results table is especially useful: if the feature is unsupported by your browser or hardware, you will need to use headphones during <strong>video conferencing</strong> to prevent acoustic feedback. For audio production, broadcasting, and content creation, knowing your microphone's true capabilities &mdash; rather than assuming they are fine &mdash; is the difference between a professional-sounding result and one that loses your audience in the first minute.</p>
+
+            <aside class="pro-tip"><i class="bi bi-lightbulb-fill"></i><span><strong>Pro tip:</strong> Run the test with your usual <strong>audio setup</strong> &mdash; headset plugged in, USB hub connected, Bluetooth paired &mdash; so the results reflect real-world conditions rather than an idealised bench test.</span></aside>
+          </div>
+
         </div>
-        <div class="card-body text-center p-2">
+
+        <!-- RIGHT: mic info + ad + testimonials -->
+        <div>
+
+          <!-- Mic info panel -->
+          <div class="panel mb-5">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-info-circle-fill"></i>Microphone Information</span></div>
+            <div class="panel-body">
+              <div class="info-row">
+                <span class="info-label">Quality Rating</span>
+                <span class="quality-indicator quality-unknown" id="quality-rating">&mdash;</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Microphone Name</span>
+                <span class="info-val" id="mic-name">Not selected</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Auto Gain Control</span>
+                <span class="info-val" id="gain-control">&mdash;</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Audio Channels</span>
+                <span class="info-val" id="channels">&mdash;</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Echo Cancellation</span>
+                <span class="info-val" id="echo-cancellation">&mdash;</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Est. Latency</span>
+                <span class="info-val" id="latency">&mdash;</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Noise Suppression</span>
+                <span class="info-val" id="noise-suppression">&mdash;</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Sample Rate</span>
+                <span class="info-val" id="sample-rate">&mdash;</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Sample Size</span>
+                <span class="info-val" id="sample-size">&mdash;</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Volume</span>
+                <span class="info-val" id="volume">&mdash;</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar ad -->
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body" style="min-height:360px;">
+              <ins class="adsbygoogle"
+                   style="display:block;min-height:360px;"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-slot="6193062550"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
+
+          <!-- Testimonials -->
+          <div class="panel">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-chat-quote-fill"></i>User Testimonials</span></div>
+            <div class="panel-body" id="testimonials-list">
+              <div class="testimonial">
+                <p>"Very good website I love it"</p>
+                <small class="text-muted">&mdash; Bob Smith</small>
+              </div>
+              <div class="testimonial">
+                <p>"I like this site"</p>
+                <small class="text-muted">&mdash; John Doe</small>
+              </div>
+              <div class="testimonial">
+                <p>"Good testing tool"</p>
+                <small class="text-muted">&mdash; Jane Brown</small>
+              </div>
+              <div class="testimonial">
+                <p>"Thank you"</p>
+                <small class="text-muted">&mdash; King S</small>
+              </div>
+              <div class="mt-3">
+                <button class="btn btn-outline btn-sm w-100" id="add-review-btn">
+                  <i class="bi bi-plus-circle me-1"></i>Add Your Review
+                </button>
+              </div>
+              <div class="review-form" id="review-form">
+                <div class="mb-3">
+                  <label class="form-label" for="review-text">Your Review</label>
+                  <textarea class="form-control" id="review-text" placeholder="Share your experience..." rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="reviewer-name">Your Name</label>
+                  <input class="form-control" id="reviewer-name" placeholder="John Doe" type="text">
+                </div>
+                <div class="d-grid">
+                  <button class="btn btn-primary" id="submit-review-btn" type="button">Submit Review</button>
+                  <button class="btn btn-outline" id="cancel-review-btn" type="button">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- How to run -->
+      <div class="content-panel" id="how-to">
+        <h2>Run Your Microphone Test Online: Stats, Steps, and Platform Notes</h2>
+        <p>Ready to <strong>test your microphone online</strong>? The process takes under sixty seconds on any modern device. Click the <em>Test my mic</em> button, grant browser permission when prompted, then speak or make noise. Watch the waveform respond &mdash; if it moves, your microphone is live. Once the test completes, the <strong>microphone information table</strong> populates with a full set of <strong>audio quality</strong> metrics that tell you far more than a simple pass/fail.</p>
+
+        <h3>Step-by-Step: Testing Your Mic and Reading Your Sample Rate</h3>
+        <ol>
+          <li><strong>Click the Test My Mic button.</strong> The tool immediately attempts to <strong>allow browser to use microphone</strong> access via the Web Audio API &mdash; no extra software needed to <strong>test microphone without software</strong> installations.</li>
+          <li><strong>Grant permission.</strong> A browser prompt asks whether to allow <strong>microphone permission browser</strong> access. Click <em>Allow</em>. If you accidentally click <em>Block</em>, see the troubleshooting section below.</li>
+          <li><strong>Speak into your mic.</strong> Say something aloud &mdash; the waveform should animate immediately, confirming that your <strong>microphone captures sound</strong> and is not muted.</li>
+          <li><strong>Review the stats table.</strong> Once testing completes, the <strong>microphone information table</strong> displays all detected parameters. Check your <strong>sample rate</strong> first &mdash; a value of 44,100 Hz or 48,000 Hz indicates standard CD-quality or broadcast-quality audio input.</li>
+          <li><strong>Check playback.</strong> Hit the <em>Play Recording</em> button to hear exactly how you sound. Use this <strong>playback</strong> to judge tone, volume, and whether your <strong>microphone does not distort voice</strong> at your normal speaking level.</li>
+          <li><strong>Download your clip.</strong> If you want a reference recording for your sound configuration, use the audio player download option to save the clip to your device.</li>
+        </ol>
+
+        <h3>Platform-Specific Notes: Windows, macOS, Android, iOS, and More</h3>
+        <p>This tool is designed for broad <strong>microphone compatibility</strong> across operating systems and browsers. Below are the minimum browser versions confirmed to support all required media-device features. The tool uses standard <strong>WebRTC</strong> and the browser's <strong>getUserMedia API</strong> &mdash; no plugins, no Flash, no extensions required.</p>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr><th>Platform</th><th>Browser</th><th>Minimum Version</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Windows 10 / Windows 11</strong></td><td>Chrome, Edge, Firefox, Opera</td><td>Chrome 51 &middot; Edge 12 &middot; Firefox 68 &middot; Opera 60</td></tr>
+              <tr><td><strong>Windows 7</strong></td><td>Chrome, Firefox, Opera, Edge</td><td>Chrome 56 &middot; Firefox 56 &middot; Opera 40 &middot; Edge 87</td></tr>
+              <tr><td><strong>Windows 8 / Windows 8.1</strong></td><td>Chrome, Firefox, Opera</td><td>Chrome 63 &middot; Firefox 74 &middot; Opera 68</td></tr>
+              <tr><td><strong>macOS</strong></td><td>Chrome, Safari, Firefox, Opera</td><td>Chrome 80 &middot; Safari 11.1 &middot; Firefox 76 &middot; Opera 68</td></tr>
+              <tr><td><strong>iOS / iPadOS</strong></td><td>Safari, Chrome, Firefox for iOS</td><td>Safari 12.1 &middot; Chrome 87 &middot; Firefox 112</td></tr>
+              <tr><td><strong>Android</strong></td><td>Chrome, Firefox, Edge, Samsung Browser</td><td>Chrome 50 &middot; Firefox 68 &middot; Edge 45 &middot; Samsung 5.2</td></tr>
+              <tr><td><strong>Linux / Ubuntu</strong></td><td>Firefox, Chrome, Chromium, Opera</td><td>Firefox 38 &middot; Chrome 60 &middot; Chromium 65 &middot; Opera 71</td></tr>
+              <tr><td><strong>Chrome OS</strong></td><td>Chrome</td><td>Chrome 58</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Reading Your Microphone Stats: Latency, Channels, and Playback Quality</h3>
+        <p>After a successful test, the <strong>microphone information table</strong> reveals a set of measurements. Understanding each one helps you diagnose sound clarity issues and decide whether your current mic suits your intended use case &mdash; be it <strong>online meetings</strong>, music production, or broadcast content delivery.</p>
+        <dl class="mic-stats">
+          <dt>Microphone Name</dt>
+          <dd>The system label for the active input device. Confirms the correct mic is selected, especially important when multiple inputs are connected.</dd>
+          <dt>Sample Rate</dt>
+          <dd>Expressed in Hz. The <strong>sample rate</strong> determines how many audio samples are captured per second. 44,100 Hz is CD quality; 48,000 Hz is standard for video production. Higher rates support better frequency reproduction.</dd>
+          <dt>Sample Size</dt>
+          <dd>Bit depth per sample (commonly 16-bit or 32-bit). Greater bit depth means more dynamic range and less quantisation noise in your <strong>recording</strong>.</dd>
+          <dt>Estimated Latency</dt>
+          <dd>The <strong>estimated microphone latency</strong> measures the delay (in milliseconds) between sound entering the mic and reaching the browser. Lower latency is critical for real-time remote calls and live performance. Values under 20 ms are generally imperceptible.</dd>
+          <dt>Number of Audio Channels</dt>
+          <dd>The <strong>number of audio channels detected</strong> indicates mono (1) or stereo (2) input. Most speech microphones are mono; stereo mics capture directional ambience useful in music or spatial audio production.</dd>
+          <dt>Echo Cancellation</dt>
+          <dd>Reports whether the browser and hardware support <strong>echo cancellation</strong>. When enabled, it suppresses acoustic feedback caused by speaker output re-entering the mic &mdash; essential for open-speaker <strong>video conferencing</strong>.</dd>
+          <dt>Noise Suppression</dt>
+          <dd>Indicates whether the browser applies algorithmic filtering to reduce steady-state <strong>background noise</strong> such as fans, air conditioning, or keyboard clicks.</dd>
+          <dt>Automatic Gain Control</dt>
+          <dd>When active, the browser dynamically adjusts microphone input gain to maintain consistent volume levels &mdash; helpful for casual calls but potentially undesirable in audio recording or music production where you want raw levels.</dd>
+          <dt>Volume</dt>
+          <dd>A real-time reading of input amplitude. This confirms whether your mic is picking up signal at a usable level without clipping.</dd>
+          <dt>Quality Rating</dt>
+          <dd>A composite score derived from the measurements above. Use it as a quick indicator of overall <strong>audio quality</strong> &mdash; and as a basis for a <strong>microphone rating and review</strong> if you want to share results with the community.</dd>
+        </dl>
+
+        <h3>Tips for an Accurate Microphone Test and Better Recording Results</h3>
+        <ul>
+          <li><strong>Use headphones</strong> during the test to prevent speaker output from causing feedback and skewing your noise suppression readings.</li>
+          <li><strong>Close other audio apps</strong> &mdash; Zoom, Discord, Teams, and DAWs can all claim exclusive microphone access, leaving the tester unable to <strong>allow microphone access</strong> to the stream.</li>
+          <li><strong>Test at speaking distance</strong> &mdash; position the mic as you would during a real call or <strong>recording</strong> session, typically 15&ndash;30 cm from your mouth.</li>
+          <li><strong>Run multiple tests</strong> in sequence using the <strong>playback</strong> feature to <strong>record audio clips in browser</strong> and compare takes side by side.</li>
+          <li>Enable only one microphone at a time for the most accurate stats &mdash; multiple active inputs can interfere with channel detection and the <strong>latency</strong> reading.</li>
+          <li>For a cordless or Bluetooth mic, ensure your connection is stable before testing, as packet loss degrades the waveform response.</li>
+        </ul>
+      </div>
+
+      <!-- Common problems -->
+      <div class="content-panel">
+        <h2>Why Your Microphone Isn&#8217;t Working &#8212; Online Mic Test Troubleshooting Guide</h2>
+        <p>If the waveform stays flat after you start the <strong>online mic test</strong>, one of a handful of common issues is almost always responsible. The good news: most are fixable in under two minutes with the right steps. This <strong>microphone troubleshooting</strong> guide covers every layer &mdash; from browser permissions to OS-level settings &mdash; so you can <strong>check if microphone is working properly</strong> without installing anything extra.</p>
+
+        <h3>Common Reasons Your Microphone Fails &#8212; Including When It&#8217;s Being Used by Another Application</h3>
+        <ul>
+          <li><strong>Microphone permission denied:</strong> The most frequent cause. If you clicked <em>Block</em> at the browser prompt, the browser stores that decision and continues to refuse access. The mic will appear silent, producing <strong>microphone not outputting audio</strong> behaviour even though the hardware is fine.</li>
+          <li><strong>Microphone being used by another application:</strong> Zoom, Google Meet, Skype, Discord, OBS, or any DAW may hold an exclusive lock on the audio device. Close all audio applications, then retest.</li>
+          <li><strong>Wrong input device selected:</strong> If your system has both a built-in mic and an external one, the browser may default to the wrong source. Use the device selector within the tool to switch inputs.</li>
+          <li><strong>Driver issues:</strong> Outdated, corrupted, or missing audio drivers prevent the OS from exposing the mic to the browser. Update via Device Manager on <strong>Windows</strong> or check your manufacturer&#8217;s support page.</li>
+          <li><strong>OS privacy settings blocking mic:</strong> Modern operating systems restrict app-level microphone access independently of the browser. Both <strong>Windows 10</strong> / <strong>Windows 11</strong> and <strong>macOS</strong> have dedicated privacy toggles that must be enabled.</li>
+          <li><strong>Microphone not working</strong> after a system update: OS updates occasionally reset audio driver state or revoke previously granted privacy permissions. Re-grant them manually after updating.</li>
+          <li><strong>Hardware fault:</strong> If the mic is silent on every device and every browser, the hardware itself may be defective. Plug it into a second computer to confirm before assuming a software problem.</li>
+        </ul>
+
+        <h3>How to Change Microphone Settings in Your Browser &#8212; Fixing Microphone Permission Denied</h3>
+        <details class="panel" open>
+          <summary><strong>Google Chrome</strong> (Windows, macOS, Linux, Chrome OS)</summary>
+          <ol>
+            <li>Click the <strong>lock icon</strong> (or camera/mic icon) in the address bar to the left of the URL.</li>
+            <li>Set <em>Microphone</em> to <strong>Allow</strong>.</li>
+            <li>Reload the page. The browser will re-request <strong>microphone permission browser</strong> access and the test will start normally.</li>
+          </ol>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Mozilla Firefox</strong> (Windows, macOS, Linux, Ubuntu)</summary>
+          <ol>
+            <li>Click the <strong>shield or lock icon</strong> in the address bar.</li>
+            <li>Find <em>Blocked Temporarily</em> or <em>Permissions</em> and remove the microphone block.</li>
+            <li>Alternatively, go to <em>Settings &rarr; Privacy &amp; Security &rarr; Permissions &rarr; Microphone</em> and remove the site from the blocked list.</li>
+            <li>Reload to trigger a fresh permission request.</li>
+          </ol>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Microsoft Edge</strong> (Windows 10, Windows 11)</summary>
+          <ol>
+            <li>Click the <strong>lock icon</strong> in the address bar.</li>
+            <li>Select <em>Permissions for this site</em>.</li>
+            <li>Set <em>Microphone</em> to <strong>Allow</strong> and reload the page.</li>
+          </ol>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Safari</strong> (macOS, iOS, iPadOS)</summary>
+          <ol>
+            <li>On <strong>macOS</strong>: Go to <em>Safari &rarr; Settings for This Website</em> and set <em>Microphone</em> to <em>Allow</em>.</li>
+            <li>On <strong>iOS</strong> / <strong>iPadOS</strong>: Open <em>Settings &rarr; Safari &rarr; Microphone</em> and enable access for the site.</li>
+          </ol>
+        </details>
+        <details class="panel" open>
+          <summary><strong>OS-Level Fix: Windows</strong> Sound Settings &amp; Privacy</summary>
+          <ol>
+            <li>Open <em>Settings &rarr; System &rarr; Sound &rarr; Input</em> and confirm the correct device is listed.</li>
+            <li>Open <em>Settings &rarr; Privacy &rarr; Microphone</em> and ensure <em>Allow apps to access your microphone</em> is toggled <strong>On</strong>, and that your browser is individually permitted.</li>
+          </ol>
+        </details>
+        <details class="panel" open>
+          <summary><strong>OS-Level Fix: macOS</strong> Microphone Privacy</summary>
+          <ol>
+            <li>Go to <em>System Settings &rarr; Privacy &amp; Security &rarr; Microphone</em>.</li>
+            <li>Enable the toggle next to your browser (Chrome, Firefox, Safari, or Edge).</li>
+            <li>If the mic is still unresponsive after granting permission, restart the Core Audio daemon via Terminal: <code>sudo killall coreaudiod</code></li>
+          </ol>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Android</strong> Microphone Fix</summary>
+          <ol>
+            <li>Open <em>Settings &rarr; Apps &rarr; [Your Browser] &rarr; Permissions &rarr; Microphone</em> and set to <strong>Allow</strong>.</li>
+            <li>Return to the browser, reload the page, and <strong>allow microphone access</strong> when prompted again.</li>
+          </ol>
+        </details>
+
+        <h3>Fixing Echo During a Recording and Preventing Feedback</h3>
+        <p>Echo during a <strong>recording</strong> session or call is almost always caused by speaker output looping back into the microphone. The <strong>microphone information table</strong> will flag whether <strong>echo cancellation</strong> is active &mdash; if it shows <em>Unsupported</em> or <em>Disabled</em>, use these fixes:</p>
+        <ul>
+          <li><strong>Switch to headphones.</strong> Headphones are the single most effective way to eliminate echo in any <strong>digital communication</strong> scenario.</li>
+          <li><strong>Lower speaker volume</strong> so the mic cannot pick up playback audio from across the room.</li>
+          <li><strong>Enable echo cancellation in browser settings</strong> where supported &mdash; Chromium-based browsers offer this as a constraint on the <code>getUserMedia</code> call.</li>
+          <li><strong>Position the mic closer to your mouth</strong> and reduce gain so that distant room reflections fall below the noise floor.</li>
+          <li>For persistent echo in <strong>online meetings</strong>, ask other participants to mute when not speaking &mdash; remote echo can originate from their end rather than yours.</li>
+        </ul>
+      </div>
+
+      <!-- Ad bottom -->
+      <div class="ad-panel">
+        <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+        <div class="ad-panel-body">
           <ins class="adsbygoogle"
-               style="display:block;min-height:360px;"
+               style="display:block"
                data-ad-client="ca-pub-5426315045205785"
-               data-ad-slot="6193062550"
+               data-ad-slot="9146528954"
                data-ad-format="auto"
                data-full-width-responsive="true"></ins>
           <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
       </div>
 
-      <!-- Testimonials -->
-      <div class="card">
-        <div class="card-header bg-primary text-white">
-          <i class="bi bi-chat-quote-fill me-2"></i>User Testimonials
+      <!-- FAQ -->
+      <div class="content-panel" id="faq">
+        <h2>Frequently Asked Questions About the Microphone Tester and How to Test Your Microphone</h2>
+        <details class="panel" open>
+          <summary><strong>Is this mic test tool free and does it require any installation?</strong></summary>
+          <p>Yes &mdash; this is a completely free <strong>online microphone test</strong> that runs entirely in your browser. There is nothing to <strong>download</strong>, install, or configure. It is a true <strong>test microphone without software</strong> solution that works on any modern browser across <strong>Windows</strong>, <strong>macOS</strong>, <strong>Android</strong>, <strong>iOS</strong>, <strong>Linux</strong>, and <strong>Chrome OS</strong>.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Is my audio private? Are recordings stored on your servers?</strong></summary>
+          <p>Your <strong>privacy is safe</strong>. All audio processing happens locally in your browser. The tool never uploads your voice or recordings to any external server. If you choose to <strong>record your voice</strong> and then close the page without saving, the clip is permanently discarded from device memory &mdash; ideal for corporate calls and confidential <strong>digital communication</strong>.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Why does the waveform show no movement even though my mic is connected?</strong></summary>
+          <p>The most common causes are <strong>microphone permission denied</strong> in your browser, or the device being held by another application. Check that you clicked <em>Allow</em> when prompted. If you missed the prompt, use the browser address-bar icon to manually grant access. Also confirm that Zoom, Teams, Discord, or any recording software is fully closed &mdash; a <strong>microphone being used by another application</strong> will block this tool from accessing the stream.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>What does the Quality Rating mean in the microphone stats table?</strong></summary>
+          <p>The <strong>Quality Rating</strong> is a composite score based on the <strong>sample rate</strong>, bit depth, <strong>latency</strong>, and detected channel count. It gives you a quick snapshot for a <strong>microphone rating and review</strong> &mdash; useful when comparing two mics side by side. A higher rating generally means better fidelity for audio production, live broadcasting, and professional recording applications.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Does this tool work with USB microphones and wireless microphones?</strong></summary>
+          <p>Yes. This tool is compatible with any input your OS exposes to the browser &mdash; including a <strong>USB microphone</strong> (class-compliant devices work plug-and-play), a <strong>wireless microphone</strong> paired via Bluetooth or a USB dongle, a 3.5 mm headset mic, an XLR mic routed through a USB audio interface, and built-in laptop or webcam microphones. <strong>Microphone compatibility</strong> depends on your OS and browser combination &mdash; see the platform table above for specifics.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Can I record and download clips with this mic tester?</strong></summary>
+          <p>Yes. The built-in recording feature lets you <strong>record audio clips in browser</strong> without any third-party software. Once captured, use the <strong>playback</strong> control to review the clip, then save it locally. This is particularly useful for checking how you sound before important video calls, or for quick quality checks when configuring a new input device for live-streaming sessions.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>What is a good sample rate for calls and podcasting?</strong></summary>
+          <p>For general communication and remote meetings, a <strong>sample rate</strong> of 44,100 Hz (44.1 kHz) is more than sufficient. For audio broadcasting and broadcast-standard production, 48,000 Hz is the professional norm. The stats table in this <strong>mic check</strong> tool reports the rate your browser and hardware negotiate &mdash; if it falls below 22,050 Hz, you may notice reduced clarity, especially in high-frequency speech sounds like sibilants.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>How is this different from the built-in mic check in Zoom or Teams?</strong></summary>
+          <p>Built-in mic checks in Zoom and Teams only confirm your mic produces audio within their app. The <strong>online mic test</strong> here gives you more: a real-time <strong>audio waveform</strong>, full technical specs (sample rate, latency, <strong>echo cancellation</strong>, <strong>noise suppression</strong>, channels), a <strong>quality rating</strong>, and access to related tools like the sound level meter and echo test &mdash; all in one place, without opening a meeting.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Why is my microphone not working on Windows XP or very old browsers?</strong></summary>
+          <p>The Web Audio API and <code>getUserMedia</code> are not supported on legacy systems like <strong>Windows XP</strong> or Internet Explorer. This <strong>online tool</strong> requires a modern browser &mdash; the minimum versions are listed in the compatibility table above. If you are on an older system, consider upgrading to a supported browser or checking your microphone status via your operating system&#8217;s native sound recorder application.</p>
+        </details>
+      </div>
+
+    </div>
+
+    <!-- Comments -->
+    <section class="comments-panel">
+      <div class="max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="max-w-[760px] mx-auto">
+          <h3 class="flex items-center gap-2 mb-4"><i class="bi bi-chat-dots" style="color:var(--amber)"></i>Comments &amp; Feedback</h3>
+          <script defer src="https://comments.tickspike.com/comentario.js"></script>
+          <comentario-comments theme="light"></comentario-comments>
         </div>
-        <div class="card-body" style="padding:.9rem 1rem;">
-          <div class="testimonial">
-            <p>"Very good website I love it"</p>
-            <small class="text-muted">— Bob Smith</small>
-          </div>
-          <div class="testimonial">
-            <p>"I like this site"</p>
-            <small class="text-muted">— John Doe</small>
-          </div>
-          <div class="testimonial">
-            <p>"Good testing tool"</p>
-            <small class="text-muted">— Jane Brown</small>
-          </div>
-          <div class="testimonial">
-            <p>"Thank you"</p>
-            <small class="text-muted">— King S</small>
-          </div>
-          <div class="mt-3">
-            <button class="btn btn-sm btn-outline-primary w-100" id="add-review-btn">
-              <i class="bi bi-plus-circle me-1"></i>Add Your Review
-            </button>
-          </div>
-          <div class="review-form" id="review-form">
-            <div class="mb-3">
-              <label class="form-label" for="review-text">Your Review</label>
-              <textarea class="form-control" id="review-text" placeholder="Share your experience..." rows="3"></textarea>
+      </div>
+    </section>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var comentarioEl = document.querySelector('comentario-comments');
+        if (!comentarioEl) return;
+        comentarioEl.addEventListener('keydown', function(e) { e.stopPropagation(); }, true);
+        comentarioEl.addEventListener('keyup', function(e) { e.stopPropagation(); }, true);
+        comentarioEl.addEventListener('keypress', function(e) { e.stopPropagation(); }, true);
+      }, 2000);
+    });
+    </script>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-6">
+          <div class="lg:col-span-1 sm:col-span-2">
+            <div class="footer-brand">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+                <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+                <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M12 18v3M9 21h6" stroke-width="1.7" stroke-linecap="round"/>
+              </svg>
+              MicTest
             </div>
-            <div class="mb-3">
-              <label class="form-label" for="reviewer-name">Your Name</label>
-              <input class="form-control" id="reviewer-name" placeholder="John Doe" type="text">
-            </div>
-            <div class="d-grid gap-2">
-              <button class="btn btn-primary" id="submit-review-btn" type="button">Submit Review</button>
-              <button class="btn btn-outline-secondary" id="cancel-review-btn" type="button">Cancel</button>
-            </div>
+            <p class="footer-desc">Free online microphone and audio testing tools. Test your microphone, speakers, and audio devices directly in your browser without any downloads.</p>
+          </div>
+          <div>
+            <span class="footer-col-heading">Mic Tools</span>
+            <ul class="footer-links">
+              <li><a href="/" title="Free Online Microphone Test">Microphone Test</a></li>
+              <li><a href="/show-mic" title="View Microphone Details">Show My Mic</a></li>
+              <li><a href="/mic-recorder" title="Record Your Voice">Mic Recorder</a></li>
+              <li><a href="/sound-level-meter" title="Measure Decibel Levels">Sound Level Meter</a></li>
+              <li><a href="/echo-test" title="Test for Echo Issues">Echo Test</a></li>
+              <li><a href="/background-noise-analyzer" title="Analyze Background Noise">Noise Analyzer</a></li>
+              <li><a href="/voice-frequency-analyzer" title="Analyze Voice Frequencies">Frequency Analyzer</a></li>
+              <li><a href="/audio-latency-test" title="Measure Audio Latency">Latency Test</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="footer-col-heading">Speaker Tools</span>
+            <ul class="footer-links">
+              <li><a href="/show-speakers" title="View Speaker Details">Show My Speakers</a></li>
+              <li><a href="/tone-generator" title="Generate Test Tones">Tone Generator</a></li>
+              <li><a href="/stereo-test" title="Test Left Right Channels">Stereo Test</a></li>
+              <li><a href="/bass-test" title="Test Low Frequencies">Bass Test</a></li>
+              <li><a href="/speaker-volume-test" title="Calibrate Volume">Speaker Volume Test</a></li>
+            </ul>
+            <span class="footer-col-heading" style="margin-top:1rem;display:block">Headphones &amp; Hearing</span>
+            <ul class="footer-links">
+              <li><a href="/headphone-test" title="Test Your Headphones">Headphone Test</a></li>
+              <li><a href="/hearing-test" title="Online Hearing Test">Hearing Test</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="footer-col-heading">Resources</span>
+            <ul class="footer-links">
+              <li><a href="/troubleshooting" title="Fix Audio Problems">Troubleshooting Guide</a></li>
+              <li><a href="/about" title="About MicTest">About MicTest</a></li>
+              <li><a href="/contact" title="Contact Us">Contact</a></li>
+              <li><a href="/sitemap" title="Site Map">Sitemap</a></li>
+            </ul>
           </div>
         </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- How to run -->
-  <div class="card mt-4" id="how-to">
-    <div class="card-body content-section">
-      <h2>Run Your Microphone Test Online: Stats, Steps, and Platform Notes</h2>
-      <p>Ready to <strong>test your microphone online</strong>? The process takes under sixty seconds on any modern device. Click the <em>Test my mic</em> button, grant browser permission when prompted, then speak or make noise. Watch the waveform respond — if it moves, your microphone is live. Once the test completes, the <strong>microphone information table</strong> populates with a full set of <strong>audio quality</strong> metrics that tell you far more than a simple pass/fail.</p>
-
-      <h3>Step-by-Step: Testing Your Mic and Reading Your Sample Rate</h3>
-      <ol>
-        <li><strong>Click the Test My Mic button.</strong> The tool immediately attempts to <strong>allow browser to use microphone</strong> access via the Web Audio API — no extra software needed to <strong>test microphone without software</strong> installations.</li>
-        <li><strong>Grant permission.</strong> A browser prompt asks whether to allow <strong>microphone permission browser</strong> access. Click <em>Allow</em>. If you accidentally click <em>Block</em>, see the troubleshooting section below.</li>
-        <li><strong>Speak into your mic.</strong> Say something aloud — the waveform should animate immediately, confirming that your <strong>microphone captures sound</strong> and is not muted.</li>
-        <li><strong>Review the stats table.</strong> Once testing completes, the <strong>microphone information table</strong> displays all detected parameters. Check your <strong>sample rate</strong> first — a value of 44,100 Hz or 48,000 Hz indicates standard CD-quality or broadcast-quality audio input.</li>
-        <li><strong>Check playback.</strong> Hit the <em>Play Recording</em> button to hear exactly how you sound. Use this <strong>playback</strong> to judge tone, volume, and whether your <strong>microphone does not distort voice</strong> at your normal speaking level.</li>
-        <li><strong>Download your clip.</strong> If you want a reference recording for your sound configuration, use the audio player download option to save the clip to your device.</li>
-      </ol>
-
-      <h3>Platform-Specific Notes: Windows, macOS, Android, iOS, and More</h3>
-      <p>This tool is designed for broad <strong>microphone compatibility</strong> across operating systems and browsers. Below are the minimum browser versions confirmed to support all required media-device features. The tool uses standard <strong>WebRTC</strong> and the browser's <strong>getUserMedia API</strong> — no plugins, no Flash, no extensions required.</p>
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped compat-table">
-          <thead class="table-primary">
-            <tr><th>Platform</th><th>Browser</th><th>Minimum Version</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><strong>Windows 10 / Windows 11</strong></td><td>Chrome, Edge, Firefox, Opera</td><td>Chrome 51 &middot; Edge 12 &middot; Firefox 68 &middot; Opera 60</td></tr>
-            <tr><td><strong>Windows 7</strong></td><td>Chrome, Firefox, Opera, Edge</td><td>Chrome 56 &middot; Firefox 56 &middot; Opera 40 &middot; Edge 87</td></tr>
-            <tr><td><strong>Windows 8 / Windows 8.1</strong></td><td>Chrome, Firefox, Opera</td><td>Chrome 63 &middot; Firefox 74 &middot; Opera 68</td></tr>
-            <tr><td><strong>macOS</strong></td><td>Chrome, Safari, Firefox, Opera</td><td>Chrome 80 &middot; Safari 11.1 &middot; Firefox 76 &middot; Opera 68</td></tr>
-            <tr><td><strong>iOS / iPadOS</strong></td><td>Safari, Chrome, Firefox for iOS</td><td>Safari 12.1 &middot; Chrome 87 &middot; Firefox 112</td></tr>
-            <tr><td><strong>Android</strong></td><td>Chrome, Firefox, Edge, Samsung Browser</td><td>Chrome 50 &middot; Firefox 68 &middot; Edge 45 &middot; Samsung 5.2</td></tr>
-            <tr><td><strong>Linux / Ubuntu</strong></td><td>Firefox, Chrome, Chromium, Opera</td><td>Firefox 38 &middot; Chrome 60 &middot; Chromium 65 &middot; Opera 71</td></tr>
-            <tr><td><strong>Chrome OS</strong></td><td>Chrome</td><td>Chrome 58</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>Reading Your Microphone Stats: Latency, Channels, and Playback Quality</h3>
-      <p>After a successful test, the <strong>microphone information table</strong> reveals a set of measurements. Understanding each one helps you diagnose sound clarity issues and decide whether your current mic suits your intended use case — be it <strong>online meetings</strong>, music production, or broadcast content delivery.</p>
-      <dl class="mic-stats">
-        <dt>Microphone Name</dt>
-        <dd>The system label for the active input device. Confirms the correct mic is selected, especially important when multiple inputs are connected.</dd>
-        <dt>Sample Rate</dt>
-        <dd>Expressed in Hz. The <strong>sample rate</strong> determines how many audio samples are captured per second. 44,100 Hz is CD quality; 48,000 Hz is standard for video production. Higher rates support better frequency reproduction.</dd>
-        <dt>Sample Size</dt>
-        <dd>Bit depth per sample (commonly 16-bit or 32-bit). Greater bit depth means more dynamic range and less quantisation noise in your <strong>recording</strong>.</dd>
-        <dt>Estimated Latency</dt>
-        <dd>The <strong>estimated microphone latency</strong> measures the delay (in milliseconds) between sound entering the mic and reaching the browser. Lower latency is critical for real-time remote calls and live performance. Values under 20 ms are generally imperceptible.</dd>
-        <dt>Number of Audio Channels</dt>
-        <dd>The <strong>number of audio channels detected</strong> indicates mono (1) or stereo (2) input. Most speech microphones are mono; stereo mics capture directional ambience useful in music or spatial audio production.</dd>
-        <dt>Echo Cancellation</dt>
-        <dd>Reports whether the browser and hardware support <strong>echo cancellation</strong>. When enabled, it suppresses acoustic feedback caused by speaker output re-entering the mic — essential for open-speaker <strong>video conferencing</strong>.</dd>
-        <dt>Noise Suppression</dt>
-        <dd>Indicates whether the browser applies algorithmic filtering to reduce steady-state <strong>background noise</strong> such as fans, air conditioning, or keyboard clicks.</dd>
-        <dt>Automatic Gain Control</dt>
-        <dd>When active, the browser dynamically adjusts microphone input gain to maintain consistent volume levels — helpful for casual calls but potentially undesirable in audio recording or music production where you want raw levels.</dd>
-        <dt>Volume</dt>
-        <dd>A real-time reading of input amplitude. This confirms whether your mic is picking up signal at a usable level without clipping.</dd>
-        <dt>Quality Rating</dt>
-        <dd>A composite score derived from the measurements above. Use it as a quick indicator of overall <strong>audio quality</strong> — and as a basis for a <strong>microphone rating and review</strong> if you want to share results with the community.</dd>
-      </dl>
-
-      <h3>Tips for an Accurate Microphone Test and Better Recording Results</h3>
-      <ul>
-        <li><strong>Use headphones</strong> during the test to prevent speaker output from causing feedback and skewing your noise suppression readings.</li>
-        <li><strong>Close other audio apps</strong> — Zoom, Discord, Teams, and DAWs can all claim exclusive microphone access, leaving the tester unable to <strong>allow microphone access</strong> to the stream.</li>
-        <li><strong>Test at speaking distance</strong> — position the mic as you would during a real call or <strong>recording</strong> session, typically 15–30 cm from your mouth.</li>
-        <li><strong>Run multiple tests</strong> in sequence using the <strong>playback</strong> feature to <strong>record audio clips in browser</strong> and compare takes side by side.</li>
-        <li>Enable only one microphone at a time for the most accurate stats — multiple active inputs can interfere with channel detection and the <strong>latency</strong> reading.</li>
-        <li>For a cordless or Bluetooth mic, ensure your connection is stable before testing, as packet loss degrades the waveform response.</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Common problems -->
-  <div class="card mt-4">
-    <div class="card-body content-section">
-      <h2>Why Your Microphone Isn&#8217;t Working &#8212; Online Mic Test Troubleshooting Guide</h2>
-      <p>If the waveform stays flat after you start the <strong>online mic test</strong>, one of a handful of common issues is almost always responsible. The good news: most are fixable in under two minutes with the right steps. This <strong>microphone troubleshooting</strong> guide covers every layer — from browser permissions to OS-level settings — so you can <strong>check if microphone is working properly</strong> without installing anything extra.</p>
-
-      <h3>Common Reasons Your Microphone Fails &#8212; Including When It&#8217;s Being Used by Another Application</h3>
-      <ul>
-        <li><strong>Microphone permission denied:</strong> The most frequent cause. If you clicked <em>Block</em> at the browser prompt, the browser stores that decision and continues to refuse access. The mic will appear silent, producing <strong>microphone not outputting audio</strong> behaviour even though the hardware is fine.</li>
-        <li><strong>Microphone being used by another application:</strong> Zoom, Google Meet, Skype, Discord, OBS, or any DAW may hold an exclusive lock on the audio device. Close all audio applications, then retest.</li>
-        <li><strong>Wrong input device selected:</strong> If your system has both a built-in mic and an external one, the browser may default to the wrong source. Use the device selector within the tool to switch inputs.</li>
-        <li><strong>Driver issues:</strong> Outdated, corrupted, or missing audio drivers prevent the OS from exposing the mic to the browser. Update via Device Manager on <strong>Windows</strong> or check your manufacturer&#8217;s support page.</li>
-        <li><strong>OS privacy settings blocking mic:</strong> Modern operating systems restrict app-level microphone access independently of the browser. Both <strong>Windows 10</strong> / <strong>Windows 11</strong> and <strong>macOS</strong> have dedicated privacy toggles that must be enabled.</li>
-        <li><strong>Microphone not working</strong> after a system update: OS updates occasionally reset audio driver state or revoke previously granted privacy permissions. Re-grant them manually after updating.</li>
-        <li><strong>Hardware fault:</strong> If the mic is silent on every device and every browser, the hardware itself may be defective. Plug it into a second computer to confirm before assuming a software problem.</li>
-      </ul>
-
-      <h3>How to Change Microphone Settings in Your Browser &#8212; Fixing Microphone Permission Denied</h3>
-      <details class="panel" open>
-        <summary><strong>Google Chrome</strong> (Windows, macOS, Linux, Chrome OS)</summary>
-        <ol>
-          <li>Click the <strong>lock icon</strong> (or camera/mic icon) in the address bar to the left of the URL.</li>
-          <li>Set <em>Microphone</em> to <strong>Allow</strong>.</li>
-          <li>Reload the page. The browser will re-request <strong>microphone permission browser</strong> access and the test will start normally.</li>
-        </ol>
-      </details>
-      <details class="panel" open>
-        <summary><strong>Mozilla Firefox</strong> (Windows, macOS, Linux, Ubuntu)</summary>
-        <ol>
-          <li>Click the <strong>shield or lock icon</strong> in the address bar.</li>
-          <li>Find <em>Blocked Temporarily</em> or <em>Permissions</em> and remove the microphone block.</li>
-          <li>Alternatively, go to <em>Settings &rarr; Privacy &amp; Security &rarr; Permissions &rarr; Microphone</em> and remove the site from the blocked list.</li>
-          <li>Reload to trigger a fresh permission request.</li>
-        </ol>
-      </details>
-      <details class="panel" open>
-        <summary><strong>Microsoft Edge</strong> (Windows 10, Windows 11)</summary>
-        <ol>
-          <li>Click the <strong>lock icon</strong> in the address bar.</li>
-          <li>Select <em>Permissions for this site</em>.</li>
-          <li>Set <em>Microphone</em> to <strong>Allow</strong> and reload the page.</li>
-        </ol>
-      </details>
-      <details class="panel" open>
-        <summary><strong>Safari</strong> (macOS, iOS, iPadOS)</summary>
-        <ol>
-          <li>On <strong>macOS</strong>: Go to <em>Safari &rarr; Settings for This Website</em> and set <em>Microphone</em> to <em>Allow</em>.</li>
-          <li>On <strong>iOS</strong> / <strong>iPadOS</strong>: Open <em>Settings &rarr; Safari &rarr; Microphone</em> and enable access for the site.</li>
-        </ol>
-      </details>
-      <details class="panel" open>
-        <summary><strong>OS-Level Fix: Windows</strong> Sound Settings &amp; Privacy</summary>
-        <ol>
-          <li>Open <em>Settings &rarr; System &rarr; Sound &rarr; Input</em> and confirm the correct device is listed.</li>
-          <li>Open <em>Settings &rarr; Privacy &rarr; Microphone</em> and ensure <em>Allow apps to access your microphone</em> is toggled <strong>On</strong>, and that your browser is individually permitted.</li>
-        </ol>
-      </details>
-      <details class="panel" open>
-        <summary><strong>OS-Level Fix: macOS</strong> Microphone Privacy</summary>
-        <ol>
-          <li>Go to <em>System Settings &rarr; Privacy &amp; Security &rarr; Microphone</em>.</li>
-          <li>Enable the toggle next to your browser (Chrome, Firefox, Safari, or Edge).</li>
-          <li>If the mic is still unresponsive after granting permission, restart the Core Audio daemon via Terminal: <code>sudo killall coreaudiod</code></li>
-        </ol>
-      </details>
-      <details class="panel" open>
-        <summary><strong>Android</strong> Microphone Fix</summary>
-        <ol>
-          <li>Open <em>Settings &rarr; Apps &rarr; [Your Browser] &rarr; Permissions &rarr; Microphone</em> and set to <strong>Allow</strong>.</li>
-          <li>Return to the browser, reload the page, and <strong>allow microphone access</strong> when prompted again.</li>
-        </ol>
-      </details>
-
-      <h3>Fixing Echo During a Recording and Preventing Feedback</h3>
-      <p>Echo during a <strong>recording</strong> session or call is almost always caused by speaker output looping back into the microphone. The <strong>microphone information table</strong> will flag whether <strong>echo cancellation</strong> is active — if it shows <em>Unsupported</em> or <em>Disabled</em>, use these fixes:</p>
-      <ul>
-        <li><strong>Switch to headphones.</strong> Headphones are the single most effective way to eliminate echo in any <strong>digital communication</strong> scenario.</li>
-        <li><strong>Lower speaker volume</strong> so the mic cannot pick up playback audio from across the room.</li>
-        <li><strong>Enable echo cancellation in browser settings</strong> where supported — Chromium-based browsers offer this as a constraint on the <code>getUserMedia</code> call.</li>
-        <li><strong>Position the mic closer to your mouth</strong> and reduce gain so that distant room reflections fall below the noise floor.</li>
-        <li>For persistent echo in <strong>online meetings</strong>, ask other participants to mute when not speaking — remote echo can originate from their end rather than yours.</li>
-      </ul>
-    </div>
-  </div>
-
-    <!-- Ad bottom -->
-  <div class="card mt-4 mb-4">
-    <div class="card-header bg-light">
-      <i class="bi bi-megaphone me-2"></i>Advertisement
-    </div>
-    <div class="card-body text-center">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-5426315045205785"
-           data-ad-slot="9146528954"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>
-  </div>
-
-  <!-- FAQ -->
-  <div class="card mt-4" id="faq">
-    <div class="card-body">
-      <h2>Frequently Asked Questions About the Microphone Tester and How to Test Your Microphone</h2>
-      <details class="panel" open>
-        <summary><strong>Is this mic test tool free and does it require any installation?</strong></summary>
-        <p>Yes — this is a completely free <strong>online microphone test</strong> that runs entirely in your browser. There is nothing to <strong>download</strong>, install, or configure. It is a true <strong>test microphone without software</strong> solution that works on any modern browser across <strong>Windows</strong>, <strong>macOS</strong>, <strong>Android</strong>, <strong>iOS</strong>, <strong>Linux</strong>, and <strong>Chrome OS</strong>.</p>
-      </details>
-      <details class="panel" open>
-        <summary><strong>Is my audio private? Are recordings stored on your servers?</strong></summary>
-        <p>Your <strong>privacy is safe</strong>. All audio processing happens locally in your browser. The tool never uploads your voice or recordings to any external server. If you choose to <strong>record your voice</strong> and then close the page without saving, the clip is permanently discarded from device memory — ideal for corporate calls and confidential <strong>digital communication</strong>.</p>
-      </details>
-      <details class="panel" open>
-        <summary><strong>Why does the waveform show no movement even though my mic is connected?</strong></summary>
-        <p>The most common causes are <strong>microphone permission denied</strong> in your browser, or the device being held by another application. Check that you clicked <em>Allow</em> when prompted. If you missed the prompt, use the browser address-bar icon to manually grant access. Also confirm that Zoom, Teams, Discord, or any recording software is fully closed — a <strong>microphone being used by another application</strong> will block this tool from accessing the stream.</p>
-      </details>
-      <details class="panel" open>
-        <summary><strong>What does the Quality Rating mean in the microphone stats table?</strong></summary>
-        <p>The <strong>Quality Rating</strong> is a composite score based on the <strong>sample rate</strong>, bit depth, <strong>latency</strong>, and detected channel count. It gives you a quick snapshot for a <strong>microphone rating and review</strong> — useful when comparing two mics side by side. A higher rating generally means better fidelity for audio production, live broadcasting, and professional recording applications.</p>
-      </details>
-      <details class="panel" open>
-        <summary><strong>Does this tool work with USB microphones and wireless microphones?</strong></summary>
-        <p>Yes. This tool is compatible with any input your OS exposes to the browser — including a <strong>USB microphone</strong> (class-compliant devices work plug-and-play), a <strong>wireless microphone</strong> paired via Bluetooth or a USB dongle, a 3.5 mm headset mic, an XLR mic routed through a USB audio interface, and built-in laptop or webcam microphones. <strong>Microphone compatibility</strong> depends on your OS and browser combination — see the platform table above for specifics.</p>
-      </details>
-      <details class="panel" open>
-        <summary><strong>Can I record and download clips with this mic tester?</strong></summary>
-        <p>Yes. The built-in recording feature lets you <strong>record audio clips in browser</strong> without any third-party software. Once captured, use the <strong>playback</strong> control to review the clip, then save it locally. This is particularly useful for checking how you sound before important video calls, or for quick quality checks when configuring a new input device for live-streaming sessions.</p>
-      </details>
-      <details class="panel" open>
-        <summary><strong>What is a good sample rate for calls and podcasting?</strong></summary>
-        <p>For general communication and remote meetings, a <strong>sample rate</strong> of 44,100 Hz (44.1 kHz) is more than sufficient. For audio broadcasting and broadcast-standard production, 48,000 Hz is the professional norm. The stats table in this <strong>mic check</strong> tool reports the rate your browser and hardware negotiate — if it falls below 22,050 Hz, you may notice reduced clarity, especially in high-frequency speech sounds like sibilants.</p>
-      </details>
-      <details class="panel" open>
-        <summary><strong>How is this different from the built-in mic check in Zoom or Teams?</strong></summary>
-        <p>Built-in mic checks in Zoom and Teams only confirm your mic produces audio within their app. The <strong>online mic test</strong> here gives you more: a real-time <strong>audio waveform</strong>, full technical specs (sample rate, latency, <strong>echo cancellation</strong>, <strong>noise suppression</strong>, channels), a <strong>quality rating</strong>, and access to related tools like the sound level meter and echo test — all in one place, without opening a meeting.</p>
-      </details>
-      <details class="panel" open>
-        <summary><strong>Why is my microphone not working on Windows XP or very old browsers?</strong></summary>
-        <p>The Web Audio API and <code>getUserMedia</code> are not supported on legacy systems like <strong>Windows XP</strong> or Internet Explorer. This <strong>online tool</strong> requires a modern browser — the minimum versions are listed in the compatibility table above. If you are on an older system, consider upgrading to a supported browser or checking your microphone status via your operating system&#8217;s native sound recorder application.</p>
-      </details>
-    </div>
-  </div>
-
-</div><!-- /.container.main-wrap -->
-
-
-<!-- Comments -->
-<section class="comments-section py-5 bg-light">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <h3 class="mb-4"><i class="bi bi-chat-dots me-2 text-primary"></i>Comments &amp; Feedback</h3>
-        <script defer src="https://comments.tickspike.com/comentario.js"></script>
-        <comentario-comments theme="light"></comentario-comments>
-      </div>
-    </div>
-  </div>
-</section>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  setTimeout(function() {
-    var comentarioEl = document.querySelector('comentario-comments');
-    if (!comentarioEl) return;
-    comentarioEl.addEventListener('keydown', function(e) { e.stopPropagation(); }, true);
-    comentarioEl.addEventListener('keyup', function(e) { e.stopPropagation(); }, true);
-    comentarioEl.addEventListener('keypress', function(e) { e.stopPropagation(); }, true);
-  }, 2000);
-});
-</script>
-
-<!-- Footer -->
-<footer class="site-footer">
-  <div class="container">
-    <div class="row g-4 pb-4">
-      <div class="col-lg-4 col-md-6">
-        <div class="footer-brand">
-          <span class="brand-icon"><i class="bi bi-mic-fill"></i></span>MicTest
+        <div class="footer-bottom">
+          &copy; 2025&ndash;<span id="footer-current-year"></span> MicTest. All rights reserved.
         </div>
-        <p class="footer-desc">Free online microphone and audio testing tools. Test your microphone, speakers, and audio devices directly in your browser without any downloads.</p>
       </div>
-      <div class="col-lg-2 col-md-6">
-        <span class="footer-col-heading"><i class="bi bi-mic"></i>Mic Tools</span>
-        <ul class="footer-links">
-          <li><a href="/" title="Free Online Microphone Test">Microphone Test</a></li>
-          <li><a href="/show-mic" title="View Microphone Details">Show My Mic</a></li>
-          <li><a href="/mic-recorder" title="Record Your Voice">Mic Recorder</a></li>
-          <li><a href="/sound-level-meter" title="Measure Decibel Levels">Sound Level Meter</a></li>
-          <li><a href="/echo-test" title="Test for Echo Issues">Echo Test</a></li>
-          <li><a href="/background-noise-analyzer" title="Analyze Background Noise">Noise Analyzer</a></li>
-          <li><a href="/voice-frequency-analyzer" title="Analyze Voice Frequencies">Frequency Analyzer</a></li>
-          <li><a href="/audio-latency-test" title="Measure Audio Latency">Latency Test</a></li>
-        </ul>
-      </div>
-      <div class="col-lg-3 col-md-6">
-        <span class="footer-col-heading"><i class="bi bi-speaker"></i>Speaker Tools</span>
-        <ul class="footer-links">
-          <li><a href="/show-speakers" title="View Speaker Details">Show My Speakers</a></li>
-          <li><a href="/tone-generator" title="Generate Test Tones">Tone Generator</a></li>
-          <li><a href="/stereo-test" title="Test Left Right Channels">Stereo Test</a></li>
-          <li><a href="/bass-test" title="Test Low Frequencies">Bass Test</a></li>
-          <li><a href="/speaker-volume-test" title="Calibrate Volume">Speaker Volume Test</a></li>
-        </ul>
-        <span class="footer-col-heading" style="margin-top:1rem"><i class="bi bi-headphones"></i>Headphones &amp; Hearing</span>
-        <ul class="footer-links">
-          <li><a href="/headphone-test" title="Test Your Headphones">Headphone Test</a></li>
-          <li><a href="/hearing-test" title="Online Hearing Test">Hearing Test</a></li>
-        </ul>
-      </div>
-      <div class="col-lg-3 col-md-6">
-        <span class="footer-col-heading"><i class="bi bi-info-circle"></i>Resources</span>
-        <ul class="footer-links">
-          <li><a href="/troubleshooting" title="Fix Audio Problems">Troubleshooting Guide</a></li>
-          <li><a href="/about" title="About MicTest">About MicTest</a></li>
-          <li><a href="/contact" title="Contact Us">Contact</a></li>
-          <li><a href="/sitemap" title="Site Map">Sitemap</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p class="footer-copy">&copy; 2025&ndash;<span id="footer-current-year"></span> MicTest. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
+    </footer>
+  </main>
+</div>
+
 <script>
 (function() {
   var yearEl = document.getElementById('footer-current-year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
+})();
+</script>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var STORE_KEY = 'mictest-theme';
+
+  function readStored() {
+    try { return localStorage.getItem(STORE_KEY); } catch (e) { return null; }
+  }
+  function writeStored(v) {
+    try { localStorage.setItem(STORE_KEY, v); } catch (e) {}
+  }
+
+  var stored = readStored();
+  if (stored === 'light' || stored === 'dark') {
+    root.setAttribute('data-theme', stored);
+  }
+
+  function currentMode() {
+    var attr = root.getAttribute('data-theme');
+    if (attr === 'light' || attr === 'dark') return attr;
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'dark' : 'light';
+  }
+
+  function paint() {
+    var mode = currentMode();
+    var dots = document.querySelectorAll('.theme-dot');
+    var labels = document.querySelectorAll('.theme-label');
+    for (var i = 0; i < dots.length; i++) {
+      if (mode === 'dark') { dots[i].style.left = 'auto'; dots[i].style.right = '2px'; }
+      else { dots[i].style.right = 'auto'; dots[i].style.left = '2px'; }
+    }
+    for (var j = 0; j < labels.length; j++) {
+      labels[j].textContent = mode === 'dark' ? 'Dark panel' : 'Light panel';
+    }
+  }
+
+  var buttons = document.querySelectorAll('.theme-toggle-btn');
+  for (var k = 0; k < buttons.length; k++) {
+    buttons[k].addEventListener('click', function () {
+      var next = currentMode() === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      writeStored(next);
+      paint();
+    });
+  }
+
+  paint();
+})();
+</script>
+
+<script>
+(function() {
+  var path = window.location.pathname.replace(/\/$/, '');
+  var page = (path === '' || path === '/index' || path === '/index.html') ? 'index' : path.replace(/^\//, '').replace(/\.html$/, '');
+  var els = document.querySelectorAll('.rail-link[data-page="' + page + '"]');
+  els.forEach(function(el) { el.classList.add('active'); el.setAttribute('aria-current', 'page'); });
+})();
+</script>
+
+<script>
+(function() {
+  var btn = document.getElementById('mobile-menu-btn');
+  var closeBtn = document.getElementById('mobile-drawer-close');
+  var drawer = document.getElementById('mobile-drawer');
+  if (!btn || !drawer) return;
+  btn.addEventListener('click', function() { drawer.classList.add('open'); });
+  if (closeBtn) closeBtn.addEventListener('click', function() { drawer.classList.remove('open'); });
+  drawer.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() { drawer.classList.remove('open'); });
+  });
 })();
 </script>
 
@@ -765,7 +991,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateStatusMessage(type, message) {
-      statusMessage.className = 'status-message alert alert-' + (type || 'info');
+      statusMessage.className = 'status-message alert-' + (type || 'info');
 
       let iconClass = 'bi-info-circle-fill';
       if (type === 'success') iconClass = 'bi-check-circle-fill';
@@ -927,6 +1153,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
       canvasCtx.clearRect(0, 0, visualizer.width, visualizer.height);
 
+      const themeStyles = getComputedStyle(document.documentElement);
+      const panelColor = themeStyles.getPropertyValue('--panel-2').trim() || '#ffffff';
+      const amberColor = themeStyles.getPropertyValue('--amber').trim() || '#B65C00';
+
       function draw() {
         if (!microphone) return;
 
@@ -944,11 +1174,11 @@ document.addEventListener('DOMContentLoaded', function() {
           amplitudeBars[i].style.height = height + 'px';
         }
 
-        canvasCtx.fillStyle = 'rgb(248, 249, 250)';
+        canvasCtx.fillStyle = panelColor;
         canvasCtx.fillRect(0, 0, visualizer.width, visualizer.height);
 
         canvasCtx.lineWidth = 2;
-        canvasCtx.strokeStyle = 'rgb(13, 110, 253)';
+        canvasCtx.strokeStyle = amberColor;
 
         canvasCtx.beginPath();
 
@@ -1332,7 +1562,7 @@ document.addEventListener('DOMContentLoaded', function() {
         testimonialDiv.appendChild(reviewPara);
         testimonialDiv.appendChild(nameSmall);
 
-        const testimonialsContainer = document.querySelector('.card-body');
+        const testimonialsContainer = document.getElementById('testimonials-list');
         testimonialsContainer.insertBefore(testimonialDiv, testimonialsContainer.firstChild);
 
         document.getElementById('review-text').value = '';
@@ -1367,6 +1597,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }, {once: true});
   });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" defer></script>
 </body>
 </html>
