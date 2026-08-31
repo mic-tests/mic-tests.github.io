@@ -4,12 +4,21 @@ src/template-page.html into public/*.html. No minification, no critical-CSS
 step (deliberately — see CLAUDE.md) — this is the simple core of the
 passwordhive/hexcalculator pattern without their Node/Chrome toolchain.
 
-Run:
-  python3 src/build_data.py   # (re)write data/tools.json, pages.json, site.json
-  python3 src/generate.py     # render public/
+Run, in this order (see CLAUDE.md's "Build order matters" for why):
+  python3 src/build_data.py                                 # (re)write data/tools.json, pages.json, site.json
+  python3 src/generate.py                                   # render public/
+  python3 utilities/silo_linking/generate_silo_rotation.py  # patch this month's silo links into public/*.html — LAST
+
+That third step is not optional. It patches the already-rendered
+public/*.html files in place via comment markers and never touches
+src/content/ — so skipping it, or running this script again afterward
+without re-running it, silently reverts the current month's silo
+rotation back to whatever's baked into each page's
+src/content/<slug>.json.
 
 Never hand-edit anything in public/ — edit src/content/<slug>.json (or
-src/content/pages/<slug>.json for info pages) and rerun both scripts.
+src/content/pages/<slug>.json for info pages) and rerun the full
+sequence above.
 """
 import html
 import json
