@@ -46,7 +46,7 @@ TOOL_SLUGS = [
     "hearing-test",
 ]
 
-INFO_SLUGS = ["troubleshooting", "about", "contact", "sitemap"]
+INFO_SLUGS = ["troubleshooting", "about", "contact", "privacy", "sitemap"]
 
 
 def load_tool(slug):

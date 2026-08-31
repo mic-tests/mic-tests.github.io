@@ -37,6 +37,8 @@
 
   <url><loc>https://mictest.dev/contact</loc><lastmod>2026-08-31</lastmod><priority>0.80</priority></url>
 
+  <url><loc>https://mictest.dev/privacy</loc><lastmod>2026-08-31</lastmod><priority>0.80</priority></url>
+
   <url><loc>https://mictest.dev/sitemap</loc><lastmod>2026-08-31</lastmod><priority>0.80</priority></url>
 
 </urlset>

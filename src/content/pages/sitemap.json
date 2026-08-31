@@ -35,7 +35,7 @@
     },
     {
       "id": null,
-      "html": "<h2><i class=\"bi bi-info-circle me-2 text-primary\"></i>Resources</h2>\n<ul>\n  <li><a href=\"/troubleshooting\" title=\"Fix Audio Problems\"><strong>Audio Troubleshooting Help</strong></a> — Solutions for common microphone and audio issues</li>\n  <li><a href=\"/about\" title=\"About MicTest\"><strong>Learn About MicTest</strong></a> — What MicTest is, how it works, and who built it</li>\n  <li><a href=\"/contact\" title=\"Contact Us\"><strong>Get In Touch</strong></a> — Get in touch with a question or feedback</li>\n</ul>"
+      "html": "<h2><i class=\"bi bi-info-circle me-2 text-primary\"></i>Resources</h2>\n<ul>\n  <li><a href=\"/troubleshooting\" title=\"Fix Audio Problems\"><strong>Audio Troubleshooting Help</strong></a> — Solutions for common microphone and audio issues</li>\n  <li><a href=\"/about\" title=\"About MicTest\"><strong>Learn About MicTest</strong></a> — What MicTest is, how it works, and who built it</li>\n  <li><a href=\"/contact\" title=\"Contact Us\"><strong>Get In Touch</strong></a> — Get in touch with a question or feedback</li>\n  <li><a href=\"/privacy\" title=\"Privacy Policy\"><strong>Read Our Privacy Policy</strong></a> — How MicTest handles microphone data, cookies, and advertising</li>\n</ul>"
     }
   ]
 }

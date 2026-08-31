@@ -1,0 +1,61 @@
+{
+  "slug": "privacy",
+  "meta_title": "Privacy Policy - MicTest | How We Handle Your Data",
+  "meta_description": "MicTest's privacy policy: your microphone audio is processed entirely in your browser and never uploaded, what cookies we use, and how Google AdSense advertising works on this site.",
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Privacy Policy - MicTest",
+    "url": "https://mictest.dev/privacy",
+    "description": "MicTest's privacy policy covering microphone/audio data handling, cookies, local storage, and third-party advertising.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "MicTest",
+      "url": "https://mictest.dev"
+    }
+  },
+  "h1": "Privacy Policy",
+  "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">Last updated August 31, 2026. MicTest is built around one core promise: your microphone audio never leaves your browser.</p>",
+  "content_blocks": [
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-info-circle-fill me-2 text-primary\"></i>Overview</h2>\n<p>This policy explains what information MicTest (\"we\", \"us\") collects when you use <a href=\"https://mictest.dev\">mictest.dev</a>, and how it's used. MicTest has no user accounts, no sign-up, and no login — you can use every tool on the site anonymously.</p>\n<p class=\"mb-0\">By using MicTest, you agree to the practices described in this policy. If you don't agree, please don't use the site.</p>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-mic-fill me-2 text-primary\"></i>Microphone &amp; Audio Data</h2>\n<p>Every tool that uses your microphone — Mic Test, Mic Recorder, Sound Level Meter, Voice Frequency Analyzer, Background Noise Analyzer, and Echo Test — processes audio entirely inside your browser using the Web Audio API. We never have access to your microphone stream, and no audio is ever transmitted to, or stored on, any MicTest server.</p>\n<p class=\"mb-0\">Recordings made with Mic Recorder are held only in your browser's memory for as long as the tab stays open. Closing the tab, navigating away, or refreshing the page permanently discards them. There is no server-side storage of recordings, and no way for us to retrieve one after the fact — because we never had it.</p>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-hdd-stack-fill me-2 text-primary\"></i>Cookies &amp; Local Storage</h2>\n<p>MicTest itself sets no tracking cookies. We use your browser's <code>localStorage</code> to remember one thing: your light/dark theme preference. That preference stays on your device and is never sent to us or anyone else.</p>\n<p class=\"mb-0\">See the Advertising section below for cookies set by Google when ads are shown.</p>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-megaphone-fill me-2 text-primary\"></i>Advertising (Google AdSense)</h2>\n<p>MicTest is supported by Google AdSense. Google, as a third-party vendor, uses cookies to serve ads on this site. Google's use of advertising cookies enables it and its partners to serve ads based on your visits to mictest.dev and other sites on the internet.</p>\n<p>You can opt out of personalized advertising by visiting <a href=\"https://adssettings.google.com\" target=\"_blank\" rel=\"noopener\">Google's Ads Settings</a>, or opt out of a third-party vendor's use of cookies for personalized advertising by visiting <a href=\"https://www.aboutads.info\" target=\"_blank\" rel=\"noopener\">www.aboutads.info</a>. For more detail on how Google handles data, see <a href=\"https://policies.google.com/technologies/partner-sites\" target=\"_blank\" rel=\"noopener\">How Google uses information from sites that use our services</a>.</p>\n<p class=\"mb-0 text-muted\">Ad serving on MicTest is currently paused while our AdSense application is under review — this section describes how advertising works once it's live.</p>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-bar-chart-fill me-2 text-primary\"></i>Analytics</h2>\n<p class=\"mb-0\">MicTest does not currently run any third-party analytics or tracking scripts beyond the AdSense cookies described above. If that changes, we'll update this policy first.</p>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-box-arrow-up-right me-2 text-primary\"></i>Third-Party Links</h2>\n<p class=\"mb-0\">Some pages link to other sites — for example, Joteo for wave and frequency physics calculators. Those sites have their own privacy policies, and we're not responsible for their content or practices. We'd recommend reviewing a site's own policy before sharing any information with it.</p>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-shield-lock-fill me-2 text-primary\"></i>Children's Privacy</h2>\n<p class=\"mb-0\">MicTest isn't directed at children under 13, and we don't knowingly collect personal information from children. If you believe a child has provided us information, contact us and we'll remove it.</p>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-lock-fill me-2 text-primary\"></i>Data Security</h2>\n<p class=\"mb-0\">MicTest is served entirely over HTTPS. We don't collect personal information, don't require accounts, and don't operate a database of user data. Our host (GitHub Pages) may keep standard, aggregate server access logs common to any web host; we don't have a separate logging or analytics layer of our own.</p>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-arrow-repeat me-2 text-primary\"></i>Changes to This Policy</h2>\n<p class=\"mb-0\">We may update this policy as MicTest changes — for example, once AdSense approval completes and ads go live. Any update will be posted on this page with a revised \"last updated\" date at the top.</p>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-envelope-fill me-2 text-primary\"></i>Contact Us</h2>\n<p class=\"mb-0\">Questions about this policy? <a href=\"/contact\">Get in touch</a> or email <a href=\"mailto:vinithablog@gmail.com\">vinithablog@gmail.com</a>.</p>"
+    }
+  ]
+}
