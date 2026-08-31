@@ -152,7 +152,6 @@
     .panel-body{padding:1.1rem;}
     .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
     .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
-    .hero-ad .ad-panel{margin-top:0;}
     .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
     .ad-panel-body{padding:1rem;text-align:center;}
 
@@ -406,16 +405,10 @@
     <div class="container main-wrap max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12 py-8 lg:py-12">
 
       <!-- HERO -->
-      <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
-        <header>
-          <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Show My Mic — See Your Microphone Name, Specs & Settings</h1>
+      <header class="mb-10">
+        <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Show My Mic — See Your Microphone Name, Specs & Settings</h1>
           <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75"><strong>Show My Mic</strong> reads your browser's audio API and displays every microphone your system has available — your <strong>device list</strong> loads the moment the page opens, no button needed. For each mic you'll see the <strong>device name</strong>, <strong>sample rate</strong>, <strong>channel count</strong>, <strong>latency</strong>, and whether <strong>echo cancellation</strong> and <strong>noise suppression</strong> are active on that input. If you're wondering what microphone your computer is using right now, or why your mic settings look different across apps, this page pulls the raw specs straight from your browser's audio device API. <!-- SILO_START:slot_a -->An <a href="/audio-latency-test">audio latency test</a> shows whether your setup introduces noticeable lag for recording or live use.<!-- SILO_END:slot_a --></p>
-        </header>
-
-        <div class="hero-ad">
-
-        </div>
-      </div>
+      </header>
 
       <div class="min-w-0">
 

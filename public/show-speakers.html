@@ -152,7 +152,6 @@
     .panel-body{padding:1.1rem;}
     .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
     .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
-    .hero-ad .ad-panel{margin-top:0;}
     .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
     .ad-panel-body{padding:1rem;text-align:center;}
 
@@ -408,16 +407,10 @@
     <div class="container main-wrap max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12 py-8 lg:py-12">
 
       <!-- HERO -->
-      <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
-        <header>
-          <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Show My Speakers — See Your Audio Output Devices & Specs</h1>
+      <header class="mb-10">
+        <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Show My Speakers — See Your Audio Output Devices & Specs</h1>
           <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75"><strong>Show My Speakers</strong> reads your browser's audio output API and lists every speaker and audio device your system has available. Your <strong>device list</strong> loads automatically — for each output you'll see the <strong>device name</strong>, <strong>sample rate</strong>, <strong>channel configuration</strong>, and <strong>device ID</strong> pulled directly from your system. If you're troubleshooting why audio is routing to the wrong output, or you want to confirm what your browser sees before a call or recording session, your full <strong>output device inventory</strong> is here. <!-- SILO_START:slot_a -->For speaker calibration or tinnitus matching, the <a href="/tone-generator">tone generator</a> gives you precise frequency control.<!-- SILO_END:slot_a --></p>
-        </header>
-
-        <div class="hero-ad">
-
-        </div>
-      </div>
+      </header>
 
       <div class="min-w-0">
 

@@ -43,28 +43,7 @@ def render_json_ld(data):
     return '  <script type="application/ld+json">\n%s\n  </script>' % json.dumps(data, indent=2, ensure_ascii=False)
 
 
-def render_ad_panel(slot_id, adsense_client, min_height=None, fixed_size=None):
-    """fixed_size, if given, is (width, height) in px for a fixed-size ad
-    unit — AdSense's own spec says a fixed-size <ins> should declare
-    width/height directly and omit data-ad-format/data-full-width-responsive
-    entirely (those are for responsive units only; mixing both is invalid),
-    so this renders genuinely different markup rather than just resizing
-    the responsive one."""
-    if fixed_size:
-        width, height = fixed_size
-        return (
-            '          <div class="ad-panel">\n'
-            '            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>\n'
-            '            <div class="ad-panel-body">\n'
-            '              <ins class="adsbygoogle"\n'
-            '                   style="display:inline-block;width:%dpx;height:%dpx"\n'
-            '                   data-ad-client="%s"\n'
-            '                   data-ad-slot="%s"></ins>\n'
-            '              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>\n'
-            '            </div>\n'
-            '          </div>'
-        ) % (width, height, adsense_client, slot_id)
-
+def render_ad_panel(slot_id, adsense_client, min_height=None):
     style_extra = ";min-height:%dpx;" % min_height if min_height else ""
     body_style = ' style="min-height:%dpx;"' % min_height if min_height else ""
     return (
@@ -143,14 +122,6 @@ def render_page(tool, site, template):
         main_sections_parts.append(faq_block)
     main_sections = "\n\n".join(p for p in main_sections_parts if p)
 
-    # The "sidebar" ad slot sits in the hero (replacing the old "Unit
-    # Nameplate" decorative panel, which had no legacy equivalent and no ad
-    # of its own). The tool-content sidebar column itself is gone — its
-    # functional panels moved into tool_card_html, its decorative/nav
-    # panels were dropped as redundant with the footer.
-    hero_ad_slot = ads.get("sidebar")
-    hero_ad_html = render_ad_panel(hero_ad_slot, adsense_client, fixed_size=(250, 250)) if hero_ad_slot else ""
-
     json_ld_blocks = [render_json_ld(tool["json_ld"])]
     faq_jsonld = render_faq_jsonld(tool.get("faq", []))
     if faq_jsonld:
@@ -165,7 +136,6 @@ def render_page(tool, site, template):
         "H1": tool["h1"],
         "H1_ATTR": html.escape(tool["h1"]),
         "INTRO_HTML": "          " + tool["intro_html"],
-        "HERO_AD_HTML": hero_ad_html,
         "TOOL_CARD_HTML": tool["tool_card_html"],
         "PAGE_STYLE": tool.get("extra_style", ""),
         "AD_SLOT_MID": ads.get("mid", ""),
