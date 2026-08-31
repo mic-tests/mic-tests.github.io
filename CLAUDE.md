@@ -4,106 +4,118 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**MicTest** is a static website hosted on GitHub Pages, served from the custom domain https://mictest.dev (migrated from `mic-tests.github.io` on 2026-08-02 — see Custom Domain section below). It provides browser-based audio testing tools (microphone, speaker, headphone, hearing tests) using the Web Audio API.
+**MicTest** is a static website served from the custom domain https://mictest.dev (migrated from `mic-tests.github.io` on 2026-08-02 — see Custom Domain section below). It provides browser-based audio testing tools (microphone, speaker, headphone, hearing tests) using the Web Audio API.
+
+As of 2026-08-31 the site runs on a **JSON-driven build pipeline** (`src/` → `public/`) rather than hand-authored HTML files — see Architecture below. The pre-migration hand-authored site (Bootstrap 5, DM Sans/Syne fonts) is preserved read-only in `legacy-bootstrap-site/`; it is **not** served and should not be edited.
 
 ## Deployment
 
-This is a static site with no build step. Deploying means pushing to `main`:
+This is a static site with a small Python build step — there's still no Node/npm toolchain, transpilation, or minification.
+
+**Build order matters.** Run all three, in this order, whenever `src/content/*.json` changes:
 
 ```bash
-git push origin main
+python3 src/build_data.py                          # (re)writes src/data/{tools,pages,site}.json from src/content/
+python3 src/generate.py                             # renders src/template*.html + src/data/*.json -> public/
+python3 utilities/silo_linking/generate_silo_rotation.py   # patches this month's silo links into public/*.html (last step)
 ```
 
-GitHub Pages serves the site automatically from the `main` branch.
+`generate_silo_rotation.py` must run **after** `generate.py`, not before — it patches the already-rendered `public/*.html` files in place via comment markers, and never touches `src/content/`. Running `generate.py` again without re-running the rotation script afterward will silently revert the current month's rotation back to whatever's baked into each page's `src/content/<slug>.json`.
+
+Then commit the changes under `public/` (and `src/data/*.json` if `build_data.py` changed them) and push to `main`.
+
+**⚠️ GitHub Pages caveat — the site is not currently being served from `public/`.** GitHub Pages only supports serving from the repo root or a `/docs` folder; it cannot serve an arbitrary `/public` folder directly. To go live from the new pipeline's output, either:
+- rename `public/` → `docs/` (and update `OUTPUT_DIR` in `src/generate.py` to match) and set the Pages source to `/docs`, or
+- add a GitHub Actions deploy step (e.g. `actions/deploy-pages`) that publishes `public/`'s contents.
+
+Until one of those is done, do not delete or rely on `public/` being live — check the actual GitHub Pages source setting before assuming what's serving the production site.
 
 ### Custom Domain
 
 The site moved from `mic-tests.github.io` to `mictest.dev` on 2026-08-02. Key points for anyone touching URLs, SEO metadata, or DNS:
 
-- The repo root `CNAME` file contains `mictest.dev` — this is what GitHub Pages uses to serve the custom domain.
+- `CNAME` is now **generated**, not a hand file — `src/generate.py`'s `write_robots_and_sitemap()` writes `public/CNAME` from `site.json`'s `domain` field. Once Pages is actually serving `public/`, this is what GitHub Pages will read to serve the custom domain. Don't hand-create a `CNAME` file elsewhere; change `domain` in `src/build_data.py` (`DOMAIN` constant, which `build_data.py` writes into `src/data/site.json`) instead.
 - DNS is managed in Cloudflare. The apex (`mictest.dev`) and `www` records are `A`/`AAAA`/`CNAME` set to **DNS only** (grey cloud, not proxied) — this is required for GitHub Pages to issue and renew its own HTTPS certificate. Do not re-enable Cloudflare proxying on these records without accounting for cert renewal.
 - `mic-tests.github.io` still works and 301-redirects automatically to `mictest.dev` (GitHub Pages' built-in behavior once a custom domain is set) — no manual redirect config needed.
 - `www.mictest.dev` similarly redirects to the apex automatically via GitHub Pages.
-- All canonical `<link>` tags, JSON-LD `url`/`logo` fields, `sitemap.xml`, and `robots.txt` were bulk-updated to `mictest.dev` on 2026-08-02. Any new page must use `https://mictest.dev/...` for its canonical URL and structured data, not the old `.github.io` domain.
+- Canonical `<link>` tags and JSON-LD `url`/`logo` fields are generated per-page from `site.json`'s `domain` — always `https://mictest.dev/...`, never the old `.github.io` domain. `sitemap.xml` and `robots.txt` are likewise generated (see Key Files below), not hand-maintained.
 
 ## Local Development
 
-Serve locally with any HTTP server (file:// URLs may block microphone access due to browser security):
+Serve locally with any HTTP server (file:// URLs may block microphone access due to browser security), pointed at `public/` — not the repo root, since the repo root no longer holds servable pages:
 
 ```bash
+cd public
 python3 -m http.server 8000
 # or
 npx serve .
 ```
 
+Extensionless routes (`/tone-generator` etc.) only resolve automatically under GitHub Pages, not under a plain local file server — append `.html` when testing locally (e.g. `http://localhost:8000/tone-generator.html`).
+
 There are no linters, test suites, or package managers configured.
 
 ## Architecture
 
-### No Build Pipeline
-All pages are self-contained HTML files with inline CSS/JS. There is no transpilation, bundling, or minification step — files are served as-is.
+### JSON-Driven Build Pipeline
 
-### Fully Inlined Pages
-The navbar and footer are duplicated inline in every HTML page (no partials, no shared templates). When updating shared UI elements like navigation links or footer content, **every HTML file must be edited**. Use grep to find all instances before making changes.
+Single source of truth, modeled on the passwordhive/hexcalculator pattern:
+
+- **`src/content/<slug>.json`** — one tool page's *entire* content: meta title/description/keywords, hero eyebrow/H1/intro, the nameplate stats, the tool card's own interactive markup, sidebar HTML, `content_blocks` (long-form sections), FAQ, JSON-LD, an optional `extra_style` block for page-specific CSS overrides, and that tool's own fully self-contained JS (the `script` field — rendered into the page's single `<script>{{TOOL_SCRIPT}}</script>` tag; this field must **not** include its own `<script>`/`</script>` wrapper).
+- **`src/content/pages/<slug>.json`** — same idea for the 4 simpler info pages (`about`, `contact`, `troubleshooting`, `sitemap`).
+- **`src/template.html`** — shared template for the 15 tool pages (rail nav, mobile drawer, footer, theme toggle, comments widget, and all base/component CSS — edited **once**, not copy-pasted per page).
+- **`src/template-page.html`** — shared template for the 4 info pages + `404.html`. Keep its component CSS (`.btn-*`, `.status-message`, `.alert-*`, forms, etc.) in sync with `src/template.html`'s — it's easy for one to drift ahead of the other since they're two separate `<style>` blocks, not a shared stylesheet.
+- **`src/static/`** — binary/opaque assets that can't be derived from `site.json`: `favicon.ico`, `icon.png`, `icon.svg`, the Google Search Console verification file (`googlecb346f17d96186ee.html` — do not modify). Copied verbatim into `public/` by `generate.py`.
+- **`src/build_data.py`** — assembles `src/data/{tools,pages,site}.json` from `src/content/`. Site-wide constants (`SITE_NAME`, `DOMAIN`, `HOME_SLUG`, `ADSENSE_PUBLISHER_ID`) live at the top of this file.
+- **`src/generate.py`** — renders `src/data/*.json` + the two templates into `public/*.html`, plus generates `public/robots.txt`, `public/sitemap.xml`, `public/CNAME`, and `public/ads.txt` (all derived from `site.json`, never hand-edited), plus `public/404.html` (built from a dedicated `render_404()` — there's no `src/content/pages/404.json`, since the 404 page isn't part of the tools/pages content model).
+- **`public/`** — generated output, committed. Never hand-edit anything here — edit `src/content/<slug>.json` (or the template/generator) and rerun the build (see Deployment above).
+
+Adding a new tool page means: write `src/content/<new-slug>.json`, add its slug to `TOOL_SLUGS` in `src/build_data.py`, add its nav link to both the desktop rail and mobile drawer `<nav>` blocks in **both** `src/template.html` and (if it should also appear on info pages' nav, which it should) `src/template-page.html`, then run the full build.
 
 ### Per-Page Audio Logic
-Each tool page is standalone — all its JavaScript lives inline in that page's `<script>` tag. The Web Audio API is the core technology: `getUserMedia` for mic input, `AnalyserNode` for frequency data, `OscillatorNode` for tone generation, `MediaRecorder` for recording.
+Each tool's JavaScript is fully self-contained in that tool's `src/content/<slug>.json` `script` field — it becomes the page's single inline `<script>` tag on render. The Web Audio API is the core technology: `getUserMedia` for mic input, `AnalyserNode` for frequency data, `OscillatorNode` for tone generation, `MediaRecorder` for recording.
 
-### Shared Styles
-- `css/common.css` — shared component styles (footer, cards, status indicators). Contains an explicit `strong, b { font-weight: 700; }` rule required to fix DM Sans bold rendering.
-- `css/style.css` — HTML5 Boilerplate base reset (not project-specific)
-- `css/design.css` — site-wide design tokens (typography, colour palette, spacing)
-- Bootstrap 5.3.0-alpha1 and Bootstrap Icons 1.11.1 are loaded via CDN (jsdelivr)
+### Styling
+All CSS lives inline in the two templates' `<style>` blocks (design tokens as CSS custom properties, themed for light/dark via `prefers-color-scheme` and a `data-theme` override) — there is no separate stylesheet to load or maintain. External dependencies are CDN-only: Tailwind's Play CDN (`cdn.tailwindcss.com`, with the Typography plugin for `.prose` long-form content) and Bootstrap Icons. Google Fonts serves JetBrains Mono (headings/mono UI) and IBM Plex Sans (body).
 
-**Font weight note:** DM Sans is loaded from Google Fonts with weight `700` explicitly in the URL. Without it, `<strong>` tags render at weight 400 because the browser has no 700 variant to fall back to. All pages must use:
-```
-DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400
-```
+Per-page CSS overrides (mostly for the handful of tools whose runtime JS sets literal legacy Bootstrap-style class names) go in that tool's `extra_style` field in its content JSON, rendered into the `{{PAGE_STYLE}}` slot — always using the shared CSS custom properties (`var(--amber)`, `var(--panel)`, etc.), never hardcoded colors, so it stays correct in both themes.
+
+The old `css/common.css` / `css/design.css` / `css/style.css` (Bootstrap-era stylesheets) are archived under `legacy-bootstrap-site/css/` and are not used by the current pipeline.
 
 ### SEO Structure
-Each page should have:
+Each page gets, automatically from its content JSON + the shared template — no per-page manual bookkeeping required:
 - A canonical `<link>` tag using an extensionless URL (e.g. `https://mictest.dev/tone-generator`)
-- JSON-LD structured data (Schema.org `WebPage` or `SoftwareApplication`)
-- Meta description and keywords
-- Entry in `sitemap.xml`
+- JSON-LD structured data (Schema.org `WebPage`/`SoftwareApplication`, plus `FAQPage` when the page has FAQ items)
+- Meta description (all pages) and meta keywords (tool pages only — `template-page.html`'s info pages don't render a keywords meta tag)
+- An entry in the generated `sitemap.xml`
+
+### Legacy archive (`legacy-bootstrap-site/`)
+A frozen, read-only snapshot of the pre-migration hand-authored site: the original 19 tool/info pages + `404.html`, `css/`, `js/`, and the old root-level `CNAME`/`ads.txt`/`robots.txt`/`sitemap.xml`. Kept for reference/history only — it is not linked from the build, not served, and should not be edited. `legacy-bootstrap-site/content_export/` holds the old content-export tooling (`export_content_db.py` + its `content-db.json` output), which read root-level page filenames directly and is now broken by the file move; it predates the JSON content model and was already unwired from the pipeline before the move — treat it as historical, not something to fix and run.
 
 ## External Dependencies (CDN only)
 
 | Dependency | Version | Purpose |
 |---|---|---|
-| Bootstrap | 5.3.0-alpha1 | UI framework |
+| Tailwind CSS (Play CDN) | latest, `?plugins=typography` | Utility classes + `.prose` long-form content styling |
 | Bootstrap Icons | 1.11.1 | Icon set |
-| Google AdSense | — | Monetization (pub ID: ca-pub-5426315045205785) |
+| Google Fonts | — | JetBrains Mono + IBM Plex Sans |
+| Google AdSense | — | Monetization (publisher ID set once, in `src/build_data.py`'s `ADSENSE_PUBLISHER_ID` — flows into `site.json` → `{{ADSENSE_CLIENT}}` template token and generated `public/ads.txt`) |
+
+Bootstrap (CSS framework, not the icon set) and DM Sans/Syne fonts are only used by the archived `legacy-bootstrap-site/` — not loaded by the current pipeline.
 
 ## Key Files
 
-- `sitemap.xml` — update `<lastmod>` dates when pages change
-- `robots.txt` — SEO robots directives
-- `ads.txt` — AdSense publisher configuration
-- `googlecb346f17d96186ee.html` — Google Search Console verification (do not modify)
-- `utilities/silo_linking/generate_silo_rotation.py` — monthly rotation script
+- `src/data/site.json` — **generated** by `build_data.py` from constants at the top of that file (`SITE_NAME`, `DOMAIN`, `HOME_SLUG`, `ADSENSE_PUBLISHER_ID`). Don't hand-edit `src/data/*.json` — edit the source (`src/build_data.py` constants or `src/content/`) and rerun the build.
+- `public/sitemap.xml`, `public/robots.txt`, `public/CNAME`, `public/ads.txt` — all **generated** by `src/generate.py` from `src/data/site.json` + the tools/pages lists. Never hand-edit; change the source and rebuild.
+- `src/static/googlecb346f17d96186ee.html` — Google Search Console verification (do not modify; copied verbatim into `public/`)
+- `utilities/silo_linking/generate_silo_rotation.py` — monthly rotation script; patches `public/*.html` in place (see Deployment's build-order note)
 - `.github/workflows/silo-rotation.yml` — GitHub Actions workflow (runs 1st–3rd of each month at midnight SGT)
-- `utilities/content_export/content-db.json` — generated content database (see below); do not hand-edit, regenerate instead
-
----
-
-## Content Database (`utilities/content_export/`)
-
-`content-db.json` is a generated, read-only snapshot of every page's long-form content, keyed by URL slug (e.g. `"/hearing-test"`). Each page entry is a flat, ordered list of `{level, heading, content}` blocks, one per H2–H6 heading and per FAQ/troubleshooting accordion panel (`<details class="panel">`). `content` is plain text — tags stripped, entities decoded, with list items flattened to `- item` lines, definition lists to `Term: Definition` lines, and tables to `cell | cell | cell` rows.
-
-Deliberately excluded from every page, since none of it is backed by heading markup: the `<h1>` and its lead/intro paragraph, the interactive tool controls, sidebar testimonials/review-form chrome, the live device-readout panel on `show-mic.html`/`show-speakers.html` (`id="device-details"`), and any "Related ... Tools" card grid (same navigational-chrome exemption CLAUDE.md already applies to sidebar "Related Tools" cards, see below).
-
-Regenerate after editing any page's content:
-```bash
-python3 utilities/content_export/export_content_db.py
-```
-The generator (`export_content_db.py`) is dependency-free (stdlib `html.parser` only, no bs4/lxml), consistent with the site's no-build-step, no-package-manager setup.
 
 ---
 
 ## Internal Linking Strategy — Advanced Silo
 
-Three-level authority silo. Every inline body content link uses the target page's **primary keyword as anchor text** (no "click here" / "read more"). The silo plan governs **body content links only**.
+Three-level authority silo. Every inline body content link uses the target page's **primary keyword as anchor text** (no "click here" / "read more"). The silo plan governs **body content links only**. All of the following operates on the generated `public/*.html` files (the filenames below, e.g. `tone-generator.html`, are unchanged from the pre-migration site — only their directory changed, from repo root to `public/`).
 
 **Sidebar / nav / footer links are expected and acceptable.** Per Kyle Roof's SEO methodology, search engines discount links in nav, footer, and sidebar as navigational — they do not pass the same authority as in-content links and do not interfere with the silo structure. Audits must focus exclusively on inline body content links; sidebar "Related Tools" cards and footer links must be ignored.
 
@@ -215,7 +227,7 @@ The monthly rotation prevents stale internal link patterns by shuffling:
 
 ### Script
 
-**File:** `utilities/silo_linking/generate_silo_rotation.py`
+**File:** `utilities/silo_linking/generate_silo_rotation.py` — runs as the **last** step of the build, after `src/generate.py` (see Deployment's build-order note above).
 
 **Run manually:**
 ```bash
@@ -239,6 +251,8 @@ on:
 
 Runs on days 1, 2, and 3 as a retry safety net. The workflow commits only when `git diff` shows actual changes, so repeated runs are safe. Uses the built-in `GITHUB_TOKEN` — no PAT required.
 
+**Note:** this workflow currently only runs `generate_silo_rotation.py` against whatever's already in `public/*.html` — it does not itself run `build_data.py`/`generate.py`. If content JSON changes and the full build hasn't been committed first, the rotation script will be patching stale rendered output.
+
 ---
 
 ### HTML Comment Markers
@@ -259,7 +273,7 @@ Every silo link lives between HTML comment markers injected directly into each p
 
 ### Slot Injection Targets
 
-Physical location in each HTML file where each slot's marker is inserted on first run. These headings never change — only the content between the markers changes monthly.
+Physical location in each `public/*.html` file where each slot's marker is inserted on first run. These headings never change — only the content between the markers changes monthly.
 
 | Page | slot_a | slot_b | slot_c | slot_d |
 |------|--------|--------|--------|--------|
@@ -375,4 +389,4 @@ https://validator.w3.org/nu/?doc=https://mictest.dev/<page-path>
 
 Example: `https://validator.w3.org/nu/?doc=https://mictest.dev/`
 
-No pages have been validated yet. After each deploy, re-run the validator on changed pages to catch any new issues.
+No pages have been validated yet. Once Pages is serving the new pipeline's output (see Deployment), re-run the validator on changed pages after each deploy to catch any new issues.

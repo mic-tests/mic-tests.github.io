@@ -19,10 +19,15 @@ import shutil
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.dirname(BASE_DIR)
 DATA_DIR = os.path.join(BASE_DIR, "data")
+STATIC_DIR = os.path.join(BASE_DIR, "static")
 OUTPUT_DIR = os.path.join(REPO_ROOT, "public")
 
+# Binary/opaque assets that can't be derived from site.json — copied as-is
+# from src/static/. CNAME and ads.txt are NOT here: they're fully generated
+# from site.json below (see write_robots_and_sitemap) so the domain and
+# AdSense publisher ID have one source of truth.
 STATIC_FILES = [
-    "favicon.ico", "icon.png", "icon.svg", "CNAME", "ads.txt",
+    "favicon.ico", "icon.png", "icon.svg",
     "googlecb346f17d96186ee.html",
 ]
 
@@ -50,7 +55,7 @@ def render_nameplate(rows):
     return "\n".join(parts)
 
 
-def render_ad_panel(slot_id, min_height=None):
+def render_ad_panel(slot_id, adsense_client, min_height=None):
     style_extra = ";min-height:%dpx;" % min_height if min_height else ""
     body_style = ' style="min-height:%dpx;"' % min_height if min_height else ""
     return (
@@ -59,14 +64,14 @@ def render_ad_panel(slot_id, min_height=None):
         '            <div class="ad-panel-body"%s>\n'
         '              <ins class="adsbygoogle"\n'
         '                   style="display:block%s"\n'
-        '                   data-ad-client="ca-pub-5426315045205785"\n'
+        '                   data-ad-client="%s"\n'
         '                   data-ad-slot="%s"\n'
         '                   data-ad-format="auto"\n'
         '                   data-full-width-responsive="true"></ins>\n'
         '              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>\n'
         '            </div>\n'
         '          </div>'
-    ) % (body_style, style_extra, slot_id)
+    ) % (body_style, style_extra, adsense_client, slot_id)
 
 
 def render_content_blocks(blocks):
@@ -118,11 +123,12 @@ def _strip_tags(s):
 def render_page(tool, site, template):
     canonical = "https://%s/" % site["domain"] if tool["slug"] == site["home_slug"] else "https://%s/%s" % (site["domain"], tool["slug"])
     ads = tool.get("ads", {})
+    adsense_client = "ca-pub-%s" % site["adsense_publisher_id"]
 
     main_sections_parts = [render_content_blocks(tool.get("content_blocks", []))]
     footer_ad_slot = ads.get("footer")
     if footer_ad_slot:
-        main_sections_parts.append(render_ad_panel(footer_ad_slot))
+        main_sections_parts.append(render_ad_panel(footer_ad_slot, adsense_client))
     faq_block = render_faq_block(tool.get("faq_heading", "Frequently Asked Questions"), tool.get("faq", []))
     if faq_block:
         main_sections_parts.append(faq_block)
@@ -131,7 +137,7 @@ def render_page(tool, site, template):
     sidebar_parts = [tool.get("sidebar_top_html", "")]
     sidebar_ad_slot = ads.get("sidebar")
     if sidebar_ad_slot:
-        sidebar_parts.append(render_ad_panel(sidebar_ad_slot, min_height=360))
+        sidebar_parts.append(render_ad_panel(sidebar_ad_slot, adsense_client, min_height=360))
     sidebar_parts.append(tool.get("sidebar_bottom_html", ""))
     sidebar_html = "\n\n".join(p for p in sidebar_parts if p)
 
@@ -153,6 +159,7 @@ def render_page(tool, site, template):
         "TOOL_CARD_HTML": tool["tool_card_html"],
         "PAGE_STYLE": tool.get("extra_style", ""),
         "AD_SLOT_MID": ads.get("mid", ""),
+        "ADSENSE_CLIENT": adsense_client,
         "MAIN_SECTIONS": main_sections,
         "SIDEBAR_HTML": sidebar_html,
         "TOOL_SCRIPT": tool["script"],
@@ -162,11 +169,12 @@ def render_page(tool, site, template):
 
 def render_info_page(page, site, template_page):
     canonical = "https://%s/%s" % (site["domain"], page["slug"])
+    adsense_client = "ca-pub-%s" % site["adsense_publisher_id"]
 
     parts = [render_content_blocks(page.get("content_blocks", []))]
     ad_slot = page.get("ads", {}).get("mid")
     if ad_slot:
-        parts.append(render_ad_panel(ad_slot))
+        parts.append(render_ad_panel(ad_slot, adsense_client))
     faq_block = render_faq_block(page.get("faq_heading", "Frequently Asked Questions"), page.get("faq", []))
     if faq_block:
         parts.append(faq_block)
@@ -186,8 +194,57 @@ def render_info_page(page, site, template_page):
         "H1": page["h1"],
         "SUBTITLE_HTML": "      " + page["subtitle_html"],
         "PAGE_CONTENT": page_content,
+        "ADSENSE_CLIENT": adsense_client,
     }
     return apply_tokens(template_page, tokens)
+
+
+def render_404(site, template_page):
+    domain = site["domain"]
+    suggestions = [
+        ("mic-recorder", "bi-record-circle", "Mic Recorder", "Record your voice online"),
+        ("stereo-test", "bi-badge-hd", "Stereo Test", "Check left/right channels"),
+        ("headphone-test", "bi-headphones", "Headphone Test", "Test your headphones"),
+    ]
+    cards = "\n".join(
+        '          <a href="/%s" class="panel p-4 text-center" style="display:block">\n'
+        '            <i class="bi %s" style="font-size:1.75rem;color:var(--amber)"></i>\n'
+        '            <div class="mt-2 mb-1" style="font-weight:600;color:var(--ink)">%s</div>\n'
+        '            <div class="text-muted">%s</div>\n'
+        '          </a>' % (slug, icon, label, desc)
+        for slug, icon, label, desc in suggestions
+    )
+    page_content = (
+        '      <div class="content-panel" style="text-align:center">\n'
+        '        <div class="mono" style="font-size:5rem;font-weight:700;color:var(--amber);line-height:1">404</div>\n'
+        '        <p style="font-size:1.05rem;color:var(--ink-2)">The page you&#x27;re looking for doesn&#x27;t exist. It might have been moved, or you entered an incorrect URL.</p>\n'
+        '        <div class="btn-toolbar" style="justify-content:center;margin:1.5rem 0 2rem">\n'
+        '          <a href="/" class="btn btn-primary"><i class="bi bi-mic-fill me-2"></i>Test Microphone</a>\n'
+        '          <a href="/troubleshooting" class="btn btn-outline"><i class="bi bi-question-circle me-2"></i>Troubleshooting</a>\n'
+        '        </div>\n'
+        '        <div class="grid sm:grid-cols-3 gap-3" style="text-align:left">\n'
+        '%s\n'
+        '        </div>\n'
+        '      </div>'
+    ) % cards
+
+    tokens = {
+        "META_TITLE": "Page Not Found - MicTest",
+        "META_DESCRIPTION": "The page you&#x27;re looking for doesn&#x27;t exist. Return to MicTest to test your microphone and audio devices.",
+        "CANONICAL_URL": "https://%s/404" % domain,
+        "JSON_LD": "",
+        "EYEBROW": "Error 404",
+        "H1": "Page Not Found",
+        "SUBTITLE_HTML": '<p style="color:var(--ink-2)">Let&#x27;s get you back to testing.</p>',
+        "PAGE_CONTENT": page_content,
+        "ADSENSE_CLIENT": "ca-pub-%s" % site["adsense_publisher_id"],
+    }
+    out = apply_tokens(template_page, tokens)
+    out = out.replace(
+        '<link rel="canonical" href="https://%s/404">' % domain,
+        '<link rel="canonical" href="https://%s/404">\n  <meta name="robots" content="noindex, follow">' % domain,
+    )
+    return out
 
 
 def write_robots_and_sitemap(site, tools, pages, out_dir):
@@ -207,6 +264,13 @@ def write_robots_and_sitemap(site, tools, pages, out_dir):
             '<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n\n  %s\n\n</urlset>\n' % entries
         )
+
+    # CNAME and ads.txt are one-liners fully derived from site.json — no
+    # reason to hand-maintain a second copy of the domain / publisher ID.
+    with open(os.path.join(out_dir, "CNAME"), "w", encoding="utf-8") as f:
+        f.write("%s\n" % domain)
+    with open(os.path.join(out_dir, "ads.txt"), "w", encoding="utf-8") as f:
+        f.write("google.com, pub-%s, DIRECT, f08c47fec0942fa0\n" % site["adsense_publisher_id"])
 
 
 def main():
@@ -236,10 +300,15 @@ def main():
         with open(os.path.join(OUTPUT_DIR, "%s.html" % page["slug"]), "w", encoding="utf-8") as f:
             f.write(out_html)
 
+    with open(os.path.join(OUTPUT_DIR, "404.html"), "w", encoding="utf-8") as f:
+        f.write(render_404(site, template_page))
+
     for name in STATIC_FILES:
-        src = os.path.join(REPO_ROOT, name)
+        src = os.path.join(STATIC_DIR, name)
         if os.path.exists(src):
             shutil.copy(src, os.path.join(OUTPUT_DIR, name))
+        else:
+            print("  ! src/static/%s not found, skipping" % name)
 
     write_robots_and_sitemap(site, tools, pages, OUTPUT_DIR)
 

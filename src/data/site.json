@@ -1,5 +1,6 @@
 {
   "site_name": "MicTest",
   "domain": "mictest.dev",
-  "home_slug": "index"
+  "home_slug": "index",
+  "adsense_publisher_id": "5426315045205785"
 }

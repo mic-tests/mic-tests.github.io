@@ -260,7 +260,7 @@
     .footer-bottom{border-top:1px solid var(--border);margin-top:1.5rem;padding:1rem 0;font-size:11px;color:var(--ink-3);font-family:'JetBrains Mono';}
 
     /* ── Mobile drawer ── */
-    #mobile-drawer{position:fixed;inset:0;z-index:40;background:var(--bg);transform:translateX(-100%);transition:transform .2s ease;overflow-y:auto;}
+    #mobile-drawer{position:fixed;inset:0;z-index:40;background:var(--bg);transform:translateX(-100%);transition:transform .2s ease;overflow-y:auto;padding-top:64px;}
     #mobile-drawer.open{transform:translateX(0);}
 
     /* ── Page-specific (this tool's own extra CSS, if any — must use the theme tokens above, e.g. var(--amber)/var(--panel), never hardcoded colors, so it stays correct in both light and dark) ── */
@@ -463,7 +463,7 @@
   <div class="panel-body">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
-        <h3>Technical Specifications</h3>
+        <h2>Technical Specifications</h2>
         <div class="table-responsive">
           <table class="table table-striped">
             <tbody>
@@ -496,7 +496,7 @@
         </div>
       </div>
       <div>
-        <h3>Additional Features</h3>
+        <h2>Additional Features</h2>
         <div class="table-responsive">
           <table class="table table-striped">
             <tbody>
@@ -523,7 +523,7 @@
     </div>
 
     <div class="mt-4">
-      <h3>Speaker Test</h3>
+      <h2>Speaker Test</h2>
       <p>Use the controls below to test your selected speaker:</p>
 
       <div class="mb-3">
@@ -821,10 +821,13 @@
   var closeBtn = document.getElementById('mobile-drawer-close');
   var drawer = document.getElementById('mobile-drawer');
   if (!btn || !drawer) return;
-  btn.addEventListener('click', function() { drawer.classList.add('open'); });
+  btn.addEventListener('click', function() { drawer.classList.toggle('open'); });
   if (closeBtn) closeBtn.addEventListener('click', function() { drawer.classList.remove('open'); });
   drawer.querySelectorAll('a').forEach(function(a) {
     a.addEventListener('click', function() { drawer.classList.remove('open'); });
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') drawer.classList.remove('open');
   });
 })();
 </script>

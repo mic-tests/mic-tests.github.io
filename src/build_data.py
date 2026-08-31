@@ -24,6 +24,7 @@ CONTENT_DIR = os.path.join(BASE_DIR, "content")
 SITE_NAME = "MicTest"
 DOMAIN = "mictest.dev"
 HOME_SLUG = "index"
+ADSENSE_PUBLISHER_ID = "5426315045205785"
 
 # Order here has no effect on the rail nav (that's static in template.html) —
 # it only controls sitemap.xml ordering.
@@ -86,6 +87,7 @@ def build_site():
         "site_name": SITE_NAME,
         "domain": DOMAIN,
         "home_slug": HOME_SLUG,
+        "adsense_publisher_id": ADSENSE_PUBLISHER_ID,
     }
 
 

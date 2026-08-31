@@ -15,8 +15,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
   <script async crossorigin="anonymous"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5426315045205785"></script>
-  <meta name="google-adsense-account" content="ca-pub-5426315045205785">
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ADSENSE_CLIENT}}"></script>
+  <meta name="google-adsense-account" content="{{ADSENSE_CLIENT}}">
 
   <style>
     :root{
@@ -206,7 +206,7 @@
     .footer-bottom{border-top:1px solid var(--border);margin-top:1.5rem;padding:1rem 0;font-size:11px;color:var(--ink-3);font-family:'JetBrains Mono';}
 
     /* ── Mobile drawer ── */
-    #mobile-drawer{position:fixed;inset:0;z-index:40;background:var(--bg);transform:translateX(-100%);transition:transform .2s ease;overflow-y:auto;}
+    #mobile-drawer{position:fixed;inset:0;z-index:40;background:var(--bg);transform:translateX(-100%);transition:transform .2s ease;overflow-y:auto;padding-top:64px;}
     #mobile-drawer.open{transform:translateX(0);}
 
     /* ── Page-specific (this tool's own extra CSS, if any — must use the theme tokens above, e.g. var(--amber)/var(--panel), never hardcoded colors, so it stays correct in both light and dark) ── */
@@ -352,7 +352,7 @@
             <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
             <div class="ad-panel-body">
               <ins class="adsbygoogle"
-                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-client="{{ADSENSE_CLIENT}}"
                    data-ad-format="auto"
                    data-ad-slot="{{AD_SLOT_MID}}"
                    data-full-width-responsive="true"
@@ -532,10 +532,13 @@
   var closeBtn = document.getElementById('mobile-drawer-close');
   var drawer = document.getElementById('mobile-drawer');
   if (!btn || !drawer) return;
-  btn.addEventListener('click', function() { drawer.classList.add('open'); });
+  btn.addEventListener('click', function() { drawer.classList.toggle('open'); });
   if (closeBtn) closeBtn.addEventListener('click', function() { drawer.classList.remove('open'); });
   drawer.querySelectorAll('a').forEach(function(a) {
     a.addEventListener('click', function() { drawer.classList.remove('open'); });
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') drawer.classList.remove('open');
   });
 })();
 </script>
