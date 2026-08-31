@@ -113,14 +113,29 @@ def render_page(tool, site, template):
     ads = tool.get("ads", {})
     adsense_client = "ca-pub-%s" % site["adsense_publisher_id"]
 
-    main_sections_parts = [render_content_blocks(tool.get("content_blocks", []))]
+    # The 3rd ad (ads.footer) sits right before the 3rd H2 section — each
+    # content_blocks entry opens with its own H2, so "before the 3rd H2" is
+    # "before content_blocks[2]" — falling back to its old end-of-content
+    # position (before FAQ/Comments) for the (currently none) pages with
+    # fewer than 3 content_blocks.
+    content_blocks = tool.get("content_blocks", [])
     footer_ad_slot = ads.get("footer")
-    if footer_ad_slot:
-        main_sections_parts.append(render_ad_panel(footer_ad_slot, adsense_client))
+    footer_ad_html = render_ad_panel(footer_ad_slot, adsense_client) if footer_ad_slot else ""
+    if footer_ad_html and len(content_blocks) >= 3:
+        main_sections_parts = [
+            render_content_blocks(content_blocks[:2]),
+            footer_ad_html,
+            render_content_blocks(content_blocks[2:]),
+        ]
+    else:
+        main_sections_parts = [render_content_blocks(content_blocks), footer_ad_html]
     faq_block = render_faq_block(tool.get("faq_heading", "Frequently Asked Questions"), tool.get("faq", []))
     if faq_block:
         main_sections_parts.append(faq_block)
     main_sections = "\n\n".join(p for p in main_sections_parts if p)
+
+    header_ad_slot = ads.get("header")
+    header_ad_html = render_ad_panel(header_ad_slot, adsense_client) if header_ad_slot else ""
 
     json_ld_blocks = [render_json_ld(tool["json_ld"])]
     faq_jsonld = render_faq_jsonld(tool.get("faq", []))
@@ -136,6 +151,7 @@ def render_page(tool, site, template):
         "H1": tool["h1"],
         "H1_ATTR": html.escape(tool["h1"]),
         "INTRO_HTML": "          " + tool["intro_html"],
+        "HEADER_AD_HTML": header_ad_html,
         "TOOL_CARD_HTML": tool["tool_card_html"],
         "PAGE_STYLE": tool.get("extra_style", ""),
         "AD_SLOT_MID": ads.get("mid", ""),
