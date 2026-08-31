@@ -16,31 +16,8 @@
       "url": "https://mictest.dev"
     }
   },
-  "eyebrow": "Unit 03 · Ambient Decibel Monitoring",
   "h1": "Sound Level Meter Online — Measure Decibels (dB) in Real Time",
   "intro_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">The <strong>sound level meter online</strong> uses your microphone to measure how loud your environment actually is, in decibels. Click <strong>Start Measuring</strong>, allow mic access, and you'll see a live <strong>dB reading</strong> that updates continuously alongside a <strong>peak level</strong> and <strong>average level</strong> — the <strong>level bar</strong> shifts from green through yellow to red as sound gets louder. Your <strong>noise rating</strong> tells you whether your space qualifies as quiet, moderate, or loud based on what the mic is picking up. <!-- SILO_START:slot_a -->A <a href=\"/hearing-test\">hearing test online</a> reveals high-frequency loss before it becomes noticeable in conversation.<!-- SILO_END:slot_a --></p>",
-  "nameplate": [
-    [
-      "Model",
-      "SLM‑03 METER",
-      false
-    ],
-    [
-      "Interface",
-      "Web Audio API",
-      false
-    ],
-    [
-      "Install required",
-      "None",
-      true
-    ],
-    [
-      "Audio uploaded",
-      "Never",
-      true
-    ]
-  ],
   "tool_card_html": "          <div class=\"panel mb-6\">\n            <div class=\"panel-hdr\"><span class=\"flex items-center gap-2\"><i class=\"bi bi-speedometer2\"></i>Real-Time Sound Level</span></div>\n            <div class=\"panel-body\">\n\n              <div class=\"grid sm:grid-cols-2 gap-3 mb-3\">\n                <div>\n                  <label class=\"form-label\" for=\"mic-select\">Select Microphone</label>\n                  <select class=\"form-select\" id=\"mic-select\" disabled>\n                    <option value=\"\">Select microphone...</option>\n                  </select>\n                </div>\n                <div class=\"flex flex-col justify-end\">\n                  <button type=\"button\" class=\"btn btn-primary w-100\" id=\"start-btn\">\n                    <i class=\"bi bi-play-fill me-2\"></i>Start Measuring\n                  </button>\n                </div>\n              </div>\n\n              <div class=\"grid sm:grid-cols-2 gap-6 items-center mt-3\">\n                <div class=\"text-center\">\n                  <div class=\"db-display\" id=\"db-value\">--</div>\n                  <span class=\"db-unit\">dB</span>\n                  <div class=\"level-indicator mt-3\" id=\"level-indicator\">--</div>\n                </div>\n                <div>\n                  <div class=\"meter-container\" id=\"meter-container\">\n                    <div class=\"meter-fill\" id=\"meter-fill\" style=\"height: 100%;\"></div>\n                    <div class=\"meter-scale mono\">\n                      <span>100</span>\n                      <span>80</span>\n                      <span>60</span>\n                      <span>40</span>\n                      <span>20</span>\n                      <span>0</span>\n                    </div>\n                  </div>\n                </div>\n              </div>\n\n            </div>\n          </div>\n\n          <div class=\"status-message alert-info\" id=\"status-alert\">\n            <div class=\"status-step\">\n              <span class=\"status-icon\"><i class=\"bi bi-info-circle-fill\"></i></span>\n              <span id=\"status-message\">Click \"Start Measuring\" to begin monitoring sound levels.</span>\n            </div>\n          </div>\n\n          <div class=\"panel mb-6\">\n            <div class=\"panel-hdr\"><span class=\"flex items-center gap-2\"><i class=\"bi bi-graph-up\"></i>Statistics</span></div>\n            <div class=\"panel-body\">\n              <div class=\"grid grid-cols-3 gap-3 text-center mb-3\">\n                <div>\n                  <p class=\"mono mb-0\" style=\"font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)\">Current</p>\n                  <div class=\"mono\" style=\"font-size:1.5rem;font-weight:700;color:var(--amber)\" id=\"stat-current\">-- dB</div>\n                </div>\n                <div>\n                  <p class=\"mono mb-0\" style=\"font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)\">Average</p>\n                  <div class=\"mono\" style=\"font-size:1.5rem;font-weight:700;color:var(--success)\" id=\"stat-avg\">-- dB</div>\n                </div>\n                <div>\n                  <p class=\"mono mb-0\" style=\"font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)\">Peak</p>\n                  <div class=\"mono\" style=\"font-size:1.5rem;font-weight:700;color:var(--red)\" id=\"stat-peak\">-- dB</div>\n                </div>\n              </div>\n              <hr style=\"border:none;border-top:1px solid var(--border);margin:1rem 0\">\n              <p class=\"mono mb-2\" style=\"font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)\">Level History</p>\n              <canvas class=\"history-canvas\" id=\"history-canvas\"></canvas>\n              <button type=\"button\" class=\"btn btn-outline btn-sm mt-2\" id=\"reset-stats-btn\">\n                <i class=\"bi bi-arrow-counterclockwise me-1\"></i>Reset Statistics\n              </button>\n            </div>\n          </div>",
   "ads": {
     "mid": "9146528954",

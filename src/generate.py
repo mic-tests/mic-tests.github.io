@@ -43,18 +43,6 @@ def render_json_ld(data):
     return '  <script type="application/ld+json">\n%s\n  </script>' % json.dumps(data, indent=2, ensure_ascii=False)
 
 
-def render_nameplate(rows):
-    """rows: list of [label, value, accent(bool)]."""
-    parts = []
-    for label, value, accent in rows:
-        value_style = ' style="color:var(--amber)"' if accent else ""
-        parts.append(
-            '            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">%s</dt><dd%s>%s</dd></div>'
-            % (html.escape(label), value_style, value)
-        )
-    return "\n".join(parts)
-
-
 def render_ad_panel(slot_id, adsense_client, min_height=None):
     style_extra = ";min-height:%dpx;" % min_height if min_height else ""
     body_style = ' style="min-height:%dpx;"' % min_height if min_height else ""
@@ -134,12 +122,14 @@ def render_page(tool, site, template):
         main_sections_parts.append(faq_block)
     main_sections = "\n\n".join(p for p in main_sections_parts if p)
 
-    sidebar_parts = [tool.get("sidebar_top_html", "")]
-    sidebar_ad_slot = ads.get("sidebar")
-    if sidebar_ad_slot:
-        sidebar_parts.append(render_ad_panel(sidebar_ad_slot, adsense_client, min_height=360))
-    sidebar_parts.append(tool.get("sidebar_bottom_html", ""))
+    sidebar_parts = [tool.get("sidebar_top_html", ""), tool.get("sidebar_bottom_html", "")]
     sidebar_html = "\n\n".join(p for p in sidebar_parts if p)
+
+    # The "sidebar" ad slot now sits in the hero (replacing the old "Unit
+    # Nameplate" decorative panel, which had no legacy equivalent and no ad
+    # of its own) instead of the tool-content sidebar column below it.
+    hero_ad_slot = ads.get("sidebar")
+    hero_ad_html = render_ad_panel(hero_ad_slot, adsense_client, min_height=360) if hero_ad_slot else ""
 
     json_ld_blocks = [render_json_ld(tool["json_ld"])]
     faq_jsonld = render_faq_jsonld(tool.get("faq", []))
@@ -152,11 +142,10 @@ def render_page(tool, site, template):
         "META_KEYWORDS": html.escape(tool["meta_keywords"]),
         "CANONICAL_URL": canonical,
         "JSON_LD": "\n\n".join(json_ld_blocks),
-        "EYEBROW": tool["eyebrow"],
         "H1": tool["h1"],
         "H1_ATTR": html.escape(tool["h1"]),
         "INTRO_HTML": "          " + tool["intro_html"],
-        "NAMEPLATE_HTML": render_nameplate(tool["nameplate"]),
+        "HERO_AD_HTML": hero_ad_html,
         "TOOL_CARD_HTML": tool["tool_card_html"],
         "PAGE_STYLE": tool.get("extra_style", ""),
         "AD_SLOT_MID": ads.get("mid", ""),
@@ -210,7 +199,6 @@ def render_info_page(page, site, template_page):
         "META_DESCRIPTION": html.escape(page["meta_description"]),
         "CANONICAL_URL": canonical,
         "JSON_LD": "\n\n".join(json_ld_blocks),
-        "EYEBROW": page["eyebrow"],
         "H1": page["h1"],
         "SUBTITLE_HTML": "      " + page["subtitle_html"],
         "PAGE_CONTENT": page_content,
@@ -253,7 +241,6 @@ def render_404(site, template_page):
         "META_DESCRIPTION": "The page you&#x27;re looking for doesn&#x27;t exist. Return to MicTest to test your microphone and audio devices.",
         "CANONICAL_URL": "https://%s/404" % domain,
         "JSON_LD": "",
-        "EYEBROW": "Error 404",
         "H1": "Page Not Found",
         "SUBTITLE_HTML": '<p style="color:var(--ink-2)">Let&#x27;s get you back to testing.</p>',
         "PAGE_CONTENT": page_content,

@@ -127,7 +127,7 @@
     a{color:var(--amber);text-decoration:none}
     a:hover{opacity:.8}
     ::selection{background:var(--amber);color:var(--bg)}
-    h1,h2,h3,h4{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;color:var(--ink);}
+    h1,h2,h3,h4{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;word-spacing:-0.15em;color:var(--ink);}
     h2{font-weight:700;font-size:1.5rem;line-height:1.25;margin:0 0 .9rem;}
     h3{font-weight:600;font-size:1.1rem;line-height:1.3;margin:1.75rem 0 .5rem;}
     p{margin:0 0 1rem;}
@@ -151,7 +151,7 @@
       --tw-prose-th-borders: var(--border) !important; --tw-prose-td-borders: var(--border-lt) !important;
       color:var(--tw-prose-body);
     }
-    .prose :where(h2,h3,h4,h5,h6){font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;}
+    .prose :where(h2,h3,h4,h5,h6){font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;word-spacing:-0.15em;}
     .prose :where(code)::before,.prose :where(code)::after{content:none !important;}
     .prose :where(code){background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;}
     .prose :where(a){text-decoration:none;}
@@ -422,19 +422,23 @@
       <!-- HERO -->
       <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
         <header>
-          <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 04 · Channel Separation Diagnostics</div>
           <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Stereo Test — Check Left & Right Audio Channels Online</h1>
           <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>Stereo Test</strong> plays a tone through your left channel, right channel, or both so you can confirm your headphones or speakers are wired and balanced correctly. Put on your headphones or sit in front of your speakers, then click <strong>Play Left</strong>, <strong>Play Right</strong>, or <strong>Play Both</strong> — the tone should come only from whichever side you selected. If the wrong ear hears the tone or one side stays silent, the <strong>channel status display</strong> helps you pinpoint whether you're dealing with swapped channels, a wiring fault, or a driver issue on your device. <!-- SILO_START:slot_a -->The free <a href="/tone-generator">tone generator</a> is the fastest way to check if your speakers reproduce bass and treble accurately.<!-- SILO_END:slot_a --></p>
         </header>
 
-        <div class="hidden lg:block panel p-5">
-          <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
-          <dl class="mono text-[11.5px] flex flex-col gap-3">
-            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Model</dt><dd>ST-04 CHANNEL</dd></div>
-            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Interface</dt><dd>Web Audio API</dd></div>
-            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Install required</dt><dd style="color:var(--amber)">None</dd></div>
-            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Audio uploaded</dt><dd style="color:var(--amber)">Never</dd></div>
-          </dl>
+        <div>
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body" style="min-height:360px;">
+              <ins class="adsbygoogle"
+                   style="display:block;min-height:360px;"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-slot="6193062550"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -674,19 +678,6 @@
 
         <!-- RIGHT: sidebar -->
         <div>
-
-          <div class="ad-panel">
-            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
-            <div class="ad-panel-body" style="min-height:360px;">
-              <ins class="adsbygoogle"
-                   style="display:block;min-height:360px;"
-                   data-ad-client="ca-pub-5426315045205785"
-                   data-ad-slot="6193062550"
-                   data-ad-format="auto"
-                   data-full-width-responsive="true"></ins>
-              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-            </div>
-          </div>
 
 <div class="panel mb-5">
           <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-gear"></i>Test Settings</span></div>

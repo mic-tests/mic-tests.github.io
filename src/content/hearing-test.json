@@ -16,31 +16,8 @@
       "url": "https://mictest.dev"
     }
   },
-  "eyebrow": "Unit 02 · Auditory Range Diagnostics",
   "h1": "Hearing Test Online — Find Your Audible Frequency Range",
   "intro_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">The <strong>hearing test online</strong> plays tones across the full audible spectrum — from 20Hz bass up to 20,000Hz — so you can find the edges of what you can actually hear. Put on your headphones, click <strong>Play</strong> at each <strong>frequency button</strong>, then press <strong>I can hear this</strong> or <strong>I can't hear this</strong> for each one; your <strong>hearing range result</strong> builds as you go. Your responses map out which frequencies you detect clearly, which sound faint, and where your hearing drops off — a useful personal baseline, though not a substitute for a medical hearing evaluation. <!-- SILO_START:slot_a -->The <a href=\"/\">mic test online</a> checks your mic input, waveform, and device info in one step.<!-- SILO_END:slot_a --></p>",
-  "nameplate": [
-    [
-      "Model",
-      "HT-02 SWEEP",
-      false
-    ],
-    [
-      "Interface",
-      "Web Audio API",
-      false
-    ],
-    [
-      "Install required",
-      "None",
-      true
-    ],
-    [
-      "Audio uploaded",
-      "Never",
-      true
-    ]
-  ],
   "tool_card_html": "          <div class=\"panel mb-6\">\n            <div class=\"panel-hdr\"><span class=\"flex items-center gap-2\"><i class=\"bi bi-sliders\"></i>Test Settings</span></div>\n            <div class=\"panel-body\">\n              <div class=\"grid sm:grid-cols-3 gap-4\">\n                <div>\n                  <label class=\"form-label\" for=\"ear-select\">Test Ear</label>\n                  <select class=\"form-select\" id=\"ear-select\">\n                    <option value=\"both\">Both Ears</option>\n                    <option value=\"left\">Left Ear Only</option>\n                    <option value=\"right\">Right Ear Only</option>\n                  </select>\n                </div>\n                <div>\n                  <label class=\"form-label\" for=\"volume\">Volume</label>\n                  <input type=\"range\" id=\"volume\" min=\"10\" max=\"100\" value=\"40\">\n                  <div class=\"mono text-center text-xs mt-1\" id=\"vol-display\" style=\"color:var(--ink-2)\">40%</div>\n                </div>\n                <div>\n                  <label class=\"form-label\" for=\"duration\">Tone Duration</label>\n                  <select class=\"form-select\" id=\"duration\">\n                    <option value=\"0.5\">0.5 seconds</option>\n                    <option value=\"1\" selected>1 second</option>\n                    <option value=\"2\">2 seconds</option>\n                  </select>\n                </div>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"panel mb-6\">\n            <div class=\"panel-hdr\"><span class=\"flex items-center gap-2\"><i class=\"bi bi-soundwave\"></i>Frequency Test</span></div>\n            <div class=\"panel-body\">\n              <p style=\"color:var(--ink-2)\">Click each frequency button. Mark \"Heard\" if you can hear the tone, \"Not Heard\" if you can't.</p>\n\n              <div class=\"grid sm:grid-cols-2 gap-6 mb-4\">\n                <div>\n                  <p class=\"mono text-xs uppercase tracking-wide mb-2\" style=\"color:var(--ink-3)\">Low Frequencies (Bass)</p>\n                  <button type=\"button\" class=\"btn btn-outline-primary freq-btn\" data-freq=\"20\">20 Hz</button>\n                  <button type=\"button\" class=\"btn btn-outline-primary freq-btn\" data-freq=\"30\">30 Hz</button>\n                  <button type=\"button\" class=\"btn btn-outline-primary freq-btn\" data-freq=\"40\">40 Hz</button>\n                  <button type=\"button\" class=\"btn btn-outline-primary freq-btn\" data-freq=\"60\">60 Hz</button>\n                  <button type=\"button\" class=\"btn btn-outline-primary freq-btn\" data-freq=\"100\">100 Hz</button>\n                  <button type=\"button\" class=\"btn btn-outline-primary freq-btn\" data-freq=\"200\">200 Hz</button>\n                  <button type=\"button\" class=\"btn btn-outline-primary freq-btn\" data-freq=\"500\">500 Hz</button>\n                </div>\n                <div>\n                  <p class=\"mono text-xs uppercase tracking-wide mb-2\" style=\"color:var(--ink-3)\">High Frequencies (Treble)</p>\n                  <button type=\"button\" class=\"btn btn-outline-primary freq-btn\" data-freq=\"1000\">1 kHz</button>\n                  <button type=\"button\" class=\"btn btn-outline-primary freq-btn\" data-freq=\"2000\">2 kHz</button>\n                  <button type=\"button\" class=\"btn btn-outline-primary freq-btn\" data-freq=\"4000\">4 kHz</button>\n                  <button type=\"button\" class=\"btn btn-outline-primary freq-btn\" data-freq=\"6000\">6 kHz</button>\n                  <button type=\"button\" class=\"btn btn-outline-primary freq-btn\" data-freq=\"8000\">8 kHz</button>\n                  <button type=\"button\" class=\"btn btn-outline-primary freq-btn\" data-freq=\"12000\">12 kHz</button>\n                  <button type=\"button\" class=\"btn btn-outline-primary freq-btn\" data-freq=\"16000\">16 kHz</button>\n                  <button type=\"button\" class=\"btn btn-outline-primary freq-btn\" data-freq=\"18000\">18 kHz</button>\n                  <button type=\"button\" class=\"btn btn-outline-primary freq-btn\" data-freq=\"20000\">20 kHz</button>\n                </div>\n              </div>\n\n              <div class=\"btn-toolbar\">\n                <button type=\"button\" class=\"btn btn-primary\" id=\"heard-btn\" disabled>\n                  <i class=\"bi bi-check me-1\"></i>I Heard It\n                </button>\n                <button type=\"button\" class=\"btn btn-secondary\" id=\"not-heard-btn\" disabled>\n                  <i class=\"bi bi-x me-1\"></i>Didn't Hear\n                </button>\n                <button type=\"button\" class=\"btn btn-outline\" id=\"reset-btn\">\n                  <i class=\"bi bi-arrow-counterclockwise me-1\"></i>Reset All\n                </button>\n              </div>\n            </div>\n          </div>\n",
   "ads": {
     "mid": "9146528954",

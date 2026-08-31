@@ -64,7 +64,6 @@
       "url": "https://mictest.dev"
     }
   },
-  "eyebrow": "Unit 15 · Fault Isolation",
   "h1": "Fix Audio Issues — Microphone & Speaker Troubleshooting Guide",
   "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">This <strong>audio troubleshooting guide</strong> walks you through fixes for the most common microphone and speaker problems — mic not detected, no audio input, browser permission errors, distorted sound, and more. Pick the <strong>issue category</strong> that matches your problem and work through the <strong>step-by-step checklist</strong>; each section tells you exactly what to check and what to change on your device. If you've already run the <strong>mic test online</strong> and confirmed your hardware is working, start here to pinpoint whether the issue is in your browser settings, OS permissions, or audio drivers.</p>",
   "content_blocks": [

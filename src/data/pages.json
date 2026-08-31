@@ -65,7 +65,6 @@
         "url": "https://mictest.dev"
       }
     },
-    "eyebrow": "Unit 15 · Fault Isolation",
     "h1": "Fix Audio Issues — Microphone & Speaker Troubleshooting Guide",
     "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">This <strong>audio troubleshooting guide</strong> walks you through fixes for the most common microphone and speaker problems — mic not detected, no audio input, browser permission errors, distorted sound, and more. Pick the <strong>issue category</strong> that matches your problem and work through the <strong>step-by-step checklist</strong>; each section tells you exactly what to check and what to change on your device. If you've already run the <strong>mic test online</strong> and confirmed your hardware is working, start here to pinpoint whether the issue is in your browser settings, OS permissions, or audio drivers.</p>",
     "content_blocks": [
@@ -116,7 +115,6 @@
         "url": "https://mictest.dev"
       }
     },
-    "eyebrow": "Unit 17 · Maker's Note",
     "h1": "About MicTest",
     "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">Hey, I'm Vinitha — designer, developer, and the person behind MicTest.</p>",
     "content_blocks": [
@@ -161,7 +159,6 @@
         "url": "https://mictest.dev"
       }
     },
-    "eyebrow": "Unit 16 · Support Channel",
     "h1": "Contact MicTest",
     "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">Have a question, found a bug, or just want to say hello? Drop me an email — I read every message.</p>",
     "content_blocks": [
@@ -198,7 +195,6 @@
         "url": "https://mictest.dev"
       }
     },
-    "eyebrow": "Unit 18 · Site Index",
     "h1": "Sitemap",
     "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">All MicTest tools and pages, organised by category.</p>",
     "content_blocks": [

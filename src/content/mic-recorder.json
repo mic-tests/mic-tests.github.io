@@ -16,31 +16,8 @@
       "url": "https://mictest.dev"
     }
   },
-  "eyebrow": "Unit 02 · Voice Capture & Playback",
   "h1": "Online Mic Recorder — Record Your Voice as MP3 or WAV",
   "intro_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">The <strong>online mic recorder</strong> captures audio directly from your microphone and saves it as a downloadable file. Click <strong>Record</strong>, allow microphone access when your browser asks, speak or play whatever you want to capture, then click <strong>Stop</strong> — your recording appears in the <strong>audio player</strong> ready to play back or save as <strong>MP3 or WAV</strong>. You can also hit <strong>Pause</strong> mid-recording and pick back up without starting over, and the <strong>recording timer</strong> tracks your clip length as you go. <!-- SILO_START:slot_a -->An <a href=\"/audio-latency-test\">audio latency test</a> shows whether your setup introduces noticeable lag for recording or live use.<!-- SILO_END:slot_a --></p>",
-  "nameplate": [
-    [
-      "Model",
-      "MR‑02 CAPTURE",
-      false
-    ],
-    [
-      "Interface",
-      "Web Audio API",
-      false
-    ],
-    [
-      "Install required",
-      "None",
-      true
-    ],
-    [
-      "Audio uploaded",
-      "Never",
-      true
-    ]
-  ],
   "tool_card_html": "          <div class=\"panel mb-6\">\n            <div class=\"panel-hdr\"><span class=\"flex items-center gap-2\"><i class=\"bi bi-mic-fill\"></i>Voice Recorder</span></div>\n            <div class=\"panel-body text-center\">\n\n              <div class=\"mb-4\">\n                <select class=\"form-select\" id=\"mic-select\" disabled aria-label=\"Select microphone\">\n                  <option value=\"\">Select microphone...</option>\n                </select>\n              </div>\n\n              <div class=\"flex justify-center gap-3 mb-4\">\n                <button type=\"button\" class=\"btn btn-danger recorder-btn\" id=\"record-btn\" title=\"Start Recording\" aria-label=\"Start Recording\">\n                  <i class=\"bi bi-circle-fill\"></i>\n                </button>\n                <button type=\"button\" class=\"btn btn-secondary recorder-btn\" id=\"stop-btn\" disabled title=\"Stop Recording\" aria-label=\"Stop Recording\">\n                  <i class=\"bi bi-stop-fill\"></i>\n                </button>\n              </div>\n\n              <div class=\"recording-time mono mb-3\" id=\"recording-time\">00:00</div>\n\n              <div class=\"waveform-container mb-4\">\n                <canvas id=\"waveform\"></canvas>\n              </div>\n\n              <div id=\"playback-section\" class=\"d-none\">\n                <h2 class=\"flex items-center gap-2\" style=\"justify-content:center\"><i class=\"bi bi-play-circle\"></i>Your Recording</h2>\n                <audio id=\"audio-playback\" controls class=\"w-100 mb-3\"></audio>\n\n                <div class=\"btn-toolbar\" style=\"justify-content:center\">\n                  <button type=\"button\" class=\"btn btn-primary\" id=\"download-mp3-btn\">\n                    <i class=\"bi bi-download me-2\"></i>Download MP3\n                  </button>\n                  <button type=\"button\" class=\"btn btn-primary\" id=\"download-wav-btn\">\n                    <i class=\"bi bi-download me-2\"></i>Download WAV\n                  </button>\n                  <button type=\"button\" class=\"btn btn-outline\" id=\"new-recording-btn\">\n                    <i class=\"bi bi-arrow-repeat me-2\"></i>New Recording\n                  </button>\n                </div>\n              </div>\n\n            </div>\n          </div>\n\n          <div class=\"status-message alert-info\" id=\"status-alert\">\n            <div class=\"status-step\">\n              <span class=\"status-icon\"><i class=\"bi bi-info-circle-fill\"></i></span>\n              <span id=\"status-message\">Click the record button to start recording your voice.</span>\n            </div>\n          </div>",
   "ads": {
     "mid": "9146528954",

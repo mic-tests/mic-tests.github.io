@@ -16,31 +16,8 @@
       "url": "https://mictest.dev"
     }
   },
-  "eyebrow": "Unit 04 · Low-Frequency Response Diagnostics",
   "h1": "Bass Test — Check Your Speaker & Subwoofer Low Frequency Response",
   "intro_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">The <strong>Bass Test</strong> plays low-frequency tones between 20Hz and 200Hz so you can find out how deep your speakers or subwoofer actually reach. Drag the <strong>frequency slider</strong> to a target frequency, click <strong>Play</strong>, and listen — if you hear the tone clearly, your speakers reproduce that frequency; if you get nothing or just a faint vibration, your speakers roll off before that point. The <strong>current frequency display</strong> updates in real time as you move through the range, making it easy to find your speaker's low-end limit. <!-- SILO_START:slot_a -->A <a href=\"/tone-generator\">tone generator</a> lets you play any frequency from 20Hz to 20kHz directly in your browser.<!-- SILO_END:slot_a --></p>",
-  "nameplate": [
-    [
-      "Model",
-      "BT-04 SUBSONIC",
-      false
-    ],
-    [
-      "Interface",
-      "Web Audio API",
-      false
-    ],
-    [
-      "Install required",
-      "None",
-      true
-    ],
-    [
-      "Audio uploaded",
-      "Never",
-      true
-    ]
-  ],
   "tool_card_html": "        <div class=\"panel mb-6\">\n          <div class=\"panel-hdr\"><span class=\"flex items-center gap-2\"><span class=\"led\"></span>Bass Frequency Test</span></div>\n          <div class=\"panel-body\">\n\n            <div class=\"text-center mb-4\">\n              <div class=\"bass-display\" id=\"freq-display\">--</div>\n              <div class=\"mono\" style=\"color:var(--ink-2);font-size:1.05rem\">Hz</div>\n              <span class=\"freq-badge\" id=\"freq-label\">Select a frequency</span>\n            </div>\n\n            <div class=\"bass-visualizer mb-4\" id=\"visualizer\">\n              <div class=\"bass-bar\" style=\"height: 20%;\"></div>\n              <div class=\"bass-bar\" style=\"height: 30%;\"></div>\n              <div class=\"bass-bar\" style=\"height: 50%;\"></div>\n              <div class=\"bass-bar\" style=\"height: 70%;\"></div>\n              <div class=\"bass-bar\" style=\"height: 90%;\"></div>\n              <div class=\"bass-bar\" style=\"height: 100%;\"></div>\n              <div class=\"bass-bar\" style=\"height: 90%;\"></div>\n              <div class=\"bass-bar\" style=\"height: 70%;\"></div>\n              <div class=\"bass-bar\" style=\"height: 50%;\"></div>\n              <div class=\"bass-bar\" style=\"height: 30%;\"></div>\n              <div class=\"bass-bar\" style=\"height: 20%;\"></div>\n            </div>\n\n            <div class=\"mb-4\">\n              <label class=\"form-label\" for=\"freq-slider\">Frequency (20 Hz - 200 Hz)</label>\n              <input type=\"range\" class=\"form-range\" id=\"freq-slider\" min=\"20\" max=\"200\" value=\"60\">\n            </div>\n\n            <div class=\"mb-4\">\n              <label class=\"form-label\" for=\"volume-slider\">Volume</label>\n              <input type=\"range\" class=\"form-range\" id=\"volume-slider\" min=\"0\" max=\"100\" value=\"20\">\n              <div class=\"text-center mono\" style=\"font-size:12.5px;color:var(--ink-2)\"><span id=\"volume-display\">20%</span></div>\n            </div>\n\n            <div class=\"text-center\">\n              <button type=\"button\" class=\"btn btn-success\" id=\"play-btn\">\n                <i class=\"bi bi-play-fill me-2\"></i>Play Bass\n              </button>\n            </div>\n\n          </div>\n        </div>\n\n        <div class=\"panel mb-6\">\n          <div class=\"panel-hdr\"><span class=\"flex items-center gap-2\"><i class=\"bi bi-grid-3x3-gap-fill\"></i>Quick Test Frequencies</span></div>\n          <div class=\"panel-body text-center\">\n            <div class=\"btn-toolbar\" style=\"justify-content:center\">\n              <button type=\"button\" class=\"btn btn-outline freq-btn\" data-freq=\"20\">20 Hz</button>\n              <button type=\"button\" class=\"btn btn-outline freq-btn\" data-freq=\"30\">30 Hz</button>\n              <button type=\"button\" class=\"btn btn-outline freq-btn\" data-freq=\"40\">40 Hz</button>\n              <button type=\"button\" class=\"btn btn-outline freq-btn\" data-freq=\"50\">50 Hz</button>\n              <button type=\"button\" class=\"btn btn-outline freq-btn\" data-freq=\"60\">60 Hz</button>\n              <button type=\"button\" class=\"btn btn-outline freq-btn\" data-freq=\"80\">80 Hz</button>\n              <button type=\"button\" class=\"btn btn-outline freq-btn\" data-freq=\"100\">100 Hz</button>\n              <button type=\"button\" class=\"btn btn-outline freq-btn\" data-freq=\"150\">150 Hz</button>\n            </div>\n          </div>\n        </div>\n\n        <div class=\"panel mb-6\">\n          <div class=\"panel-hdr\"><span class=\"flex items-center gap-2\"><i class=\"bi bi-stopwatch\"></i>Bass Sweep Test</span></div>\n          <div class=\"panel-body\">\n            <p>Sweep through all bass frequencies to test your speaker's full range.</p>\n            <div class=\"progress mb-3 d-none\" id=\"sweep-progress-container\">\n              <div class=\"progress-bar\" id=\"sweep-progress\" style=\"width: 0%\"></div>\n            </div>\n            <button type=\"button\" class=\"btn btn-primary w-100\" id=\"sweep-btn\">\n              <i class=\"bi bi-play-fill me-2\"></i>Start 10s Bass Sweep (20-200 Hz)\n            </button>\n          </div>\n        </div>\n\n        <div class=\"status-message alert-warning\">\n          <div class=\"status-step\">\n            <span class=\"status-icon\"><i class=\"bi bi-exclamation-triangle-fill\"></i></span>\n            <span>Start with low volume. Very low frequencies can damage speakers if played too loud.</span>\n          </div>\n        </div>",
   "ads": {
     "mid": "9146528954",
