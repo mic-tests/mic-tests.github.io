@@ -152,6 +152,7 @@
     .panel-body{padding:1.1rem;}
     .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
     .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
+    .hero-ad .ad-panel{margin-top:0;}
     .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
     .ad-panel-body{padding:1rem;text-align:center;}
 
@@ -413,7 +414,7 @@
           <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75"><strong>Show My Speakers</strong> reads your browser's audio output API and lists every speaker and audio device your system has available. Your <strong>device list</strong> loads automatically — for each output you'll see the <strong>device name</strong>, <strong>sample rate</strong>, <strong>channel configuration</strong>, and <strong>device ID</strong> pulled directly from your system. If you're troubleshooting why audio is routing to the wrong output, or you want to confirm what your browser sees before a call or recording session, your full <strong>output device inventory</strong> is here. <!-- SILO_START:slot_a -->For speaker calibration or tinnitus matching, the <a href="/tone-generator">tone generator</a> gives you precise frequency control.<!-- SILO_END:slot_a --></p>
         </header>
 
-        <div>
+        <div class="hero-ad">
 
         </div>
       </div>
@@ -647,7 +648,19 @@
         <!-- RIGHT: sidebar -->
         <div>
 
-
+          <div class="panel">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-tools"></i>Related Tools</span></div>
+            <div class="panel-body" style="padding:0">
+              <nav class="flex flex-col">
+                <a href="/tone-generator" class="rail-link" title="Tone Generator"><i class="bi bi-activity"></i>Tone Generator</a>
+                <a href="/stereo-test" class="rail-link" title="Stereo Test"><i class="bi bi-badge-hd"></i>Stereo Test</a>
+                <a href="/bass-test" class="rail-link" title="Bass Test"><i class="bi bi-disc"></i>Bass Test</a>
+                <a href="/speaker-volume-test" class="rail-link" title="Speaker Volume Test"><i class="bi bi-volume-up"></i>Speaker Volume Test</a>
+                <a href="/headphone-test" class="rail-link" title="Headphone Test"><i class="bi bi-headphones"></i>Headphone Test</a>
+                <a href="/troubleshooting" class="rail-link" title="Troubleshooting"><i class="bi bi-question-circle"></i>Troubleshooting Guide</a>
+              </nav>
+            </div>
+          </div>
 
         </div>
       </div>
