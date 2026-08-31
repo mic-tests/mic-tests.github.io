@@ -170,6 +170,13 @@
     .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
     .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
     .ad-panel-body{padding:1rem;text-align:center;}
+    /* Reserves layout space before AdSense's script runs, so the ad never
+       causes a layout shift when it loads — sized to match each ad's
+       actual dimensions (fixed 300x250 ads reserve space via their own
+       inline width/height instead; only the header ad's size is set by
+       JS after load, so it needs this reserved ahead of time). */
+    .ad-panel-header .ad-panel-body{min-height:132px;}
+    @media (min-width:768px){.ad-panel-header .ad-panel-body{min-height:122px;}}
 
     /* ── Buttons ── */
     .btn{display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:600;padding:.6rem 1.1rem;border-radius:4px;border:1px solid transparent;cursor:pointer;transition:opacity .15s;font-family:'IBM Plex Sans';}
@@ -414,16 +421,18 @@
           <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>Audio Latency Test</strong> measures the round-trip delay between your system playing a sound and your microphone capturing it — your result appears as a <strong>latency reading in milliseconds</strong>. Plug in headphones to prevent the test tone feeding back through your mic, click <strong>Start Test</strong>, and the tool plays a short click then times how long your mic takes to detect it. Your <strong>latency result</strong> tells you how much delay to expect on video calls, live recordings, or any setup where mic-to-output timing matters. Record your latency readings in a free notepad at <a href="https://notepadly.online/" rel="noopener">notepadly.online</a>. <!-- SILO_START:slot_a -->Before any recording session, a <a href="/">mic test online</a> confirms your audio input is clean.<!-- SILO_END:slot_a --></p>
       </header>
 
-          <div class="ad-panel">
+          <div class="ad-panel ad-panel-header">
             <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
             <div class="ad-panel-body">
-              <ins class="adsbygoogle"
-                   style="display:block"
+              <ins class="adsbygoogle" id="adsense-header"
                    data-ad-client="ca-pub-5426315045205785"
-                   data-ad-slot="6193062550"
-                   data-ad-format="auto"
-                   data-full-width-responsive="true"></ins>
-              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                   data-ad-slot="6193062550"></ins>
+              <script>(function(){
+                var ins=document.getElementById("adsense-header");
+                if(window.innerWidth>=768){ins.style.display="inline-block";ins.style.width="728px";ins.style.height="90px";}
+                else{ins.style.display="inline-block";ins.style.width="300px";ins.style.height="100px";}
+                (adsbygoogle=window.adsbygoogle||[]).push({});
+              })();</script>
             </div>
           </div>
 
@@ -509,19 +518,16 @@
         </div>
         </form>
 
-        <!-- Ad (mid) -->
-        <div class="ad-panel">
-          <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
-          <div class="ad-panel-body">
-            <ins class="adsbygoogle"
-                 data-ad-client="ca-pub-5426315045205785"
-                 data-ad-format="auto"
-                 data-ad-slot="9146528954"
-                 data-full-width-responsive="true"
-                 style="display:block"></ins>
-            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body">
+              <ins class="adsbygoogle"
+                   style="display:inline-block;width:300px;height:250px"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-slot="9146528954"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
           </div>
-        </div>
 
       <div class="content-panel prose max-w-none">
             <h2><i class="bi bi-book me-2"></i>Understanding Audio Latency</h2>
@@ -596,11 +602,9 @@
             <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
             <div class="ad-panel-body">
               <ins class="adsbygoogle"
-                   style="display:block"
+                   style="display:inline-block;width:300px;height:250px"
                    data-ad-client="ca-pub-5426315045205785"
-                   data-ad-slot="7669795756"
-                   data-ad-format="auto"
-                   data-full-width-responsive="true"></ins>
+                   data-ad-slot="7669795756"></ins>
               <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
             </div>
           </div>

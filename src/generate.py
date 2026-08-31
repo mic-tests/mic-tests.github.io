@@ -62,6 +62,54 @@ def render_ad_panel(slot_id, adsense_client, min_height=None):
     ) % (body_style, style_extra, adsense_client, slot_id)
 
 
+def render_ad_panel_fixed(slot_id, adsense_client, width, height):
+    """Fixed-size ad unit (passwordhive's render_adsense_slot() pattern) —
+    the <ins> declares width/height directly and omits data-ad-format/
+    data-full-width-responsive entirely (those are for responsive units
+    only; mixing both is invalid per AdSense's own spec). The explicit
+    size reserves its layout space immediately at paint, before AdSense's
+    script has run, so this can't cause CLS the way the auto/responsive
+    render_ad_panel() above can without an explicit min-height."""
+    return (
+        '          <div class="ad-panel">\n'
+        '            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>\n'
+        '            <div class="ad-panel-body">\n'
+        '              <ins class="adsbygoogle"\n'
+        '                   style="display:inline-block;width:%dpx;height:%dpx"\n'
+        '                   data-ad-client="%s"\n'
+        '                   data-ad-slot="%s"></ins>\n'
+        '              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>\n'
+        '            </div>\n'
+        '          </div>'
+    ) % (width, height, adsense_client, slot_id)
+
+
+def render_ad_panel_header(slot_id, adsense_client):
+    """Responsive leaderboard slot, passwordhive's render_adsense_header()
+    pattern: 728x90 at >=768px, 300x100 below that, resized via inline JS
+    (not data-ad-format="auto") since fixed sizing needs the exact pixel
+    value known ahead of the AdSense push() call. .ad-panel-header's CSS
+    (min-height per breakpoint, mirroring passwordhive's .ad-slot-header)
+    reserves the container's space before this script runs, same as the
+    fixed-size ads' inline width/height does immediately."""
+    return (
+        '          <div class="ad-panel ad-panel-header">\n'
+        '            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>\n'
+        '            <div class="ad-panel-body">\n'
+        '              <ins class="adsbygoogle" id="adsense-header"\n'
+        '                   data-ad-client="%s"\n'
+        '                   data-ad-slot="%s"></ins>\n'
+        '              <script>(function(){\n'
+        '                var ins=document.getElementById("adsense-header");\n'
+        '                if(window.innerWidth>=768){ins.style.display="inline-block";ins.style.width="728px";ins.style.height="90px";}\n'
+        '                else{ins.style.display="inline-block";ins.style.width="300px";ins.style.height="100px";}\n'
+        '                (adsbygoogle=window.adsbygoogle||[]).push({});\n'
+        '              })();</script>\n'
+        '            </div>\n'
+        '          </div>'
+    ) % (adsense_client, slot_id)
+
+
 def render_content_blocks(blocks):
     parts = []
     for block in blocks:
@@ -120,7 +168,7 @@ def render_page(tool, site, template):
     # fewer than 3 content_blocks.
     content_blocks = tool.get("content_blocks", [])
     footer_ad_slot = ads.get("footer")
-    footer_ad_html = render_ad_panel(footer_ad_slot, adsense_client) if footer_ad_slot else ""
+    footer_ad_html = render_ad_panel_fixed(footer_ad_slot, adsense_client, 300, 250) if footer_ad_slot else ""
     if footer_ad_html and len(content_blocks) >= 3:
         main_sections_parts = [
             render_content_blocks(content_blocks[:2]),
@@ -135,7 +183,10 @@ def render_page(tool, site, template):
     main_sections = "\n\n".join(p for p in main_sections_parts if p)
 
     header_ad_slot = ads.get("header")
-    header_ad_html = render_ad_panel(header_ad_slot, adsense_client) if header_ad_slot else ""
+    header_ad_html = render_ad_panel_header(header_ad_slot, adsense_client) if header_ad_slot else ""
+
+    mid_ad_slot = ads.get("mid")
+    mid_ad_html = render_ad_panel_fixed(mid_ad_slot, adsense_client, 300, 250) if mid_ad_slot else ""
 
     json_ld_blocks = [render_json_ld(tool["json_ld"])]
     faq_jsonld = render_faq_jsonld(tool.get("faq", []))
@@ -154,7 +205,7 @@ def render_page(tool, site, template):
         "HEADER_AD_HTML": header_ad_html,
         "TOOL_CARD_HTML": tool["tool_card_html"],
         "PAGE_STYLE": tool.get("extra_style", ""),
-        "AD_SLOT_MID": ads.get("mid", ""),
+        "MID_AD_HTML": mid_ad_html,
         "ADSENSE_CLIENT": adsense_client,
         "MAIN_SECTIONS": main_sections,
         "TOOL_SCRIPT": tool["script"],
