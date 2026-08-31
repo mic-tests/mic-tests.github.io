@@ -413,11 +413,11 @@
 
       <!-- HERO -->
       <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
-        <div>
+        <header>
           <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 03 · Output Device Readout</div>
           <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Show My Speakers — See Your Audio Output Devices & Specs</h1>
           <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75"><strong>Show My Speakers</strong> reads your browser's audio output API and lists every speaker and audio device your system has available. Your <strong>device list</strong> loads automatically — for each output you'll see the <strong>device name</strong>, <strong>sample rate</strong>, <strong>channel configuration</strong>, and <strong>device ID</strong> pulled directly from your system. If you're troubleshooting why audio is routing to the wrong output, or you want to confirm what your browser sees before a call or recording session, your full <strong>output device inventory</strong> is here. <!-- SILO_START:slot_a -->For speaker calibration or tinnitus matching, the <a href="/tone-generator">tone generator</a> gives you precise frequency control.<!-- SILO_END:slot_a --></p>
-        </div>
+        </header>
 
         <div class="hidden lg:block panel p-5">
           <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
@@ -435,6 +435,7 @@
         <!-- LEFT: tool + content -->
         <div class="min-w-0">
 
+          <form aria-label="Show My Speakers — See Your Audio Output Devices &amp; Specs" onsubmit="return false">
 <div class="status-message alert-info mb-4" id="browser-alert">
   <div class="status-step" id="browser-message">
     <span class="status-icon"><i class="bi bi-info-circle-fill"></i></span>
@@ -445,7 +446,7 @@
 <div class="panel mb-4">
   <div class="panel-hdr" style="justify-content:space-between">
     <span class="flex items-center gap-2"><i class="bi bi-speaker-fill"></i>Connected Speakers &amp; Audio Output Devices</span>
-    <button class="btn btn-outline btn-sm" id="refresh-button">
+    <button type="button" class="btn btn-outline btn-sm" id="refresh-button">
       <i class="bi bi-arrow-clockwise me-1"></i>Refresh
     </button>
   </div>
@@ -556,10 +557,10 @@
       </div>
 
       <div class="mt-3 btn-toolbar">
-        <button class="btn btn-primary" id="test-button">
+        <button type="button" class="btn btn-primary" id="test-button">
           <i class="bi bi-play-fill me-1"></i>Start Test
         </button>
-        <button class="btn btn-danger d-none" id="stop-button">
+        <button type="button" class="btn btn-danger d-none" id="stop-button">
           <i class="bi bi-stop-fill me-1"></i>Stop Test
         </button>
       </div>
@@ -570,6 +571,7 @@
     </div>
   </div>
 </div>
+          </form>
 
           <!-- Ad (mid) -->
           <div class="ad-panel">

@@ -415,11 +415,11 @@
 
       <!-- HERO -->
       <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
-        <div>
+        <header>
           <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 03 · Waveform Synthesis Bench</div>
           <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Tone Generator — Play Any Frequency from 20Hz to 20,000Hz Online</h1>
           <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>Tone Generator</strong> plays a pure audio tone through your speakers or headphones at whatever frequency you choose. Drag the <strong>frequency slider</strong> between 20Hz and 20,000Hz — or type a value directly — pick a <strong>waveform type</strong> (sine, square, triangle, or sawtooth), set your <strong>volume</strong>, and click <strong>Play</strong>; the tone runs continuously until you click <strong>Stop</strong>. You can also use <strong>sweep mode</strong> to glide automatically through a frequency range, which makes it easy to hear how your speakers respond across the full spectrum. <!-- SILO_START:slot_a -->A <a href="/">microphone test online</a> is the fastest way to rule out hardware problems before a session.<!-- SILO_END:slot_a --></p>
-        </div>
+        </header>
 
         <div class="hidden lg:block panel p-5">
           <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
@@ -437,6 +437,7 @@
         <!-- LEFT: tool + content -->
         <div class="min-w-0">
 
+          <form aria-label="Tone Generator — Play Any Frequency from 20Hz to 20,000Hz Online" onsubmit="return false">
 <div class="status-message alert-warning mb-6" id="status-alert">
           <i class="bi bi-volume-up me-2"></i><span id="status-message">Adjust volume to a safe level before playing tones. High frequencies at high volume can be harmful.</span>
         </div>
@@ -452,7 +453,7 @@
             </div>
 
             <div class="text-center mb-4">
-              <button class="btn btn-success" id="play-btn" style="padding:.75rem 2.5rem;font-size:14px;">
+              <button type="button" class="btn btn-success" id="play-btn" style="padding:.75rem 2.5rem;font-size:14px;">
                 <i class="bi bi-play-fill me-2"></i>Play Tone
               </button>
             </div>
@@ -496,16 +497,16 @@
           <div class="panel-body">
 
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
-              <button class="btn btn-outline waveform-btn active" data-wave="sine">
+              <button type="button" class="btn btn-outline waveform-btn active" data-wave="sine">
                 <span class="flex flex-col items-center gap-1"><i class="bi bi-activity" style="font-size:1.4rem"></i>Sine</span>
               </button>
-              <button class="btn btn-outline waveform-btn" data-wave="square">
+              <button type="button" class="btn btn-outline waveform-btn" data-wave="square">
                 <span class="flex flex-col items-center gap-1"><i class="bi bi-square" style="font-size:1.4rem"></i>Square</span>
               </button>
-              <button class="btn btn-outline waveform-btn" data-wave="sawtooth">
+              <button type="button" class="btn btn-outline waveform-btn" data-wave="sawtooth">
                 <span class="flex flex-col items-center gap-1"><i class="bi bi-triangle" style="font-size:1.4rem"></i>Sawtooth</span>
               </button>
-              <button class="btn btn-outline waveform-btn" data-wave="triangle">
+              <button type="button" class="btn btn-outline waveform-btn" data-wave="triangle">
                 <span class="flex flex-col items-center gap-1"><i class="bi bi-caret-up" style="font-size:1.4rem"></i>Triangle</span>
               </button>
             </div>
@@ -514,10 +515,10 @@
 
             <div class="mono" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:.6rem;">Noise Types</div>
             <div class="grid grid-cols-2 gap-2">
-              <button class="btn btn-outline" id="white-noise-btn">
+              <button type="button" class="btn btn-outline" id="white-noise-btn">
                 <i class="bi bi-snow me-2"></i>White Noise
               </button>
-              <button class="btn btn-outline" id="pink-noise-btn">
+              <button type="button" class="btn btn-outline" id="pink-noise-btn">
                 <i class="bi bi-cloud me-2"></i>Pink Noise
               </button>
             </div>
@@ -531,39 +532,40 @@
 
             <div class="mono" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:.6rem;">Musical Notes</div>
             <div class="btn-toolbar mb-4">
-              <button class="btn btn-outline btn-sm preset-btn" data-freq="261.63">C4</button>
-              <button class="btn btn-outline btn-sm preset-btn" data-freq="293.66">D4</button>
-              <button class="btn btn-outline btn-sm preset-btn" data-freq="329.63">E4</button>
-              <button class="btn btn-outline btn-sm preset-btn" data-freq="349.23">F4</button>
-              <button class="btn btn-outline btn-sm preset-btn" data-freq="392.00">G4</button>
-              <button class="btn btn-outline btn-sm preset-btn" data-freq="440.00">A4</button>
-              <button class="btn btn-outline btn-sm preset-btn" data-freq="493.88">B4</button>
-              <button class="btn btn-outline btn-sm preset-btn" data-freq="523.25">C5</button>
+              <button type="button" class="btn btn-outline btn-sm preset-btn" data-freq="261.63">C4</button>
+              <button type="button" class="btn btn-outline btn-sm preset-btn" data-freq="293.66">D4</button>
+              <button type="button" class="btn btn-outline btn-sm preset-btn" data-freq="329.63">E4</button>
+              <button type="button" class="btn btn-outline btn-sm preset-btn" data-freq="349.23">F4</button>
+              <button type="button" class="btn btn-outline btn-sm preset-btn" data-freq="392.00">G4</button>
+              <button type="button" class="btn btn-outline btn-sm preset-btn" data-freq="440.00">A4</button>
+              <button type="button" class="btn btn-outline btn-sm preset-btn" data-freq="493.88">B4</button>
+              <button type="button" class="btn btn-outline btn-sm preset-btn" data-freq="523.25">C5</button>
             </div>
 
             <div class="mono" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:.6rem;">Test Frequencies</div>
             <div class="btn-toolbar mb-4">
-              <button class="btn btn-outline btn-sm preset-btn" data-freq="50">50 Hz (Bass)</button>
-              <button class="btn btn-outline btn-sm preset-btn" data-freq="100">100 Hz</button>
-              <button class="btn btn-outline btn-sm preset-btn" data-freq="250">250 Hz</button>
-              <button class="btn btn-outline btn-sm preset-btn" data-freq="500">500 Hz</button>
-              <button class="btn btn-outline btn-sm preset-btn" data-freq="1000">1 kHz</button>
-              <button class="btn btn-outline btn-sm preset-btn" data-freq="2000">2 kHz</button>
-              <button class="btn btn-outline btn-sm preset-btn" data-freq="4000">4 kHz</button>
-              <button class="btn btn-outline btn-sm preset-btn" data-freq="8000">8 kHz</button>
-              <button class="btn btn-outline btn-sm preset-btn" data-freq="10000">10 kHz</button>
-              <button class="btn btn-outline btn-sm preset-btn" data-freq="15000">15 kHz</button>
+              <button type="button" class="btn btn-outline btn-sm preset-btn" data-freq="50">50 Hz (Bass)</button>
+              <button type="button" class="btn btn-outline btn-sm preset-btn" data-freq="100">100 Hz</button>
+              <button type="button" class="btn btn-outline btn-sm preset-btn" data-freq="250">250 Hz</button>
+              <button type="button" class="btn btn-outline btn-sm preset-btn" data-freq="500">500 Hz</button>
+              <button type="button" class="btn btn-outline btn-sm preset-btn" data-freq="1000">1 kHz</button>
+              <button type="button" class="btn btn-outline btn-sm preset-btn" data-freq="2000">2 kHz</button>
+              <button type="button" class="btn btn-outline btn-sm preset-btn" data-freq="4000">4 kHz</button>
+              <button type="button" class="btn btn-outline btn-sm preset-btn" data-freq="8000">8 kHz</button>
+              <button type="button" class="btn btn-outline btn-sm preset-btn" data-freq="10000">10 kHz</button>
+              <button type="button" class="btn btn-outline btn-sm preset-btn" data-freq="15000">15 kHz</button>
             </div>
 
             <div class="mono" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:.6rem;">Stereo Test</div>
             <div class="btn-toolbar">
-              <button class="btn btn-outline btn-sm" id="left-only-btn">Left Only</button>
-              <button class="btn btn-outline btn-sm" id="right-only-btn">Right Only</button>
-              <button class="btn btn-outline btn-sm" id="both-btn">Both Channels</button>
+              <button type="button" class="btn btn-outline btn-sm" id="left-only-btn">Left Only</button>
+              <button type="button" class="btn btn-outline btn-sm" id="right-only-btn">Right Only</button>
+              <button type="button" class="btn btn-outline btn-sm" id="both-btn">Both Channels</button>
             </div>
 
           </div>
         </div>
+          </form>
 
           <!-- Ad (mid) -->
           <div class="ad-panel">

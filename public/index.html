@@ -435,11 +435,11 @@
 
       <!-- HERO -->
       <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
-        <div>
+        <header>
           <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 01 · Browser Input Diagnostics</div>
           <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Mic Test Online — Free Microphone Checker for Any Device</h1>
           <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">This <strong>mic test online</strong> checks whether your microphone is capturing audio — select your input device from the <strong>mic selector</strong>, click <strong>Test my mic</strong>, speak a few words, and the <strong>audio waveform</strong> lights up in real time to confirm your mic is picking up sound. Your <strong>input volume level</strong> shows whether you're coming in too quiet or peaking too loud, while the <strong>quality rating</strong> and <strong>mic info panel</strong> surface live readings for sample rate, channels, noise suppression, and echo cancellation pulled directly from your device. If the waveform moves when you talk, your microphone is working; if it stays flat, the <strong>status message</strong> tells you exactly what's blocking your mic access so you can fix it. For other wave and frequency physics calculators, see <a href="https://joteo.net/">Joteo</a>. <!-- SILO_START:slot_a -->The free <a href="/tone-generator">tone generator</a> is the fastest way to check if your speakers reproduce bass and treble accurately.<!-- SILO_END:slot_a --></p>
-        </div>
+        </header>
 
         <div class="hidden lg:block panel p-5">
           <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
@@ -457,6 +457,7 @@
         <!-- LEFT: tool + content -->
         <div class="min-w-0">
 
+          <form aria-label="Mic Test Online — Free Microphone Checker for Any Device" onsubmit="return false">
           <div class="panel mb-6">
             <div class="panel-hdr"><span class="flex items-center gap-2"><span class="led"></span>Microphone Visualizer</span></div>
             <div class="panel-body">
@@ -465,7 +466,7 @@
                 <select class="form-select flex-1" disabled id="mic-select" aria-label="Select microphone">
                   <option value="">Click "Test my mic" to detect microphones</option>
                 </select>
-                <button class="btn btn-primary shrink-0" id="test-button">
+                <button type="button" class="btn btn-primary shrink-0" id="test-button">
                   <i class="bi bi-mic-fill me-2"></i>Test my mic
                 </button>
               </div>
@@ -491,19 +492,19 @@
                   Please say "Hello" or make some noise. The tester records the sound captured by your mic and you will be able to playback it after testing is complete.
                 </div>
                 <div class="btn-toolbar">
-                  <button class="btn btn-secondary" disabled id="play-button">
+                  <button type="button" class="btn btn-secondary" disabled id="play-button">
                     <i class="bi bi-play-fill me-1"></i>Play Recording
                   </button>
-                  <button class="btn btn-warning d-none" id="pause-button">
+                  <button type="button" class="btn btn-warning d-none" id="pause-button">
                     <i class="bi bi-pause-fill me-1"></i>Pause
                   </button>
-                  <button class="btn btn-danger" id="stop-recording-button">
+                  <button type="button" class="btn btn-danger" id="stop-recording-button">
                     <i class="bi bi-stop-fill me-1"></i>Stop Recording
                   </button>
-                  <button class="btn btn-outline d-none" id="restart-button">
+                  <button type="button" class="btn btn-outline d-none" id="restart-button">
                     <i class="bi bi-arrow-repeat me-1"></i>Restart
                   </button>
-                  <button class="btn btn-outline d-none" id="share-button">
+                  <button type="button" class="btn btn-outline d-none" id="share-button">
                     <i class="bi bi-share-fill me-1"></i>Share Results
                   </button>
                 </div>
@@ -514,6 +515,7 @@
 
             </div>
           </div>
+          </form>
 
           <!-- Ad (mid) -->
           <div class="ad-panel">

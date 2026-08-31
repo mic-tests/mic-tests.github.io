@@ -402,11 +402,11 @@
 
       <!-- HERO -->
       <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
-        <div>
+        <header>
           <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 04 · Low-Frequency Response Diagnostics</div>
           <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Bass Test — Check Your Speaker & Subwoofer Low Frequency Response</h1>
           <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>Bass Test</strong> plays low-frequency tones between 20Hz and 200Hz so you can find out how deep your speakers or subwoofer actually reach. Drag the <strong>frequency slider</strong> to a target frequency, click <strong>Play</strong>, and listen — if you hear the tone clearly, your speakers reproduce that frequency; if you get nothing or just a faint vibration, your speakers roll off before that point. The <strong>current frequency display</strong> updates in real time as you move through the range, making it easy to find your speaker's low-end limit. <!-- SILO_START:slot_a -->A <a href="/tone-generator">tone generator</a> lets you play any frequency from 20Hz to 20kHz directly in your browser.<!-- SILO_END:slot_a --></p>
-        </div>
+        </header>
 
         <div class="hidden lg:block panel p-5">
           <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
@@ -424,6 +424,7 @@
         <!-- LEFT: tool + content -->
         <div class="min-w-0">
 
+          <form aria-label="Bass Test — Check Your Speaker &amp; Subwoofer Low Frequency Response" onsubmit="return false">
         <div class="panel mb-6">
           <div class="panel-hdr"><span class="flex items-center gap-2"><span class="led"></span>Bass Frequency Test</span></div>
           <div class="panel-body">
@@ -460,7 +461,7 @@
             </div>
 
             <div class="text-center">
-              <button class="btn btn-success" id="play-btn">
+              <button type="button" class="btn btn-success" id="play-btn">
                 <i class="bi bi-play-fill me-2"></i>Play Bass
               </button>
             </div>
@@ -472,14 +473,14 @@
           <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-grid-3x3-gap-fill"></i>Quick Test Frequencies</span></div>
           <div class="panel-body text-center">
             <div class="btn-toolbar" style="justify-content:center">
-              <button class="btn btn-outline freq-btn" data-freq="20">20 Hz</button>
-              <button class="btn btn-outline freq-btn" data-freq="30">30 Hz</button>
-              <button class="btn btn-outline freq-btn" data-freq="40">40 Hz</button>
-              <button class="btn btn-outline freq-btn" data-freq="50">50 Hz</button>
-              <button class="btn btn-outline freq-btn" data-freq="60">60 Hz</button>
-              <button class="btn btn-outline freq-btn" data-freq="80">80 Hz</button>
-              <button class="btn btn-outline freq-btn" data-freq="100">100 Hz</button>
-              <button class="btn btn-outline freq-btn" data-freq="150">150 Hz</button>
+              <button type="button" class="btn btn-outline freq-btn" data-freq="20">20 Hz</button>
+              <button type="button" class="btn btn-outline freq-btn" data-freq="30">30 Hz</button>
+              <button type="button" class="btn btn-outline freq-btn" data-freq="40">40 Hz</button>
+              <button type="button" class="btn btn-outline freq-btn" data-freq="50">50 Hz</button>
+              <button type="button" class="btn btn-outline freq-btn" data-freq="60">60 Hz</button>
+              <button type="button" class="btn btn-outline freq-btn" data-freq="80">80 Hz</button>
+              <button type="button" class="btn btn-outline freq-btn" data-freq="100">100 Hz</button>
+              <button type="button" class="btn btn-outline freq-btn" data-freq="150">150 Hz</button>
             </div>
           </div>
         </div>
@@ -491,7 +492,7 @@
             <div class="progress mb-3 d-none" id="sweep-progress-container">
               <div class="progress-bar" id="sweep-progress" style="width: 0%"></div>
             </div>
-            <button class="btn btn-primary w-100" id="sweep-btn">
+            <button type="button" class="btn btn-primary w-100" id="sweep-btn">
               <i class="bi bi-play-fill me-2"></i>Start 10s Bass Sweep (20-200 Hz)
             </button>
           </div>
@@ -503,6 +504,7 @@
             <span>Start with low volume. Very low frequencies can damage speakers if played too loud.</span>
           </div>
         </div>
+          </form>
 
           <!-- Ad (mid) -->
           <div class="ad-panel">

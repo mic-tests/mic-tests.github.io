@@ -154,6 +154,7 @@ def render_page(tool, site, template):
         "JSON_LD": "\n\n".join(json_ld_blocks),
         "EYEBROW": tool["eyebrow"],
         "H1": tool["h1"],
+        "H1_ATTR": html.escape(tool["h1"]),
         "INTRO_HTML": "          " + tool["intro_html"],
         "NAMEPLATE_HTML": render_nameplate(tool["nameplate"]),
         "TOOL_CARD_HTML": tool["tool_card_html"],

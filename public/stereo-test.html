@@ -421,11 +421,11 @@
 
       <!-- HERO -->
       <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
-        <div>
+        <header>
           <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 04 · Channel Separation Diagnostics</div>
           <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Stereo Test — Check Left & Right Audio Channels Online</h1>
           <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>Stereo Test</strong> plays a tone through your left channel, right channel, or both so you can confirm your headphones or speakers are wired and balanced correctly. Put on your headphones or sit in front of your speakers, then click <strong>Play Left</strong>, <strong>Play Right</strong>, or <strong>Play Both</strong> — the tone should come only from whichever side you selected. If the wrong ear hears the tone or one side stays silent, the <strong>channel status display</strong> helps you pinpoint whether you're dealing with swapped channels, a wiring fault, or a driver issue on your device. <!-- SILO_START:slot_a -->The free <a href="/tone-generator">tone generator</a> is the fastest way to check if your speakers reproduce bass and treble accurately.<!-- SILO_END:slot_a --></p>
-        </div>
+        </header>
 
         <div class="hidden lg:block panel p-5">
           <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
@@ -443,6 +443,7 @@
         <!-- LEFT: tool + content -->
         <div class="min-w-0">
 
+          <form aria-label="Stereo Test — Check Left &amp; Right Audio Channels Online" onsubmit="return false">
 <div class="panel mb-6">
           <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-speaker"></i>Channel Test</span></div>
           <div class="panel-body">
@@ -461,18 +462,18 @@
             </div>
 
             <div class="flex justify-center gap-3 mb-4" style="flex-wrap:wrap;">
-              <button class="btn btn-secondary" id="play-left-btn">
+              <button type="button" class="btn btn-secondary" id="play-left-btn">
                 <i class="bi bi-arrow-left me-2"></i>Left Only
               </button>
-              <button class="btn btn-primary" id="play-both-btn">
+              <button type="button" class="btn btn-primary" id="play-both-btn">
                 <i class="bi bi-arrows-expand me-2"></i>Both
               </button>
-              <button class="btn btn-secondary" id="play-right-btn">
+              <button type="button" class="btn btn-secondary" id="play-right-btn">
                 Right Only<i class="bi bi-arrow-right ms-2"></i>
               </button>
             </div>
 
-            <button class="btn btn-danger w-100" id="stop-btn" disabled>
+            <button type="button" class="btn btn-danger w-100" id="stop-btn" disabled>
               <i class="bi bi-stop-fill me-2"></i>Stop
             </button>
 
@@ -494,9 +495,9 @@
             </div>
 
             <div class="grid grid-cols-3 gap-2 text-center">
-              <button class="btn btn-outline btn-sm" id="balance-left">Full Left</button>
-              <button class="btn btn-outline btn-sm" id="balance-center">Center</button>
-              <button class="btn btn-outline btn-sm" id="balance-right">Full Right</button>
+              <button type="button" class="btn btn-outline btn-sm" id="balance-left">Full Left</button>
+              <button type="button" class="btn btn-outline btn-sm" id="balance-center">Center</button>
+              <button type="button" class="btn btn-outline btn-sm" id="balance-right">Full Right</button>
             </div>
           </div>
         </div>
@@ -519,11 +520,12 @@
               <strong>Step 4:</strong> Both channels (2 seconds)
             </div>
 
-            <button class="btn btn-primary w-100 mt-3" id="auto-test-btn">
+            <button type="button" class="btn btn-primary w-100 mt-3" id="auto-test-btn">
               <i class="bi bi-play-fill me-2"></i>Run Automatic Test
             </button>
           </div>
         </div>
+          </form>
 
           <!-- Ad (mid) -->
           <div class="ad-panel">

@@ -408,11 +408,11 @@
 
       <!-- HERO -->
       <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
-        <div>
+        <header>
           <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 02 · Voice Capture & Playback</div>
           <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Online Mic Recorder — Record Your Voice as MP3 or WAV</h1>
           <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>online mic recorder</strong> captures audio directly from your microphone and saves it as a downloadable file. Click <strong>Record</strong>, allow microphone access when your browser asks, speak or play whatever you want to capture, then click <strong>Stop</strong> — your recording appears in the <strong>audio player</strong> ready to play back or save as <strong>MP3 or WAV</strong>. You can also hit <strong>Pause</strong> mid-recording and pick back up without starting over, and the <strong>recording timer</strong> tracks your clip length as you go. <!-- SILO_START:slot_a -->An <a href="/audio-latency-test">audio latency test</a> shows whether your setup introduces noticeable lag for recording or live use.<!-- SILO_END:slot_a --></p>
-        </div>
+        </header>
 
         <div class="hidden lg:block panel p-5">
           <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
@@ -430,6 +430,7 @@
         <!-- LEFT: tool + content -->
         <div class="min-w-0">
 
+          <form aria-label="Online Mic Recorder — Record Your Voice as MP3 or WAV" onsubmit="return false">
           <div class="panel mb-6">
             <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-mic-fill"></i>Voice Recorder</span></div>
             <div class="panel-body text-center">
@@ -441,10 +442,10 @@
               </div>
 
               <div class="flex justify-center gap-3 mb-4">
-                <button class="btn btn-danger recorder-btn" id="record-btn" title="Start Recording" aria-label="Start Recording">
+                <button type="button" class="btn btn-danger recorder-btn" id="record-btn" title="Start Recording" aria-label="Start Recording">
                   <i class="bi bi-circle-fill"></i>
                 </button>
-                <button class="btn btn-secondary recorder-btn" id="stop-btn" disabled title="Stop Recording" aria-label="Stop Recording">
+                <button type="button" class="btn btn-secondary recorder-btn" id="stop-btn" disabled title="Stop Recording" aria-label="Stop Recording">
                   <i class="bi bi-stop-fill"></i>
                 </button>
               </div>
@@ -460,13 +461,13 @@
                 <audio id="audio-playback" controls class="w-100 mb-3"></audio>
 
                 <div class="btn-toolbar" style="justify-content:center">
-                  <button class="btn btn-primary" id="download-mp3-btn">
+                  <button type="button" class="btn btn-primary" id="download-mp3-btn">
                     <i class="bi bi-download me-2"></i>Download MP3
                   </button>
-                  <button class="btn btn-primary" id="download-wav-btn">
+                  <button type="button" class="btn btn-primary" id="download-wav-btn">
                     <i class="bi bi-download me-2"></i>Download WAV
                   </button>
-                  <button class="btn btn-outline" id="new-recording-btn">
+                  <button type="button" class="btn btn-outline" id="new-recording-btn">
                     <i class="bi bi-arrow-repeat me-2"></i>New Recording
                   </button>
                 </div>
@@ -481,6 +482,7 @@
               <span id="status-message">Click the record button to start recording your voice.</span>
             </div>
           </div>
+          </form>
 
           <!-- Ad (mid) -->
           <div class="ad-panel">

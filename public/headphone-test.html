@@ -408,11 +408,11 @@
 
       <!-- HERO -->
       <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
-        <div>
+        <header>
           <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 03 · Channel Integrity Diagnostics</div>
           <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Headphone Test — Check Left & Right Ear Channels Separately</h1>
           <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>Headphone Test</strong> plays tones through each ear independently so you can confirm both channels on your headphones are working correctly. Put on your headphones, click <strong>Play Left</strong> and the tone should come only from your left ear — then click <strong>Play Right</strong> and it should shift entirely to your right ear. If both ears play at once or one side stays silent, the <strong>channel result</strong> display tells you whether you're dealing with swapped channels, a wiring fault, or a driver issue on your device. <!-- SILO_START:slot_a -->A <a href="/tone-generator">tone generator</a> lets you play any frequency from 20Hz to 20kHz directly in your browser.<!-- SILO_END:slot_a --></p>
-        </div>
+        </header>
 
         <div class="hidden lg:block panel p-5">
           <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
@@ -430,36 +430,37 @@
         <!-- LEFT: tool + content -->
         <div class="min-w-0">
 
+          <form aria-label="Headphone Test — Check Left &amp; Right Ear Channels Separately" onsubmit="return false">
           <div class="panel mb-6">
             <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-headphones"></i>Left/Right Channel Test</span></div>
             <div class="panel-body">
               <div class="grid grid-cols-3 gap-4 items-center text-center">
                 <div>
                   <div class="ear-indicator mx-auto" id="left-ear">L</div>
-                  <button class="btn btn-primary btn-sm mt-3" id="left-btn">Play Left</button>
+                  <button type="button" class="btn btn-primary btn-sm mt-3" id="left-btn">Play Left</button>
                 </div>
                 <div>
                   <i class="bi bi-headphones headphone-icon"></i>
                 </div>
                 <div>
                   <div class="ear-indicator mx-auto" id="right-ear">R</div>
-                  <button class="btn btn-primary btn-sm mt-3" id="right-btn">Play Right</button>
+                  <button type="button" class="btn btn-primary btn-sm mt-3" id="right-btn">Play Right</button>
                 </div>
               </div>
 
               <div class="text-center mt-5">
                 <div class="btn-toolbar" style="justify-content:center">
-                  <button class="btn btn-warning" id="alternate-btn">
+                  <button type="button" class="btn btn-warning" id="alternate-btn">
                     <i class="bi bi-arrow-left-right me-2"></i>Alternate Left/Right
                   </button>
-                  <button class="btn btn-secondary" id="both-btn">
+                  <button type="button" class="btn btn-secondary" id="both-btn">
                     <i class="bi bi-arrows-expand me-2"></i>Play Both
                   </button>
                 </div>
               </div>
 
               <div class="mt-3 text-center">
-                <button class="btn btn-danger" id="stop-btn" disabled>
+                <button type="button" class="btn btn-danger" id="stop-btn" disabled>
                   <i class="bi bi-stop-fill me-2"></i>Stop
                 </button>
               </div>
@@ -499,6 +500,7 @@
             <i class="bi bi-info-circle-fill me-2"></i>Put on your headphones and click the test buttons to verify each ear is working correctly.
           </div>
 
+          </form>
 
           <!-- Ad (mid) -->
           <div class="ad-panel">

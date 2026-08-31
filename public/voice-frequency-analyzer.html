@@ -400,11 +400,11 @@
 
       <!-- HERO -->
       <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
-        <div>
+        <header>
           <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 02 · Vocal Spectrum Diagnostics</div>
           <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Voice Frequency Analyzer — See Your Voice Spectrum in Real Time</h1>
           <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>Voice Frequency Analyzer</strong> shows you the frequency makeup of your voice as a live <strong>spectrum graph</strong>. Click <strong>Start Analysis</strong>, allow microphone access, then speak — the chart updates in real time, highlighting your <strong>dominant frequency</strong>, usable <strong>frequency range</strong>, and where your voice sits across the spectrum. You can see how different sounds — vowels, consonants, higher notes — register as distinct peaks and valleys on the <strong>frequency display</strong>, useful for checking mic response and tuning your vocal setup. <!-- SILO_START:slot_a -->Find your personal hearing limit with a <a href="/hearing-test">hearing test online</a> — no audiologist appointment needed.<!-- SILO_END:slot_a --></p>
-        </div>
+        </header>
 
         <div class="hidden lg:block panel p-5">
           <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
@@ -422,6 +422,7 @@
         <!-- LEFT: tool + content -->
         <div class="min-w-0">
 
+          <form aria-label="Voice Frequency Analyzer — See Your Voice Spectrum in Real Time" onsubmit="return false">
         <div class="panel mb-6">
           <div class="panel-hdr"><span class="flex items-center gap-2"><span class="led"></span>Frequency Spectrum</span></div>
           <div class="panel-body">
@@ -430,7 +431,7 @@
               <select class="form-select flex-1" disabled id="mic-select" aria-label="Select microphone">
                 <option value="">Loading...</option>
               </select>
-              <button class="btn btn-primary shrink-0" id="start-btn">
+              <button type="button" class="btn btn-primary shrink-0" id="start-btn">
                 <i class="bi bi-play-fill me-2"></i>Start Analysis
               </button>
             </div>
@@ -441,8 +442,8 @@
             </div>
 
             <div class="btn-toolbar mb-3">
-              <button class="btn btn-light active btn-sm" id="bars-mode">Bars</button>
-              <button class="btn btn-outline-light btn-sm" id="line-mode">Line</button>
+              <button type="button" class="btn btn-light active btn-sm" id="bars-mode">Bars</button>
+              <button type="button" class="btn btn-outline-light btn-sm" id="line-mode">Line</button>
             </div>
 
             <div class="spectrum-container mb-3">
@@ -555,6 +556,7 @@
             </div>
           </div>
         </div>
+          </form>
 
           <!-- Ad (mid) -->
           <div class="ad-panel">

@@ -423,11 +423,11 @@
 
       <!-- HERO -->
       <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
-        <div>
+        <header>
           <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 02 · Auditory Range Diagnostics</div>
           <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Hearing Test Online — Find Your Audible Frequency Range</h1>
           <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>hearing test online</strong> plays tones across the full audible spectrum — from 20Hz bass up to 20,000Hz — so you can find the edges of what you can actually hear. Put on your headphones, click <strong>Play</strong> at each <strong>frequency button</strong>, then press <strong>I can hear this</strong> or <strong>I can't hear this</strong> for each one; your <strong>hearing range result</strong> builds as you go. Your responses map out which frequencies you detect clearly, which sound faint, and where your hearing drops off — a useful personal baseline, though not a substitute for a medical hearing evaluation. <!-- SILO_START:slot_a -->The <a href="/">mic test online</a> checks your mic input, waveform, and device info in one step.<!-- SILO_END:slot_a --></p>
-        </div>
+        </header>
 
         <div class="hidden lg:block panel p-5">
           <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
@@ -445,6 +445,7 @@
         <!-- LEFT: tool + content -->
         <div class="min-w-0">
 
+          <form aria-label="Hearing Test Online — Find Your Audible Frequency Range" onsubmit="return false">
           <div class="panel mb-6">
             <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-sliders"></i>Test Settings</span></div>
             <div class="panel-body">
@@ -482,42 +483,43 @@
               <div class="grid sm:grid-cols-2 gap-6 mb-4">
                 <div>
                   <p class="mono text-xs uppercase tracking-wide mb-2" style="color:var(--ink-3)">Low Frequencies (Bass)</p>
-                  <button class="btn btn-outline-primary freq-btn" data-freq="20">20 Hz</button>
-                  <button class="btn btn-outline-primary freq-btn" data-freq="30">30 Hz</button>
-                  <button class="btn btn-outline-primary freq-btn" data-freq="40">40 Hz</button>
-                  <button class="btn btn-outline-primary freq-btn" data-freq="60">60 Hz</button>
-                  <button class="btn btn-outline-primary freq-btn" data-freq="100">100 Hz</button>
-                  <button class="btn btn-outline-primary freq-btn" data-freq="200">200 Hz</button>
-                  <button class="btn btn-outline-primary freq-btn" data-freq="500">500 Hz</button>
+                  <button type="button" class="btn btn-outline-primary freq-btn" data-freq="20">20 Hz</button>
+                  <button type="button" class="btn btn-outline-primary freq-btn" data-freq="30">30 Hz</button>
+                  <button type="button" class="btn btn-outline-primary freq-btn" data-freq="40">40 Hz</button>
+                  <button type="button" class="btn btn-outline-primary freq-btn" data-freq="60">60 Hz</button>
+                  <button type="button" class="btn btn-outline-primary freq-btn" data-freq="100">100 Hz</button>
+                  <button type="button" class="btn btn-outline-primary freq-btn" data-freq="200">200 Hz</button>
+                  <button type="button" class="btn btn-outline-primary freq-btn" data-freq="500">500 Hz</button>
                 </div>
                 <div>
                   <p class="mono text-xs uppercase tracking-wide mb-2" style="color:var(--ink-3)">High Frequencies (Treble)</p>
-                  <button class="btn btn-outline-primary freq-btn" data-freq="1000">1 kHz</button>
-                  <button class="btn btn-outline-primary freq-btn" data-freq="2000">2 kHz</button>
-                  <button class="btn btn-outline-primary freq-btn" data-freq="4000">4 kHz</button>
-                  <button class="btn btn-outline-primary freq-btn" data-freq="6000">6 kHz</button>
-                  <button class="btn btn-outline-primary freq-btn" data-freq="8000">8 kHz</button>
-                  <button class="btn btn-outline-primary freq-btn" data-freq="12000">12 kHz</button>
-                  <button class="btn btn-outline-primary freq-btn" data-freq="16000">16 kHz</button>
-                  <button class="btn btn-outline-primary freq-btn" data-freq="18000">18 kHz</button>
-                  <button class="btn btn-outline-primary freq-btn" data-freq="20000">20 kHz</button>
+                  <button type="button" class="btn btn-outline-primary freq-btn" data-freq="1000">1 kHz</button>
+                  <button type="button" class="btn btn-outline-primary freq-btn" data-freq="2000">2 kHz</button>
+                  <button type="button" class="btn btn-outline-primary freq-btn" data-freq="4000">4 kHz</button>
+                  <button type="button" class="btn btn-outline-primary freq-btn" data-freq="6000">6 kHz</button>
+                  <button type="button" class="btn btn-outline-primary freq-btn" data-freq="8000">8 kHz</button>
+                  <button type="button" class="btn btn-outline-primary freq-btn" data-freq="12000">12 kHz</button>
+                  <button type="button" class="btn btn-outline-primary freq-btn" data-freq="16000">16 kHz</button>
+                  <button type="button" class="btn btn-outline-primary freq-btn" data-freq="18000">18 kHz</button>
+                  <button type="button" class="btn btn-outline-primary freq-btn" data-freq="20000">20 kHz</button>
                 </div>
               </div>
 
               <div class="btn-toolbar">
-                <button class="btn btn-primary" id="heard-btn" disabled>
+                <button type="button" class="btn btn-primary" id="heard-btn" disabled>
                   <i class="bi bi-check me-1"></i>I Heard It
                 </button>
-                <button class="btn btn-secondary" id="not-heard-btn" disabled>
+                <button type="button" class="btn btn-secondary" id="not-heard-btn" disabled>
                   <i class="bi bi-x me-1"></i>Didn't Hear
                 </button>
-                <button class="btn btn-outline" id="reset-btn">
+                <button type="button" class="btn btn-outline" id="reset-btn">
                   <i class="bi bi-arrow-counterclockwise me-1"></i>Reset All
                 </button>
               </div>
             </div>
           </div>
 
+          </form>
 
           <!-- Ad (mid) -->
           <div class="ad-panel">

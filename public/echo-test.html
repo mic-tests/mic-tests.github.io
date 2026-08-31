@@ -388,11 +388,11 @@
 
       <!-- HERO -->
       <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
-        <div>
+        <header>
           <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 04 · Feedback & Delay Diagnostics</div>
           <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Echo Test — Detect Audio Feedback &amp; Delay Issues Online</h1>
           <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>Echo Test</strong> routes your microphone input back through your speakers with a short delay so you can hear exactly what your listeners hear when you talk. Select a <strong>test mode</strong> below — echo, feedback, or delay — click <strong>Start Test</strong>, and speak into your mic; your voice plays back through the <strong>output monitor</strong> so you can catch reverb, looping feedback, or timing issues in your audio setup. If you hear your voice cleanly without distortion, your setup is fine; if you hear overlapping or garbled audio, the <strong>status indicator</strong> flags what type of problem is present. <!-- SILO_START:slot_a -->Measure your system's round-trip delay with an <a href="/audio-latency-test">audio latency test</a>.<!-- SILO_END:slot_a --></p>
-        </div>
+        </header>
 
         <div class="hidden lg:block panel p-5">
           <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
@@ -410,6 +410,7 @@
         <!-- LEFT: tool + content -->
         <div class="min-w-0">
 
+          <form aria-label="Echo Test — Detect Audio Feedback &amp;amp; Delay Issues Online" onsubmit="return false">
           <div class="panel mb-6">
             <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-lightning-fill"></i>Quick Echo Test</span></div>
             <div class="panel-body">
@@ -432,10 +433,10 @@
               </div>
 
               <div class="text-center mb-3">
-                <button class="btn btn-danger me-2" id="record-btn">
+                <button type="button" class="btn btn-danger me-2" id="record-btn">
                   <i class="bi bi-circle-fill me-2"></i>Record (3 sec)
                 </button>
-                <button class="btn btn-primary" id="play-btn" disabled>
+                <button type="button" class="btn btn-primary" id="play-btn" disabled>
                   <i class="bi bi-play-fill me-2"></i>Play Back
                 </button>
               </div>
@@ -459,6 +460,7 @@
               <span id="status-message">Select a test mode below to check for echo issues in your audio setup.</span>
             </div>
           </div>
+          </form>
 
           <!-- Ad (mid) -->
           <div class="ad-panel">

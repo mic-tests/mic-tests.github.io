@@ -418,11 +418,11 @@
 
       <!-- HERO -->
       <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
-        <div>
+        <header>
           <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 03 · Ambient Decibel Monitoring</div>
           <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Sound Level Meter Online — Measure Decibels (dB) in Real Time</h1>
           <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>sound level meter online</strong> uses your microphone to measure how loud your environment actually is, in decibels. Click <strong>Start Measuring</strong>, allow mic access, and you'll see a live <strong>dB reading</strong> that updates continuously alongside a <strong>peak level</strong> and <strong>average level</strong> — the <strong>level bar</strong> shifts from green through yellow to red as sound gets louder. Your <strong>noise rating</strong> tells you whether your space qualifies as quiet, moderate, or loud based on what the mic is picking up. <!-- SILO_START:slot_a -->A <a href="/hearing-test">hearing test online</a> reveals high-frequency loss before it becomes noticeable in conversation.<!-- SILO_END:slot_a --></p>
-        </div>
+        </header>
 
         <div class="hidden lg:block panel p-5">
           <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
@@ -440,6 +440,7 @@
         <!-- LEFT: tool + content -->
         <div class="min-w-0">
 
+          <form aria-label="Sound Level Meter Online — Measure Decibels (dB) in Real Time" onsubmit="return false">
           <div class="panel mb-6">
             <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-speedometer2"></i>Real-Time Sound Level</span></div>
             <div class="panel-body">
@@ -452,7 +453,7 @@
                   </select>
                 </div>
                 <div class="flex flex-col justify-end">
-                  <button class="btn btn-primary w-100" id="start-btn">
+                  <button type="button" class="btn btn-primary w-100" id="start-btn">
                     <i class="bi bi-play-fill me-2"></i>Start Measuring
                   </button>
                 </div>
@@ -509,11 +510,12 @@
               <hr style="border:none;border-top:1px solid var(--border);margin:1rem 0">
               <p class="mono mb-2" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)">Level History</p>
               <canvas class="history-canvas" id="history-canvas"></canvas>
-              <button class="btn btn-outline btn-sm mt-2" id="reset-stats-btn">
+              <button type="button" class="btn btn-outline btn-sm mt-2" id="reset-stats-btn">
                 <i class="bi bi-arrow-counterclockwise me-1"></i>Reset Statistics
               </button>
             </div>
           </div>
+          </form>
 
           <!-- Ad (mid) -->
           <div class="ad-panel">

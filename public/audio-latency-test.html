@@ -415,11 +415,11 @@
 
       <!-- HERO -->
       <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
-        <div>
+        <header>
           <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 02 · Round-Trip Timing Diagnostics</div>
           <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Audio Latency Test — Measure Microphone Delay in Milliseconds</h1>
           <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>Audio Latency Test</strong> measures the round-trip delay between your system playing a sound and your microphone capturing it — your result appears as a <strong>latency reading in milliseconds</strong>. Plug in headphones to prevent the test tone feeding back through your mic, click <strong>Start Test</strong>, and the tool plays a short click then times how long your mic takes to detect it. Your <strong>latency result</strong> tells you how much delay to expect on video calls, live recordings, or any setup where mic-to-output timing matters. Record your latency readings in a free notepad at <a href="https://notepadly.online/" rel="noopener">notepadly.online</a>. <!-- SILO_START:slot_a -->Before any recording session, a <a href="/">mic test online</a> confirms your audio input is clean.<!-- SILO_END:slot_a --></p>
-        </div>
+        </header>
 
         <div class="hidden lg:block panel p-5">
           <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
@@ -437,6 +437,7 @@
         <!-- LEFT: tool + content -->
         <div class="min-w-0">
 
+          <form aria-label="Audio Latency Test — Measure Microphone Delay in Milliseconds" onsubmit="return false">
 <div class="panel mb-6">
           <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-speedometer"></i>Latency Measurement</span></div>
           <div class="panel-body">
@@ -452,7 +453,7 @@
                   <option value="">Loading...</option>
                 </select>
               </div>
-              <button class="btn btn-primary shrink-0" id="start-btn">
+              <button type="button" class="btn btn-primary shrink-0" id="start-btn">
                 <i class="bi bi-play-fill me-2"></i>Start Test
               </button>
             </div>
@@ -508,12 +509,13 @@
 <div class="panel mt-6">
           <div class="panel-hdr flex items-center justify-between">
             <span class="flex items-center gap-2"><i class="bi bi-clock-history"></i>Test History</span>
-            <button class="btn btn-outline btn-sm" id="clear-history-btn">Clear</button>
+            <button type="button" class="btn btn-outline btn-sm" id="clear-history-btn">Clear</button>
           </div>
           <div class="panel-body" id="test-history">
             <p class="text-center mb-0" style="color:var(--ink-3)">No tests recorded yet</p>
           </div>
         </div>
+          </form>
 
           <!-- Ad (mid) -->
           <div class="ad-panel">

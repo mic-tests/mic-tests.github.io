@@ -326,11 +326,11 @@
 
       <!-- HERO -->
       <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
-        <div>
+        <header>
           <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">{{EYEBROW}}</div>
           <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">{{H1}}</h1>
 {{INTRO_HTML}}
-        </div>
+        </header>
 
         <div class="hidden lg:block panel p-5">
           <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
@@ -345,7 +345,9 @@
         <!-- LEFT: tool + content -->
         <div class="min-w-0">
 
+          <form aria-label="{{H1_ATTR}}" onsubmit="return false">
 {{TOOL_CARD_HTML}}
+          </form>
 
           <!-- Ad (mid) -->
           <div class="ad-panel">
