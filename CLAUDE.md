@@ -93,6 +93,17 @@ A frozen, read-only snapshot of the pre-migration hand-authored site: the origin
 ### Design exploration (`design-mockups/`)
 Three standalone HTML mockups (`1-waveform-lab.html`, `2-studio-paper.html`, `3-signal.html`) explored while designing the homepage's current "instrument-panel" Tailwind template. Not linked from the build, not part of the pipeline, and not referenced by any generated page — kept at repo root purely as design-decision reference. Don't wire these into the build; the shipped design lives in `src/template.html` / `src/content/index.json`.
 
+### AdSense — temporarily disabled
+
+As of 2026-08-31, AdSense is disabled site-wide while the site awaits AdSense approval (application submitted the same day). This was deliberate — displaying ad units on an unapproved account looks unfinished/broken and isn't needed for the approval review itself. `ads.txt` is the one exception and is **not** part of this — it's still generated normally (see below), since it just declares authorized sellers and doesn't require approval to be correct.
+
+What changed, and how to restore once approved:
+- **`src/generate.py`** — added `ADS_ENABLED = False` near the top of the file. All ad-rendering call sites (`render_page()`'s header/mid/footer ad slots, `render_info_page()`'s inline/mid ad slots) are gated on this flag; when `False` they emit nothing (no `<ins>` units, no `.ad-panel` containers — not even empty/reserved-space placeholders). **To restore: flip this one flag back to `True`.** No other Python changes are needed — `render_ad_panel()` / `render_ad_panel_fixed()` / `render_ad_panel_header()` and all the per-page `ads` config in `src/content/*.json` were left completely untouched, so ad placement/sizing/slot IDs pick up exactly where they left off.
+- **`src/template.html` and `src/template-page.html`** — the `<head>` AdSense connection snippet (the `adsbygoogle.js` script tag + `google-adsense-account` meta tag) is commented out, not deleted, right where it was. **To restore: uncomment those lines in both files.**
+- **`ads.txt`** — unaffected; `write_robots_and_sitemap()` still generates it from `site.json`'s `adsense_publisher_id` on every build, regardless of `ADS_ENABLED`.
+
+After flipping `ADS_ENABLED` back to `True` and uncommenting the two template snippets, run the full build order (see Deployment above) as usual — no other steps needed.
+
 ## External Dependencies (CDN only)
 
 | Dependency | Version | Purpose |

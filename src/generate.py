@@ -31,6 +31,14 @@ DATA_DIR = os.path.join(BASE_DIR, "data")
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 OUTPUT_DIR = os.path.join(REPO_ROOT, "public")
 
+# AdSense is temporarily disabled site-wide while awaiting approval — see
+# CLAUDE.md's "AdSense — temporarily disabled" note. Flip back to True (and
+# uncomment the <head> snippet in src/template.html / src/template-page.html)
+# once approved; no other code changes are needed to restore ad rendering.
+# ads.txt is intentionally NOT gated by this — it stays generated regardless
+# (see write_robots_and_sitemap below).
+ADS_ENABLED = False
+
 # Binary/opaque assets that can't be derived from site.json — copied as-is
 # from src/static/. CNAME and ads.txt are NOT here: they're fully generated
 # from site.json below (see write_robots_and_sitemap) so the domain and
@@ -177,7 +185,7 @@ def render_page(tool, site, template):
     # fewer than 3 content_blocks.
     content_blocks = tool.get("content_blocks", [])
     footer_ad_slot = ads.get("footer")
-    footer_ad_html = render_ad_panel_fixed(footer_ad_slot, adsense_client, 300, 250) if footer_ad_slot else ""
+    footer_ad_html = render_ad_panel_fixed(footer_ad_slot, adsense_client, 300, 250) if (ADS_ENABLED and footer_ad_slot) else ""
     if footer_ad_html and len(content_blocks) >= 3:
         main_sections_parts = [
             render_content_blocks(content_blocks[:2]),
@@ -192,10 +200,10 @@ def render_page(tool, site, template):
     main_sections = "\n\n".join(p for p in main_sections_parts if p)
 
     header_ad_slot = ads.get("header")
-    header_ad_html = render_ad_panel_header(header_ad_slot, adsense_client) if header_ad_slot else ""
+    header_ad_html = render_ad_panel_header(header_ad_slot, adsense_client) if (ADS_ENABLED and header_ad_slot) else ""
 
     mid_ad_slot = ads.get("mid")
-    mid_ad_html = render_ad_panel_fixed(mid_ad_slot, adsense_client, 300, 250) if mid_ad_slot else ""
+    mid_ad_html = render_ad_panel_fixed(mid_ad_slot, adsense_client, 300, 250) if (ADS_ENABLED and mid_ad_slot) else ""
 
     json_ld_blocks = [render_json_ld(tool["json_ld"])]
     faq_jsonld = render_faq_jsonld(tool.get("faq", []))
@@ -236,7 +244,7 @@ def render_info_page(page, site, template_page):
     # "slot": "...", "min_height": <optional int>}, ...].
     content_blocks = page.get("content_blocks", [])
     parts = []
-    inline_ads = {a["after_block"]: a for a in ads.get("inline", [])}
+    inline_ads = {a["after_block"]: a for a in ads.get("inline", [])} if ADS_ENABLED else {}
     if -1 in inline_ads:
         a = inline_ads[-1]
         parts.append(render_ad_panel(a["slot"], adsense_client, min_height=a.get("min_height")))
@@ -246,7 +254,7 @@ def render_info_page(page, site, template_page):
             a = inline_ads[i]
             parts.append(render_ad_panel(a["slot"], adsense_client, min_height=a.get("min_height")))
 
-    ad_slot = ads.get("mid")
+    ad_slot = ads.get("mid") if ADS_ENABLED else None
     if ad_slot:
         parts.append(render_ad_panel(ad_slot, adsense_client))
     faq_block = render_faq_block(page.get("faq_heading", "Frequently Asked Questions"), page.get("faq", []))
