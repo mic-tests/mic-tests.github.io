@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speaker Volume Test - Check Audio Output Levels</title>
+  <meta name="description" content="Speaker volume test — pick a test sound (tone, beep, or sweep), set the volume slider, and click Play to confirm your speakers respond at every level.">
+  <meta name="keywords" content="speaker volume test, audio output test, speaker test, volume check, speaker sound test, audio level test">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="canonical" href="https://mictest.dev/speaker-volume-test">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Speaker Volume Test",
+  "url": "https://mictest.dev/speaker-volume-test",
+  "description": "Test your speaker volume and audio output levels. Verify speakers are working correctly with different volume levels.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "MicTest",
+    "url": "https://mictest.dev"
+  }
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is the online speaker test safe for my speakers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, as long as you start at a moderate volume and avoid sustained maximum-volume playback. The test tones are standard sine waves and noise signals — the same types used in professional audio calibration. Start at 25–50% volume and only increase if needed. If you hear distortion at any level, stop immediately and reduce volume."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does the speaker test sound different at different volume levels?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "All speakers have a non-linear frequency response that changes with volume. At low volumes, bass frequencies sound thinner (the equal-loudness contour effect — the ear is less sensitive to bass at low levels). At high volumes, the speaker's physical limits cause harmonic distortion. This is normal speaker behaviour, not a fault."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use this as a subwoofer test?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For subwoofer testing, the bass test is better suited — it covers 20–200 Hz with a dedicated sweep. The 1 kHz tone and frequency sweep in this speaker test focus on the mid-range. That said, playing white noise through all speakers simultaneously (including the subwoofer) gives a useful overall balance check."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does the speaker test only play through one channel?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Check your OS balance control first — it may be set fully left or right. Also verify your cable: a mono-to-stereo adaptor or a partially-inserted 3.5 mm jack will only output to one channel. If using Bluetooth, check that the speaker is connected in stereo mode, not mono/hands-free profile."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the speaker test work with Bluetooth speakers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Select your Bluetooth speaker as the audio output device in your OS sound settings before running the test. Note that Bluetooth audio introduces 50–200 ms of latency — the tone will play with a slight delay after you click Play. This is normal and does not affect the volume or quality test results."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is white noise and why is it used in speaker testing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "White noise is a random signal that contains all audible frequencies simultaneously at equal power. It's used in speaker testing because it exercises the full frequency range of the driver in a single pass. If a speaker has a weak tweeter, the white noise will sound muffled. If the woofer is damaged, the noise will have a hollow, thin quality."
+      }
+    }
+  ]
+}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  <script async crossorigin="anonymous"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5426315045205785"></script>
+  <meta name="google-adsense-account" content="ca-pub-5426315045205785">
+
+  <style>
+    :root{
+      --bg:#EEF0F2; --panel:#F8F9FA; --panel-2:#FFFFFF; --border:#D3D7DC; --border-lt:#E4E7EA;
+      --ink:#14161A; --ink-2:#565B63; --ink-3:#868C94;
+      --amber:#B65C00; --amber-dim:rgba(182,92,0,.09); --amber-glow:rgba(182,92,0,.30);
+      --red:#C4432E; --success:#2E7D4F;
+    }
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme="light"]){
+        --bg:#111013; --panel:#18171B; --panel-2:#1F1D22; --border:#2A2830; --border-lt:#221F25;
+        --ink:#EDEAE4; --ink-2:#8B8780; --ink-3:#5F5C56;
+        --amber:#FFB13D; --amber-dim:rgba(255,177,61,.14); --amber-glow:rgba(255,177,61,.55);
+        --red:#FF5A4E; --success:#7AB85E;
+      }
+    }
+    :root[data-theme="dark"]{
+        --bg:#111013; --panel:#18171B; --panel-2:#1F1D22; --border:#2A2830; --border-lt:#221F25;
+        --ink:#EDEAE4; --ink-2:#8B8780; --ink-3:#5F5C56;
+        --amber:#FFB13D; --amber-dim:rgba(255,177,61,.14); --amber-glow:rgba(255,177,61,.55);
+        --red:#FF5A4E; --success:#7AB85E;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    /* Neutralize Tailwind's .container utility (kept only so the content-db exporter can scope this region) */
+    .container.main-wrap{width:100%;max-width:1260px;margin-left:auto;margin-right:auto;}
+    body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;}
+    .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
+    .display{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.02em;}
+    a{color:var(--amber);text-decoration:none}
+    a:hover{opacity:.8}
+    ::selection{background:var(--amber);color:var(--bg)}
+    h1,h2,h3,h4{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;color:var(--ink);}
+    h2{font-weight:700;font-size:1.5rem;line-height:1.25;margin:0 0 .9rem;}
+    h3{font-weight:600;font-size:1.1rem;line-height:1.3;margin:1.75rem 0 .5rem;}
+    p{margin:0 0 1rem;}
+    strong,b{color:var(--ink);font-weight:700;}
+    em,i{font-style:italic;}
+    code{background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;font-size:.87em;color:var(--ink);font-family:'JetBrains Mono',monospace;}
+
+    /* ── Long-form content (how-it-works / how-to / troubleshooting / FAQ) is raw semantic HTML
+       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility
+       instead of fighting Tailwind's preflight reset with custom element CSS + !important.
+       Its rules live behind :where() (zero specificity), so our theme tokens below win cleanly. ── */
+    /* !important: the typography plugin's own .prose rule also *sets* these same custom
+       properties (its light-mode defaults), at equal specificity and later in the cascade
+       (Tailwind CDN injects its stylesheet after this one) — so ours needs to win outright. */
+    .prose{
+      --tw-prose-body: var(--ink-2) !important; --tw-prose-headings: var(--ink) !important; --tw-prose-lead: var(--ink-2) !important;
+      --tw-prose-links: var(--amber) !important; --tw-prose-bold: var(--ink) !important; --tw-prose-counters: var(--ink-3) !important;
+      --tw-prose-bullets: var(--amber) !important; --tw-prose-hr: var(--border) !important; --tw-prose-quotes: var(--ink) !important;
+      --tw-prose-quote-borders: var(--amber) !important; --tw-prose-captions: var(--ink-3) !important;
+      --tw-prose-code: var(--ink) !important; --tw-prose-pre-code: var(--ink) !important; --tw-prose-pre-bg: var(--panel-2) !important;
+      --tw-prose-th-borders: var(--border) !important; --tw-prose-td-borders: var(--border-lt) !important;
+      color:var(--tw-prose-body);
+    }
+    .prose :where(h2,h3,h4,h5,h6){font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;}
+    .prose :where(code)::before,.prose :where(code)::after{content:none !important;}
+    .prose :where(code){background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;}
+    .prose :where(a){text-decoration:none;}
+    audio,video{max-width:100%;}
+    dl:not(.mic-stats) dt{font-weight:600;color:var(--ink);}
+    dl:not(.mic-stats) dd{margin:0 0 .6rem;color:var(--ink-2);}
+
+    .led{width:6px;height:6px;border-radius:999px;background:var(--amber);box-shadow:0 0 6px var(--amber);flex-shrink:0;}
+    .hairline{border-color:var(--border)}
+    .grid-bg{background-image:linear-gradient(var(--border-lt) 1px, transparent 1px),linear-gradient(90deg, var(--border-lt) 1px, transparent 1px);background-size:28px 28px;}
+
+    /* ── Rail nav ── */
+    .rail-group-label{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding:1.1rem 0 .4rem;}
+    .rail-link{display:flex;align-items:center;gap:8px;padding:.42rem .55rem;border-radius:3px;font-size:12px;color:var(--ink-2);font-family:'IBM Plex Sans';}
+    .rail-link:hover{background:var(--panel-2);color:var(--ink);opacity:1;}
+    .rail-link.active{background:var(--amber-dim);color:var(--amber);font-weight:600;}
+    .rail-link i{width:14px;text-align:center;font-size:12px;flex-shrink:0;}
+
+    /* ── Content panels (replace Bootstrap cards) ── */
+    .panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);}
+    .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .panel-body{padding:1.1rem;}
+    .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
+    .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
+    .ad-panel-body{padding:1rem;text-align:center;}
+
+    /* ── Buttons ── */
+    .btn{display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:600;padding:.6rem 1.1rem;border-radius:4px;border:1px solid transparent;cursor:pointer;transition:opacity .15s;font-family:'IBM Plex Sans';}
+    .btn:hover{opacity:.88}
+    .btn:disabled{opacity:.45;cursor:not-allowed;}
+    .btn-primary{background:var(--amber);color:var(--bg);}
+    .btn-secondary{background:var(--panel-2);color:var(--ink-2);border-color:var(--border);}
+    .btn-danger{background:var(--red);color:#fff;}
+    .btn-warning{background:var(--amber);color:var(--bg);}
+    .btn-outline{background:transparent;color:var(--ink-2);border-color:var(--border);}
+    .btn-outline:hover{background:var(--panel-2);color:var(--ink);opacity:1;}
+    .btn-sm{padding:.4rem .8rem;font-size:11.5px;}
+    .btn-toolbar{display:flex;flex-wrap:wrap;gap:.5rem;}
+    .w-100{width:100%;}
+    .d-grid{display:grid;gap:.5rem;}
+    .d-none{display:none !important;}
+
+    /* ── Forms ── */
+    .form-label{display:block;font-size:10.5px;font-weight:600;margin-bottom:.4rem;color:var(--ink-2);font-family:'JetBrains Mono';text-transform:uppercase;letter-spacing:.06em;}
+    .form-select,.form-control{width:100%;padding:.6rem .75rem;border:1px solid var(--border);border-radius:4px;background:var(--panel-2);color:var(--ink);font-size:13px;font-family:'IBM Plex Sans';}
+    .form-select:focus,.form-control:focus{outline:none;border-color:var(--amber);}
+
+    /* ── Alerts / status ── */
+    .status-message{padding:.6rem .85rem;margin-bottom:.85rem;border-radius:4px;font-size:13px;border:1px solid var(--border);}
+    .status-step{display:flex;align-items:center;}
+    .status-icon{margin-right:8px;width:18px;text-align:center;flex-shrink:0;}
+    .alert-info{background:var(--panel-2);color:var(--ink-2);}
+    .alert-success{background:rgba(46,125,79,.10);color:var(--success);border-color:rgba(46,125,79,.3);}
+    .alert-warning{background:var(--amber-dim);color:var(--amber);border-color:rgba(182,92,0,.3);}
+    .alert-danger, .alert-recording{background:rgba(196,67,46,.10);color:var(--red);border-color:rgba(196,67,46,.3);}
+    .recording-pulse{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--red);margin-right:8px;animation:pulse 1.5s infinite;vertical-align:middle;}
+    @keyframes pulse{0%{transform:scale(.95);box-shadow:0 0 0 0 rgba(196,67,46,.6);}70%{transform:scale(1);box-shadow:0 0 0 7px rgba(196,67,46,0);}100%{transform:scale(.95);box-shadow:0 0 0 0 rgba(196,67,46,0);}}
+
+    /* ── Visualizer ── */
+    canvas{width:100%;height:200px;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;display:block;}
+    #visualizer-container{position:relative;border-radius:4px;overflow:hidden;}
+    .amplitude-bars{position:absolute;bottom:0;left:0;width:100%;height:100%;display:flex;align-items:flex-end;padding:0 4px;pointer-events:none;}
+    .amplitude-bar{flex:1;background:linear-gradient(to top, var(--amber), transparent);margin:0 1px;max-height:100%;transition:height .08s ease;border-radius:2px 2px 0 0;}
+
+    /* ── Progress ── */
+    .progress{height:4px;border-radius:99px;background:var(--border);overflow:hidden;margin-bottom:10px;}
+    .progress-bar{height:100%;background:var(--amber);border-radius:99px;transition:width .1s linear;}
+
+    /* ── Quality / info rows ── */
+    .quality-indicator{display:inline-block;font-weight:700;font-family:'JetBrains Mono';font-size:13px;}
+    .quality-excellent{color:var(--success);}
+    .quality-verygood{color:var(--amber);}
+    .quality-good{color:var(--amber);opacity:.85;}
+    .quality-fair{color:var(--red);opacity:.85;}
+    .quality-poor{color:var(--red);}
+    .quality-unknown{color:var(--ink-3);}
+    .info-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border-lt);}
+    .info-row:last-child{border-bottom:none;padding-bottom:0;}
+    .info-label{color:var(--ink-3);font-weight:500;font-family:'JetBrains Mono';font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;}
+    .info-val{color:var(--ink);font-weight:600;text-align:right;max-width:55%;font-size:12.5px;font-family:'JetBrains Mono';}
+
+    /* ── Testimonials ── */
+    .testimonial{padding:.6rem 0;border-bottom:1px solid var(--border-lt);}
+    .testimonial:last-of-type{border-bottom:none;}
+    .testimonial p{font-size:12.5px;font-style:italic;color:var(--ink-2);margin:0 0 .2rem;}
+    .text-muted{color:var(--ink-3);font-size:11px;}
+    .mb-0{margin-bottom:0 !important;}
+    .review-form{display:none;margin-top:.85rem;padding:.9rem;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;}
+
+    /* ── Pro tip ── */
+    aside.pro-tip{display:flex;gap:.7rem;align-items:flex-start;background:var(--amber-dim);border-left:3px solid var(--amber);border-radius:0 4px 4px 0;padding:.85rem 1rem;margin-top:1.25rem;font-size:13.5px;color:var(--ink);}
+    aside.pro-tip>i{color:var(--amber);flex-shrink:0;font-size:1rem;line-height:1.55;}
+
+    /* ── Mic stats dl ── */
+    dl.mic-stats{display:grid;grid-template-columns:minmax(180px,26%) 1fr;gap:.3rem 1.1rem;align-items:baseline;}
+    dl.mic-stats dt{font-weight:600;color:var(--ink);padding:.6rem 0 .1rem;border-top:1px solid var(--border-lt);font-family:'JetBrains Mono';font-size:12.5px;}
+    dl.mic-stats dd{margin:0;padding:.6rem 0 .1rem;border-top:1px solid var(--border-lt);color:var(--ink-2);line-height:1.65;font-size:13px;}
+    dl.mic-stats dt:first-child, dl.mic-stats dd:first-of-type{border-top:none;}
+    @media (max-width:575px){dl.mic-stats{grid-template-columns:1fr;}dl.mic-stats dd{border-top:none;padding-top:0;}}
+
+    /* ── Details / accordion panels ── */
+    details.panel{border:1px solid var(--border);border-radius:4px;margin-bottom:.5rem;overflow:hidden;background:var(--panel);}
+    details.panel>summary{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.05rem;cursor:pointer;background:var(--panel-2);list-style:none;gap:.5rem;font-size:14px;}
+    details.panel>summary::-webkit-details-marker{display:none;}
+    details.panel>summary::after{content:"\FE40";font-size:.8rem;color:var(--amber);flex-shrink:0;transform:rotate(90deg);}
+    details.panel[open]>summary::after{transform:rotate(-90deg);}
+    details.panel[open]>summary{border-bottom:1px solid var(--border);}
+    details.panel>:not(summary){padding:.9rem 1.05rem;}
+    details.panel ol,details.panel ul{margin-bottom:0;padding-left:1.3rem;}
+    details.panel li{margin-bottom:.4rem;}
+
+    /* ── Table ── */
+    .table-responsive{overflow-x:auto;}
+    .table{width:100%;border-collapse:collapse;font-size:12.5px;}
+    .table th,.table td{padding:.55rem .7rem;border:1px solid var(--border);text-align:left;vertical-align:middle;}
+    .table thead th{background:var(--panel-2);font-family:'JetBrains Mono';font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2);}
+    .table-striped tbody tr:nth-child(odd){background:var(--panel-2);}
+
+    /* ── Comments / footer ── */
+    .comments-panel{border-top:1px solid var(--border);background:var(--panel);padding:2.5rem 0;margin-top:2rem;}
+    footer.site-footer{background:var(--panel);border-top:1px solid var(--border);padding:2.75rem 0 0;}
+    .footer-brand{font-family:'JetBrains Mono';font-weight:700;font-size:15px;color:var(--ink);display:flex;align-items:center;gap:8px;margin-bottom:.75rem;}
+    .footer-desc{font-size:12.5px;color:var(--ink-3);line-height:1.65;max-width:320px;}
+    .footer-col-heading{font-family:'JetBrains Mono';font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.7rem;display:block;}
+    .footer-links{list-style:none;padding:0;margin:0 0 1.25rem;}
+    .footer-links li{margin-bottom:.4rem;}
+    .footer-links a{font-size:13px;color:var(--ink-2);}
+    .footer-links a:hover{color:var(--amber);opacity:1;}
+    .footer-bottom{border-top:1px solid var(--border);margin-top:1.5rem;padding:1rem 0;font-size:11px;color:var(--ink-3);font-family:'JetBrains Mono';}
+
+    /* ── Mobile drawer ── */
+    #mobile-drawer{position:fixed;inset:0;z-index:40;background:var(--bg);transform:translateX(-100%);transition:transform .2s ease;overflow-y:auto;}
+    #mobile-drawer.open{transform:translateX(0);}
+
+    /* ── Page-specific (this tool's own extra CSS, if any — must use the theme tokens above, e.g. var(--amber)/var(--panel), never hardcoded colors, so it stays correct in both light and dark) ── */
+    .volume-icon{font-size:3.5rem;color:var(--amber);}
+    .volume-bar{height:180px;width:56px;background:var(--panel-2);border:1px solid var(--border);border-radius:8px;position:relative;overflow:hidden;margin:0 auto;}
+    .volume-fill{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top, var(--success), var(--amber), var(--red));transition:height .3s;}
+    .btn-success{background:var(--success);color:#fff;}
+
+    input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:99px;background:var(--border);outline:none;margin:.5rem 0;}
+    input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:var(--amber);cursor:pointer;border:2px solid var(--panel-2);box-shadow:0 0 0 1px var(--border);}
+    input[type=range]::-moz-range-track{height:4px;border-radius:99px;background:var(--border);}
+    input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--amber);cursor:pointer;border:2px solid var(--panel-2);box-shadow:0 0 0 1px var(--border);}
+
+  </style>
+</head>
+<body>
+
+<div class="flex min-h-screen">
+
+  <!-- DESKTOP RAIL -->
+  <aside class="hidden lg:flex flex-col w-[232px] shrink-0 border-r hairline px-5 py-6 sticky top-0 h-screen overflow-y-auto">
+    <a href="/" class="flex items-center gap-2.5 mb-6" title="MicTest Home">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+        <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+        <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M12 18v3M9 21h6" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      <span class="mono text-[13px] font-semibold tracking-tight" style="color:var(--ink)">MICTEST</span>
+    </a>
+
+    <button type="button" class="theme-toggle-btn flex items-center gap-2.5 mb-2" aria-label="Toggle light or dark panel">
+      <span class="relative inline-flex items-center shrink-0" style="width:32px;height:17px;border-radius:999px;background:var(--border-lt);border:1px solid var(--border)">
+        <span class="theme-dot absolute" style="width:11px;height:11px;border-radius:999px;background:var(--amber);left:2px;top:2px;transition:left .15s ease"></span>
+      </span>
+      <span class="theme-label mono text-[10.5px] tracking-[.08em] uppercase" style="color:var(--ink-2)">Dark panel</span>
+    </button>
+
+    <nav class="flex flex-col rail-nav">
+      <a href="/" data-page="index" class="rail-link"><i class="bi bi-mic-fill"></i>Microphone Test</a>
+
+      <div class="rail-group-label">Mic Tools</div>
+      <a href="/show-mic" data-page="show-mic" class="rail-link"><i class="bi bi-mic"></i>Show My Mic</a>
+      <a href="/mic-recorder" data-page="mic-recorder" class="rail-link"><i class="bi bi-record-circle"></i>Mic Recorder</a>
+      <a href="/sound-level-meter" data-page="sound-level-meter" class="rail-link"><i class="bi bi-speedometer2"></i>Sound Level Meter</a>
+      <a href="/voice-frequency-analyzer" data-page="voice-frequency-analyzer" class="rail-link"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a>
+      <a href="/background-noise-analyzer" data-page="background-noise-analyzer" class="rail-link"><i class="bi bi-soundwave"></i>Background Noise Analyzer</a>
+      <a href="/echo-test" data-page="echo-test" class="rail-link"><i class="bi bi-arrow-repeat"></i>Echo Test</a>
+      <a href="/audio-latency-test" data-page="audio-latency-test" class="rail-link"><i class="bi bi-stopwatch"></i>Audio Latency Test</a>
+
+      <div class="rail-group-label">Speaker Tools</div>
+      <a href="/show-speakers" data-page="show-speakers" class="rail-link"><i class="bi bi-speaker"></i>Show My Speakers</a>
+      <a href="/tone-generator" data-page="tone-generator" class="rail-link"><i class="bi bi-activity"></i>Tone Generator</a>
+      <a href="/stereo-test" data-page="stereo-test" class="rail-link"><i class="bi bi-badge-hd"></i>Stereo Test</a>
+      <a href="/bass-test" data-page="bass-test" class="rail-link"><i class="bi bi-disc"></i>Bass Test</a>
+      <a href="/speaker-volume-test" data-page="speaker-volume-test" class="rail-link"><i class="bi bi-volume-up"></i>Speaker Volume Test</a>
+
+      <div class="rail-group-label">Headphones &amp; Hearing</div>
+      <a href="/headphone-test" data-page="headphone-test" class="rail-link"><i class="bi bi-headphones"></i>Headphone Test</a>
+      <a href="/hearing-test" data-page="hearing-test" class="rail-link"><i class="bi bi-ear"></i>Hearing Test</a>
+
+      <div class="rail-group-label">More</div>
+      <a href="/troubleshooting" data-page="troubleshooting" class="rail-link"><i class="bi bi-tools"></i>Troubleshooting</a>
+      <a href="/about" data-page="about" class="rail-link"><i class="bi bi-info-circle"></i>About</a>
+      <a href="/contact" data-page="contact" class="rail-link"><i class="bi bi-envelope"></i>Contact</a>
+    </nav>
+  </aside>
+
+  <!-- MOBILE TOP BAR -->
+  <div class="lg:hidden fixed top-0 inset-x-0 z-50 flex items-center justify-between px-5 py-4 border-b hairline" style="background:var(--bg)">
+    <a href="/" class="flex items-center gap-2" title="MicTest Home">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+        <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+        <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      <span class="mono text-[13px] font-semibold" style="color:var(--ink)">MICTEST</span>
+    </a>
+    <div class="flex items-center gap-3">
+      <button type="button" class="theme-toggle-btn flex items-center gap-2" aria-label="Toggle light or dark panel">
+        <span class="relative inline-flex items-center shrink-0" style="width:28px;height:16px;border-radius:999px;background:var(--border-lt);border:1px solid var(--border)">
+          <span class="theme-dot absolute" style="width:10px;height:10px;border-radius:999px;background:var(--amber);left:2px;top:2px;transition:left .15s ease"></span>
+        </span>
+      </button>
+      <button type="button" id="mobile-menu-btn" aria-label="Open menu" class="flex flex-col gap-[4px] p-1">
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MOBILE DRAWER -->
+  <div id="mobile-drawer">
+    <div class="flex items-center justify-between px-5 py-4 border-b hairline">
+      <span class="mono text-[13px] font-semibold" style="color:var(--ink)">MENU</span>
+      <button type="button" id="mobile-drawer-close" aria-label="Close menu" class="mono text-[20px] leading-none" style="color:var(--ink-2)">&times;</button>
+    </div>
+    <nav class="flex flex-col rail-nav px-5 py-4">
+      <a href="/" data-page="index" class="rail-link"><i class="bi bi-mic-fill"></i>Microphone Test</a>
+      <div class="rail-group-label">Mic Tools</div>
+      <a href="/show-mic" data-page="show-mic" class="rail-link"><i class="bi bi-mic"></i>Show My Mic</a>
+      <a href="/mic-recorder" data-page="mic-recorder" class="rail-link"><i class="bi bi-record-circle"></i>Mic Recorder</a>
+      <a href="/sound-level-meter" data-page="sound-level-meter" class="rail-link"><i class="bi bi-speedometer2"></i>Sound Level Meter</a>
+      <a href="/voice-frequency-analyzer" data-page="voice-frequency-analyzer" class="rail-link"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a>
+      <a href="/background-noise-analyzer" data-page="background-noise-analyzer" class="rail-link"><i class="bi bi-soundwave"></i>Background Noise Analyzer</a>
+      <a href="/echo-test" data-page="echo-test" class="rail-link"><i class="bi bi-arrow-repeat"></i>Echo Test</a>
+      <a href="/audio-latency-test" data-page="audio-latency-test" class="rail-link"><i class="bi bi-stopwatch"></i>Audio Latency Test</a>
+      <div class="rail-group-label">Speaker Tools</div>
+      <a href="/show-speakers" data-page="show-speakers" class="rail-link"><i class="bi bi-speaker"></i>Show My Speakers</a>
+      <a href="/tone-generator" data-page="tone-generator" class="rail-link"><i class="bi bi-activity"></i>Tone Generator</a>
+      <a href="/stereo-test" data-page="stereo-test" class="rail-link"><i class="bi bi-badge-hd"></i>Stereo Test</a>
+      <a href="/bass-test" data-page="bass-test" class="rail-link"><i class="bi bi-disc"></i>Bass Test</a>
+      <a href="/speaker-volume-test" data-page="speaker-volume-test" class="rail-link"><i class="bi bi-volume-up"></i>Speaker Volume Test</a>
+      <div class="rail-group-label">Headphones &amp; Hearing</div>
+      <a href="/headphone-test" data-page="headphone-test" class="rail-link"><i class="bi bi-headphones"></i>Headphone Test</a>
+      <a href="/hearing-test" data-page="hearing-test" class="rail-link"><i class="bi bi-ear"></i>Hearing Test</a>
+      <div class="rail-group-label">More</div>
+      <a href="/troubleshooting" data-page="troubleshooting" class="rail-link"><i class="bi bi-tools"></i>Troubleshooting</a>
+      <a href="/about" data-page="about" class="rail-link"><i class="bi bi-info-circle"></i>About</a>
+      <a href="/contact" data-page="contact" class="rail-link"><i class="bi bi-envelope"></i>Contact</a>
+    </nav>
+  </div>
+
+  <!-- MAIN STAGE -->
+  <main class="flex-1 pt-16 lg:pt-0 min-w-0">
+    <div class="container main-wrap max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12 py-8 lg:py-12">
+
+      <!-- HERO -->
+      <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
+        <div>
+          <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 04 · Output Level Diagnostics</div>
+          <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Speaker Volume Test — Check Your Audio Output Levels Online</h1>
+          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>Speaker Volume Test</strong> plays a test tone at preset volume levels so you can verify your speakers respond correctly from quiet to loud. Click any <strong>volume level button</strong> — 25%, 50%, 75%, or 100% — and a tone plays through your speakers at that output; the <strong>volume indicator</strong> shows the active level while audio plays. If one level sounds wrong or your speakers don't respond at certain settings, cross-check what you hear against your device's <strong>system volume</strong> to isolate whether the fault is in software or hardware. <!-- SILO_START:slot_a -->For speaker calibration or tinnitus matching, the <a href="/tone-generator">tone generator</a> gives you precise frequency control.<!-- SILO_END:slot_a --></p>
+        </div>
+
+        <div class="hidden lg:block panel p-5">
+          <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
+          <dl class="mono text-[11.5px] flex flex-col gap-3">
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Model</dt><dd>SV-04 LEVEL</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Interface</dt><dd>Web Audio API</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Install required</dt><dd style="color:var(--amber)">None</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Audio uploaded</dt><dd style="color:var(--amber)">Never</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-[1fr_320px] gap-8 items-start">
+
+        <!-- LEFT: tool + content -->
+        <div class="min-w-0">
+
+          <div class="panel mb-6">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-volume-up"></i>Volume Level Test</span></div>
+            <div class="panel-body">
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div class="mb-3">
+                  <label class="form-label" for="volume-slider">Test Volume</label>
+                  <input type="range" id="volume-slider" min="0" max="100" value="50">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="sound-type">Test Sound</label>
+                  <select class="form-select" id="sound-type">
+                    <option value="tone">1kHz Tone</option>
+                    <option value="beep">Beep Pattern</option>
+                    <option value="sweep">Frequency Sweep</option>
+                    <option value="noise">White Noise</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="text-center mb-4">
+                <button class="btn btn-success" id="play-btn">
+                  <i class="bi bi-play-fill me-2"></i>Play Test Sound
+                </button>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-6 items-center">
+                <div class="text-center">
+                  <i class="bi bi-speaker volume-icon" id="speaker-icon"></i>
+                  <div class="mono text-2xl font-semibold mt-3" id="volume-percent" style="color:var(--ink)">50%</div>
+                </div>
+                <div class="text-center">
+                  <div class="volume-bar mx-auto">
+                    <div class="volume-fill" id="volume-fill" style="height: 50%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel mb-6">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-lightning-charge"></i>Quick Volume Tests</span></div>
+            <div class="panel-body">
+              <div class="grid grid-cols-4 gap-2 text-center">
+                <button class="btn btn-outline w-100" data-vol="25">25%<br><small>Quiet</small></button>
+                <button class="btn btn-outline w-100" data-vol="50">50%<br><small>Medium</small></button>
+                <button class="btn btn-outline w-100" data-vol="75">75%<br><small>Loud</small></button>
+                <button class="btn btn-outline w-100" data-vol="100">100%<br><small>Max</small></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="status-message alert-info">
+            <i class="bi bi-info-circle-fill me-2"></i>Start with low volume and gradually increase. Use system volume controls alongside this test.
+          </div>
+
+
+          <!-- Ad (mid) -->
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body">
+              <ins class="adsbygoogle"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-format="auto"
+                   data-ad-slot="9146528954"
+                   data-full-width-responsive="true"
+                   style="display:block"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
+
+      <div class="content-panel prose max-w-none">
+        <h2><i class="bi bi-wrench me-2"></i>No Sound?</h2>
+        <ul>
+          <li>Check system volume is not muted</li>
+          <li>Verify correct output device in audio settings</li>
+          <li>Check cable connections</li>
+          <li>Try a different browser</li>
+          <li>See troubleshooting guide</li>
+        </ul>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+        <h2>How to Run the Speaker Test Online</h2>
+        <ol>
+          <li><strong>Set system volume to 50%</strong> before starting — use your OS volume control, not just this tool's slider, to avoid sudden loud output.</li>
+          <li>Select a <strong>Test Sound</strong> from the dropdown: start with 1 kHz Tone for a clean reference signal.</li>
+          <li>Click <strong>Play Test Sound</strong> and confirm you hear audio from both speakers.</li>
+          <li>Use the <strong>Quick Volume Tests</strong> (25%, 50%, 75%, 100%) to step through levels and check that volume scales smoothly without crackling.</li>
+          <li>Switch to <strong>Frequency Sweep</strong> to scan from 200 Hz to 2000 Hz — listen for any frequencies that sound distorted or absent.</li>
+          <li>Try <strong>White Noise</strong> to check speaker response across the full audio spectrum simultaneously.</li>
+        </ol>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+        <h2>What Does the Online Speaker Test Check?</h2>
+
+        <h3>Speaker Channel Test — Left, Right, and Both</h3>
+        <p>The speaker test confirms that audio output reaches both channels at the correct volume. If one speaker plays noticeably louder, the audio output is unbalanced — check the balance slider in your OS sound settings. Run a <a href="/stereo-test">stereo test</a> if you need to verify that left and right channels are not swapped. <!-- SILO_START:slot_b -->A <a href="/bass-test">bass test</a> exposes port resonance, driver rattle, or missing low end in any speaker setup.<!-- SILO_END:slot_b --></p>
+
+        <h3>Frequency Sweep Speaker Test</h3>
+        <p>The sweep option ramps from 200 Hz to 2000 Hz over three seconds. A healthy speaker plays every point in the sweep at consistent volume. If you notice a sudden drop, a resonance buzz, or complete silence at a specific frequency, that region of the speaker's response is problematic — it may indicate a damaged driver or port resonance.</p>
+
+        <h3>Noise-Based Speaker Sound Test</h3>
+        <p>White noise contains all frequencies at equal energy, making it ideal for identifying colouration or gaps in your speaker's audio output. Pink noise reduces high-frequency energy to better match how the ear perceives loudness — audiophiles use it for level-matching multiple speakers. If one speaker sounds brighter or duller than the other during a noise test, the two units are not matched.</p>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+        <h2>Speaker Test Results by Volume Level</h2>
+
+        <h3>Low Volume Speaker Test (25%)</h3>
+        <p>At 25% volume, you're testing that your audio output chain functions at minimum levels — essential for quiet listening environments and background audio. If you can't hear anything at 25% with system volume at 50%, your speaker's sensitivity rating may be low, or a hardware volume control (physical knob on a monitor or amplifier) is set too low. <!-- SILO_START:slot_c -->Before a long listening session, a quick <a href="/headphone-test">headphone test</a> confirms both channels are performing correctly.<!-- SILO_END:slot_c --></p>
+
+        <h3>Medium Volume Audio Output Test (50%)</h3>
+        <p>50% is the standard reference level for most speaker tests. A well-functioning speaker should play cleanly, with no distortion, at this level. If you hear rattling, buzzing, or crackling at 50% volume, something is wrong — driver damage, a loose enclosure component, or excessive bass boost in your EQ settings are the most common causes.</p>
+
+        <h3>High Volume Check (75–100%)</h3>
+        <p>Testing at high volume reveals how much headroom your speakers have before they clip or distort. Distortion at 75–100% is normal for budget speakers operating at their limit. If distortion appears at 50% or below, the driver is likely damaged or the amplifier is underpowered for the speaker load. Never sustain 100% volume for extended periods — it accelerates driver wear.</p>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+        <h2>Speaker Test Troubleshooting — No Sound or Poor Audio Output</h2>
+
+        <h3>Speaker Test Shows No Audio Output</h3>
+        <p>If the speaker test plays but you hear nothing: check that the correct output device is selected in your OS sound settings — if you recently plugged in headphones or an HDMI monitor, the OS may have switched the default output. Also verify system volume is not muted at the OS level. On laptops, a function key (Fn+F8 or similar) may be muting audio independently.</p>
+
+        <h3>One Speaker Channel Is Silent During the Test</h3>
+        <p>A silent channel points to a physical connection issue, a damaged driver, or an OS balance setting pushed fully to one side. Check your OS sound settings and confirm the balance is centred. Try different cables or ports to isolate the fault. If the silent channel works in a different audio app, the issue may be browser-specific — try a different browser for the online speaker test.</p>
+
+        <h3>Audio Output Sounds Distorted at Any Volume</h3>
+        <p>Consistent distortion at all volume levels usually means a damaged voice coil or blown driver. Distortion that appears only at high volumes is more likely an overloaded amplifier or EQ-boosted bass exceeding the speaker's limits. Remove any bass boost or loudness enhancement in your audio driver software and retest.</p>
+
+        <h3>Speaker Test Passes But Overall Sound Quality Is Poor</h3>
+        <p>A passing speaker test means the hardware is functional — but sound quality issues often come from software: equaliser settings, audio enhancement software (spatial sound, room correction), or a low-quality audio driver. Disable enhancements in your OS audio settings and test again. Outdated or generic audio drivers can also degrade quality — install the manufacturer's driver from their website.</p>
+      </div>
+
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body">
+              <ins class="adsbygoogle"
+                   style="display:block"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-slot="7669795756"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
+
+      <div class="content-panel prose max-w-none" id="faq">
+        <h2>Frequently Asked Questions About the Speaker Test Online</h2>
+        <details class="panel" open>
+          <summary><strong>Is the online speaker test safe for my speakers?</strong></summary>
+          <p>Yes, as long as you start at a moderate volume and avoid sustained maximum-volume playback. The test tones are standard sine waves and noise signals — the same types used in professional audio calibration. Start at 25–50% volume and only increase if needed. If you hear distortion at any level, stop immediately and reduce volume.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Why does the speaker test sound different at different volume levels?</strong></summary>
+          <p>All speakers have a non-linear frequency response that changes with volume. At low volumes, bass frequencies sound thinner (the equal-loudness contour effect — the ear is less sensitive to bass at low levels). At high volumes, the speaker's physical limits cause harmonic distortion. This is normal speaker behaviour, not a fault.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Can I use this as a subwoofer test?</strong></summary>
+          <p>For subwoofer testing, the bass test is better suited — it covers 20–200 Hz with a dedicated sweep. The 1 kHz tone and frequency sweep in this speaker test focus on the mid-range. That said, playing white noise through all speakers simultaneously (including the subwoofer) gives a useful overall balance check.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Why does the speaker test only play through one channel?</strong></summary>
+          <p>Check your OS balance control first — it may be set fully left or right. Also verify your cable: a mono-to-stereo adaptor or a partially-inserted 3.5 mm jack will only output to one channel. If using Bluetooth, check that the speaker is connected in stereo mode, not mono/hands-free profile.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Does the speaker test work with Bluetooth speakers?</strong></summary>
+          <p>Yes. Select your Bluetooth speaker as the audio output device in your OS sound settings before running the test. Note that Bluetooth audio introduces 50–200 ms of latency — the tone will play with a slight delay after you click Play. This is normal and does not affect the volume or quality test results.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>What is white noise and why is it used in speaker testing?</strong></summary>
+          <p>White noise is a random signal that contains all audible frequencies simultaneously at equal power. It's used in speaker testing because it exercises the full frequency range of the driver in a single pass. If a speaker has a weak tweeter, the white noise will sound muffled. If the woofer is damaged, the noise will have a hollow, thin quality.</p>
+        </details>
+      </div>
+
+        </div>
+
+        <!-- RIGHT: sidebar -->
+        <div>
+
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body" style="min-height:360px;">
+              <ins class="adsbygoogle"
+                   style="display:block;min-height:360px;"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-slot="6193062550"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
+
+          <div class="panel mb-5">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-link-45deg"></i>Related Tools</span></div>
+            <div class="panel-body" style="padding:.5rem">
+              <nav class="flex flex-col">
+                <a href="/stereo-test" class="rail-link"><i class="bi bi-badge-hd"></i>Stereo Test</a>
+                <a href="/tone-generator" class="rail-link"><i class="bi bi-activity"></i>Tone Generator</a>
+                <a href="/bass-test" class="rail-link"><i class="bi bi-disc"></i>Bass Test</a>
+                <a href="/headphone-test" class="rail-link"><i class="bi bi-headphones"></i>Headphone Test</a>
+                <a href="/show-speakers" class="rail-link"><i class="bi bi-speaker"></i>View Speaker Details</a>
+                <a href="/hearing-test" class="rail-link"><i class="bi bi-ear"></i>Hearing Test</a>
+                <a href="/" class="rail-link"><i class="bi bi-mic"></i>Microphone Test</a>
+              </nav>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Comments -->
+    <section class="comments-panel">
+      <div class="max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="max-w-[760px] mx-auto">
+          <h3 class="flex items-center gap-2 mb-4"><i class="bi bi-chat-dots" style="color:var(--amber)"></i>Comments &amp; Feedback</h3>
+          <script defer src="https://comments.tickspike.com/comentario.js"></script>
+          <comentario-comments theme="light"></comentario-comments>
+        </div>
+      </div>
+    </section>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var comentarioEl = document.querySelector('comentario-comments');
+        if (!comentarioEl) return;
+        comentarioEl.addEventListener('keydown', function(e) { e.stopPropagation(); }, true);
+        comentarioEl.addEventListener('keyup', function(e) { e.stopPropagation(); }, true);
+        comentarioEl.addEventListener('keypress', function(e) { e.stopPropagation(); }, true);
+      }, 2000);
+    });
+    </script>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-6">
+          <div class="lg:col-span-1 sm:col-span-2">
+            <div class="footer-brand">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+                <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+                <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M12 18v3M9 21h6" stroke-width="1.7" stroke-linecap="round"/>
+              </svg>
+              MicTest
+            </div>
+            <p class="footer-desc">Free online microphone and audio testing tools. Test your microphone, speakers, and audio devices directly in your browser without any downloads.</p>
+          </div>
+          <div>
+            <span class="footer-col-heading">Mic Tools</span>
+            <ul class="footer-links">
+              <li><a href="/" title="Free Online Microphone Test">Microphone Test</a></li>
+              <li><a href="/show-mic" title="View Microphone Details">Show My Mic</a></li>
+              <li><a href="/mic-recorder" title="Record Your Voice">Mic Recorder</a></li>
+              <li><a href="/sound-level-meter" title="Measure Decibel Levels">Sound Level Meter</a></li>
+              <li><a href="/echo-test" title="Test for Echo Issues">Echo Test</a></li>
+              <li><a href="/background-noise-analyzer" title="Analyze Background Noise">Noise Analyzer</a></li>
+              <li><a href="/voice-frequency-analyzer" title="Analyze Voice Frequencies">Frequency Analyzer</a></li>
+              <li><a href="/audio-latency-test" title="Measure Audio Latency">Latency Test</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="footer-col-heading">Speaker Tools</span>
+            <ul class="footer-links">
+              <li><a href="/show-speakers" title="View Speaker Details">Show My Speakers</a></li>
+              <li><a href="/tone-generator" title="Generate Test Tones">Tone Generator</a></li>
+              <li><a href="/stereo-test" title="Test Left Right Channels">Stereo Test</a></li>
+              <li><a href="/bass-test" title="Test Low Frequencies">Bass Test</a></li>
+              <li><a href="/speaker-volume-test" title="Calibrate Volume">Speaker Volume Test</a></li>
+            </ul>
+            <span class="footer-col-heading" style="margin-top:1rem;display:block">Headphones &amp; Hearing</span>
+            <ul class="footer-links">
+              <li><a href="/headphone-test" title="Test Your Headphones">Headphone Test</a></li>
+              <li><a href="/hearing-test" title="Online Hearing Test">Hearing Test</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="footer-col-heading">Resources</span>
+            <ul class="footer-links">
+              <li><a href="/troubleshooting" title="Fix Audio Problems">Troubleshooting Guide</a></li>
+              <li><a href="/about" title="About MicTest">About MicTest</a></li>
+              <li><a href="/contact" title="Contact Us">Contact</a></li>
+              <li><a href="/sitemap" title="Site Map">Sitemap</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          &copy; 2025&ndash;<span id="footer-current-year"></span> MicTest. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function() {
+  var yearEl = document.getElementById('footer-current-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+})();
+</script>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var STORE_KEY = 'mictest-theme';
+
+  function readStored() {
+    try { return localStorage.getItem(STORE_KEY); } catch (e) { return null; }
+  }
+  function writeStored(v) {
+    try { localStorage.setItem(STORE_KEY, v); } catch (e) {}
+  }
+
+  var stored = readStored();
+  if (stored === 'light' || stored === 'dark') {
+    root.setAttribute('data-theme', stored);
+  }
+
+  function currentMode() {
+    var attr = root.getAttribute('data-theme');
+    if (attr === 'light' || attr === 'dark') return attr;
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'dark' : 'light';
+  }
+
+  function paint() {
+    var mode = currentMode();
+    var dots = document.querySelectorAll('.theme-dot');
+    var labels = document.querySelectorAll('.theme-label');
+    for (var i = 0; i < dots.length; i++) {
+      if (mode === 'dark') { dots[i].style.left = 'auto'; dots[i].style.right = '2px'; }
+      else { dots[i].style.right = 'auto'; dots[i].style.left = '2px'; }
+    }
+    for (var j = 0; j < labels.length; j++) {
+      labels[j].textContent = mode === 'dark' ? 'Dark panel' : 'Light panel';
+    }
+  }
+
+  var buttons = document.querySelectorAll('.theme-toggle-btn');
+  for (var k = 0; k < buttons.length; k++) {
+    buttons[k].addEventListener('click', function () {
+      var next = currentMode() === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      writeStored(next);
+      paint();
+    });
+  }
+
+  paint();
+})();
+</script>
+
+<script>
+(function() {
+  var path = window.location.pathname.replace(/\/$/, '');
+  var page = (path === '' || path === '/index' || path === '/index.html') ? 'index' : path.replace(/^\//, '').replace(/\.html$/, '');
+  var els = document.querySelectorAll('.rail-link[data-page="' + page + '"]');
+  els.forEach(function(el) { el.classList.add('active'); el.setAttribute('aria-current', 'page'); });
+})();
+</script>
+
+<script>
+(function() {
+  var btn = document.getElementById('mobile-menu-btn');
+  var closeBtn = document.getElementById('mobile-drawer-close');
+  var drawer = document.getElementById('mobile-drawer');
+  if (!btn || !drawer) return;
+  btn.addEventListener('click', function() { drawer.classList.add('open'); });
+  if (closeBtn) closeBtn.addEventListener('click', function() { drawer.classList.remove('open'); });
+  drawer.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() { drawer.classList.remove('open'); });
+  });
+})();
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const volumeSlider = document.getElementById('volume-slider');
+      const volumePercent = document.getElementById('volume-percent');
+      const volumeFill = document.getElementById('volume-fill');
+      const playBtn = document.getElementById('play-btn');
+      const soundType = document.getElementById('sound-type');
+      const quickBtns = document.querySelectorAll('[data-vol]');
+
+      let audioContext = null;
+      let source = null;
+      let gainNode = null;
+      let isPlaying = false;
+
+      function updateVolume(vol) {
+        volumeSlider.value = vol;
+        volumePercent.textContent = vol + '%';
+        volumeFill.style.height = vol + '%';
+        if (gainNode && isPlaying) gainNode.gain.setValueAtTime(vol / 100 * 0.5, audioContext.currentTime);
+      }
+
+      function playSound() {
+        if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        stopSound();
+
+        gainNode = audioContext.createGain();
+        gainNode.gain.setValueAtTime(volumeSlider.value / 100 * 0.5, audioContext.currentTime);
+        gainNode.connect(audioContext.destination);
+
+        const type = soundType.value;
+        if (type === 'tone') {
+          source = audioContext.createOscillator();
+          source.frequency.setValueAtTime(1000, audioContext.currentTime);
+          source.connect(gainNode);
+          source.start();
+        } else if (type === 'beep') {
+          source = audioContext.createOscillator();
+          source.frequency.setValueAtTime(800, audioContext.currentTime);
+          source.connect(gainNode);
+          source.start();
+          const now = audioContext.currentTime;
+          for (let i = 0; i < 5; i++) {
+            gainNode.gain.setValueAtTime(volumeSlider.value / 100 * 0.5, now + i * 0.5);
+            gainNode.gain.setValueAtTime(0, now + i * 0.5 + 0.2);
+          }
+        } else if (type === 'sweep') {
+          source = audioContext.createOscillator();
+          source.frequency.setValueAtTime(200, audioContext.currentTime);
+          source.frequency.exponentialRampToValueAtTime(2000, audioContext.currentTime + 3);
+          source.connect(gainNode);
+          source.start();
+        } else {
+          const bufferSize = 2 * audioContext.sampleRate;
+          const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+          source = audioContext.createBufferSource();
+          source.buffer = buffer;
+          source.loop = true;
+          source.connect(gainNode);
+          source.start();
+        }
+
+        isPlaying = true;
+        playBtn.innerHTML = '<i class="bi bi-stop-fill me-2"></i>Stop';
+        playBtn.classList.replace('btn-success', 'btn-danger');
+      }
+
+      function stopSound() {
+        if (source) { try { source.stop(); } catch(e) {} source.disconnect(); source = null; }
+        isPlaying = false;
+        playBtn.innerHTML = '<i class="bi bi-play-fill me-2"></i>Play Test Sound';
+        playBtn.classList.replace('btn-danger', 'btn-success');
+      }
+
+      playBtn.addEventListener('click', () => isPlaying ? stopSound() : playSound());
+      volumeSlider.addEventListener('input', () => updateVolume(parseInt(volumeSlider.value)));
+      quickBtns.forEach(btn => btn.addEventListener('click', () => { updateVolume(parseInt(btn.dataset.vol)); playSound(); }));
+    });
+</script>
+</body>
+</html>

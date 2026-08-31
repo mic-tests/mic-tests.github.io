@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hearing Test - Check Your Hearing Range Online</title>
+  <meta name="description" content="Test your hearing range online. Play tones from 20Hz to 20kHz and mark what you can hear — left and right ear tested separately to spot any difference.">
+  <meta name="keywords" content="hearing test online, frequency hearing test, hearing range test, audiometry test online, ear test, hearing check">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="canonical" href="https://mictest.dev/hearing-test">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Online Hearing Test",
+  "url": "https://mictest.dev/hearing-test",
+  "description": "Free online hearing test. Check your hearing frequency range from 20Hz to 20kHz. Test each ear individually.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "MicTest",
+    "url": "https://mictest.dev"
+  }
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can this replace a professional hearing exam?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. This is a screening tool, not a clinical audiological examination. A professional audiogram uses calibrated equipment in a sound-treated booth and measures your hearing threshold in decibels at each frequency — information this browser test cannot provide. If the results concern you, or if you notice a significant left/right difference, see a licensed audiologist for a full evaluation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do I need headphones?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Headphones allow the test to play each frequency to one ear at a time and block out background noise that would otherwise mask the softest test tones. Laptop speakers and phone speakers mix both channels together and pick up room echo, making left/right comparison impossible and low-frequency results unreliable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does it mean if I can't hear high frequencies?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not hearing frequencies above 14,000–16,000 Hz is common in adults over 30 and is usually normal age-related decline. If you cannot hear above 10,000 Hz, or if you notice a significant difference between your left and right ear, consult an audiologist. Loss of speech-range frequencies (500 Hz–4 kHz) is more clinically significant and warrants prompt evaluation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is an audiogram?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An audiogram is a chart produced by a clinical hearing test showing the softest sound (in decibels, dBHL) you can detect at each tested frequency. It maps your hearing thresholds across the speech-critical range (250 Hz–8,000 Hz). This online hearing test produces a simplified version — a frequency range display — rather than a full audiogram with dB measurements."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate is an online hearing test?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Online hearing tests are approximate screening tools. Accuracy depends heavily on your headphones, your room noise level, and volume calibration. Studies suggest consumer-grade online tests can estimate hearing thresholds within roughly 10–15 dB of clinical measurements under good conditions. They are best used to track changes over time and to flag potential problems — not to diagnose hearing loss."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why are very low frequencies (below 40 Hz) hard to hear on this test?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most headphones and earbuds cannot reproduce frequencies below 40–50 Hz accurately due to the physical size of their drivers. Even if your hearing is perfect at those frequencies, your headphones may not be able to generate the sound. If you want to test bass-range response, use a full-size over-ear headphone or a dedicated subwoofer test with the bass test tool."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I do if my results show a left/right difference?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A consistent difference between ears — where one ear clearly hears higher frequencies than the other — is called asymmetric hearing loss and warrants professional evaluation. It can indicate wax buildup on one side, a middle ear problem, or (rarely) more serious conditions. Use our audio latency test to rule out equipment-side issues before concluding the difference is in your hearing."
+      }
+    }
+  ]
+}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  <script async crossorigin="anonymous"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5426315045205785"></script>
+  <meta name="google-adsense-account" content="ca-pub-5426315045205785">
+
+  <style>
+    :root{
+      --bg:#EEF0F2; --panel:#F8F9FA; --panel-2:#FFFFFF; --border:#D3D7DC; --border-lt:#E4E7EA;
+      --ink:#14161A; --ink-2:#565B63; --ink-3:#868C94;
+      --amber:#B65C00; --amber-dim:rgba(182,92,0,.09); --amber-glow:rgba(182,92,0,.30);
+      --red:#C4432E; --success:#2E7D4F;
+    }
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme="light"]){
+        --bg:#111013; --panel:#18171B; --panel-2:#1F1D22; --border:#2A2830; --border-lt:#221F25;
+        --ink:#EDEAE4; --ink-2:#8B8780; --ink-3:#5F5C56;
+        --amber:#FFB13D; --amber-dim:rgba(255,177,61,.14); --amber-glow:rgba(255,177,61,.55);
+        --red:#FF5A4E; --success:#7AB85E;
+      }
+    }
+    :root[data-theme="dark"]{
+        --bg:#111013; --panel:#18171B; --panel-2:#1F1D22; --border:#2A2830; --border-lt:#221F25;
+        --ink:#EDEAE4; --ink-2:#8B8780; --ink-3:#5F5C56;
+        --amber:#FFB13D; --amber-dim:rgba(255,177,61,.14); --amber-glow:rgba(255,177,61,.55);
+        --red:#FF5A4E; --success:#7AB85E;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    /* Neutralize Tailwind's .container utility (kept only so the content-db exporter can scope this region) */
+    .container.main-wrap{width:100%;max-width:1260px;margin-left:auto;margin-right:auto;}
+    body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;}
+    .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
+    .display{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.02em;}
+    a{color:var(--amber);text-decoration:none}
+    a:hover{opacity:.8}
+    ::selection{background:var(--amber);color:var(--bg)}
+    h1,h2,h3,h4{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;color:var(--ink);}
+    h2{font-weight:700;font-size:1.5rem;line-height:1.25;margin:0 0 .9rem;}
+    h3{font-weight:600;font-size:1.1rem;line-height:1.3;margin:1.75rem 0 .5rem;}
+    p{margin:0 0 1rem;}
+    strong,b{color:var(--ink);font-weight:700;}
+    em,i{font-style:italic;}
+    code{background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;font-size:.87em;color:var(--ink);font-family:'JetBrains Mono',monospace;}
+
+    /* ── Long-form content (how-it-works / how-to / troubleshooting / FAQ) is raw semantic HTML
+       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility
+       instead of fighting Tailwind's preflight reset with custom element CSS + !important.
+       Its rules live behind :where() (zero specificity), so our theme tokens below win cleanly. ── */
+    /* !important: the typography plugin's own .prose rule also *sets* these same custom
+       properties (its light-mode defaults), at equal specificity and later in the cascade
+       (Tailwind CDN injects its stylesheet after this one) — so ours needs to win outright. */
+    .prose{
+      --tw-prose-body: var(--ink-2) !important; --tw-prose-headings: var(--ink) !important; --tw-prose-lead: var(--ink-2) !important;
+      --tw-prose-links: var(--amber) !important; --tw-prose-bold: var(--ink) !important; --tw-prose-counters: var(--ink-3) !important;
+      --tw-prose-bullets: var(--amber) !important; --tw-prose-hr: var(--border) !important; --tw-prose-quotes: var(--ink) !important;
+      --tw-prose-quote-borders: var(--amber) !important; --tw-prose-captions: var(--ink-3) !important;
+      --tw-prose-code: var(--ink) !important; --tw-prose-pre-code: var(--ink) !important; --tw-prose-pre-bg: var(--panel-2) !important;
+      --tw-prose-th-borders: var(--border) !important; --tw-prose-td-borders: var(--border-lt) !important;
+      color:var(--tw-prose-body);
+    }
+    .prose :where(h2,h3,h4,h5,h6){font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;}
+    .prose :where(code)::before,.prose :where(code)::after{content:none !important;}
+    .prose :where(code){background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;}
+    .prose :where(a){text-decoration:none;}
+    audio,video{max-width:100%;}
+    dl:not(.mic-stats) dt{font-weight:600;color:var(--ink);}
+    dl:not(.mic-stats) dd{margin:0 0 .6rem;color:var(--ink-2);}
+
+    .led{width:6px;height:6px;border-radius:999px;background:var(--amber);box-shadow:0 0 6px var(--amber);flex-shrink:0;}
+    .hairline{border-color:var(--border)}
+    .grid-bg{background-image:linear-gradient(var(--border-lt) 1px, transparent 1px),linear-gradient(90deg, var(--border-lt) 1px, transparent 1px);background-size:28px 28px;}
+
+    /* ── Rail nav ── */
+    .rail-group-label{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding:1.1rem 0 .4rem;}
+    .rail-link{display:flex;align-items:center;gap:8px;padding:.42rem .55rem;border-radius:3px;font-size:12px;color:var(--ink-2);font-family:'IBM Plex Sans';}
+    .rail-link:hover{background:var(--panel-2);color:var(--ink);opacity:1;}
+    .rail-link.active{background:var(--amber-dim);color:var(--amber);font-weight:600;}
+    .rail-link i{width:14px;text-align:center;font-size:12px;flex-shrink:0;}
+
+    /* ── Content panels (replace Bootstrap cards) ── */
+    .panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);}
+    .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .panel-body{padding:1.1rem;}
+    .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
+    .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
+    .ad-panel-body{padding:1rem;text-align:center;}
+
+    /* ── Buttons ── */
+    .btn{display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:600;padding:.6rem 1.1rem;border-radius:4px;border:1px solid transparent;cursor:pointer;transition:opacity .15s;font-family:'IBM Plex Sans';}
+    .btn:hover{opacity:.88}
+    .btn:disabled{opacity:.45;cursor:not-allowed;}
+    .btn-primary{background:var(--amber);color:var(--bg);}
+    .btn-secondary{background:var(--panel-2);color:var(--ink-2);border-color:var(--border);}
+    .btn-danger{background:var(--red);color:#fff;}
+    .btn-warning{background:var(--amber);color:var(--bg);}
+    .btn-outline{background:transparent;color:var(--ink-2);border-color:var(--border);}
+    .btn-outline:hover{background:var(--panel-2);color:var(--ink);opacity:1;}
+    .btn-sm{padding:.4rem .8rem;font-size:11.5px;}
+    .btn-toolbar{display:flex;flex-wrap:wrap;gap:.5rem;}
+    .w-100{width:100%;}
+    .d-grid{display:grid;gap:.5rem;}
+    .d-none{display:none !important;}
+
+    /* ── Forms ── */
+    .form-label{display:block;font-size:10.5px;font-weight:600;margin-bottom:.4rem;color:var(--ink-2);font-family:'JetBrains Mono';text-transform:uppercase;letter-spacing:.06em;}
+    .form-select,.form-control{width:100%;padding:.6rem .75rem;border:1px solid var(--border);border-radius:4px;background:var(--panel-2);color:var(--ink);font-size:13px;font-family:'IBM Plex Sans';}
+    .form-select:focus,.form-control:focus{outline:none;border-color:var(--amber);}
+
+    /* ── Alerts / status ── */
+    .status-message{padding:.6rem .85rem;margin-bottom:.85rem;border-radius:4px;font-size:13px;border:1px solid var(--border);}
+    .status-step{display:flex;align-items:center;}
+    .status-icon{margin-right:8px;width:18px;text-align:center;flex-shrink:0;}
+    .alert-info{background:var(--panel-2);color:var(--ink-2);}
+    .alert-success{background:rgba(46,125,79,.10);color:var(--success);border-color:rgba(46,125,79,.3);}
+    .alert-warning{background:var(--amber-dim);color:var(--amber);border-color:rgba(182,92,0,.3);}
+    .alert-danger, .alert-recording{background:rgba(196,67,46,.10);color:var(--red);border-color:rgba(196,67,46,.3);}
+    .recording-pulse{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--red);margin-right:8px;animation:pulse 1.5s infinite;vertical-align:middle;}
+    @keyframes pulse{0%{transform:scale(.95);box-shadow:0 0 0 0 rgba(196,67,46,.6);}70%{transform:scale(1);box-shadow:0 0 0 7px rgba(196,67,46,0);}100%{transform:scale(.95);box-shadow:0 0 0 0 rgba(196,67,46,0);}}
+
+    /* ── Visualizer ── */
+    canvas{width:100%;height:200px;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;display:block;}
+    #visualizer-container{position:relative;border-radius:4px;overflow:hidden;}
+    .amplitude-bars{position:absolute;bottom:0;left:0;width:100%;height:100%;display:flex;align-items:flex-end;padding:0 4px;pointer-events:none;}
+    .amplitude-bar{flex:1;background:linear-gradient(to top, var(--amber), transparent);margin:0 1px;max-height:100%;transition:height .08s ease;border-radius:2px 2px 0 0;}
+
+    /* ── Progress ── */
+    .progress{height:4px;border-radius:99px;background:var(--border);overflow:hidden;margin-bottom:10px;}
+    .progress-bar{height:100%;background:var(--amber);border-radius:99px;transition:width .1s linear;}
+
+    /* ── Quality / info rows ── */
+    .quality-indicator{display:inline-block;font-weight:700;font-family:'JetBrains Mono';font-size:13px;}
+    .quality-excellent{color:var(--success);}
+    .quality-verygood{color:var(--amber);}
+    .quality-good{color:var(--amber);opacity:.85;}
+    .quality-fair{color:var(--red);opacity:.85;}
+    .quality-poor{color:var(--red);}
+    .quality-unknown{color:var(--ink-3);}
+    .info-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border-lt);}
+    .info-row:last-child{border-bottom:none;padding-bottom:0;}
+    .info-label{color:var(--ink-3);font-weight:500;font-family:'JetBrains Mono';font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;}
+    .info-val{color:var(--ink);font-weight:600;text-align:right;max-width:55%;font-size:12.5px;font-family:'JetBrains Mono';}
+
+    /* ── Testimonials ── */
+    .testimonial{padding:.6rem 0;border-bottom:1px solid var(--border-lt);}
+    .testimonial:last-of-type{border-bottom:none;}
+    .testimonial p{font-size:12.5px;font-style:italic;color:var(--ink-2);margin:0 0 .2rem;}
+    .text-muted{color:var(--ink-3);font-size:11px;}
+    .mb-0{margin-bottom:0 !important;}
+    .review-form{display:none;margin-top:.85rem;padding:.9rem;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;}
+
+    /* ── Pro tip ── */
+    aside.pro-tip{display:flex;gap:.7rem;align-items:flex-start;background:var(--amber-dim);border-left:3px solid var(--amber);border-radius:0 4px 4px 0;padding:.85rem 1rem;margin-top:1.25rem;font-size:13.5px;color:var(--ink);}
+    aside.pro-tip>i{color:var(--amber);flex-shrink:0;font-size:1rem;line-height:1.55;}
+
+    /* ── Mic stats dl ── */
+    dl.mic-stats{display:grid;grid-template-columns:minmax(180px,26%) 1fr;gap:.3rem 1.1rem;align-items:baseline;}
+    dl.mic-stats dt{font-weight:600;color:var(--ink);padding:.6rem 0 .1rem;border-top:1px solid var(--border-lt);font-family:'JetBrains Mono';font-size:12.5px;}
+    dl.mic-stats dd{margin:0;padding:.6rem 0 .1rem;border-top:1px solid var(--border-lt);color:var(--ink-2);line-height:1.65;font-size:13px;}
+    dl.mic-stats dt:first-child, dl.mic-stats dd:first-of-type{border-top:none;}
+    @media (max-width:575px){dl.mic-stats{grid-template-columns:1fr;}dl.mic-stats dd{border-top:none;padding-top:0;}}
+
+    /* ── Details / accordion panels ── */
+    details.panel{border:1px solid var(--border);border-radius:4px;margin-bottom:.5rem;overflow:hidden;background:var(--panel);}
+    details.panel>summary{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.05rem;cursor:pointer;background:var(--panel-2);list-style:none;gap:.5rem;font-size:14px;}
+    details.panel>summary::-webkit-details-marker{display:none;}
+    details.panel>summary::after{content:"\FE40";font-size:.8rem;color:var(--amber);flex-shrink:0;transform:rotate(90deg);}
+    details.panel[open]>summary::after{transform:rotate(-90deg);}
+    details.panel[open]>summary{border-bottom:1px solid var(--border);}
+    details.panel>:not(summary){padding:.9rem 1.05rem;}
+    details.panel ol,details.panel ul{margin-bottom:0;padding-left:1.3rem;}
+    details.panel li{margin-bottom:.4rem;}
+
+    /* ── Table ── */
+    .table-responsive{overflow-x:auto;}
+    .table{width:100%;border-collapse:collapse;font-size:12.5px;}
+    .table th,.table td{padding:.55rem .7rem;border:1px solid var(--border);text-align:left;vertical-align:middle;}
+    .table thead th{background:var(--panel-2);font-family:'JetBrains Mono';font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2);}
+    .table-striped tbody tr:nth-child(odd){background:var(--panel-2);}
+
+    /* ── Comments / footer ── */
+    .comments-panel{border-top:1px solid var(--border);background:var(--panel);padding:2.5rem 0;margin-top:2rem;}
+    footer.site-footer{background:var(--panel);border-top:1px solid var(--border);padding:2.75rem 0 0;}
+    .footer-brand{font-family:'JetBrains Mono';font-weight:700;font-size:15px;color:var(--ink);display:flex;align-items:center;gap:8px;margin-bottom:.75rem;}
+    .footer-desc{font-size:12.5px;color:var(--ink-3);line-height:1.65;max-width:320px;}
+    .footer-col-heading{font-family:'JetBrains Mono';font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.7rem;display:block;}
+    .footer-links{list-style:none;padding:0;margin:0 0 1.25rem;}
+    .footer-links li{margin-bottom:.4rem;}
+    .footer-links a{font-size:13px;color:var(--ink-2);}
+    .footer-links a:hover{color:var(--amber);opacity:1;}
+    .footer-bottom{border-top:1px solid var(--border);margin-top:1.5rem;padding:1rem 0;font-size:11px;color:var(--ink-3);font-family:'JetBrains Mono';}
+
+    /* ── Mobile drawer ── */
+    #mobile-drawer{position:fixed;inset:0;z-index:40;background:var(--bg);transform:translateX(-100%);transition:transform .2s ease;overflow-y:auto;}
+    #mobile-drawer.open{transform:translateX(0);}
+
+    /* ── Page-specific (this tool's own extra CSS, if any — must use the theme tokens above, e.g. var(--amber)/var(--panel), never hardcoded colors, so it stays correct in both light and dark) ── */
+    .freq-btn{width:100%;margin-bottom:8px;position:relative;text-align:left;padding-left:1rem;}
+    .freq-btn .heard-badge{position:absolute;right:10px;top:50%;transform:translateY(-50%);}
+    .btn-outline-primary{background:transparent;color:var(--ink-2);border:1px solid var(--border);}
+    .btn-outline-primary:hover{background:var(--panel-2);color:var(--ink);opacity:1;}
+    .freq-btn.btn-primary{background:var(--amber);color:var(--bg);border-color:var(--amber);}
+    .btn-success{background:var(--success);color:#fff;}
+    .badge{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;font-size:11px;font-weight:700;}
+    .bg-light{background:var(--panel-2);}
+    .text-success{color:var(--success);}
+    .text-secondary{color:var(--ink-3);}
+
+    .range-indicator{height:10px;border-radius:99px;position:relative;background:linear-gradient(to right, var(--panel-2), var(--border));border:1px solid var(--border);}
+    .range-marker{position:absolute;top:50%;transform:translate(-50%,-50%);width:12px;height:12px;border-radius:50%;background:var(--amber);border:2px solid var(--panel);box-shadow:0 0 0 1px var(--border);}
+    #high-marker{background:var(--red);}
+
+    input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:99px;background:var(--border);outline:none;margin:.5rem 0;}
+    input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:var(--amber);cursor:pointer;border:2px solid var(--panel-2);box-shadow:0 0 0 1px var(--border);}
+    input[type=range]::-moz-range-track{height:4px;border-radius:99px;background:var(--border);}
+    input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--amber);cursor:pointer;border:2px solid var(--panel-2);box-shadow:0 0 0 1px var(--border);}
+
+  </style>
+</head>
+<body>
+
+<div class="flex min-h-screen">
+
+  <!-- DESKTOP RAIL -->
+  <aside class="hidden lg:flex flex-col w-[232px] shrink-0 border-r hairline px-5 py-6 sticky top-0 h-screen overflow-y-auto">
+    <a href="/" class="flex items-center gap-2.5 mb-6" title="MicTest Home">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+        <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+        <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M12 18v3M9 21h6" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      <span class="mono text-[13px] font-semibold tracking-tight" style="color:var(--ink)">MICTEST</span>
+    </a>
+
+    <button type="button" class="theme-toggle-btn flex items-center gap-2.5 mb-2" aria-label="Toggle light or dark panel">
+      <span class="relative inline-flex items-center shrink-0" style="width:32px;height:17px;border-radius:999px;background:var(--border-lt);border:1px solid var(--border)">
+        <span class="theme-dot absolute" style="width:11px;height:11px;border-radius:999px;background:var(--amber);left:2px;top:2px;transition:left .15s ease"></span>
+      </span>
+      <span class="theme-label mono text-[10.5px] tracking-[.08em] uppercase" style="color:var(--ink-2)">Dark panel</span>
+    </button>
+
+    <nav class="flex flex-col rail-nav">
+      <a href="/" data-page="index" class="rail-link"><i class="bi bi-mic-fill"></i>Microphone Test</a>
+
+      <div class="rail-group-label">Mic Tools</div>
+      <a href="/show-mic" data-page="show-mic" class="rail-link"><i class="bi bi-mic"></i>Show My Mic</a>
+      <a href="/mic-recorder" data-page="mic-recorder" class="rail-link"><i class="bi bi-record-circle"></i>Mic Recorder</a>
+      <a href="/sound-level-meter" data-page="sound-level-meter" class="rail-link"><i class="bi bi-speedometer2"></i>Sound Level Meter</a>
+      <a href="/voice-frequency-analyzer" data-page="voice-frequency-analyzer" class="rail-link"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a>
+      <a href="/background-noise-analyzer" data-page="background-noise-analyzer" class="rail-link"><i class="bi bi-soundwave"></i>Background Noise Analyzer</a>
+      <a href="/echo-test" data-page="echo-test" class="rail-link"><i class="bi bi-arrow-repeat"></i>Echo Test</a>
+      <a href="/audio-latency-test" data-page="audio-latency-test" class="rail-link"><i class="bi bi-stopwatch"></i>Audio Latency Test</a>
+
+      <div class="rail-group-label">Speaker Tools</div>
+      <a href="/show-speakers" data-page="show-speakers" class="rail-link"><i class="bi bi-speaker"></i>Show My Speakers</a>
+      <a href="/tone-generator" data-page="tone-generator" class="rail-link"><i class="bi bi-activity"></i>Tone Generator</a>
+      <a href="/stereo-test" data-page="stereo-test" class="rail-link"><i class="bi bi-badge-hd"></i>Stereo Test</a>
+      <a href="/bass-test" data-page="bass-test" class="rail-link"><i class="bi bi-disc"></i>Bass Test</a>
+      <a href="/speaker-volume-test" data-page="speaker-volume-test" class="rail-link"><i class="bi bi-volume-up"></i>Speaker Volume Test</a>
+
+      <div class="rail-group-label">Headphones &amp; Hearing</div>
+      <a href="/headphone-test" data-page="headphone-test" class="rail-link"><i class="bi bi-headphones"></i>Headphone Test</a>
+      <a href="/hearing-test" data-page="hearing-test" class="rail-link"><i class="bi bi-ear"></i>Hearing Test</a>
+
+      <div class="rail-group-label">More</div>
+      <a href="/troubleshooting" data-page="troubleshooting" class="rail-link"><i class="bi bi-tools"></i>Troubleshooting</a>
+      <a href="/about" data-page="about" class="rail-link"><i class="bi bi-info-circle"></i>About</a>
+      <a href="/contact" data-page="contact" class="rail-link"><i class="bi bi-envelope"></i>Contact</a>
+    </nav>
+  </aside>
+
+  <!-- MOBILE TOP BAR -->
+  <div class="lg:hidden fixed top-0 inset-x-0 z-50 flex items-center justify-between px-5 py-4 border-b hairline" style="background:var(--bg)">
+    <a href="/" class="flex items-center gap-2" title="MicTest Home">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+        <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+        <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      <span class="mono text-[13px] font-semibold" style="color:var(--ink)">MICTEST</span>
+    </a>
+    <div class="flex items-center gap-3">
+      <button type="button" class="theme-toggle-btn flex items-center gap-2" aria-label="Toggle light or dark panel">
+        <span class="relative inline-flex items-center shrink-0" style="width:28px;height:16px;border-radius:999px;background:var(--border-lt);border:1px solid var(--border)">
+          <span class="theme-dot absolute" style="width:10px;height:10px;border-radius:999px;background:var(--amber);left:2px;top:2px;transition:left .15s ease"></span>
+        </span>
+      </button>
+      <button type="button" id="mobile-menu-btn" aria-label="Open menu" class="flex flex-col gap-[4px] p-1">
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MOBILE DRAWER -->
+  <div id="mobile-drawer">
+    <div class="flex items-center justify-between px-5 py-4 border-b hairline">
+      <span class="mono text-[13px] font-semibold" style="color:var(--ink)">MENU</span>
+      <button type="button" id="mobile-drawer-close" aria-label="Close menu" class="mono text-[20px] leading-none" style="color:var(--ink-2)">&times;</button>
+    </div>
+    <nav class="flex flex-col rail-nav px-5 py-4">
+      <a href="/" data-page="index" class="rail-link"><i class="bi bi-mic-fill"></i>Microphone Test</a>
+      <div class="rail-group-label">Mic Tools</div>
+      <a href="/show-mic" data-page="show-mic" class="rail-link"><i class="bi bi-mic"></i>Show My Mic</a>
+      <a href="/mic-recorder" data-page="mic-recorder" class="rail-link"><i class="bi bi-record-circle"></i>Mic Recorder</a>
+      <a href="/sound-level-meter" data-page="sound-level-meter" class="rail-link"><i class="bi bi-speedometer2"></i>Sound Level Meter</a>
+      <a href="/voice-frequency-analyzer" data-page="voice-frequency-analyzer" class="rail-link"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a>
+      <a href="/background-noise-analyzer" data-page="background-noise-analyzer" class="rail-link"><i class="bi bi-soundwave"></i>Background Noise Analyzer</a>
+      <a href="/echo-test" data-page="echo-test" class="rail-link"><i class="bi bi-arrow-repeat"></i>Echo Test</a>
+      <a href="/audio-latency-test" data-page="audio-latency-test" class="rail-link"><i class="bi bi-stopwatch"></i>Audio Latency Test</a>
+      <div class="rail-group-label">Speaker Tools</div>
+      <a href="/show-speakers" data-page="show-speakers" class="rail-link"><i class="bi bi-speaker"></i>Show My Speakers</a>
+      <a href="/tone-generator" data-page="tone-generator" class="rail-link"><i class="bi bi-activity"></i>Tone Generator</a>
+      <a href="/stereo-test" data-page="stereo-test" class="rail-link"><i class="bi bi-badge-hd"></i>Stereo Test</a>
+      <a href="/bass-test" data-page="bass-test" class="rail-link"><i class="bi bi-disc"></i>Bass Test</a>
+      <a href="/speaker-volume-test" data-page="speaker-volume-test" class="rail-link"><i class="bi bi-volume-up"></i>Speaker Volume Test</a>
+      <div class="rail-group-label">Headphones &amp; Hearing</div>
+      <a href="/headphone-test" data-page="headphone-test" class="rail-link"><i class="bi bi-headphones"></i>Headphone Test</a>
+      <a href="/hearing-test" data-page="hearing-test" class="rail-link"><i class="bi bi-ear"></i>Hearing Test</a>
+      <div class="rail-group-label">More</div>
+      <a href="/troubleshooting" data-page="troubleshooting" class="rail-link"><i class="bi bi-tools"></i>Troubleshooting</a>
+      <a href="/about" data-page="about" class="rail-link"><i class="bi bi-info-circle"></i>About</a>
+      <a href="/contact" data-page="contact" class="rail-link"><i class="bi bi-envelope"></i>Contact</a>
+    </nav>
+  </div>
+
+  <!-- MAIN STAGE -->
+  <main class="flex-1 pt-16 lg:pt-0 min-w-0">
+    <div class="container main-wrap max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12 py-8 lg:py-12">
+
+      <!-- HERO -->
+      <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
+        <div>
+          <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 02 · Auditory Range Diagnostics</div>
+          <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Hearing Test Online — Find Your Audible Frequency Range</h1>
+          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>hearing test online</strong> plays tones across the full audible spectrum — from 20Hz bass up to 20,000Hz — so you can find the edges of what you can actually hear. Put on your headphones, click <strong>Play</strong> at each <strong>frequency button</strong>, then press <strong>I can hear this</strong> or <strong>I can't hear this</strong> for each one; your <strong>hearing range result</strong> builds as you go. Your responses map out which frequencies you detect clearly, which sound faint, and where your hearing drops off — a useful personal baseline, though not a substitute for a medical hearing evaluation. <!-- SILO_START:slot_a -->The <a href="/">mic test online</a> checks your mic input, waveform, and device info in one step.<!-- SILO_END:slot_a --></p>
+        </div>
+
+        <div class="hidden lg:block panel p-5">
+          <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
+          <dl class="mono text-[11.5px] flex flex-col gap-3">
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Model</dt><dd>HT-02 SWEEP</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Interface</dt><dd>Web Audio API</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Install required</dt><dd style="color:var(--amber)">None</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Audio uploaded</dt><dd style="color:var(--amber)">Never</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-[1fr_320px] gap-8 items-start">
+
+        <!-- LEFT: tool + content -->
+        <div class="min-w-0">
+
+          <div class="panel mb-6">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-sliders"></i>Test Settings</span></div>
+            <div class="panel-body">
+              <div class="grid sm:grid-cols-3 gap-4">
+                <div>
+                  <label class="form-label" for="ear-select">Test Ear</label>
+                  <select class="form-select" id="ear-select">
+                    <option value="both">Both Ears</option>
+                    <option value="left">Left Ear Only</option>
+                    <option value="right">Right Ear Only</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="form-label" for="volume">Volume</label>
+                  <input type="range" id="volume" min="10" max="100" value="40">
+                  <div class="mono text-center text-xs mt-1" id="vol-display" style="color:var(--ink-2)">40%</div>
+                </div>
+                <div>
+                  <label class="form-label" for="duration">Tone Duration</label>
+                  <select class="form-select" id="duration">
+                    <option value="0.5">0.5 seconds</option>
+                    <option value="1" selected>1 second</option>
+                    <option value="2">2 seconds</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel mb-6">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-soundwave"></i>Frequency Test</span></div>
+            <div class="panel-body">
+              <p style="color:var(--ink-2)">Click each frequency button. Mark "Heard" if you can hear the tone, "Not Heard" if you can't.</p>
+
+              <div class="grid sm:grid-cols-2 gap-6 mb-4">
+                <div>
+                  <p class="mono text-xs uppercase tracking-wide mb-2" style="color:var(--ink-3)">Low Frequencies (Bass)</p>
+                  <button class="btn btn-outline-primary freq-btn" data-freq="20">20 Hz</button>
+                  <button class="btn btn-outline-primary freq-btn" data-freq="30">30 Hz</button>
+                  <button class="btn btn-outline-primary freq-btn" data-freq="40">40 Hz</button>
+                  <button class="btn btn-outline-primary freq-btn" data-freq="60">60 Hz</button>
+                  <button class="btn btn-outline-primary freq-btn" data-freq="100">100 Hz</button>
+                  <button class="btn btn-outline-primary freq-btn" data-freq="200">200 Hz</button>
+                  <button class="btn btn-outline-primary freq-btn" data-freq="500">500 Hz</button>
+                </div>
+                <div>
+                  <p class="mono text-xs uppercase tracking-wide mb-2" style="color:var(--ink-3)">High Frequencies (Treble)</p>
+                  <button class="btn btn-outline-primary freq-btn" data-freq="1000">1 kHz</button>
+                  <button class="btn btn-outline-primary freq-btn" data-freq="2000">2 kHz</button>
+                  <button class="btn btn-outline-primary freq-btn" data-freq="4000">4 kHz</button>
+                  <button class="btn btn-outline-primary freq-btn" data-freq="6000">6 kHz</button>
+                  <button class="btn btn-outline-primary freq-btn" data-freq="8000">8 kHz</button>
+                  <button class="btn btn-outline-primary freq-btn" data-freq="12000">12 kHz</button>
+                  <button class="btn btn-outline-primary freq-btn" data-freq="16000">16 kHz</button>
+                  <button class="btn btn-outline-primary freq-btn" data-freq="18000">18 kHz</button>
+                  <button class="btn btn-outline-primary freq-btn" data-freq="20000">20 kHz</button>
+                </div>
+              </div>
+
+              <div class="btn-toolbar">
+                <button class="btn btn-primary" id="heard-btn" disabled>
+                  <i class="bi bi-check me-1"></i>I Heard It
+                </button>
+                <button class="btn btn-secondary" id="not-heard-btn" disabled>
+                  <i class="bi bi-x me-1"></i>Didn't Hear
+                </button>
+                <button class="btn btn-outline" id="reset-btn">
+                  <i class="bi bi-arrow-counterclockwise me-1"></i>Reset All
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Ad (mid) -->
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body">
+              <ins class="adsbygoogle"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-format="auto"
+                   data-ad-slot="9146528954"
+                   data-full-width-responsive="true"
+                   style="display:block"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
+
+      <div class="content-panel prose max-w-none">
+        <h2><i class="bi bi-rulers me-2"></i>Your Hearing Range</h2>
+        <div class="range-indicator mb-2">
+          <div class="range-marker" id="low-marker" style="left: 0%;"></div>
+          <div class="range-marker" id="high-marker" style="left: 100%;"></div>
+        </div>
+        <div class="flex justify-between text-xs mono mb-4" style="color:var(--ink-3)">
+          <span>20 Hz</span>
+          <span>100 Hz</span>
+          <span>1 kHz</span>
+          <span>10 kHz</span>
+          <span>20 kHz</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Detected Range:</span>
+          <span class="info-val" id="range-display">-- Hz to -- Hz</span>
+        </div>
+        <p class="text-sm text-center mt-2 mb-0" id="range-comment" style="color:var(--ink-3)">Complete the test to see your hearing range</p>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+        <div class="status-message alert-warning">
+          <i class="bi bi-exclamation-triangle me-2"></i>
+          <strong>Disclaimer:</strong> This is not a medical hearing test. For concerns about your hearing, please consult an audiologist.
+        </div>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+        <h2><i class="bi bi-info-circle me-2"></i>About Hearing Range</h2>
+        <ul>
+          <li><strong>Normal range:</strong> 20 Hz - 20,000 Hz (declines with age)</li>
+          <li><strong>Age 20-30:</strong> Typically hear up to 16-18 kHz</li>
+          <li><strong>Age 40-50:</strong> Typically hear up to 12-14 kHz</li>
+          <li><strong>Age 60+:</strong> Typically hear up to 8-10 kHz</li>
+        </ul>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+          <h2>How to Take the Hearing Test</h2>
+          <p>Getting accurate results takes less than two minutes. Follow these steps before you start: <!-- SILO_START:slot_b -->For speaker calibration or tinnitus matching, the <a href="/tone-generator">tone generator</a> gives you precise frequency control.<!-- SILO_END:slot_b --></p>
+          <ol>
+            <li><strong>Use headphones</strong> — Built-in laptop or phone speakers cannot isolate left and right channels accurately. Over-ear or in-ear headphones give significantly more reliable results.</li>
+            <li><strong>Find a quiet room</strong> — Background noise masks the softest test tones, especially at high frequencies. Even moderate room noise can shift your apparent hearing threshold by 10–15 Hz.</li>
+            <li><strong>Set a comfortable volume</strong> — Adjust the volume slider to 40–50% before starting. You can raise it slightly if you can't hear the low frequency tones, but avoid going above 70% to protect your hearing.</li>
+            <li><strong>Select your ear</strong> — Use the Test Ear selector to test each ear separately. Comparing left and right results is the most valuable part of a screening test — differences between ears can indicate one-sided hearing loss.</li>
+            <li><strong>Click each frequency</strong> — Press each frequency button. If you clearly hear the tone, click "I Heard It." If you hear nothing or are unsure, click "Didn't Hear."</li>
+          </ol>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+          <h2>Understanding Your Hearing Test Results</h2>
+          <p>Once you have tested all frequencies, the Detected Range display shows the lowest and highest frequencies you were able to hear. Here is how to interpret what you find: <!-- SILO_START:slot_c -->Run an <a href="/audio-latency-test">audio latency test</a> to confirm your audio chain meets latency requirements for live performance.<!-- SILO_END:slot_c --></p>
+
+          <h3>What Is a Normal Hearing Range?</h3>
+          <p>The textbook human hearing range is <strong>20 Hz to 20,000 Hz</strong>, but in practice no one hears the full range without decline. What matters is whether your range is appropriate for your age and whether both ears match.</p>
+
+          <h3>Hearing Range by Age</h3>
+          <ul>
+            <li><strong>Under 20:</strong> Up to 18,000–20,000 Hz typically detectable</li>
+            <li><strong>Age 20–30:</strong> Upper limit typically 16,000–18,000 Hz</li>
+            <li><strong>Age 40–50:</strong> Upper limit typically 12,000–14,000 Hz</li>
+            <li><strong>Age 60+:</strong> Upper limit typically 8,000–10,000 Hz</li>
+          </ul>
+          <p>Gradual high-frequency decline with age is entirely normal. A sharp difference between ears — or sudden loss at any age — warrants professional evaluation.</p>
+
+          <h3>Hearing Loss Categories</h3>
+          <p>Audiologists classify hearing loss by the softest sound level (in decibels) a person can detect. This online test does not measure decibel thresholds — it only identifies which frequencies you can detect at a fixed volume level. For a full audiogram with dB thresholds, consult a licensed audiologist.</p>
+          <ul>
+            <li><strong>Normal:</strong> You can hear all or most frequencies tested at moderate volume</li>
+            <li><strong>Mild loss (likely):</strong> You miss the 16 kHz–20 kHz range and/or low frequencies below 40 Hz</li>
+            <li><strong>Moderate loss (possible):</strong> You cannot hear above 12 kHz or miss multiple mid-range frequencies</li>
+            <li><strong>Significant concern:</strong> Missing frequencies below 8 kHz or a clear left/right mismatch — see an audiologist</li>
+          </ul>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+          <h2>Common Causes of High-Frequency Hearing Loss</h2>
+          <p>The most common pattern detected by an online <strong>hearing test</strong> is reduced sensitivity at high frequencies. The usual causes include: <!-- SILO_START:slot_d -->A <a href="/background-noise-analyzer">background noise analyzer</a> shows whether your noise floor is within acceptable limits for podcast or voiceover work.<!-- SILO_END:slot_d --></p>
+
+          <h3>Age-Related Hearing Loss (Presbycusis)</h3>
+          <p>The inner ear's hair cells — which convert sound vibrations into nerve signals — gradually degrade over time. High-frequency hair cells at the base of the cochlea are the first affected. This is the most common cause of high-frequency hearing loss and affects nearly every adult to some degree by age 60.</p>
+
+          <h3>Noise-Induced Hearing Loss</h3>
+          <p>Exposure to loud sounds — concerts, power tools, headphones at high volume — permanently damages cochlear hair cells. Like age-related loss, it strikes high frequencies first (especially around 4,000 Hz, a characteristic notch seen on professional audiograms). Unlike age-related loss, it can affect people of any age.</p>
+
+          <h3>Ear Infections and Wax Buildup</h3>
+          <p>Temporary conductive hearing loss — caused by fluid in the middle ear, infections, or earwax blockage — can reduce sensitivity across all frequencies. If your hearing test shows broad, symmetric loss that appeared suddenly, a blocked ear canal or middle ear infection is the likely cause and is often easily treated.</p>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+          <h2>Online Hearing Test vs Clinical Audiogram — What's the Difference?</h2>
+          <p>An online hearing test and a clinical audiogram both measure your ability to detect tones at different frequencies, but they differ significantly in precision, environment, and what they can diagnose.</p>
+
+          <h3>What the Online Hearing Test Online Can Tell You</h3>
+          <p>This browser-based hearing test identifies the approximate frequency range you can detect — the lowest and highest tones audible at a fixed volume. It is a useful screening tool for spotting obvious asymmetry between ears, checking whether high-frequency sensitivity has declined since your last test, or confirming that your headphones are performing correctly. Because the test runs at a single volume level rather than measuring decibel thresholds, it cannot produce a clinical audiogram. Think of it as an annual home screen that tells you whether a professional visit is warranted.</p>
+
+          <h3>When to See an Audiologist After Your Hearing Test</h3>
+          <p>Book a professional evaluation if your online hearing test shows: a clear difference between left and right ear results at any frequency; inability to detect frequencies below 6,000 Hz; sudden change in results compared to a previous test taken under the same conditions; or any frequencies in the speech-critical 500 Hz–4,000 Hz range showing reduced sensitivity. An audiologist can perform a calibrated pure-tone audiometry test that maps your hearing thresholds in decibels across the full speech range — information that online testing cannot provide but that is essential for diagnosing hearing loss type and severity.</p>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+          <h2>How to Get Accurate Online Hearing Test Results</h2>
+          <p>The reliability of an online hearing test depends heavily on equipment and environment. Small changes in setup can shift your apparent hearing threshold by 10–20 Hz or more.</p>
+
+          <h3>Choosing the Right Headphones for the Hearing Test Online</h3>
+          <p>Over-ear headphones with a good seal give the most accurate results. They block ambient noise physically, allowing even the softest test tones to be heard clearly. In-ear monitors (IEMs) can also work well if the ear tip creates a complete seal. Avoid open-back headphones for testing — they allow room noise to bleed into the signal and suppress perceived low frequencies. Never use laptop or phone speakers: they cannot isolate left and right channels and have a limited frequency response that will make your results appear worse than your actual hearing.</p>
+
+          <h3>Room Noise, Volume Calibration, and Repeat Testing</h3>
+          <p>Take the hearing test in the quietest room available and close windows and doors. Even 40 dB of background noise (typical of a quiet office) can mask tones at the threshold of audibility. Set your device volume to 50–60% before starting — the same level each time you test, so results are comparable across sessions. To track your hearing over time, save the frequency range result after each session and note the date and equipment used. Consistent methodology is more valuable than any single result.</p>
+      </div>
+
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body">
+              <ins class="adsbygoogle"
+                   style="display:block"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-slot="7669795756"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
+
+      <div class="content-panel prose max-w-none" id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <details class="panel" open>
+          <summary><strong>Can this replace a professional hearing exam?</strong></summary>
+          <p>No. This is a <strong>screening tool</strong>, not a clinical audiological examination. A professional audiogram uses calibrated equipment in a sound-treated booth and measures your hearing threshold in decibels at each frequency — information this browser test cannot provide. If the results concern you, or if you notice a significant left/right difference, see a licensed audiologist for a full evaluation.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Why do I need headphones?</strong></summary>
+          <p>Headphones allow the test to play each frequency to one ear at a time and block out background noise that would otherwise mask the softest test tones. Laptop speakers and phone speakers mix both channels together and pick up room echo, making left/right comparison impossible and low-frequency results unreliable.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>What does it mean if I can&#x27;t hear high frequencies?</strong></summary>
+          <p>Not hearing frequencies above 14,000–16,000 Hz is common in adults over 30 and is usually normal age-related decline. If you cannot hear above 10,000 Hz, or if you notice a significant difference between your left and right ear, consult an audiologist. Loss of speech-range frequencies (500 Hz–4 kHz) is more clinically significant and warrants prompt evaluation.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>What is an audiogram?</strong></summary>
+          <p>An audiogram is a chart produced by a clinical hearing test showing the softest sound (in decibels, dBHL) you can detect at each tested frequency. It maps your hearing thresholds across the speech-critical range (250 Hz–8,000 Hz). This online hearing test produces a simplified version — a frequency range display — rather than a full audiogram with dB measurements.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>How accurate is an online hearing test?</strong></summary>
+          <p>Online hearing tests are approximate screening tools. Accuracy depends heavily on your headphones, your room noise level, and volume calibration. Studies suggest consumer-grade online tests can estimate hearing thresholds within roughly 10–15 dB of clinical measurements under good conditions. They are best used to track changes over time and to flag potential problems — not to diagnose hearing loss.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Why are very low frequencies (below 40 Hz) hard to hear on this test?</strong></summary>
+          <p>Most headphones and earbuds cannot reproduce frequencies below 40–50 Hz accurately due to the physical size of their drivers. Even if your hearing is perfect at those frequencies, your headphones may not be able to generate the sound. If you want to test bass-range response, use a full-size over-ear headphone or a dedicated subwoofer test with the <a href="/bass-test">bass test</a> tool.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>What should I do if my results show a left/right difference?</strong></summary>
+          <p>A consistent difference between ears — where one ear clearly hears higher frequencies than the other — is called asymmetric hearing loss and warrants professional evaluation. It can indicate wax buildup on one side, a middle ear problem, or (rarely) more serious conditions. Use our audio latency test to rule out equipment-side issues before concluding the difference is in your hearing.</p>
+        </details>
+      </div>
+
+        </div>
+
+        <!-- RIGHT: sidebar -->
+        <div>
+
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body" style="min-height:360px;">
+              <ins class="adsbygoogle"
+                   style="display:block;min-height:360px;"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-slot="6193062550"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
+
+          <div class="panel mb-5">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-link-45deg"></i>Related Tools</span></div>
+            <div class="panel-body" style="padding:.5rem">
+              <nav class="flex flex-col">
+                <a href="/headphone-test" class="rail-link"><i class="bi bi-headphones"></i>Headphone Test</a>
+                <a href="/tone-generator" class="rail-link"><i class="bi bi-activity"></i>Tone Generator</a>
+                <a href="/voice-frequency-analyzer" class="rail-link"><i class="bi bi-graph-up"></i>Voice Analyzer</a>
+                <a href="/bass-test" class="rail-link"><i class="bi bi-disc"></i>Bass Test</a>
+                <a href="/stereo-test" class="rail-link"><i class="bi bi-badge-hd"></i>Stereo Test</a>
+                <a href="/" class="rail-link"><i class="bi bi-mic"></i>Microphone Test</a>
+              </nav>
+            </div>
+          </div>
+
+          <div class="panel mb-5">
+            <div class="panel-body">
+              <h3 class="flex items-center gap-2 mb-2"><i class="bi bi-lightbulb" style="color:var(--amber)"></i>Tips</h3>
+              <ul class="text-sm mb-0 list-disc" style="color:var(--ink-2);padding-left:1.1rem">
+                <li>Use quality headphones</li>
+                <li>Test in a quiet room</li>
+                <li>Start with medium volume</li>
+                <li>Don't increase volume too high for high frequencies</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-body">
+              <h3 class="flex items-center gap-2 mb-2"><i class="bi bi-exclamation-circle" style="color:var(--red)"></i>Important</h3>
+              <p class="text-sm mb-0" style="color:var(--ink-2)">This test is for entertainment only. If you have hearing concerns, please see an audiologist for a professional evaluation.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Comments -->
+    <section class="comments-panel">
+      <div class="max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="max-w-[760px] mx-auto">
+          <h3 class="flex items-center gap-2 mb-4"><i class="bi bi-chat-dots" style="color:var(--amber)"></i>Comments &amp; Feedback</h3>
+          <script defer src="https://comments.tickspike.com/comentario.js"></script>
+          <comentario-comments theme="light"></comentario-comments>
+        </div>
+      </div>
+    </section>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var comentarioEl = document.querySelector('comentario-comments');
+        if (!comentarioEl) return;
+        comentarioEl.addEventListener('keydown', function(e) { e.stopPropagation(); }, true);
+        comentarioEl.addEventListener('keyup', function(e) { e.stopPropagation(); }, true);
+        comentarioEl.addEventListener('keypress', function(e) { e.stopPropagation(); }, true);
+      }, 2000);
+    });
+    </script>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-6">
+          <div class="lg:col-span-1 sm:col-span-2">
+            <div class="footer-brand">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+                <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+                <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M12 18v3M9 21h6" stroke-width="1.7" stroke-linecap="round"/>
+              </svg>
+              MicTest
+            </div>
+            <p class="footer-desc">Free online microphone and audio testing tools. Test your microphone, speakers, and audio devices directly in your browser without any downloads.</p>
+          </div>
+          <div>
+            <span class="footer-col-heading">Mic Tools</span>
+            <ul class="footer-links">
+              <li><a href="/" title="Free Online Microphone Test">Microphone Test</a></li>
+              <li><a href="/show-mic" title="View Microphone Details">Show My Mic</a></li>
+              <li><a href="/mic-recorder" title="Record Your Voice">Mic Recorder</a></li>
+              <li><a href="/sound-level-meter" title="Measure Decibel Levels">Sound Level Meter</a></li>
+              <li><a href="/echo-test" title="Test for Echo Issues">Echo Test</a></li>
+              <li><a href="/background-noise-analyzer" title="Analyze Background Noise">Noise Analyzer</a></li>
+              <li><a href="/voice-frequency-analyzer" title="Analyze Voice Frequencies">Frequency Analyzer</a></li>
+              <li><a href="/audio-latency-test" title="Measure Audio Latency">Latency Test</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="footer-col-heading">Speaker Tools</span>
+            <ul class="footer-links">
+              <li><a href="/show-speakers" title="View Speaker Details">Show My Speakers</a></li>
+              <li><a href="/tone-generator" title="Generate Test Tones">Tone Generator</a></li>
+              <li><a href="/stereo-test" title="Test Left Right Channels">Stereo Test</a></li>
+              <li><a href="/bass-test" title="Test Low Frequencies">Bass Test</a></li>
+              <li><a href="/speaker-volume-test" title="Calibrate Volume">Speaker Volume Test</a></li>
+            </ul>
+            <span class="footer-col-heading" style="margin-top:1rem;display:block">Headphones &amp; Hearing</span>
+            <ul class="footer-links">
+              <li><a href="/headphone-test" title="Test Your Headphones">Headphone Test</a></li>
+              <li><a href="/hearing-test" title="Online Hearing Test">Hearing Test</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="footer-col-heading">Resources</span>
+            <ul class="footer-links">
+              <li><a href="/troubleshooting" title="Fix Audio Problems">Troubleshooting Guide</a></li>
+              <li><a href="/about" title="About MicTest">About MicTest</a></li>
+              <li><a href="/contact" title="Contact Us">Contact</a></li>
+              <li><a href="/sitemap" title="Site Map">Sitemap</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          &copy; 2025&ndash;<span id="footer-current-year"></span> MicTest. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function() {
+  var yearEl = document.getElementById('footer-current-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+})();
+</script>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var STORE_KEY = 'mictest-theme';
+
+  function readStored() {
+    try { return localStorage.getItem(STORE_KEY); } catch (e) { return null; }
+  }
+  function writeStored(v) {
+    try { localStorage.setItem(STORE_KEY, v); } catch (e) {}
+  }
+
+  var stored = readStored();
+  if (stored === 'light' || stored === 'dark') {
+    root.setAttribute('data-theme', stored);
+  }
+
+  function currentMode() {
+    var attr = root.getAttribute('data-theme');
+    if (attr === 'light' || attr === 'dark') return attr;
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'dark' : 'light';
+  }
+
+  function paint() {
+    var mode = currentMode();
+    var dots = document.querySelectorAll('.theme-dot');
+    var labels = document.querySelectorAll('.theme-label');
+    for (var i = 0; i < dots.length; i++) {
+      if (mode === 'dark') { dots[i].style.left = 'auto'; dots[i].style.right = '2px'; }
+      else { dots[i].style.right = 'auto'; dots[i].style.left = '2px'; }
+    }
+    for (var j = 0; j < labels.length; j++) {
+      labels[j].textContent = mode === 'dark' ? 'Dark panel' : 'Light panel';
+    }
+  }
+
+  var buttons = document.querySelectorAll('.theme-toggle-btn');
+  for (var k = 0; k < buttons.length; k++) {
+    buttons[k].addEventListener('click', function () {
+      var next = currentMode() === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      writeStored(next);
+      paint();
+    });
+  }
+
+  paint();
+})();
+</script>
+
+<script>
+(function() {
+  var path = window.location.pathname.replace(/\/$/, '');
+  var page = (path === '' || path === '/index' || path === '/index.html') ? 'index' : path.replace(/^\//, '').replace(/\.html$/, '');
+  var els = document.querySelectorAll('.rail-link[data-page="' + page + '"]');
+  els.forEach(function(el) { el.classList.add('active'); el.setAttribute('aria-current', 'page'); });
+})();
+</script>
+
+<script>
+(function() {
+  var btn = document.getElementById('mobile-menu-btn');
+  var closeBtn = document.getElementById('mobile-drawer-close');
+  var drawer = document.getElementById('mobile-drawer');
+  if (!btn || !drawer) return;
+  btn.addEventListener('click', function() { drawer.classList.add('open'); });
+  if (closeBtn) closeBtn.addEventListener('click', function() { drawer.classList.remove('open'); });
+  drawer.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() { drawer.classList.remove('open'); });
+  });
+})();
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const freqBtns = document.querySelectorAll('.freq-btn');
+      const earSelect = document.getElementById('ear-select');
+      const volume = document.getElementById('volume');
+      const volDisplay = document.getElementById('vol-display');
+      const duration = document.getElementById('duration');
+      const heardBtn = document.getElementById('heard-btn');
+      const notHeardBtn = document.getElementById('not-heard-btn');
+      const resetBtn = document.getElementById('reset-btn');
+      const rangeDisplay = document.getElementById('range-display');
+      const rangeComment = document.getElementById('range-comment');
+      const lowMarker = document.getElementById('low-marker');
+      const highMarker = document.getElementById('high-marker');
+
+      let audioContext = null;
+      let oscillator = null;
+      let currentBtn = null;
+      let results = {};
+
+      function playTone(freq) {
+        stopTone();
+        if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        const panNode = audioContext.createStereoPanner();
+
+        oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
+        gainNode.gain.setValueAtTime(volume.value / 100 * 0.3, audioContext.currentTime);
+
+        const ear = earSelect.value;
+        panNode.pan.setValueAtTime(ear === 'left' ? -1 : ear === 'right' ? 1 : 0, audioContext.currentTime);
+
+        oscillator.connect(gainNode);
+        gainNode.connect(panNode);
+        panNode.connect(audioContext.destination);
+        oscillator.start();
+
+        const dur = parseFloat(duration.value) * 1000;
+        setTimeout(stopTone, dur);
+      }
+
+      function stopTone() {
+        if (oscillator) { try { oscillator.stop(); } catch(e) {} oscillator = null; }
+      }
+
+      function updateRange() {
+        const heard = Object.entries(results).filter(([f, h]) => h).map(([f]) => parseInt(f)).sort((a,b) => a-b);
+        if (heard.length === 0) {
+          rangeDisplay.textContent = '-- Hz to -- Hz';
+          rangeComment.textContent = 'Complete the test to see your hearing range';
+          return;
+        }
+        const low = heard[0];
+        const high = heard[heard.length - 1];
+        rangeDisplay.textContent = `${low} Hz to ${high >= 1000 ? (high/1000) + ' kHz' : high + ' Hz'}`;
+
+        // Position markers (log scale)
+        const logPos = (f) => (Math.log10(f) - Math.log10(20)) / (Math.log10(20000) - Math.log10(20)) * 100;
+        lowMarker.style.left = logPos(low) + '%';
+        highMarker.style.left = logPos(high) + '%';
+
+        if (high >= 16000) rangeComment.textContent = 'Excellent hearing range!';
+        else if (high >= 12000) rangeComment.textContent = 'Good hearing range for most adults';
+        else if (high >= 8000) rangeComment.textContent = 'Typical for ages 50+';
+        else rangeComment.textContent = 'Consider consulting an audiologist';
+      }
+
+      freqBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (currentBtn) currentBtn.classList.remove('btn-primary');
+          currentBtn = btn;
+          btn.classList.add('btn-primary');
+          playTone(parseInt(btn.dataset.freq));
+          heardBtn.disabled = false;
+          notHeardBtn.disabled = false;
+        });
+      });
+
+      heardBtn.addEventListener('click', () => {
+        if (!currentBtn) return;
+        results[currentBtn.dataset.freq] = true;
+        currentBtn.classList.remove('btn-primary', 'btn-outline-primary', 'btn-secondary');
+        currentBtn.classList.add('btn-success');
+        currentBtn.innerHTML = currentBtn.dataset.freq >= 1000 ?
+          (currentBtn.dataset.freq/1000) + ' kHz <span class="heard-badge badge bg-light text-success">✓</span>' :
+          currentBtn.dataset.freq + ' Hz <span class="heard-badge badge bg-light text-success">✓</span>';
+        updateRange();
+        heardBtn.disabled = true;
+        notHeardBtn.disabled = true;
+      });
+
+      notHeardBtn.addEventListener('click', () => {
+        if (!currentBtn) return;
+        results[currentBtn.dataset.freq] = false;
+        currentBtn.classList.remove('btn-primary', 'btn-outline-primary', 'btn-success');
+        currentBtn.classList.add('btn-secondary');
+        currentBtn.innerHTML = currentBtn.dataset.freq >= 1000 ?
+          (currentBtn.dataset.freq/1000) + ' kHz <span class="heard-badge badge bg-light text-secondary">✗</span>' :
+          currentBtn.dataset.freq + ' Hz <span class="heard-badge badge bg-light text-secondary">✗</span>';
+        updateRange();
+        heardBtn.disabled = true;
+        notHeardBtn.disabled = true;
+      });
+
+      resetBtn.addEventListener('click', () => {
+        results = {};
+        freqBtns.forEach(btn => {
+          btn.classList.remove('btn-primary', 'btn-success', 'btn-secondary');
+          btn.classList.add('btn-outline-primary');
+          const freq = parseInt(btn.dataset.freq);
+          btn.innerHTML = freq >= 1000 ? (freq/1000) + ' kHz' : freq + ' Hz';
+        });
+        updateRange();
+        currentBtn = null;
+        heardBtn.disabled = true;
+        notHeardBtn.disabled = true;
+      });
+
+      volume.addEventListener('input', () => volDisplay.textContent = volume.value + '%');
+    });
+</script>
+</body>
+</html>

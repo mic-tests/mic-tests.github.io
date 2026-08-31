@@ -1,0 +1,103 @@
+{
+  "slug": "speaker-volume-test",
+  "nav_page_id": "speaker-volume-test",
+  "meta_title": "Speaker Volume Test - Check Audio Output Levels",
+  "meta_description": "Speaker volume test — pick a test sound (tone, beep, or sweep), set the volume slider, and click Play to confirm your speakers respond at every level.",
+  "meta_keywords": "speaker volume test, audio output test, speaker test, volume check, speaker sound test, audio level test",
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Speaker Volume Test",
+    "url": "https://mictest.dev/speaker-volume-test",
+    "description": "Test your speaker volume and audio output levels. Verify speakers are working correctly with different volume levels.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "MicTest",
+      "url": "https://mictest.dev"
+    }
+  },
+  "eyebrow": "Unit 04 · Output Level Diagnostics",
+  "h1": "Speaker Volume Test — Check Your Audio Output Levels Online",
+  "intro_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">The <strong>Speaker Volume Test</strong> plays a test tone at preset volume levels so you can verify your speakers respond correctly from quiet to loud. Click any <strong>volume level button</strong> — 25%, 50%, 75%, or 100% — and a tone plays through your speakers at that output; the <strong>volume indicator</strong> shows the active level while audio plays. If one level sounds wrong or your speakers don't respond at certain settings, cross-check what you hear against your device's <strong>system volume</strong> to isolate whether the fault is in software or hardware. <!-- SILO_START:slot_a -->For speaker calibration or tinnitus matching, the <a href=\"/tone-generator\">tone generator</a> gives you precise frequency control.<!-- SILO_END:slot_a --></p>",
+  "nameplate": [
+    [
+      "Model",
+      "SV-04 LEVEL",
+      false
+    ],
+    [
+      "Interface",
+      "Web Audio API",
+      false
+    ],
+    [
+      "Install required",
+      "None",
+      true
+    ],
+    [
+      "Audio uploaded",
+      "Never",
+      true
+    ]
+  ],
+  "tool_card_html": "          <div class=\"panel mb-6\">\n            <div class=\"panel-hdr\"><span class=\"flex items-center gap-2\"><i class=\"bi bi-volume-up\"></i>Volume Level Test</span></div>\n            <div class=\"panel-body\">\n              <div class=\"grid sm:grid-cols-2 gap-4\">\n                <div class=\"mb-3\">\n                  <label class=\"form-label\" for=\"volume-slider\">Test Volume</label>\n                  <input type=\"range\" id=\"volume-slider\" min=\"0\" max=\"100\" value=\"50\">\n                </div>\n                <div class=\"mb-3\">\n                  <label class=\"form-label\" for=\"sound-type\">Test Sound</label>\n                  <select class=\"form-select\" id=\"sound-type\">\n                    <option value=\"tone\">1kHz Tone</option>\n                    <option value=\"beep\">Beep Pattern</option>\n                    <option value=\"sweep\">Frequency Sweep</option>\n                    <option value=\"noise\">White Noise</option>\n                  </select>\n                </div>\n              </div>\n\n              <div class=\"text-center mb-4\">\n                <button class=\"btn btn-success\" id=\"play-btn\">\n                  <i class=\"bi bi-play-fill me-2\"></i>Play Test Sound\n                </button>\n              </div>\n\n              <div class=\"grid sm:grid-cols-2 gap-6 items-center\">\n                <div class=\"text-center\">\n                  <i class=\"bi bi-speaker volume-icon\" id=\"speaker-icon\"></i>\n                  <div class=\"mono text-2xl font-semibold mt-3\" id=\"volume-percent\" style=\"color:var(--ink)\">50%</div>\n                </div>\n                <div class=\"text-center\">\n                  <div class=\"volume-bar mx-auto\">\n                    <div class=\"volume-fill\" id=\"volume-fill\" style=\"height: 50%;\"></div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"panel mb-6\">\n            <div class=\"panel-hdr\"><span class=\"flex items-center gap-2\"><i class=\"bi bi-lightning-charge\"></i>Quick Volume Tests</span></div>\n            <div class=\"panel-body\">\n              <div class=\"grid grid-cols-4 gap-2 text-center\">\n                <button class=\"btn btn-outline w-100\" data-vol=\"25\">25%<br><small>Quiet</small></button>\n                <button class=\"btn btn-outline w-100\" data-vol=\"50\">50%<br><small>Medium</small></button>\n                <button class=\"btn btn-outline w-100\" data-vol=\"75\">75%<br><small>Loud</small></button>\n                <button class=\"btn btn-outline w-100\" data-vol=\"100\">100%<br><small>Max</small></button>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"status-message alert-info\">\n            <i class=\"bi bi-info-circle-fill me-2\"></i>Start with low volume and gradually increase. Use system volume controls alongside this test.\n          </div>\n",
+  "ads": {
+    "mid": "9146528954",
+    "sidebar": "6193062550",
+    "footer": "7669795756"
+  },
+  "sidebar_top_html": "",
+  "sidebar_bottom_html": "          <div class=\"panel mb-5\">\n            <div class=\"panel-hdr\"><span class=\"flex items-center gap-2\"><i class=\"bi bi-link-45deg\"></i>Related Tools</span></div>\n            <div class=\"panel-body\" style=\"padding:.5rem\">\n              <nav class=\"flex flex-col\">\n                <a href=\"/stereo-test\" class=\"rail-link\"><i class=\"bi bi-badge-hd\"></i>Stereo Test</a>\n                <a href=\"/tone-generator\" class=\"rail-link\"><i class=\"bi bi-activity\"></i>Tone Generator</a>\n                <a href=\"/bass-test\" class=\"rail-link\"><i class=\"bi bi-disc\"></i>Bass Test</a>\n                <a href=\"/headphone-test\" class=\"rail-link\"><i class=\"bi bi-headphones\"></i>Headphone Test</a>\n                <a href=\"/show-speakers\" class=\"rail-link\"><i class=\"bi bi-speaker\"></i>View Speaker Details</a>\n                <a href=\"/hearing-test\" class=\"rail-link\"><i class=\"bi bi-ear\"></i>Hearing Test</a>\n                <a href=\"/\" class=\"rail-link\"><i class=\"bi bi-mic\"></i>Microphone Test</a>\n              </nav>\n            </div>\n          </div>",
+  "content_blocks": [
+    {
+      "id": null,
+      "html": "        <h2><i class=\"bi bi-wrench me-2\"></i>No Sound?</h2>\n        <ul>\n          <li>Check system volume is not muted</li>\n          <li>Verify correct output device in audio settings</li>\n          <li>Check cable connections</li>\n          <li>Try a different browser</li>\n          <li>See troubleshooting guide</li>\n        </ul>"
+    },
+    {
+      "id": null,
+      "html": "        <h2>How to Run the Speaker Test Online</h2>\n        <ol>\n          <li><strong>Set system volume to 50%</strong> before starting — use your OS volume control, not just this tool's slider, to avoid sudden loud output.</li>\n          <li>Select a <strong>Test Sound</strong> from the dropdown: start with 1 kHz Tone for a clean reference signal.</li>\n          <li>Click <strong>Play Test Sound</strong> and confirm you hear audio from both speakers.</li>\n          <li>Use the <strong>Quick Volume Tests</strong> (25%, 50%, 75%, 100%) to step through levels and check that volume scales smoothly without crackling.</li>\n          <li>Switch to <strong>Frequency Sweep</strong> to scan from 200 Hz to 2000 Hz — listen for any frequencies that sound distorted or absent.</li>\n          <li>Try <strong>White Noise</strong> to check speaker response across the full audio spectrum simultaneously.</li>\n        </ol>"
+    },
+    {
+      "id": null,
+      "html": "        <h2>What Does the Online Speaker Test Check?</h2>\n\n        <h3>Speaker Channel Test — Left, Right, and Both</h3>\n        <p>The speaker test confirms that audio output reaches both channels at the correct volume. If one speaker plays noticeably louder, the audio output is unbalanced — check the balance slider in your OS sound settings. Run a <a href=\"/stereo-test\">stereo test</a> if you need to verify that left and right channels are not swapped. <!-- SILO_START:slot_b -->A <a href=\"/bass-test\">bass test</a> exposes port resonance, driver rattle, or missing low end in any speaker setup.<!-- SILO_END:slot_b --></p>\n\n        <h3>Frequency Sweep Speaker Test</h3>\n        <p>The sweep option ramps from 200 Hz to 2000 Hz over three seconds. A healthy speaker plays every point in the sweep at consistent volume. If you notice a sudden drop, a resonance buzz, or complete silence at a specific frequency, that region of the speaker's response is problematic — it may indicate a damaged driver or port resonance.</p>\n\n        <h3>Noise-Based Speaker Sound Test</h3>\n        <p>White noise contains all frequencies at equal energy, making it ideal for identifying colouration or gaps in your speaker's audio output. Pink noise reduces high-frequency energy to better match how the ear perceives loudness — audiophiles use it for level-matching multiple speakers. If one speaker sounds brighter or duller than the other during a noise test, the two units are not matched.</p>"
+    },
+    {
+      "id": null,
+      "html": "        <h2>Speaker Test Results by Volume Level</h2>\n\n        <h3>Low Volume Speaker Test (25%)</h3>\n        <p>At 25% volume, you're testing that your audio output chain functions at minimum levels — essential for quiet listening environments and background audio. If you can't hear anything at 25% with system volume at 50%, your speaker's sensitivity rating may be low, or a hardware volume control (physical knob on a monitor or amplifier) is set too low. <!-- SILO_START:slot_c -->Before a long listening session, a quick <a href=\"/headphone-test\">headphone test</a> confirms both channels are performing correctly.<!-- SILO_END:slot_c --></p>\n\n        <h3>Medium Volume Audio Output Test (50%)</h3>\n        <p>50% is the standard reference level for most speaker tests. A well-functioning speaker should play cleanly, with no distortion, at this level. If you hear rattling, buzzing, or crackling at 50% volume, something is wrong — driver damage, a loose enclosure component, or excessive bass boost in your EQ settings are the most common causes.</p>\n\n        <h3>High Volume Check (75–100%)</h3>\n        <p>Testing at high volume reveals how much headroom your speakers have before they clip or distort. Distortion at 75–100% is normal for budget speakers operating at their limit. If distortion appears at 50% or below, the driver is likely damaged or the amplifier is underpowered for the speaker load. Never sustain 100% volume for extended periods — it accelerates driver wear.</p>"
+    },
+    {
+      "id": null,
+      "html": "        <h2>Speaker Test Troubleshooting — No Sound or Poor Audio Output</h2>\n\n        <h3>Speaker Test Shows No Audio Output</h3>\n        <p>If the speaker test plays but you hear nothing: check that the correct output device is selected in your OS sound settings — if you recently plugged in headphones or an HDMI monitor, the OS may have switched the default output. Also verify system volume is not muted at the OS level. On laptops, a function key (Fn+F8 or similar) may be muting audio independently.</p>\n\n        <h3>One Speaker Channel Is Silent During the Test</h3>\n        <p>A silent channel points to a physical connection issue, a damaged driver, or an OS balance setting pushed fully to one side. Check your OS sound settings and confirm the balance is centred. Try different cables or ports to isolate the fault. If the silent channel works in a different audio app, the issue may be browser-specific — try a different browser for the online speaker test.</p>\n\n        <h3>Audio Output Sounds Distorted at Any Volume</h3>\n        <p>Consistent distortion at all volume levels usually means a damaged voice coil or blown driver. Distortion that appears only at high volumes is more likely an overloaded amplifier or EQ-boosted bass exceeding the speaker's limits. Remove any bass boost or loudness enhancement in your audio driver software and retest.</p>\n\n        <h3>Speaker Test Passes But Overall Sound Quality Is Poor</h3>\n        <p>A passing speaker test means the hardware is functional — but sound quality issues often come from software: equaliser settings, audio enhancement software (spatial sound, room correction), or a low-quality audio driver. Disable enhancements in your OS audio settings and test again. Outdated or generic audio drivers can also degrade quality — install the manufacturer's driver from their website.</p>"
+    }
+  ],
+  "faq_heading": "Frequently Asked Questions About the Speaker Test Online",
+  "faq": [
+    {
+      "q": "Is the online speaker test safe for my speakers?",
+      "a": "Yes, as long as you start at a moderate volume and avoid sustained maximum-volume playback. The test tones are standard sine waves and noise signals — the same types used in professional audio calibration. Start at 25–50% volume and only increase if needed. If you hear distortion at any level, stop immediately and reduce volume."
+    },
+    {
+      "q": "Why does the speaker test sound different at different volume levels?",
+      "a": "All speakers have a non-linear frequency response that changes with volume. At low volumes, bass frequencies sound thinner (the equal-loudness contour effect — the ear is less sensitive to bass at low levels). At high volumes, the speaker's physical limits cause harmonic distortion. This is normal speaker behaviour, not a fault."
+    },
+    {
+      "q": "Can I use this as a subwoofer test?",
+      "a": "For subwoofer testing, the bass test is better suited — it covers 20–200 Hz with a dedicated sweep. The 1 kHz tone and frequency sweep in this speaker test focus on the mid-range. That said, playing white noise through all speakers simultaneously (including the subwoofer) gives a useful overall balance check."
+    },
+    {
+      "q": "Why does the speaker test only play through one channel?",
+      "a": "Check your OS balance control first — it may be set fully left or right. Also verify your cable: a mono-to-stereo adaptor or a partially-inserted 3.5 mm jack will only output to one channel. If using Bluetooth, check that the speaker is connected in stereo mode, not mono/hands-free profile."
+    },
+    {
+      "q": "Does the speaker test work with Bluetooth speakers?",
+      "a": "Yes. Select your Bluetooth speaker as the audio output device in your OS sound settings before running the test. Note that Bluetooth audio introduces 50–200 ms of latency — the tone will play with a slight delay after you click Play. This is normal and does not affect the volume or quality test results."
+    },
+    {
+      "q": "What is white noise and why is it used in speaker testing?",
+      "a": "White noise is a random signal that contains all audible frequencies simultaneously at equal power. It's used in speaker testing because it exercises the full frequency range of the driver in a single pass. If a speaker has a weak tweeter, the white noise will sound muffled. If the woofer is damaged, the noise will have a hollow, thin quality."
+    }
+  ],
+  "script": "    document.addEventListener('DOMContentLoaded', function() {\n      const volumeSlider = document.getElementById('volume-slider');\n      const volumePercent = document.getElementById('volume-percent');\n      const volumeFill = document.getElementById('volume-fill');\n      const playBtn = document.getElementById('play-btn');\n      const soundType = document.getElementById('sound-type');\n      const quickBtns = document.querySelectorAll('[data-vol]');\n\n      let audioContext = null;\n      let source = null;\n      let gainNode = null;\n      let isPlaying = false;\n\n      function updateVolume(vol) {\n        volumeSlider.value = vol;\n        volumePercent.textContent = vol + '%';\n        volumeFill.style.height = vol + '%';\n        if (gainNode && isPlaying) gainNode.gain.setValueAtTime(vol / 100 * 0.5, audioContext.currentTime);\n      }\n\n      function playSound() {\n        if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();\n        stopSound();\n\n        gainNode = audioContext.createGain();\n        gainNode.gain.setValueAtTime(volumeSlider.value / 100 * 0.5, audioContext.currentTime);\n        gainNode.connect(audioContext.destination);\n\n        const type = soundType.value;\n        if (type === 'tone') {\n          source = audioContext.createOscillator();\n          source.frequency.setValueAtTime(1000, audioContext.currentTime);\n          source.connect(gainNode);\n          source.start();\n        } else if (type === 'beep') {\n          source = audioContext.createOscillator();\n          source.frequency.setValueAtTime(800, audioContext.currentTime);\n          source.connect(gainNode);\n          source.start();\n          const now = audioContext.currentTime;\n          for (let i = 0; i < 5; i++) {\n            gainNode.gain.setValueAtTime(volumeSlider.value / 100 * 0.5, now + i * 0.5);\n            gainNode.gain.setValueAtTime(0, now + i * 0.5 + 0.2);\n          }\n        } else if (type === 'sweep') {\n          source = audioContext.createOscillator();\n          source.frequency.setValueAtTime(200, audioContext.currentTime);\n          source.frequency.exponentialRampToValueAtTime(2000, audioContext.currentTime + 3);\n          source.connect(gainNode);\n          source.start();\n        } else {\n          const bufferSize = 2 * audioContext.sampleRate;\n          const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);\n          const data = buffer.getChannelData(0);\n          for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;\n          source = audioContext.createBufferSource();\n          source.buffer = buffer;\n          source.loop = true;\n          source.connect(gainNode);\n          source.start();\n        }\n\n        isPlaying = true;\n        playBtn.innerHTML = '<i class=\"bi bi-stop-fill me-2\"></i>Stop';\n        playBtn.classList.replace('btn-success', 'btn-danger');\n      }\n\n      function stopSound() {\n        if (source) { try { source.stop(); } catch(e) {} source.disconnect(); source = null; }\n        isPlaying = false;\n        playBtn.innerHTML = '<i class=\"bi bi-play-fill me-2\"></i>Play Test Sound';\n        playBtn.classList.replace('btn-danger', 'btn-success');\n      }\n\n      playBtn.addEventListener('click', () => isPlaying ? stopSound() : playSound());\n      volumeSlider.addEventListener('input', () => updateVolume(parseInt(volumeSlider.value)));\n      quickBtns.forEach(btn => btn.addEventListener('click', () => { updateVolume(parseInt(btn.dataset.vol)); playSound(); }));\n    });",
+  "extra_style": "    .volume-icon{font-size:3.5rem;color:var(--amber);}\n    .volume-bar{height:180px;width:56px;background:var(--panel-2);border:1px solid var(--border);border-radius:8px;position:relative;overflow:hidden;margin:0 auto;}\n    .volume-fill{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top, var(--success), var(--amber), var(--red));transition:height .3s;}\n    .btn-success{background:var(--success);color:#fff;}\n\n    input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:99px;background:var(--border);outline:none;margin:.5rem 0;}\n    input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:var(--amber);cursor:pointer;border:2px solid var(--panel-2);box-shadow:0 0 0 1px var(--border);}\n    input[type=range]::-moz-range-track{height:4px;border-radius:99px;background:var(--border);}\n    input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--amber);cursor:pointer;border:2px solid var(--panel-2);box-shadow:0 0 0 1px var(--border);}\n"
+}

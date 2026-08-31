@@ -1,0 +1,4 @@
+Sitemap: https://mictest.dev/sitemap.xml
+
+User-agent: *
+Disallow:

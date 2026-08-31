@@ -1,0 +1,45 @@
+{
+  "slug": "about",
+  "meta_title": "About MicTest - Advanced Online Microphone Testing Platform",
+  "meta_description": "MicTest is a free browser-based audio testing platform for microphones, speakers, and hearing. Learn what it does, how each tool works, and who built it.",
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About MicTest",
+    "url": "https://mictest.dev/about",
+    "description": "Learn about MicTest's comprehensive microphone testing platform and browser-based audio testing tools.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "MicTest",
+      "url": "https://mictest.dev"
+    }
+  },
+  "eyebrow": "Unit 17 · Maker's Note",
+  "h1": "About MicTest",
+  "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">Hey, I'm Vinitha — designer, developer, and the person behind MicTest.</p>",
+  "content_blocks": [
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-person-fill me-2 text-primary\"></i>A Little About Me</h2>\n<p>I'm a designer and developer from Palakkad, Kerala, India. My background spans textile and apparel design into digital design and web development. I've always believed that building things for the web is just as creative as designing — maybe even more so.</p>\n<p>I focus on creating free tools that solve real problems — ones I've personally run into and couldn't find a good solution for.</p>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-lightbulb-fill me-2 text-warning\"></i>Why I Built MicTest</h2>\n<p>The frustration started when I needed a quick way to check if a microphone was working properly before a call or recording session. Most tools either required a download, asked for sign-ups, or were buried under layers of ads and popups.</p>\n<p>MicTest was built as a straightforward alternative — open your browser, test your mic, done. No account, no download, no nonsense. The same idea extends to every tool on the platform: speakers, headphones, tone generation, hearing range — all free, all instant.</p>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-shield-check me-2 text-success\"></i>Privacy First</h2>\n<p>All audio processing happens locally in your browser. Nothing is recorded, uploaded, or stored on any server. Your microphone input never leaves your device — the Web Audio API handles everything right there in your tab.</p>\n<p>This isn't a compromise — it's how it was designed from the start.</p>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-tools me-2 text-primary\"></i>What's on MicTest</h2>\n<p>MicTest offers 18 free browser-based audio tools covering microphone testing, voice recording, speaker output, stereo channels, bass response, frequency analysis, hearing range, latency measurement, and more.</p>\n<p>Every tool works across Windows, macOS, Linux, iOS, and Android — on Chrome, Firefox, Safari, and Edge.</p>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-quote me-2 text-secondary\"></i>My Philosophy</h2>\n<p class=\"mb-0 fst-italic\">\"Tools should just work. They should be simple, fast, and respect your time.\"</p>"
+    }
+  ],
+  "ads": {
+    "mid": "9146528954"
+  }
+}

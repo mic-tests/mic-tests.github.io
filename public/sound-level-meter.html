@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sound Level Meter - Online Decibel (dB) Meter</title>
+  <meta name="description" content="Online sound level meter — measure decibels with your microphone. Click Start Measuring to see a live dB reading, peak level, and noise rating update.">
+  <meta name="keywords" content="sound level meter, decibel meter, dB meter online, noise level meter, audio level meter, volume meter, sound intensity meter">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="canonical" href="https://mictest.dev/sound-level-meter">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Sound Level Meter - Online Decibel Meter",
+  "url": "https://mictest.dev/sound-level-meter",
+  "description": "Free online sound level meter. Measure decibel (dB) levels in real-time using your microphone.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "MicTest",
+    "url": "https://mictest.dev"
+  }
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is this online sound level meter accurate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is useful for relative measurements and awareness — comparing environments, identifying noise sources, and checking recording conditions. It is not a certified SPL meter. Accuracy depends heavily on your microphone's sensitivity and your OS audio processing settings. For regulatory compliance (OSHA, workplace health and safety), you need a certified Class 1 or Class 2 sound level meter."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a safe noise level for a home office or workspace?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The WHO recommends an average noise level below 35 dB for sleeping environments and below 50 dB for offices for concentration and productivity. NIOSH sets the occupational exposure limit at 85 dB for 8-hour workdays. For home recording, an ambient noise floor below 40 dB is the target. Use this dB meter to measure your space before setting up a microphone."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How loud is too loud for headphone listening?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The WHO warns that 1.1 billion young people are at risk of hearing loss from unsafe headphone use. Listening at 85 dB through headphones for more than 8 hours daily is considered unsafe by most guidelines. A practical rule: if someone next to you can hear your headphones clearly, the volume is likely above 85 dB and too loud for extended use. Take a periodic hearing test online if you are a heavy headphone user."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between dBA and dBC weighting?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "dBA (A-weighted) applies frequency correction that mimics the ear's sensitivity — it de-emphasises very low and very high frequencies because the ear is less sensitive to them. dBA is the most common measurement for occupational noise exposure and environmental regulations. dBC (C-weighted) is relatively flat and is used for measuring peak noise events like gunshots or explosions. The readings shown in this online dB meter are unweighted (dBFS), which means they treat all frequencies equally."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use the sound level meter on my phone?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — the tool works in any modern browser including Chrome and Safari on iOS and Android. Grant microphone permission when prompted. Note that phone microphones typically have higher noise floors than dedicated measurement microphones, which slightly reduces accuracy at very low sound levels (below 30 dB). For best results on a phone, disable any noise cancellation in the microphone settings and hold the phone still during measurement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "My readings seem too low or too high — what should I do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If the reading seems wrong, first check your OS microphone input volume — if it is set very low, the meter will read artificially quiet. If it is boosted above 100%, readings will be artificially high. Disable microphone boost and noise cancellation in your OS audio settings. Also check that the correct microphone is selected in the tool's device dropdown — a headset microphone and a built-in laptop mic will give very different sensitivity levels."
+      }
+    }
+  ]
+}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  <script async crossorigin="anonymous"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5426315045205785"></script>
+  <meta name="google-adsense-account" content="ca-pub-5426315045205785">
+
+  <style>
+    :root{
+      --bg:#EEF0F2; --panel:#F8F9FA; --panel-2:#FFFFFF; --border:#D3D7DC; --border-lt:#E4E7EA;
+      --ink:#14161A; --ink-2:#565B63; --ink-3:#868C94;
+      --amber:#B65C00; --amber-dim:rgba(182,92,0,.09); --amber-glow:rgba(182,92,0,.30);
+      --red:#C4432E; --success:#2E7D4F;
+    }
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme="light"]){
+        --bg:#111013; --panel:#18171B; --panel-2:#1F1D22; --border:#2A2830; --border-lt:#221F25;
+        --ink:#EDEAE4; --ink-2:#8B8780; --ink-3:#5F5C56;
+        --amber:#FFB13D; --amber-dim:rgba(255,177,61,.14); --amber-glow:rgba(255,177,61,.55);
+        --red:#FF5A4E; --success:#7AB85E;
+      }
+    }
+    :root[data-theme="dark"]{
+        --bg:#111013; --panel:#18171B; --panel-2:#1F1D22; --border:#2A2830; --border-lt:#221F25;
+        --ink:#EDEAE4; --ink-2:#8B8780; --ink-3:#5F5C56;
+        --amber:#FFB13D; --amber-dim:rgba(255,177,61,.14); --amber-glow:rgba(255,177,61,.55);
+        --red:#FF5A4E; --success:#7AB85E;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    /* Neutralize Tailwind's .container utility (kept only so the content-db exporter can scope this region) */
+    .container.main-wrap{width:100%;max-width:1260px;margin-left:auto;margin-right:auto;}
+    body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;}
+    .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
+    .display{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.02em;}
+    a{color:var(--amber);text-decoration:none}
+    a:hover{opacity:.8}
+    ::selection{background:var(--amber);color:var(--bg)}
+    h1,h2,h3,h4{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;color:var(--ink);}
+    h2{font-weight:700;font-size:1.5rem;line-height:1.25;margin:0 0 .9rem;}
+    h3{font-weight:600;font-size:1.1rem;line-height:1.3;margin:1.75rem 0 .5rem;}
+    p{margin:0 0 1rem;}
+    strong,b{color:var(--ink);font-weight:700;}
+    em,i{font-style:italic;}
+    code{background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;font-size:.87em;color:var(--ink);font-family:'JetBrains Mono',monospace;}
+
+    /* ── Long-form content (how-it-works / how-to / troubleshooting / FAQ) is raw semantic HTML
+       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility
+       instead of fighting Tailwind's preflight reset with custom element CSS + !important.
+       Its rules live behind :where() (zero specificity), so our theme tokens below win cleanly. ── */
+    /* !important: the typography plugin's own .prose rule also *sets* these same custom
+       properties (its light-mode defaults), at equal specificity and later in the cascade
+       (Tailwind CDN injects its stylesheet after this one) — so ours needs to win outright. */
+    .prose{
+      --tw-prose-body: var(--ink-2) !important; --tw-prose-headings: var(--ink) !important; --tw-prose-lead: var(--ink-2) !important;
+      --tw-prose-links: var(--amber) !important; --tw-prose-bold: var(--ink) !important; --tw-prose-counters: var(--ink-3) !important;
+      --tw-prose-bullets: var(--amber) !important; --tw-prose-hr: var(--border) !important; --tw-prose-quotes: var(--ink) !important;
+      --tw-prose-quote-borders: var(--amber) !important; --tw-prose-captions: var(--ink-3) !important;
+      --tw-prose-code: var(--ink) !important; --tw-prose-pre-code: var(--ink) !important; --tw-prose-pre-bg: var(--panel-2) !important;
+      --tw-prose-th-borders: var(--border) !important; --tw-prose-td-borders: var(--border-lt) !important;
+      color:var(--tw-prose-body);
+    }
+    .prose :where(h2,h3,h4,h5,h6){font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;}
+    .prose :where(code)::before,.prose :where(code)::after{content:none !important;}
+    .prose :where(code){background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;}
+    .prose :where(a){text-decoration:none;}
+    audio,video{max-width:100%;}
+    dl:not(.mic-stats) dt{font-weight:600;color:var(--ink);}
+    dl:not(.mic-stats) dd{margin:0 0 .6rem;color:var(--ink-2);}
+
+    .led{width:6px;height:6px;border-radius:999px;background:var(--amber);box-shadow:0 0 6px var(--amber);flex-shrink:0;}
+    .hairline{border-color:var(--border)}
+    .grid-bg{background-image:linear-gradient(var(--border-lt) 1px, transparent 1px),linear-gradient(90deg, var(--border-lt) 1px, transparent 1px);background-size:28px 28px;}
+
+    /* ── Rail nav ── */
+    .rail-group-label{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding:1.1rem 0 .4rem;}
+    .rail-link{display:flex;align-items:center;gap:8px;padding:.42rem .55rem;border-radius:3px;font-size:12px;color:var(--ink-2);font-family:'IBM Plex Sans';}
+    .rail-link:hover{background:var(--panel-2);color:var(--ink);opacity:1;}
+    .rail-link.active{background:var(--amber-dim);color:var(--amber);font-weight:600;}
+    .rail-link i{width:14px;text-align:center;font-size:12px;flex-shrink:0;}
+
+    /* ── Content panels (replace Bootstrap cards) ── */
+    .panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);}
+    .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .panel-body{padding:1.1rem;}
+    .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
+    .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
+    .ad-panel-body{padding:1rem;text-align:center;}
+
+    /* ── Buttons ── */
+    .btn{display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:600;padding:.6rem 1.1rem;border-radius:4px;border:1px solid transparent;cursor:pointer;transition:opacity .15s;font-family:'IBM Plex Sans';}
+    .btn:hover{opacity:.88}
+    .btn:disabled{opacity:.45;cursor:not-allowed;}
+    .btn-primary{background:var(--amber);color:var(--bg);}
+    .btn-secondary{background:var(--panel-2);color:var(--ink-2);border-color:var(--border);}
+    .btn-danger{background:var(--red);color:#fff;}
+    .btn-warning{background:var(--amber);color:var(--bg);}
+    .btn-outline{background:transparent;color:var(--ink-2);border-color:var(--border);}
+    .btn-outline:hover{background:var(--panel-2);color:var(--ink);opacity:1;}
+    .btn-sm{padding:.4rem .8rem;font-size:11.5px;}
+    .btn-toolbar{display:flex;flex-wrap:wrap;gap:.5rem;}
+    .w-100{width:100%;}
+    .d-grid{display:grid;gap:.5rem;}
+    .d-none{display:none !important;}
+
+    /* ── Forms ── */
+    .form-label{display:block;font-size:10.5px;font-weight:600;margin-bottom:.4rem;color:var(--ink-2);font-family:'JetBrains Mono';text-transform:uppercase;letter-spacing:.06em;}
+    .form-select,.form-control{width:100%;padding:.6rem .75rem;border:1px solid var(--border);border-radius:4px;background:var(--panel-2);color:var(--ink);font-size:13px;font-family:'IBM Plex Sans';}
+    .form-select:focus,.form-control:focus{outline:none;border-color:var(--amber);}
+
+    /* ── Alerts / status ── */
+    .status-message{padding:.6rem .85rem;margin-bottom:.85rem;border-radius:4px;font-size:13px;border:1px solid var(--border);}
+    .status-step{display:flex;align-items:center;}
+    .status-icon{margin-right:8px;width:18px;text-align:center;flex-shrink:0;}
+    .alert-info{background:var(--panel-2);color:var(--ink-2);}
+    .alert-success{background:rgba(46,125,79,.10);color:var(--success);border-color:rgba(46,125,79,.3);}
+    .alert-warning{background:var(--amber-dim);color:var(--amber);border-color:rgba(182,92,0,.3);}
+    .alert-danger, .alert-recording{background:rgba(196,67,46,.10);color:var(--red);border-color:rgba(196,67,46,.3);}
+    .recording-pulse{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--red);margin-right:8px;animation:pulse 1.5s infinite;vertical-align:middle;}
+    @keyframes pulse{0%{transform:scale(.95);box-shadow:0 0 0 0 rgba(196,67,46,.6);}70%{transform:scale(1);box-shadow:0 0 0 7px rgba(196,67,46,0);}100%{transform:scale(.95);box-shadow:0 0 0 0 rgba(196,67,46,0);}}
+
+    /* ── Visualizer ── */
+    canvas{width:100%;height:200px;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;display:block;}
+    #visualizer-container{position:relative;border-radius:4px;overflow:hidden;}
+    .amplitude-bars{position:absolute;bottom:0;left:0;width:100%;height:100%;display:flex;align-items:flex-end;padding:0 4px;pointer-events:none;}
+    .amplitude-bar{flex:1;background:linear-gradient(to top, var(--amber), transparent);margin:0 1px;max-height:100%;transition:height .08s ease;border-radius:2px 2px 0 0;}
+
+    /* ── Progress ── */
+    .progress{height:4px;border-radius:99px;background:var(--border);overflow:hidden;margin-bottom:10px;}
+    .progress-bar{height:100%;background:var(--amber);border-radius:99px;transition:width .1s linear;}
+
+    /* ── Quality / info rows ── */
+    .quality-indicator{display:inline-block;font-weight:700;font-family:'JetBrains Mono';font-size:13px;}
+    .quality-excellent{color:var(--success);}
+    .quality-verygood{color:var(--amber);}
+    .quality-good{color:var(--amber);opacity:.85;}
+    .quality-fair{color:var(--red);opacity:.85;}
+    .quality-poor{color:var(--red);}
+    .quality-unknown{color:var(--ink-3);}
+    .info-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border-lt);}
+    .info-row:last-child{border-bottom:none;padding-bottom:0;}
+    .info-label{color:var(--ink-3);font-weight:500;font-family:'JetBrains Mono';font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;}
+    .info-val{color:var(--ink);font-weight:600;text-align:right;max-width:55%;font-size:12.5px;font-family:'JetBrains Mono';}
+
+    /* ── Testimonials ── */
+    .testimonial{padding:.6rem 0;border-bottom:1px solid var(--border-lt);}
+    .testimonial:last-of-type{border-bottom:none;}
+    .testimonial p{font-size:12.5px;font-style:italic;color:var(--ink-2);margin:0 0 .2rem;}
+    .text-muted{color:var(--ink-3);font-size:11px;}
+    .mb-0{margin-bottom:0 !important;}
+    .review-form{display:none;margin-top:.85rem;padding:.9rem;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;}
+
+    /* ── Pro tip ── */
+    aside.pro-tip{display:flex;gap:.7rem;align-items:flex-start;background:var(--amber-dim);border-left:3px solid var(--amber);border-radius:0 4px 4px 0;padding:.85rem 1rem;margin-top:1.25rem;font-size:13.5px;color:var(--ink);}
+    aside.pro-tip>i{color:var(--amber);flex-shrink:0;font-size:1rem;line-height:1.55;}
+
+    /* ── Mic stats dl ── */
+    dl.mic-stats{display:grid;grid-template-columns:minmax(180px,26%) 1fr;gap:.3rem 1.1rem;align-items:baseline;}
+    dl.mic-stats dt{font-weight:600;color:var(--ink);padding:.6rem 0 .1rem;border-top:1px solid var(--border-lt);font-family:'JetBrains Mono';font-size:12.5px;}
+    dl.mic-stats dd{margin:0;padding:.6rem 0 .1rem;border-top:1px solid var(--border-lt);color:var(--ink-2);line-height:1.65;font-size:13px;}
+    dl.mic-stats dt:first-child, dl.mic-stats dd:first-of-type{border-top:none;}
+    @media (max-width:575px){dl.mic-stats{grid-template-columns:1fr;}dl.mic-stats dd{border-top:none;padding-top:0;}}
+
+    /* ── Details / accordion panels ── */
+    details.panel{border:1px solid var(--border);border-radius:4px;margin-bottom:.5rem;overflow:hidden;background:var(--panel);}
+    details.panel>summary{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.05rem;cursor:pointer;background:var(--panel-2);list-style:none;gap:.5rem;font-size:14px;}
+    details.panel>summary::-webkit-details-marker{display:none;}
+    details.panel>summary::after{content:"\FE40";font-size:.8rem;color:var(--amber);flex-shrink:0;transform:rotate(90deg);}
+    details.panel[open]>summary::after{transform:rotate(-90deg);}
+    details.panel[open]>summary{border-bottom:1px solid var(--border);}
+    details.panel>:not(summary){padding:.9rem 1.05rem;}
+    details.panel ol,details.panel ul{margin-bottom:0;padding-left:1.3rem;}
+    details.panel li{margin-bottom:.4rem;}
+
+    /* ── Table ── */
+    .table-responsive{overflow-x:auto;}
+    .table{width:100%;border-collapse:collapse;font-size:12.5px;}
+    .table th,.table td{padding:.55rem .7rem;border:1px solid var(--border);text-align:left;vertical-align:middle;}
+    .table thead th{background:var(--panel-2);font-family:'JetBrains Mono';font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2);}
+    .table-striped tbody tr:nth-child(odd){background:var(--panel-2);}
+
+    /* ── Comments / footer ── */
+    .comments-panel{border-top:1px solid var(--border);background:var(--panel);padding:2.5rem 0;margin-top:2rem;}
+    footer.site-footer{background:var(--panel);border-top:1px solid var(--border);padding:2.75rem 0 0;}
+    .footer-brand{font-family:'JetBrains Mono';font-weight:700;font-size:15px;color:var(--ink);display:flex;align-items:center;gap:8px;margin-bottom:.75rem;}
+    .footer-desc{font-size:12.5px;color:var(--ink-3);line-height:1.65;max-width:320px;}
+    .footer-col-heading{font-family:'JetBrains Mono';font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.7rem;display:block;}
+    .footer-links{list-style:none;padding:0;margin:0 0 1.25rem;}
+    .footer-links li{margin-bottom:.4rem;}
+    .footer-links a{font-size:13px;color:var(--ink-2);}
+    .footer-links a:hover{color:var(--amber);opacity:1;}
+    .footer-bottom{border-top:1px solid var(--border);margin-top:1.5rem;padding:1rem 0;font-size:11px;color:var(--ink-3);font-family:'JetBrains Mono';}
+
+    /* ── Mobile drawer ── */
+    #mobile-drawer{position:fixed;inset:0;z-index:40;background:var(--bg);transform:translateX(-100%);transition:transform .2s ease;overflow-y:auto;}
+    #mobile-drawer.open{transform:translateX(0);}
+
+    /* ── Page-specific (this tool's own extra CSS, if any — must use the theme tokens above, e.g. var(--amber)/var(--panel), never hardcoded colors, so it stays correct in both light and dark) ── */
+    /* sound-level-meter.json — restyled from old .db-display/.meter-container/.level-indicator/.history-canvas block */
+    .db-display{font-family:'JetBrains Mono',monospace;font-size:5rem;font-weight:700;line-height:1;color:var(--amber);}
+    .db-unit{font-size:2rem;vertical-align:super;color:var(--ink-2);}
+    .meter-container{height:300px;border-radius:8px;position:relative;overflow:hidden;background:linear-gradient(to top, var(--success) 0%, var(--success) 33%, var(--amber) 33%, var(--amber) 66%, var(--red) 66%, var(--red) 100%);}
+    .meter-fill{position:absolute;bottom:0;left:0;right:0;background:var(--panel-2);transition:height .1s ease;}
+    .meter-scale{position:absolute;right:10px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:space-between;color:var(--bg);font-weight:700;font-size:11px;text-shadow:0 1px 2px rgba(0,0,0,.35);}
+    /* level-indicator: className is fully replaced by the script on every reading ("level-indicator <level>"),
+       so all typography lives on the base class rather than a separate .mono helper class. */
+    .level-indicator{padding:10px 20px;border-radius:4px;font-weight:700;text-align:center;font-family:'JetBrains Mono',monospace;font-size:13px;}
+    .level-quiet{background:var(--success);color:var(--bg);}
+    .level-moderate{background:var(--amber);color:var(--bg);}
+    .level-loud{background:var(--red);color:var(--bg);opacity:.85;}
+    .level-very-loud{background:var(--red);color:var(--bg);}
+    .history-canvas{width:100%;height:150px;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;display:block;}
+    /* severity-coded reference-table rows, replacing Bootstrap's table-success/table-warning/table-danger */
+    .table .row-safe{background:rgba(46,125,79,.10);}
+    .table .row-caution{background:var(--amber-dim);}
+    .table .row-danger{background:rgba(196,67,46,.10);}
+    /* #status-alert: the tool script overwrites this element's className to a bare "alert alert-<type>"
+       string on every status update, so the structural box styling normally supplied by .status-message
+       must live on the id selector to survive those updates. */
+    #status-alert{padding:.6rem .85rem;margin-bottom:.85rem;border-radius:4px;font-size:13px;border:1px solid var(--border);}
+
+  </style>
+</head>
+<body>
+
+<div class="flex min-h-screen">
+
+  <!-- DESKTOP RAIL -->
+  <aside class="hidden lg:flex flex-col w-[232px] shrink-0 border-r hairline px-5 py-6 sticky top-0 h-screen overflow-y-auto">
+    <a href="/" class="flex items-center gap-2.5 mb-6" title="MicTest Home">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+        <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+        <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M12 18v3M9 21h6" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      <span class="mono text-[13px] font-semibold tracking-tight" style="color:var(--ink)">MICTEST</span>
+    </a>
+
+    <button type="button" class="theme-toggle-btn flex items-center gap-2.5 mb-2" aria-label="Toggle light or dark panel">
+      <span class="relative inline-flex items-center shrink-0" style="width:32px;height:17px;border-radius:999px;background:var(--border-lt);border:1px solid var(--border)">
+        <span class="theme-dot absolute" style="width:11px;height:11px;border-radius:999px;background:var(--amber);left:2px;top:2px;transition:left .15s ease"></span>
+      </span>
+      <span class="theme-label mono text-[10.5px] tracking-[.08em] uppercase" style="color:var(--ink-2)">Dark panel</span>
+    </button>
+
+    <nav class="flex flex-col rail-nav">
+      <a href="/" data-page="index" class="rail-link"><i class="bi bi-mic-fill"></i>Microphone Test</a>
+
+      <div class="rail-group-label">Mic Tools</div>
+      <a href="/show-mic" data-page="show-mic" class="rail-link"><i class="bi bi-mic"></i>Show My Mic</a>
+      <a href="/mic-recorder" data-page="mic-recorder" class="rail-link"><i class="bi bi-record-circle"></i>Mic Recorder</a>
+      <a href="/sound-level-meter" data-page="sound-level-meter" class="rail-link"><i class="bi bi-speedometer2"></i>Sound Level Meter</a>
+      <a href="/voice-frequency-analyzer" data-page="voice-frequency-analyzer" class="rail-link"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a>
+      <a href="/background-noise-analyzer" data-page="background-noise-analyzer" class="rail-link"><i class="bi bi-soundwave"></i>Background Noise Analyzer</a>
+      <a href="/echo-test" data-page="echo-test" class="rail-link"><i class="bi bi-arrow-repeat"></i>Echo Test</a>
+      <a href="/audio-latency-test" data-page="audio-latency-test" class="rail-link"><i class="bi bi-stopwatch"></i>Audio Latency Test</a>
+
+      <div class="rail-group-label">Speaker Tools</div>
+      <a href="/show-speakers" data-page="show-speakers" class="rail-link"><i class="bi bi-speaker"></i>Show My Speakers</a>
+      <a href="/tone-generator" data-page="tone-generator" class="rail-link"><i class="bi bi-activity"></i>Tone Generator</a>
+      <a href="/stereo-test" data-page="stereo-test" class="rail-link"><i class="bi bi-badge-hd"></i>Stereo Test</a>
+      <a href="/bass-test" data-page="bass-test" class="rail-link"><i class="bi bi-disc"></i>Bass Test</a>
+      <a href="/speaker-volume-test" data-page="speaker-volume-test" class="rail-link"><i class="bi bi-volume-up"></i>Speaker Volume Test</a>
+
+      <div class="rail-group-label">Headphones &amp; Hearing</div>
+      <a href="/headphone-test" data-page="headphone-test" class="rail-link"><i class="bi bi-headphones"></i>Headphone Test</a>
+      <a href="/hearing-test" data-page="hearing-test" class="rail-link"><i class="bi bi-ear"></i>Hearing Test</a>
+
+      <div class="rail-group-label">More</div>
+      <a href="/troubleshooting" data-page="troubleshooting" class="rail-link"><i class="bi bi-tools"></i>Troubleshooting</a>
+      <a href="/about" data-page="about" class="rail-link"><i class="bi bi-info-circle"></i>About</a>
+      <a href="/contact" data-page="contact" class="rail-link"><i class="bi bi-envelope"></i>Contact</a>
+    </nav>
+  </aside>
+
+  <!-- MOBILE TOP BAR -->
+  <div class="lg:hidden fixed top-0 inset-x-0 z-50 flex items-center justify-between px-5 py-4 border-b hairline" style="background:var(--bg)">
+    <a href="/" class="flex items-center gap-2" title="MicTest Home">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+        <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+        <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      <span class="mono text-[13px] font-semibold" style="color:var(--ink)">MICTEST</span>
+    </a>
+    <div class="flex items-center gap-3">
+      <button type="button" class="theme-toggle-btn flex items-center gap-2" aria-label="Toggle light or dark panel">
+        <span class="relative inline-flex items-center shrink-0" style="width:28px;height:16px;border-radius:999px;background:var(--border-lt);border:1px solid var(--border)">
+          <span class="theme-dot absolute" style="width:10px;height:10px;border-radius:999px;background:var(--amber);left:2px;top:2px;transition:left .15s ease"></span>
+        </span>
+      </button>
+      <button type="button" id="mobile-menu-btn" aria-label="Open menu" class="flex flex-col gap-[4px] p-1">
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MOBILE DRAWER -->
+  <div id="mobile-drawer">
+    <div class="flex items-center justify-between px-5 py-4 border-b hairline">
+      <span class="mono text-[13px] font-semibold" style="color:var(--ink)">MENU</span>
+      <button type="button" id="mobile-drawer-close" aria-label="Close menu" class="mono text-[20px] leading-none" style="color:var(--ink-2)">&times;</button>
+    </div>
+    <nav class="flex flex-col rail-nav px-5 py-4">
+      <a href="/" data-page="index" class="rail-link"><i class="bi bi-mic-fill"></i>Microphone Test</a>
+      <div class="rail-group-label">Mic Tools</div>
+      <a href="/show-mic" data-page="show-mic" class="rail-link"><i class="bi bi-mic"></i>Show My Mic</a>
+      <a href="/mic-recorder" data-page="mic-recorder" class="rail-link"><i class="bi bi-record-circle"></i>Mic Recorder</a>
+      <a href="/sound-level-meter" data-page="sound-level-meter" class="rail-link"><i class="bi bi-speedometer2"></i>Sound Level Meter</a>
+      <a href="/voice-frequency-analyzer" data-page="voice-frequency-analyzer" class="rail-link"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a>
+      <a href="/background-noise-analyzer" data-page="background-noise-analyzer" class="rail-link"><i class="bi bi-soundwave"></i>Background Noise Analyzer</a>
+      <a href="/echo-test" data-page="echo-test" class="rail-link"><i class="bi bi-arrow-repeat"></i>Echo Test</a>
+      <a href="/audio-latency-test" data-page="audio-latency-test" class="rail-link"><i class="bi bi-stopwatch"></i>Audio Latency Test</a>
+      <div class="rail-group-label">Speaker Tools</div>
+      <a href="/show-speakers" data-page="show-speakers" class="rail-link"><i class="bi bi-speaker"></i>Show My Speakers</a>
+      <a href="/tone-generator" data-page="tone-generator" class="rail-link"><i class="bi bi-activity"></i>Tone Generator</a>
+      <a href="/stereo-test" data-page="stereo-test" class="rail-link"><i class="bi bi-badge-hd"></i>Stereo Test</a>
+      <a href="/bass-test" data-page="bass-test" class="rail-link"><i class="bi bi-disc"></i>Bass Test</a>
+      <a href="/speaker-volume-test" data-page="speaker-volume-test" class="rail-link"><i class="bi bi-volume-up"></i>Speaker Volume Test</a>
+      <div class="rail-group-label">Headphones &amp; Hearing</div>
+      <a href="/headphone-test" data-page="headphone-test" class="rail-link"><i class="bi bi-headphones"></i>Headphone Test</a>
+      <a href="/hearing-test" data-page="hearing-test" class="rail-link"><i class="bi bi-ear"></i>Hearing Test</a>
+      <div class="rail-group-label">More</div>
+      <a href="/troubleshooting" data-page="troubleshooting" class="rail-link"><i class="bi bi-tools"></i>Troubleshooting</a>
+      <a href="/about" data-page="about" class="rail-link"><i class="bi bi-info-circle"></i>About</a>
+      <a href="/contact" data-page="contact" class="rail-link"><i class="bi bi-envelope"></i>Contact</a>
+    </nav>
+  </div>
+
+  <!-- MAIN STAGE -->
+  <main class="flex-1 pt-16 lg:pt-0 min-w-0">
+    <div class="container main-wrap max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12 py-8 lg:py-12">
+
+      <!-- HERO -->
+      <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
+        <div>
+          <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 03 · Ambient Decibel Monitoring</div>
+          <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Sound Level Meter Online — Measure Decibels (dB) in Real Time</h1>
+          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>sound level meter online</strong> uses your microphone to measure how loud your environment actually is, in decibels. Click <strong>Start Measuring</strong>, allow mic access, and you'll see a live <strong>dB reading</strong> that updates continuously alongside a <strong>peak level</strong> and <strong>average level</strong> — the <strong>level bar</strong> shifts from green through yellow to red as sound gets louder. Your <strong>noise rating</strong> tells you whether your space qualifies as quiet, moderate, or loud based on what the mic is picking up. <!-- SILO_START:slot_a -->A <a href="/hearing-test">hearing test online</a> reveals high-frequency loss before it becomes noticeable in conversation.<!-- SILO_END:slot_a --></p>
+        </div>
+
+        <div class="hidden lg:block panel p-5">
+          <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
+          <dl class="mono text-[11.5px] flex flex-col gap-3">
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Model</dt><dd>SLM‑03 METER</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Interface</dt><dd>Web Audio API</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Install required</dt><dd style="color:var(--amber)">None</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Audio uploaded</dt><dd style="color:var(--amber)">Never</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-[1fr_320px] gap-8 items-start">
+
+        <!-- LEFT: tool + content -->
+        <div class="min-w-0">
+
+          <div class="panel mb-6">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-speedometer2"></i>Real-Time Sound Level</span></div>
+            <div class="panel-body">
+
+              <div class="grid sm:grid-cols-2 gap-3 mb-3">
+                <div>
+                  <label class="form-label" for="mic-select">Select Microphone</label>
+                  <select class="form-select" id="mic-select" disabled>
+                    <option value="">Select microphone...</option>
+                  </select>
+                </div>
+                <div class="flex flex-col justify-end">
+                  <button class="btn btn-primary w-100" id="start-btn">
+                    <i class="bi bi-play-fill me-2"></i>Start Measuring
+                  </button>
+                </div>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-6 items-center mt-3">
+                <div class="text-center">
+                  <div class="db-display" id="db-value">--</div>
+                  <span class="db-unit">dB</span>
+                  <div class="level-indicator mt-3" id="level-indicator">--</div>
+                </div>
+                <div>
+                  <div class="meter-container" id="meter-container">
+                    <div class="meter-fill" id="meter-fill" style="height: 100%;"></div>
+                    <div class="meter-scale mono">
+                      <span>100</span>
+                      <span>80</span>
+                      <span>60</span>
+                      <span>40</span>
+                      <span>20</span>
+                      <span>0</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="status-message alert-info" id="status-alert">
+            <div class="status-step">
+              <span class="status-icon"><i class="bi bi-info-circle-fill"></i></span>
+              <span id="status-message">Click "Start Measuring" to begin monitoring sound levels.</span>
+            </div>
+          </div>
+
+          <div class="panel mb-6">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-graph-up"></i>Statistics</span></div>
+            <div class="panel-body">
+              <div class="grid grid-cols-3 gap-3 text-center mb-3">
+                <div>
+                  <p class="mono mb-0" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)">Current</p>
+                  <div class="mono" style="font-size:1.5rem;font-weight:700;color:var(--amber)" id="stat-current">-- dB</div>
+                </div>
+                <div>
+                  <p class="mono mb-0" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)">Average</p>
+                  <div class="mono" style="font-size:1.5rem;font-weight:700;color:var(--success)" id="stat-avg">-- dB</div>
+                </div>
+                <div>
+                  <p class="mono mb-0" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)">Peak</p>
+                  <div class="mono" style="font-size:1.5rem;font-weight:700;color:var(--red)" id="stat-peak">-- dB</div>
+                </div>
+              </div>
+              <hr style="border:none;border-top:1px solid var(--border);margin:1rem 0">
+              <p class="mono mb-2" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)">Level History</p>
+              <canvas class="history-canvas" id="history-canvas"></canvas>
+              <button class="btn btn-outline btn-sm mt-2" id="reset-stats-btn">
+                <i class="bi bi-arrow-counterclockwise me-1"></i>Reset Statistics
+              </button>
+            </div>
+          </div>
+
+          <!-- Ad (mid) -->
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body">
+              <ins class="adsbygoogle"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-format="auto"
+                   data-ad-slot="9146528954"
+                   data-full-width-responsive="true"
+                   style="display:block"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2 class="flex items-center gap-2"><i class="bi bi-book"></i>Decibel Reference Guide</h2>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Level (dB)</th>
+                    <th>Example</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="row-safe">
+                    <td>0-30 dB</td>
+                    <td>Quiet room, whisper</td>
+                    <td>Very quiet - ideal for recording</td>
+                  </tr>
+                  <tr class="row-safe">
+                    <td>30-50 dB</td>
+                    <td>Library, quiet office</td>
+                    <td>Quiet - good for calls and meetings</td>
+                  </tr>
+                  <tr class="row-caution">
+                    <td>50-70 dB</td>
+                    <td>Normal conversation</td>
+                    <td>Moderate - typical indoor environment</td>
+                  </tr>
+                  <tr class="row-caution">
+                    <td>70-85 dB</td>
+                    <td>Busy traffic, vacuum</td>
+                    <td>Loud - may affect audio quality</td>
+                  </tr>
+                  <tr class="row-danger">
+                    <td>85-100 dB</td>
+                    <td>Power tools, concert</td>
+                    <td>Very loud - hearing protection recommended</td>
+                  </tr>
+                  <tr class="row-danger">
+                    <td>100+ dB</td>
+                    <td>Jet engine, sirens</td>
+                    <td>Dangerous - limit exposure time</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2>How to Use the Online Sound Level Meter</h2>
+            <ol>
+              <li><strong>Grant microphone access</strong> — the browser will prompt you the first time you click Start Measuring. The tool uses your mic to capture ambient sound; no audio is recorded or uploaded.</li>
+              <li>Click <strong>Start Measuring</strong> and watch the dB meter needle rise and fall in real time as your room's sound level changes.</li>
+              <li>Check the <strong>Current, Average, and Peak</strong> readings at the bottom of the meter. For most use cases, the average reading is the most meaningful — a single loud noise inflates the peak without reflecting the overall environment.</li>
+              <li>To test a specific scenario — AC unit, traffic noise, a fan — click Start, wait 30 seconds, then click Stop and read the average dB.</li>
+              <li>Use the <strong>Level History graph</strong> to see how noise levels fluctuate over time. A flat line means consistent ambient noise; spikes indicate transient noise events.</li>
+              <li>Click <strong>Reset Statistics</strong> between tests to clear the peak and average accumulation for a fresh reading.</li>
+            </ol>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2>What Is a Decibel? Understanding Sound Level Measurement in dB</h2>
+            <p>A decibel (dB) is the unit used to express the ratio of a sound's pressure relative to a reference value. Because the human ear can detect sounds across an enormous range — from the faintest whisper to a jet engine — the decibel scale is logarithmic rather than linear. This means each increase of 10 dB represents roughly ten times the sound intensity and about twice the perceived loudness. A 70 dB office is not just 40% louder than a 50 dB library — it is 100 times more intense in physical energy terms. <!-- SILO_START:slot_b -->See the live frequency spectrum of your voice with a <a href="/voice-frequency-analyzer">voice frequency analyzer</a>.<!-- SILO_END:slot_b --></p>
+
+            <h3>dBFS vs dB SPL — What the Online dB Meter Measures</h3>
+            <p>Professional sound meters measure dB SPL (Sound Pressure Level), calibrated against a physical reference (20 micropascals). This requires certified hardware. Browser-based tools measure <strong>dBFS (Decibels relative to Full Scale)</strong> — the signal level relative to the maximum value the microphone and audio driver can capture. Without hardware calibration, the readings are relative rather than absolute. Two important practical implications: (1) the exact dB number may differ from a certified meter; (2) the relative changes — whether sound gets louder or quieter — are accurate and useful for comparing environments or monitoring consistency.</p>
+
+            <h3>Why the Decibel Scale Is Logarithmic</h3>
+            <p>The ear uses a logarithmic response because it evolved to process sound over an enormous dynamic range — from 0 dB (threshold of hearing) to 140 dB (pain threshold). A linear scale would require representing numbers from 1 to 100,000,000,000,000 just to cover normal hearing range. The log scale compresses this into a manageable 0–140 dB range. This also explains why "turning it up by 3 dB" sounds slightly louder but requires double the amplifier power — the physics and the perception do not scale the same way.</p>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2>Sound Level Guide — What Your dB Reading Means</h2>
+            <p>Use these ranges to interpret the dB readings from the online sound level meter and understand whether your environment is safe or noisy for recording, calls, or long-term occupancy. <!-- SILO_START:slot_c -->The <a href="/mic-recorder">online mic recorder</a> runs locally in your browser — your audio is never sent to any server.<!-- SILO_END:slot_c --></p>
+
+            <h3>Quiet Environments: 0–40 dB</h3>
+            <p>Below 30 dB is acoustically near-silent — a recording studio's target ambient noise level. A quiet bedroom at night typically reads 25–35 dB. A quiet library measures around 35–40 dB. These environments are ideal for podcast recording, studio work, and online calls where microphone sensitivity will pick up everything. If your sound level meter reads below 40 dB with no specific noise sources present, you have a high-quality acoustic environment.</p>
+
+            <h3>Moderate Noise Levels: 40–70 dB</h3>
+            <p>This is the range most people live and work in. Normal conversation at one metre is approximately 60–65 dB. An open-plan office typically runs 55–65 dB continuously. These levels are comfortable for extended exposure and generally produce acceptable recording conditions, though a directional microphone positioned close to the speaker will help reject background noise in the 50–65 dB range. Anything above 65 dB will noticeably bleed into recordings.</p>
+
+            <h3>Loud Noise Levels: 70–85 dB</h3>
+            <p>Busy traffic from indoors reads around 70–75 dB. A vacuum cleaner at 1 metre is approximately 75 dB. A food blender runs around 80–85 dB. These levels are tiring over several hours and will contaminate recordings. At 85 dB, NIOSH (National Institute for Occupational Safety and Health) considers exposure beyond 8 hours per day to pose a risk of noise-induced hearing loss. Use the sound level meter to identify when your environment reaches this threshold.</p>
+
+            <h3>Harmful and Dangerous Sound Levels: 85–130+ dB</h3>
+            <p>Power tools (90–100 dB), concerts and clubs (100–115 dB), and emergency sirens (120 dB) represent increasingly hazardous exposure levels. At 110 dB, safe exposure time without hearing protection is under 2 minutes per day according to NIOSH guidelines. At 120 dB or above — the threshold of pain — any unprotected exposure carries immediate risk of permanent hearing damage. If your sound level meter reaches these values, move away immediately or wear hearing protection.</p>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2>Safe Noise Exposure Times — Protecting Your Hearing</h2>
+            <p>NIOSH applies the "3 dB exchange rate" to calculate safe daily noise exposure limits. Every 3 dB increase in sound level halves the safe exposure time:</p>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead><tr><th>Sound Level</th><th>Max Daily Exposure (NIOSH)</th><th>Example Source</th></tr></thead>
+                <tbody>
+                  <tr><td>85 dB</td><td>8 hours</td><td>Heavy traffic, vacuum cleaner</td></tr>
+                  <tr><td>88 dB</td><td>4 hours</td><td>Hand drill, busy restaurant</td></tr>
+                  <tr><td>91 dB</td><td>2 hours</td><td>Lawn mower, power saw</td></tr>
+                  <tr><td>94 dB</td><td>1 hour</td><td>Motorcycle at close range</td></tr>
+                  <tr><td>100 dB</td><td>15 minutes</td><td>Pneumatic drill, concert near stage</td></tr>
+                  <tr><td>110 dB</td><td>2 minutes</td><td>Rock concert, chainsaw</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="mb-0">If your workspace or listening environment regularly exceeds 85 dB, consider taking a hearing test online to check whether your high-frequency sensitivity has already been affected.</p>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2>Common Uses for an Online Sound Level Meter</h2>
+
+            <h3>Checking Room Noise Before Recording or a Call</h3>
+            <p>Before starting a podcast, voiceover session, or video call, run the sound level meter for 30 seconds to check your average ambient noise floor. A room with an average below 40 dB will produce clean recordings. Between 40–55 dB you will hear background hiss in quiet passages but it is manageable. Above 60 dB, the background noise will be audible to all participants on a call or audible in recordings even with noise-reduction software applied.</p>
+
+            <h3>Workplace Noise Level Monitoring</h3>
+            <p>Workers in manufacturing, construction, and hospitality environments are often exposed to noise above 85 dB without realising it. While an online dB meter does not replace a certified occupational hygienist's measurement, it provides a useful first-pass awareness check. If readings consistently exceed 80 dB in your workspace, request a formal noise assessment from your employer — workers have statutory rights regarding hearing protection in most countries once noise exceeds 80–85 dB daily average.</p>
+
+            <h3>Verifying Speaker and Headphone Output Levels</h3>
+            <p>The sound level meter is useful for calibrating speaker playback levels for mixing and mastering. Place the microphone at listening distance, play pink noise through your speakers, and note the average dB reading. This lets you match levels between sessions for consistent monitoring. The same principle applies to headphones — play a reference tone and note the dB reading before and after adjusting volume to establish a repeatable, safe listening level. Pair this with the voice frequency analyzer to check the frequency balance of your mic or speakers.</p>
+
+            <h3>Environmental and Neighbourhood Noise Assessment</h3>
+            <p>The online sound level meter can help document noise from traffic, neighbours, HVAC systems, or construction. Collect 5-minute average readings at different times of day to establish a pattern. This data can support noise complaints to building management or local authorities, though certified acoustic measurements are required for any legal proceeding. For detailed noise frequency breakdown beyond a simple dB level, use the <a href="/background-noise-analyzer">background noise analyzer</a>.</p>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2>Accuracy and Limitations of Browser-Based Decibel Measurement</h2>
+
+            <h3>Why Online dB Meter Readings Are Relative, Not Absolute</h3>
+            <p>Your device's microphone has a built-in sensitivity rating (typically −38 dBFS at 1 Pa for a phone mic) and the OS applies automatic gain control (AGC) that adjusts input sensitivity dynamically. This means the raw reading from a browser-based sound level meter cannot be directly mapped to an absolute dB SPL value without a known reference measurement and hardware calibration. The readings are most useful for <em>relative</em> comparisons: checking whether your room is quieter than another room, or whether a noise source is getting louder or quieter over time.</p>
+
+            <h3>Tips for More Accurate Online Sound Level Meter Readings</h3>
+            <ul>
+              <li><strong>Disable audio enhancements:</strong> Turn off noise cancellation, spatial sound, and microphone boost in your OS audio settings. These processing layers distort the input signal and skew dB readings.</li>
+              <li><strong>Keep the microphone position consistent:</strong> Move the laptop or phone 30 cm closer and the reading will jump 3–6 dB. Fix your measurement position and repeat tests from the same spot.</li>
+              <li><strong>Wait 5 seconds after starting:</strong> AGC takes a moment to stabilise. Ignore the first few seconds of readings.</li>
+              <li><strong>Use average, not peak:</strong> A single door slam can push the peak reading to 90+ dB. The average reading over 30–60 seconds is a far better indicator of your ambient noise environment.</li>
+              <li><strong>For absolute dB SPL:</strong> Use a calibrated hardware SPL meter for any measurement that needs to be legally defensible or professionally accurate.</li>
+            </ul>
+      </div>
+
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body">
+              <ins class="adsbygoogle"
+                   style="display:block"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-slot="7669795756"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
+
+      <div class="content-panel prose max-w-none" id="faq">
+        <h2>Sound Level Meter — Frequently Asked Questions</h2>
+        <details class="panel" open>
+          <summary><strong>Is this online sound level meter accurate?</strong></summary>
+          <p>It is useful for relative measurements and awareness — comparing environments, identifying noise sources, and checking recording conditions. It is not a certified SPL meter. Accuracy depends heavily on your microphone's sensitivity and your OS audio processing settings. For regulatory compliance (OSHA, workplace health and safety), you need a certified Class 1 or Class 2 sound level meter.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>What is a safe noise level for a home office or workspace?</strong></summary>
+          <p>The WHO recommends an average noise level below 35 dB for sleeping environments and below 50 dB for offices for concentration and productivity. NIOSH sets the occupational exposure limit at 85 dB for 8-hour workdays. For home recording, an ambient noise floor below 40 dB is the target. Use this dB meter to measure your space before setting up a microphone.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>How loud is too loud for headphone listening?</strong></summary>
+          <p>The WHO warns that 1.1 billion young people are at risk of hearing loss from unsafe headphone use. Listening at 85 dB through headphones for more than 8 hours daily is considered unsafe by most guidelines. A practical rule: if someone next to you can hear your headphones clearly, the volume is likely above 85 dB and too loud for extended use. Take a periodic hearing test online if you are a heavy headphone user.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>What is the difference between dBA and dBC weighting?</strong></summary>
+          <p>dBA (A-weighted) applies frequency correction that mimics the ear's sensitivity — it de-emphasises very low and very high frequencies because the ear is less sensitive to them. dBA is the most common measurement for occupational noise exposure and environmental regulations. dBC (C-weighted) is relatively flat and is used for measuring peak noise events like gunshots or explosions. The readings shown in this online dB meter are unweighted (dBFS), which means they treat all frequencies equally.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Can I use the sound level meter on my phone?</strong></summary>
+          <p>Yes — the tool works in any modern browser including Chrome and Safari on iOS and Android. Grant microphone permission when prompted. Note that phone microphones typically have higher noise floors than dedicated measurement microphones, which slightly reduces accuracy at very low sound levels (below 30 dB). For best results on a phone, disable any noise cancellation in the microphone settings and hold the phone still during measurement.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>My readings seem too low or too high — what should I do?</strong></summary>
+          <p>If the reading seems wrong, first check your OS microphone input volume — if it is set very low, the meter will read artificially quiet. If it is boosted above 100%, readings will be artificially high. Disable microphone boost and noise cancellation in your OS audio settings. Also check that the correct microphone is selected in the tool's device dropdown — a headset microphone and a built-in laptop mic will give very different sensitivity levels.</p>
+        </details>
+      </div>
+
+        </div>
+
+        <!-- RIGHT: sidebar -->
+        <div>
+
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body" style="min-height:360px;">
+              <ins class="adsbygoogle"
+                   style="display:block;min-height:360px;"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-slot="6193062550"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
+
+          <div class="panel mb-5">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-tools"></i>Related Tools</span></div>
+            <div class="panel-body" style="padding:0">
+              <nav class="flex flex-col">
+                <a href="/" class="rail-link" title="Microphone Test"><i class="bi bi-mic"></i>Microphone Test</a>
+                <a href="/mic-recorder" class="rail-link" title="Record Audio"><i class="bi bi-record-circle"></i>Record Audio</a>
+                <a href="/background-noise-analyzer" class="rail-link" title="Noise Analyzer"><i class="bi bi-soundwave"></i>Background Noise Analyzer</a>
+                <a href="/voice-frequency-analyzer" class="rail-link" title="Frequency Analyzer"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a>
+                <a href="/show-mic" class="rail-link" title="View Mic Details"><i class="bi bi-info-circle"></i>View Mic Details</a>
+                <a href="/speaker-volume-test" class="rail-link" title="Speaker Volume Test"><i class="bi bi-volume-up"></i>Speaker Volume Test</a>
+              </nav>
+            </div>
+          </div>
+
+          <div class="panel mb-5">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-lightbulb-fill"></i>Tips</span></div>
+            <div class="panel-body">
+              <ul class="mb-0" style="font-size:12.5px;color:var(--ink-2)">
+                <li>For accurate readings, calibrate against a known sound source</li>
+                <li>Browser dB readings are relative, not absolute measurements</li>
+                <li>Use <a href="/background-noise-analyzer" title="Noise Analyzer">noise analyzer</a> for detailed analysis</li>
+                <li>Check <a href="/troubleshooting" title="Troubleshooting">troubleshooting</a> if levels seem wrong</li>
+                <li>Prolonged exposure to 85+ dB can damage hearing — test your hearing</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-shield-check"></i>Privacy</span></div>
+            <div class="panel-body">
+              <p class="mb-0" style="font-size:12.5px;color:var(--ink-2)">Sound level analysis is performed locally in your browser. No audio is recorded or transmitted.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Comments -->
+    <section class="comments-panel">
+      <div class="max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="max-w-[760px] mx-auto">
+          <h3 class="flex items-center gap-2 mb-4"><i class="bi bi-chat-dots" style="color:var(--amber)"></i>Comments &amp; Feedback</h3>
+          <script defer src="https://comments.tickspike.com/comentario.js"></script>
+          <comentario-comments theme="light"></comentario-comments>
+        </div>
+      </div>
+    </section>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var comentarioEl = document.querySelector('comentario-comments');
+        if (!comentarioEl) return;
+        comentarioEl.addEventListener('keydown', function(e) { e.stopPropagation(); }, true);
+        comentarioEl.addEventListener('keyup', function(e) { e.stopPropagation(); }, true);
+        comentarioEl.addEventListener('keypress', function(e) { e.stopPropagation(); }, true);
+      }, 2000);
+    });
+    </script>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-6">
+          <div class="lg:col-span-1 sm:col-span-2">
+            <div class="footer-brand">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+                <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+                <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M12 18v3M9 21h6" stroke-width="1.7" stroke-linecap="round"/>
+              </svg>
+              MicTest
+            </div>
+            <p class="footer-desc">Free online microphone and audio testing tools. Test your microphone, speakers, and audio devices directly in your browser without any downloads.</p>
+          </div>
+          <div>
+            <span class="footer-col-heading">Mic Tools</span>
+            <ul class="footer-links">
+              <li><a href="/" title="Free Online Microphone Test">Microphone Test</a></li>
+              <li><a href="/show-mic" title="View Microphone Details">Show My Mic</a></li>
+              <li><a href="/mic-recorder" title="Record Your Voice">Mic Recorder</a></li>
+              <li><a href="/sound-level-meter" title="Measure Decibel Levels">Sound Level Meter</a></li>
+              <li><a href="/echo-test" title="Test for Echo Issues">Echo Test</a></li>
+              <li><a href="/background-noise-analyzer" title="Analyze Background Noise">Noise Analyzer</a></li>
+              <li><a href="/voice-frequency-analyzer" title="Analyze Voice Frequencies">Frequency Analyzer</a></li>
+              <li><a href="/audio-latency-test" title="Measure Audio Latency">Latency Test</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="footer-col-heading">Speaker Tools</span>
+            <ul class="footer-links">
+              <li><a href="/show-speakers" title="View Speaker Details">Show My Speakers</a></li>
+              <li><a href="/tone-generator" title="Generate Test Tones">Tone Generator</a></li>
+              <li><a href="/stereo-test" title="Test Left Right Channels">Stereo Test</a></li>
+              <li><a href="/bass-test" title="Test Low Frequencies">Bass Test</a></li>
+              <li><a href="/speaker-volume-test" title="Calibrate Volume">Speaker Volume Test</a></li>
+            </ul>
+            <span class="footer-col-heading" style="margin-top:1rem;display:block">Headphones &amp; Hearing</span>
+            <ul class="footer-links">
+              <li><a href="/headphone-test" title="Test Your Headphones">Headphone Test</a></li>
+              <li><a href="/hearing-test" title="Online Hearing Test">Hearing Test</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="footer-col-heading">Resources</span>
+            <ul class="footer-links">
+              <li><a href="/troubleshooting" title="Fix Audio Problems">Troubleshooting Guide</a></li>
+              <li><a href="/about" title="About MicTest">About MicTest</a></li>
+              <li><a href="/contact" title="Contact Us">Contact</a></li>
+              <li><a href="/sitemap" title="Site Map">Sitemap</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          &copy; 2025&ndash;<span id="footer-current-year"></span> MicTest. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function() {
+  var yearEl = document.getElementById('footer-current-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+})();
+</script>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var STORE_KEY = 'mictest-theme';
+
+  function readStored() {
+    try { return localStorage.getItem(STORE_KEY); } catch (e) { return null; }
+  }
+  function writeStored(v) {
+    try { localStorage.setItem(STORE_KEY, v); } catch (e) {}
+  }
+
+  var stored = readStored();
+  if (stored === 'light' || stored === 'dark') {
+    root.setAttribute('data-theme', stored);
+  }
+
+  function currentMode() {
+    var attr = root.getAttribute('data-theme');
+    if (attr === 'light' || attr === 'dark') return attr;
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'dark' : 'light';
+  }
+
+  function paint() {
+    var mode = currentMode();
+    var dots = document.querySelectorAll('.theme-dot');
+    var labels = document.querySelectorAll('.theme-label');
+    for (var i = 0; i < dots.length; i++) {
+      if (mode === 'dark') { dots[i].style.left = 'auto'; dots[i].style.right = '2px'; }
+      else { dots[i].style.right = 'auto'; dots[i].style.left = '2px'; }
+    }
+    for (var j = 0; j < labels.length; j++) {
+      labels[j].textContent = mode === 'dark' ? 'Dark panel' : 'Light panel';
+    }
+  }
+
+  var buttons = document.querySelectorAll('.theme-toggle-btn');
+  for (var k = 0; k < buttons.length; k++) {
+    buttons[k].addEventListener('click', function () {
+      var next = currentMode() === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      writeStored(next);
+      paint();
+    });
+  }
+
+  paint();
+})();
+</script>
+
+<script>
+(function() {
+  var path = window.location.pathname.replace(/\/$/, '');
+  var page = (path === '' || path === '/index' || path === '/index.html') ? 'index' : path.replace(/^\//, '').replace(/\.html$/, '');
+  var els = document.querySelectorAll('.rail-link[data-page="' + page + '"]');
+  els.forEach(function(el) { el.classList.add('active'); el.setAttribute('aria-current', 'page'); });
+})();
+</script>
+
+<script>
+(function() {
+  var btn = document.getElementById('mobile-menu-btn');
+  var closeBtn = document.getElementById('mobile-drawer-close');
+  var drawer = document.getElementById('mobile-drawer');
+  if (!btn || !drawer) return;
+  btn.addEventListener('click', function() { drawer.classList.add('open'); });
+  if (closeBtn) closeBtn.addEventListener('click', function() { drawer.classList.remove('open'); });
+  drawer.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() { drawer.classList.remove('open'); });
+  });
+})();
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const startBtn = document.getElementById('start-btn');
+      const micSelect = document.getElementById('mic-select');
+      const dbValue = document.getElementById('db-value');
+      const meterFill = document.getElementById('meter-fill');
+      const levelIndicator = document.getElementById('level-indicator');
+      const statusMessage = document.getElementById('status-message');
+      const statusAlert = document.getElementById('status-alert');
+      const statCurrent = document.getElementById('stat-current');
+      const statAvg = document.getElementById('stat-avg');
+      const statPeak = document.getElementById('stat-peak');
+      const historyCanvas = document.getElementById('history-canvas');
+      const historyCtx = historyCanvas.getContext('2d');
+      const resetStatsBtn = document.getElementById('reset-stats-btn');
+
+      let audioContext = null;
+      let analyser = null;
+      let microphone = null;
+      let audioStream = null;
+      let isRunning = false;
+      let animationId = null;
+
+      let readings = [];
+      let peakValue = 0;
+      let historyData = [];
+      const maxHistoryPoints = 100;
+
+      // Resize canvas
+      function resizeCanvas() {
+        historyCanvas.width = historyCanvas.offsetWidth;
+        historyCanvas.height = historyCanvas.offsetHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      // Get audio devices
+      async function getAudioDevices() {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          stream.getTracks().forEach(track => track.stop());
+
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const audioInputs = devices.filter(d => d.kind === 'audioinput');
+
+          micSelect.innerHTML = '';
+          audioInputs.forEach((device, index) => {
+            const option = document.createElement('option');
+            option.value = device.deviceId;
+            option.text = device.label || `Microphone ${index + 1}`;
+            micSelect.appendChild(option);
+          });
+          micSelect.disabled = false;
+        } catch (error) {
+          updateStatus('danger', 'Microphone access denied. Please allow microphone permissions.');
+        }
+      }
+
+      // Update status
+      function updateStatus(type, message) {
+        statusAlert.className = `alert alert-${type}`;
+        statusMessage.innerHTML = message;
+      }
+
+      // Calculate dB from audio data
+      function calculateDb(dataArray) {
+        let sum = 0;
+        for (let i = 0; i < dataArray.length; i++) {
+          const value = (dataArray[i] - 128) / 128;
+          sum += value * value;
+        }
+        const rms = Math.sqrt(sum / dataArray.length);
+        const db = 20 * Math.log10(rms + 0.0001);
+        // Normalize to 0-100 range (approximate)
+        return Math.max(0, Math.min(100, db + 100));
+      }
+
+      // Get level description
+      function getLevelDescription(db) {
+        if (db < 30) return { text: 'Very Quiet', class: 'level-quiet' };
+        if (db < 50) return { text: 'Quiet', class: 'level-quiet' };
+        if (db < 70) return { text: 'Moderate', class: 'level-moderate' };
+        if (db < 85) return { text: 'Loud', class: 'level-loud' };
+        return { text: 'Very Loud', class: 'level-very-loud' };
+      }
+
+      // Draw history graph
+      function drawHistory() {
+        historyCtx.fillStyle = '#f8f9fa';
+        historyCtx.fillRect(0, 0, historyCanvas.width, historyCanvas.height);
+
+        if (historyData.length < 2) return;
+
+        historyCtx.strokeStyle = '#0055FF';
+        historyCtx.lineWidth = 2;
+        historyCtx.beginPath();
+
+        const stepX = historyCanvas.width / (maxHistoryPoints - 1);
+
+        for (let i = 0; i < historyData.length; i++) {
+          const x = i * stepX;
+          const y = historyCanvas.height - (historyData[i] / 100 * historyCanvas.height);
+
+          if (i === 0) {
+            historyCtx.moveTo(x, y);
+          } else {
+            historyCtx.lineTo(x, y);
+          }
+        }
+        historyCtx.stroke();
+      }
+
+      // Update meter
+      function updateMeter() {
+        if (!analyser || !isRunning) return;
+
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        analyser.getByteTimeDomainData(dataArray);
+
+        const db = calculateDb(dataArray);
+        const dbRounded = Math.round(db);
+
+        // Update display
+        dbValue.textContent = dbRounded;
+        meterFill.style.height = `${100 - db}%`;
+
+        const level = getLevelDescription(db);
+        levelIndicator.textContent = level.text;
+        levelIndicator.className = `level-indicator ${level.class}`;
+
+        // Update statistics
+        readings.push(db);
+        if (readings.length > 1000) readings.shift();
+
+        if (db > peakValue) peakValue = db;
+
+        const avgDb = readings.reduce((a, b) => a + b, 0) / readings.length;
+
+        statCurrent.textContent = `${dbRounded} dB`;
+        statAvg.textContent = `${Math.round(avgDb)} dB`;
+        statPeak.textContent = `${Math.round(peakValue)} dB`;
+
+        // Update history
+        historyData.push(db);
+        if (historyData.length > maxHistoryPoints) historyData.shift();
+        drawHistory();
+
+        animationId = requestAnimationFrame(updateMeter);
+      }
+
+      // Start measuring
+      async function startMeasuring() {
+        if (isRunning) {
+          stopMeasuring();
+          return;
+        }
+
+        try {
+          const deviceId = micSelect.value;
+          const constraints = {
+            audio: deviceId ? { deviceId: { exact: deviceId } } : true
+          };
+
+          audioStream = await navigator.mediaDevices.getUserMedia(constraints);
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          analyser = audioContext.createAnalyser();
+          microphone = audioContext.createMediaStreamSource(audioStream);
+          microphone.connect(analyser);
+          analyser.fftSize = 2048;
+
+          isRunning = true;
+          startBtn.innerHTML = '<i class="bi bi-stop-fill me-2"></i>Stop Measuring';
+          startBtn.classList.remove('btn-primary');
+          startBtn.classList.add('btn-danger');
+          micSelect.disabled = true;
+
+          updateStatus('success', 'Measuring sound levels... Speak or make sounds to see the levels.');
+          updateMeter();
+        } catch (error) {
+          updateStatus('danger', 'Error accessing microphone: ' + error.message);
+        }
+      }
+
+      // Stop measuring
+      function stopMeasuring() {
+        isRunning = false;
+
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+        }
+
+        if (audioStream) {
+          audioStream.getTracks().forEach(track => track.stop());
+        }
+
+        if (audioContext) {
+          audioContext.close();
+        }
+
+        startBtn.innerHTML = '<i class="bi bi-play-fill me-2"></i>Start Measuring';
+        startBtn.classList.remove('btn-danger');
+        startBtn.classList.add('btn-primary');
+        micSelect.disabled = false;
+
+        updateStatus('info', 'Measurement stopped. Click "Start Measuring" to begin again.');
+      }
+
+      // Reset statistics
+      function resetStats() {
+        readings = [];
+        peakValue = 0;
+        historyData = [];
+        statCurrent.textContent = '-- dB';
+        statAvg.textContent = '-- dB';
+        statPeak.textContent = '-- dB';
+        drawHistory();
+      }
+
+      // Event listeners
+      startBtn.addEventListener('click', startMeasuring);
+      resetStatsBtn.addEventListener('click', resetStats);
+
+      // Initialize
+      getAudioDevices();
+    });
+</script>
+</body>
+</html>

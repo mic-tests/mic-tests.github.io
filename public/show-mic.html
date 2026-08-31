@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Show My Microphone - Mic Specs &amp; Device Details</title>
+  <meta name="description" content="Show My Mic reveals what microphone your browser sees — device name, sample rate, channels, latency, and echo cancellation, loaded the moment the page opens.">
+  <meta name="keywords" content="microphone details, mic specifications, microphone information, audio device specs, microphone capabilities, mic test details, audio input analysis">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="canonical" href="https://mictest.dev/show-mic">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Show My Microphone Details",
+  "url": "https://mictest.dev/show-mic",
+  "description": "View detailed microphone specifications, technical capabilities, and real-time analysis. Discover connected microphones, check audio quality ratings, and test microphone functionality across all devices.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "MicTest",
+    "url": "https://mictest.dev"
+  }
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why does my browser show the wrong microphone?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Browsers default to the system's \"Default Input Device\" setting, not necessarily the last microphone you plugged in. To check which one the browser is using, open your OS sound settings (Windows: Sound → Input; macOS: System Settings → Sound → Input) and confirm which device is set as the default. After changing it, refresh this page — the device list will update to reflect the new default at the top of the selection order."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does it mean if my microphone name shows as \"Default\" or a partial ID?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This usually means the browser hasn't been granted full microphone permission yet, or your browser version limits device label exposure for privacy reasons. Click Allow on the permission prompt to unlock full device names and specifications. In Firefox, you may need to select \"Remember this decision\" to retain access across sessions. In Brave or Safari, device enumeration may be partially restricted even with permission granted."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can this tool identify my exact microphone model?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The tool reads exactly what your browser's MediaDevices API reports, which comes from your operating system's audio driver registration. If your OS has the correct driver installed, you'll see the full product name. If the driver is generic or the device uses a shared USB audio class driver, the name may be a chipset or class identifier rather than a brand name. To confirm the exact model, check Device Manager (Windows) or System Information (macOS) for the full hardware descriptor."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "My microphone has a \"Fair\" or \"Basic\" quality rating — what should I check?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The quality rating is calculated from five factors: sample rate, sample size, channel count, latency, and whether audio processing features are active. A low rating most often means your sample rate is below 44.1 kHz, your sample size is 8-bit, or your mic is operating in a degraded mode (e.g. via a heavily compressed Bluetooth connection). Check your OS audio settings to ensure the device isn't forced into a telephony mode (8 kHz or 16 kHz). For Bluetooth mics, switching the device out of \"hands-free\" mode into a higher-quality audio profile can significantly improve the rating."
+      }
+    }
+  ]
+}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  <script async crossorigin="anonymous"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5426315045205785"></script>
+  <meta name="google-adsense-account" content="ca-pub-5426315045205785">
+
+  <style>
+    :root{
+      --bg:#EEF0F2; --panel:#F8F9FA; --panel-2:#FFFFFF; --border:#D3D7DC; --border-lt:#E4E7EA;
+      --ink:#14161A; --ink-2:#565B63; --ink-3:#868C94;
+      --amber:#B65C00; --amber-dim:rgba(182,92,0,.09); --amber-glow:rgba(182,92,0,.30);
+      --red:#C4432E; --success:#2E7D4F;
+    }
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme="light"]){
+        --bg:#111013; --panel:#18171B; --panel-2:#1F1D22; --border:#2A2830; --border-lt:#221F25;
+        --ink:#EDEAE4; --ink-2:#8B8780; --ink-3:#5F5C56;
+        --amber:#FFB13D; --amber-dim:rgba(255,177,61,.14); --amber-glow:rgba(255,177,61,.55);
+        --red:#FF5A4E; --success:#7AB85E;
+      }
+    }
+    :root[data-theme="dark"]{
+        --bg:#111013; --panel:#18171B; --panel-2:#1F1D22; --border:#2A2830; --border-lt:#221F25;
+        --ink:#EDEAE4; --ink-2:#8B8780; --ink-3:#5F5C56;
+        --amber:#FFB13D; --amber-dim:rgba(255,177,61,.14); --amber-glow:rgba(255,177,61,.55);
+        --red:#FF5A4E; --success:#7AB85E;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    /* Neutralize Tailwind's .container utility (kept only so the content-db exporter can scope this region) */
+    .container.main-wrap{width:100%;max-width:1260px;margin-left:auto;margin-right:auto;}
+    body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;}
+    .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
+    .display{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.02em;}
+    a{color:var(--amber);text-decoration:none}
+    a:hover{opacity:.8}
+    ::selection{background:var(--amber);color:var(--bg)}
+    h1,h2,h3,h4{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;color:var(--ink);}
+    h2{font-weight:700;font-size:1.5rem;line-height:1.25;margin:0 0 .9rem;}
+    h3{font-weight:600;font-size:1.1rem;line-height:1.3;margin:1.75rem 0 .5rem;}
+    p{margin:0 0 1rem;}
+    strong,b{color:var(--ink);font-weight:700;}
+    em,i{font-style:italic;}
+    code{background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;font-size:.87em;color:var(--ink);font-family:'JetBrains Mono',monospace;}
+
+    /* ── Long-form content (how-it-works / how-to / troubleshooting / FAQ) is raw semantic HTML
+       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility
+       instead of fighting Tailwind's preflight reset with custom element CSS + !important.
+       Its rules live behind :where() (zero specificity), so our theme tokens below win cleanly. ── */
+    /* !important: the typography plugin's own .prose rule also *sets* these same custom
+       properties (its light-mode defaults), at equal specificity and later in the cascade
+       (Tailwind CDN injects its stylesheet after this one) — so ours needs to win outright. */
+    .prose{
+      --tw-prose-body: var(--ink-2) !important; --tw-prose-headings: var(--ink) !important; --tw-prose-lead: var(--ink-2) !important;
+      --tw-prose-links: var(--amber) !important; --tw-prose-bold: var(--ink) !important; --tw-prose-counters: var(--ink-3) !important;
+      --tw-prose-bullets: var(--amber) !important; --tw-prose-hr: var(--border) !important; --tw-prose-quotes: var(--ink) !important;
+      --tw-prose-quote-borders: var(--amber) !important; --tw-prose-captions: var(--ink-3) !important;
+      --tw-prose-code: var(--ink) !important; --tw-prose-pre-code: var(--ink) !important; --tw-prose-pre-bg: var(--panel-2) !important;
+      --tw-prose-th-borders: var(--border) !important; --tw-prose-td-borders: var(--border-lt) !important;
+      color:var(--tw-prose-body);
+    }
+    .prose :where(h2,h3,h4,h5,h6){font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;}
+    .prose :where(code)::before,.prose :where(code)::after{content:none !important;}
+    .prose :where(code){background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;}
+    .prose :where(a){text-decoration:none;}
+    audio,video{max-width:100%;}
+    dl:not(.mic-stats) dt{font-weight:600;color:var(--ink);}
+    dl:not(.mic-stats) dd{margin:0 0 .6rem;color:var(--ink-2);}
+
+    .led{width:6px;height:6px;border-radius:999px;background:var(--amber);box-shadow:0 0 6px var(--amber);flex-shrink:0;}
+    .hairline{border-color:var(--border)}
+    .grid-bg{background-image:linear-gradient(var(--border-lt) 1px, transparent 1px),linear-gradient(90deg, var(--border-lt) 1px, transparent 1px);background-size:28px 28px;}
+
+    /* ── Rail nav ── */
+    .rail-group-label{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding:1.1rem 0 .4rem;}
+    .rail-link{display:flex;align-items:center;gap:8px;padding:.42rem .55rem;border-radius:3px;font-size:12px;color:var(--ink-2);font-family:'IBM Plex Sans';}
+    .rail-link:hover{background:var(--panel-2);color:var(--ink);opacity:1;}
+    .rail-link.active{background:var(--amber-dim);color:var(--amber);font-weight:600;}
+    .rail-link i{width:14px;text-align:center;font-size:12px;flex-shrink:0;}
+
+    /* ── Content panels (replace Bootstrap cards) ── */
+    .panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);}
+    .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .panel-body{padding:1.1rem;}
+    .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
+    .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
+    .ad-panel-body{padding:1rem;text-align:center;}
+
+    /* ── Buttons ── */
+    .btn{display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:600;padding:.6rem 1.1rem;border-radius:4px;border:1px solid transparent;cursor:pointer;transition:opacity .15s;font-family:'IBM Plex Sans';}
+    .btn:hover{opacity:.88}
+    .btn:disabled{opacity:.45;cursor:not-allowed;}
+    .btn-primary{background:var(--amber);color:var(--bg);}
+    .btn-secondary{background:var(--panel-2);color:var(--ink-2);border-color:var(--border);}
+    .btn-danger{background:var(--red);color:#fff;}
+    .btn-warning{background:var(--amber);color:var(--bg);}
+    .btn-outline{background:transparent;color:var(--ink-2);border-color:var(--border);}
+    .btn-outline:hover{background:var(--panel-2);color:var(--ink);opacity:1;}
+    .btn-sm{padding:.4rem .8rem;font-size:11.5px;}
+    .btn-toolbar{display:flex;flex-wrap:wrap;gap:.5rem;}
+    .w-100{width:100%;}
+    .d-grid{display:grid;gap:.5rem;}
+    .d-none{display:none !important;}
+
+    /* ── Forms ── */
+    .form-label{display:block;font-size:10.5px;font-weight:600;margin-bottom:.4rem;color:var(--ink-2);font-family:'JetBrains Mono';text-transform:uppercase;letter-spacing:.06em;}
+    .form-select,.form-control{width:100%;padding:.6rem .75rem;border:1px solid var(--border);border-radius:4px;background:var(--panel-2);color:var(--ink);font-size:13px;font-family:'IBM Plex Sans';}
+    .form-select:focus,.form-control:focus{outline:none;border-color:var(--amber);}
+
+    /* ── Alerts / status ── */
+    .status-message{padding:.6rem .85rem;margin-bottom:.85rem;border-radius:4px;font-size:13px;border:1px solid var(--border);}
+    .status-step{display:flex;align-items:center;}
+    .status-icon{margin-right:8px;width:18px;text-align:center;flex-shrink:0;}
+    .alert-info{background:var(--panel-2);color:var(--ink-2);}
+    .alert-success{background:rgba(46,125,79,.10);color:var(--success);border-color:rgba(46,125,79,.3);}
+    .alert-warning{background:var(--amber-dim);color:var(--amber);border-color:rgba(182,92,0,.3);}
+    .alert-danger, .alert-recording{background:rgba(196,67,46,.10);color:var(--red);border-color:rgba(196,67,46,.3);}
+    .recording-pulse{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--red);margin-right:8px;animation:pulse 1.5s infinite;vertical-align:middle;}
+    @keyframes pulse{0%{transform:scale(.95);box-shadow:0 0 0 0 rgba(196,67,46,.6);}70%{transform:scale(1);box-shadow:0 0 0 7px rgba(196,67,46,0);}100%{transform:scale(.95);box-shadow:0 0 0 0 rgba(196,67,46,0);}}
+
+    /* ── Visualizer ── */
+    canvas{width:100%;height:200px;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;display:block;}
+    #visualizer-container{position:relative;border-radius:4px;overflow:hidden;}
+    .amplitude-bars{position:absolute;bottom:0;left:0;width:100%;height:100%;display:flex;align-items:flex-end;padding:0 4px;pointer-events:none;}
+    .amplitude-bar{flex:1;background:linear-gradient(to top, var(--amber), transparent);margin:0 1px;max-height:100%;transition:height .08s ease;border-radius:2px 2px 0 0;}
+
+    /* ── Progress ── */
+    .progress{height:4px;border-radius:99px;background:var(--border);overflow:hidden;margin-bottom:10px;}
+    .progress-bar{height:100%;background:var(--amber);border-radius:99px;transition:width .1s linear;}
+
+    /* ── Quality / info rows ── */
+    .quality-indicator{display:inline-block;font-weight:700;font-family:'JetBrains Mono';font-size:13px;}
+    .quality-excellent{color:var(--success);}
+    .quality-verygood{color:var(--amber);}
+    .quality-good{color:var(--amber);opacity:.85;}
+    .quality-fair{color:var(--red);opacity:.85;}
+    .quality-poor{color:var(--red);}
+    .quality-unknown{color:var(--ink-3);}
+    .info-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border-lt);}
+    .info-row:last-child{border-bottom:none;padding-bottom:0;}
+    .info-label{color:var(--ink-3);font-weight:500;font-family:'JetBrains Mono';font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;}
+    .info-val{color:var(--ink);font-weight:600;text-align:right;max-width:55%;font-size:12.5px;font-family:'JetBrains Mono';}
+
+    /* ── Testimonials ── */
+    .testimonial{padding:.6rem 0;border-bottom:1px solid var(--border-lt);}
+    .testimonial:last-of-type{border-bottom:none;}
+    .testimonial p{font-size:12.5px;font-style:italic;color:var(--ink-2);margin:0 0 .2rem;}
+    .text-muted{color:var(--ink-3);font-size:11px;}
+    .mb-0{margin-bottom:0 !important;}
+    .review-form{display:none;margin-top:.85rem;padding:.9rem;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;}
+
+    /* ── Pro tip ── */
+    aside.pro-tip{display:flex;gap:.7rem;align-items:flex-start;background:var(--amber-dim);border-left:3px solid var(--amber);border-radius:0 4px 4px 0;padding:.85rem 1rem;margin-top:1.25rem;font-size:13.5px;color:var(--ink);}
+    aside.pro-tip>i{color:var(--amber);flex-shrink:0;font-size:1rem;line-height:1.55;}
+
+    /* ── Mic stats dl ── */
+    dl.mic-stats{display:grid;grid-template-columns:minmax(180px,26%) 1fr;gap:.3rem 1.1rem;align-items:baseline;}
+    dl.mic-stats dt{font-weight:600;color:var(--ink);padding:.6rem 0 .1rem;border-top:1px solid var(--border-lt);font-family:'JetBrains Mono';font-size:12.5px;}
+    dl.mic-stats dd{margin:0;padding:.6rem 0 .1rem;border-top:1px solid var(--border-lt);color:var(--ink-2);line-height:1.65;font-size:13px;}
+    dl.mic-stats dt:first-child, dl.mic-stats dd:first-of-type{border-top:none;}
+    @media (max-width:575px){dl.mic-stats{grid-template-columns:1fr;}dl.mic-stats dd{border-top:none;padding-top:0;}}
+
+    /* ── Details / accordion panels ── */
+    details.panel{border:1px solid var(--border);border-radius:4px;margin-bottom:.5rem;overflow:hidden;background:var(--panel);}
+    details.panel>summary{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.05rem;cursor:pointer;background:var(--panel-2);list-style:none;gap:.5rem;font-size:14px;}
+    details.panel>summary::-webkit-details-marker{display:none;}
+    details.panel>summary::after{content:"\FE40";font-size:.8rem;color:var(--amber);flex-shrink:0;transform:rotate(90deg);}
+    details.panel[open]>summary::after{transform:rotate(-90deg);}
+    details.panel[open]>summary{border-bottom:1px solid var(--border);}
+    details.panel>:not(summary){padding:.9rem 1.05rem;}
+    details.panel ol,details.panel ul{margin-bottom:0;padding-left:1.3rem;}
+    details.panel li{margin-bottom:.4rem;}
+
+    /* ── Table ── */
+    .table-responsive{overflow-x:auto;}
+    .table{width:100%;border-collapse:collapse;font-size:12.5px;}
+    .table th,.table td{padding:.55rem .7rem;border:1px solid var(--border);text-align:left;vertical-align:middle;}
+    .table thead th{background:var(--panel-2);font-family:'JetBrains Mono';font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2);}
+    .table-striped tbody tr:nth-child(odd){background:var(--panel-2);}
+
+    /* ── Comments / footer ── */
+    .comments-panel{border-top:1px solid var(--border);background:var(--panel);padding:2.5rem 0;margin-top:2rem;}
+    footer.site-footer{background:var(--panel);border-top:1px solid var(--border);padding:2.75rem 0 0;}
+    .footer-brand{font-family:'JetBrains Mono';font-weight:700;font-size:15px;color:var(--ink);display:flex;align-items:center;gap:8px;margin-bottom:.75rem;}
+    .footer-desc{font-size:12.5px;color:var(--ink-3);line-height:1.65;max-width:320px;}
+    .footer-col-heading{font-family:'JetBrains Mono';font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.7rem;display:block;}
+    .footer-links{list-style:none;padding:0;margin:0 0 1.25rem;}
+    .footer-links li{margin-bottom:.4rem;}
+    .footer-links a{font-size:13px;color:var(--ink-2);}
+    .footer-links a:hover{color:var(--amber);opacity:1;}
+    .footer-bottom{border-top:1px solid var(--border);margin-top:1.5rem;padding:1rem 0;font-size:11px;color:var(--ink-3);font-family:'JetBrains Mono';}
+
+    /* ── Mobile drawer ── */
+    #mobile-drawer{position:fixed;inset:0;z-index:40;background:var(--bg);transform:translateX(-100%);transition:transform .2s ease;overflow-y:auto;}
+    #mobile-drawer.open{transform:translateX(0);}
+
+    /* ── Page-specific (this tool's own extra CSS, if any — must use the theme tokens above, e.g. var(--amber)/var(--panel), never hardcoded colors, so it stays correct in both light and dark) ── */
+    .text-success{color:var(--success);}
+    .text-primary{color:var(--amber);}
+    .text-info{color:var(--ink-2);}
+    .text-warning{color:var(--amber);}
+    .text-danger{color:var(--red);}
+
+    #devices-container{display:flex;flex-wrap:wrap;gap:1rem;}
+    #devices-container>.col-md-4{flex:1 1 240px;}
+    #devices-container>.col-12{flex:1 1 100%;}
+
+    .card{border:1px solid var(--border);border-radius:4px;background:var(--panel);}
+    .card-body{padding:1rem;}
+    .card-title{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--ink);margin:0 0 .4rem;display:flex;align-items:center;gap:.45rem;}
+    .card-text{font-size:11.5px;margin:0 0 .7rem;}
+    .device-card{cursor:pointer;transition:transform .15s ease;}
+    .device-card:hover{transform:translateY(-2px);}
+    .device-card.selected{border-color:var(--amber);border-width:2px;}
+
+    .status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ink-3);margin-right:.4rem;}
+    .status-dot.connected{background:var(--success);}
+    .status-dot.default{background:var(--amber);}
+    .status-dot.disconnected{background:var(--red);}
+
+    .btn-outline-primary{display:inline-flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:600;padding:.4rem .8rem;border-radius:4px;border:1px solid var(--amber);background:transparent;color:var(--amber);cursor:pointer;font-family:'IBM Plex Sans',sans-serif;}
+    .btn-outline-primary:hover{background:var(--amber-dim);}
+
+    .no-microphones{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;background:var(--panel-2);border-radius:4px;border:1px solid var(--border);}
+    .no-microphones i{font-size:3rem;margin-bottom:1rem;color:var(--ink-3);}
+
+    #spectrogram-container{position:relative;height:200px;margin-top:1rem;border:1px solid var(--border);border-radius:4px;overflow:hidden;background:var(--panel-2);}
+    #spectrogram-container canvas{width:100%;height:100%;}
+
+  </style>
+</head>
+<body>
+
+<div class="flex min-h-screen">
+
+  <!-- DESKTOP RAIL -->
+  <aside class="hidden lg:flex flex-col w-[232px] shrink-0 border-r hairline px-5 py-6 sticky top-0 h-screen overflow-y-auto">
+    <a href="/" class="flex items-center gap-2.5 mb-6" title="MicTest Home">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+        <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+        <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M12 18v3M9 21h6" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      <span class="mono text-[13px] font-semibold tracking-tight" style="color:var(--ink)">MICTEST</span>
+    </a>
+
+    <button type="button" class="theme-toggle-btn flex items-center gap-2.5 mb-2" aria-label="Toggle light or dark panel">
+      <span class="relative inline-flex items-center shrink-0" style="width:32px;height:17px;border-radius:999px;background:var(--border-lt);border:1px solid var(--border)">
+        <span class="theme-dot absolute" style="width:11px;height:11px;border-radius:999px;background:var(--amber);left:2px;top:2px;transition:left .15s ease"></span>
+      </span>
+      <span class="theme-label mono text-[10.5px] tracking-[.08em] uppercase" style="color:var(--ink-2)">Dark panel</span>
+    </button>
+
+    <nav class="flex flex-col rail-nav">
+      <a href="/" data-page="index" class="rail-link"><i class="bi bi-mic-fill"></i>Microphone Test</a>
+
+      <div class="rail-group-label">Mic Tools</div>
+      <a href="/show-mic" data-page="show-mic" class="rail-link"><i class="bi bi-mic"></i>Show My Mic</a>
+      <a href="/mic-recorder" data-page="mic-recorder" class="rail-link"><i class="bi bi-record-circle"></i>Mic Recorder</a>
+      <a href="/sound-level-meter" data-page="sound-level-meter" class="rail-link"><i class="bi bi-speedometer2"></i>Sound Level Meter</a>
+      <a href="/voice-frequency-analyzer" data-page="voice-frequency-analyzer" class="rail-link"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a>
+      <a href="/background-noise-analyzer" data-page="background-noise-analyzer" class="rail-link"><i class="bi bi-soundwave"></i>Background Noise Analyzer</a>
+      <a href="/echo-test" data-page="echo-test" class="rail-link"><i class="bi bi-arrow-repeat"></i>Echo Test</a>
+      <a href="/audio-latency-test" data-page="audio-latency-test" class="rail-link"><i class="bi bi-stopwatch"></i>Audio Latency Test</a>
+
+      <div class="rail-group-label">Speaker Tools</div>
+      <a href="/show-speakers" data-page="show-speakers" class="rail-link"><i class="bi bi-speaker"></i>Show My Speakers</a>
+      <a href="/tone-generator" data-page="tone-generator" class="rail-link"><i class="bi bi-activity"></i>Tone Generator</a>
+      <a href="/stereo-test" data-page="stereo-test" class="rail-link"><i class="bi bi-badge-hd"></i>Stereo Test</a>
+      <a href="/bass-test" data-page="bass-test" class="rail-link"><i class="bi bi-disc"></i>Bass Test</a>
+      <a href="/speaker-volume-test" data-page="speaker-volume-test" class="rail-link"><i class="bi bi-volume-up"></i>Speaker Volume Test</a>
+
+      <div class="rail-group-label">Headphones &amp; Hearing</div>
+      <a href="/headphone-test" data-page="headphone-test" class="rail-link"><i class="bi bi-headphones"></i>Headphone Test</a>
+      <a href="/hearing-test" data-page="hearing-test" class="rail-link"><i class="bi bi-ear"></i>Hearing Test</a>
+
+      <div class="rail-group-label">More</div>
+      <a href="/troubleshooting" data-page="troubleshooting" class="rail-link"><i class="bi bi-tools"></i>Troubleshooting</a>
+      <a href="/about" data-page="about" class="rail-link"><i class="bi bi-info-circle"></i>About</a>
+      <a href="/contact" data-page="contact" class="rail-link"><i class="bi bi-envelope"></i>Contact</a>
+    </nav>
+  </aside>
+
+  <!-- MOBILE TOP BAR -->
+  <div class="lg:hidden fixed top-0 inset-x-0 z-50 flex items-center justify-between px-5 py-4 border-b hairline" style="background:var(--bg)">
+    <a href="/" class="flex items-center gap-2" title="MicTest Home">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+        <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+        <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      <span class="mono text-[13px] font-semibold" style="color:var(--ink)">MICTEST</span>
+    </a>
+    <div class="flex items-center gap-3">
+      <button type="button" class="theme-toggle-btn flex items-center gap-2" aria-label="Toggle light or dark panel">
+        <span class="relative inline-flex items-center shrink-0" style="width:28px;height:16px;border-radius:999px;background:var(--border-lt);border:1px solid var(--border)">
+          <span class="theme-dot absolute" style="width:10px;height:10px;border-radius:999px;background:var(--amber);left:2px;top:2px;transition:left .15s ease"></span>
+        </span>
+      </button>
+      <button type="button" id="mobile-menu-btn" aria-label="Open menu" class="flex flex-col gap-[4px] p-1">
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MOBILE DRAWER -->
+  <div id="mobile-drawer">
+    <div class="flex items-center justify-between px-5 py-4 border-b hairline">
+      <span class="mono text-[13px] font-semibold" style="color:var(--ink)">MENU</span>
+      <button type="button" id="mobile-drawer-close" aria-label="Close menu" class="mono text-[20px] leading-none" style="color:var(--ink-2)">&times;</button>
+    </div>
+    <nav class="flex flex-col rail-nav px-5 py-4">
+      <a href="/" data-page="index" class="rail-link"><i class="bi bi-mic-fill"></i>Microphone Test</a>
+      <div class="rail-group-label">Mic Tools</div>
+      <a href="/show-mic" data-page="show-mic" class="rail-link"><i class="bi bi-mic"></i>Show My Mic</a>
+      <a href="/mic-recorder" data-page="mic-recorder" class="rail-link"><i class="bi bi-record-circle"></i>Mic Recorder</a>
+      <a href="/sound-level-meter" data-page="sound-level-meter" class="rail-link"><i class="bi bi-speedometer2"></i>Sound Level Meter</a>
+      <a href="/voice-frequency-analyzer" data-page="voice-frequency-analyzer" class="rail-link"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a>
+      <a href="/background-noise-analyzer" data-page="background-noise-analyzer" class="rail-link"><i class="bi bi-soundwave"></i>Background Noise Analyzer</a>
+      <a href="/echo-test" data-page="echo-test" class="rail-link"><i class="bi bi-arrow-repeat"></i>Echo Test</a>
+      <a href="/audio-latency-test" data-page="audio-latency-test" class="rail-link"><i class="bi bi-stopwatch"></i>Audio Latency Test</a>
+      <div class="rail-group-label">Speaker Tools</div>
+      <a href="/show-speakers" data-page="show-speakers" class="rail-link"><i class="bi bi-speaker"></i>Show My Speakers</a>
+      <a href="/tone-generator" data-page="tone-generator" class="rail-link"><i class="bi bi-activity"></i>Tone Generator</a>
+      <a href="/stereo-test" data-page="stereo-test" class="rail-link"><i class="bi bi-badge-hd"></i>Stereo Test</a>
+      <a href="/bass-test" data-page="bass-test" class="rail-link"><i class="bi bi-disc"></i>Bass Test</a>
+      <a href="/speaker-volume-test" data-page="speaker-volume-test" class="rail-link"><i class="bi bi-volume-up"></i>Speaker Volume Test</a>
+      <div class="rail-group-label">Headphones &amp; Hearing</div>
+      <a href="/headphone-test" data-page="headphone-test" class="rail-link"><i class="bi bi-headphones"></i>Headphone Test</a>
+      <a href="/hearing-test" data-page="hearing-test" class="rail-link"><i class="bi bi-ear"></i>Hearing Test</a>
+      <div class="rail-group-label">More</div>
+      <a href="/troubleshooting" data-page="troubleshooting" class="rail-link"><i class="bi bi-tools"></i>Troubleshooting</a>
+      <a href="/about" data-page="about" class="rail-link"><i class="bi bi-info-circle"></i>About</a>
+      <a href="/contact" data-page="contact" class="rail-link"><i class="bi bi-envelope"></i>Contact</a>
+    </nav>
+  </div>
+
+  <!-- MAIN STAGE -->
+  <main class="flex-1 pt-16 lg:pt-0 min-w-0">
+    <div class="container main-wrap max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12 py-8 lg:py-12">
+
+      <!-- HERO -->
+      <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
+        <div>
+          <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 02 · Input Device Readout</div>
+          <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Show My Mic — See Your Microphone Name, Specs & Settings</h1>
+          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75"><strong>Show My Mic</strong> reads your browser's audio API and displays every microphone your system has available — your <strong>device list</strong> loads the moment the page opens, no button needed. For each mic you'll see the <strong>device name</strong>, <strong>sample rate</strong>, <strong>channel count</strong>, <strong>latency</strong>, and whether <strong>echo cancellation</strong> and <strong>noise suppression</strong> are active on that input. If you're wondering what microphone your computer is using right now, or why your mic settings look different across apps, this page pulls the raw specs straight from your browser's audio device API. <!-- SILO_START:slot_a -->An <a href="/audio-latency-test">audio latency test</a> shows whether your setup introduces noticeable lag for recording or live use.<!-- SILO_END:slot_a --></p>
+        </div>
+
+        <div class="hidden lg:block panel p-5">
+          <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
+          <dl class="mono text-[11.5px] flex flex-col gap-3">
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Model</dt><dd>SM-02 READOUT</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Interface</dt><dd>Web Audio API</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Install required</dt><dd style="color:var(--amber)">None</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Audio uploaded</dt><dd style="color:var(--amber)">Never</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-[1fr_320px] gap-8 items-start">
+
+        <!-- LEFT: tool + content -->
+        <div class="min-w-0">
+
+<div class="status-message alert-info mb-4" id="browser-alert">
+  <div class="status-step" id="browser-message">
+    <span class="status-icon"><i class="bi bi-info-circle-fill"></i></span>
+    <span>Detecting your microphones. Please allow access when prompted.</span>
+  </div>
+</div>
+
+<div class="panel mb-4">
+  <div class="panel-hdr" style="justify-content:space-between">
+    <span class="flex items-center gap-2"><i class="bi bi-mic-fill"></i>Connected Microphones</span>
+    <button class="btn btn-outline btn-sm" id="refresh-button">
+      <i class="bi bi-arrow-clockwise me-1"></i>Refresh
+    </button>
+  </div>
+  <div class="panel-body">
+    <div id="devices-container">
+      <!-- Microphone devices will be dynamically added here -->
+    </div>
+  </div>
+</div>
+
+<div class="panel mb-4 d-none" id="device-details">
+  <div class="panel-hdr">
+    <span class="flex items-center gap-2"><i class="bi bi-info-circle-fill"></i><span id="selected-device-name">Microphone Details</span></span>
+  </div>
+  <div class="panel-body">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <h3>Technical Specifications</h3>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tbody>
+            <tr>
+              <th>Device ID</th>
+              <td id="device-id">-</td>
+            </tr>
+            <tr>
+              <th>Group ID</th>
+              <td id="group-id">-</td>
+            </tr>
+            <tr>
+              <th>Sample Rate</th>
+              <td id="sample-rate">-</td>
+            </tr>
+            <tr>
+              <th>Sample Size</th>
+              <td id="sample-size">-</td>
+            </tr>
+            <tr>
+              <th>Channel Count</th>
+              <td id="channel-count">-</td>
+            </tr>
+            <tr>
+              <th>Latency</th>
+              <td id="latency">-</td>
+            </tr>
+            <tr>
+              <th>Volume</th>
+              <td id="volume">-</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h3>Audio Processing Features</h3>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <tbody>
+            <tr>
+              <th>Auto Gain Control</th>
+              <td id="auto-gain">-</td>
+            </tr>
+            <tr>
+              <th>Echo Cancellation</th>
+              <td id="echo-cancellation">-</td>
+            </tr>
+            <tr>
+              <th>Noise Suppression</th>
+              <td id="noise-suppression">-</td>
+            </tr>
+            <tr>
+              <th>Default Device</th>
+              <td id="is-default">-</td>
+            </tr>
+            <tr>
+              <th>Device Status</th>
+              <td id="device-status">-</td>
+            </tr>
+            <tr>
+              <th>Estimated Quality</th>
+              <td id="quality-rating">-</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <h3>Microphone Visualization</h3>
+      <p>Press the Test button to visualize the microphone input:</p>
+      <button class="btn btn-primary" id="test-button">
+        <i class="bi bi-play-fill me-1"></i>Test Microphone
+      </button>
+      <button class="btn btn-danger d-none" id="stop-button">
+        <i class="bi bi-stop-fill me-1"></i>Stop Test
+      </button>
+
+      <div id="spectrogram-container">
+        <canvas id="spectrogram"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+          <!-- Ad (mid) -->
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body">
+              <ins class="adsbygoogle"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-format="auto"
+                   data-ad-slot="6193062550"
+                   data-full-width-responsive="true"
+                   style="display:block"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
+
+      <div class="content-panel prose max-w-none">
+<h2>Why Check Your Microphone Details?</h2>
+          <dl class="mic-stats">
+            <dt><i class="bi bi-headset"></i> Compatibility Check</dt>
+            <dd>Ensure your microphone meets the requirements for your conferencing software, recording setup, or gaming needs.</dd>
+            <dt><i class="bi bi-volume-up"></i> Audio Quality Assessment</dt>
+            <dd>Understand the technical capabilities of your microphone to determine if it's suitable for your specific audio requirements.</dd>
+            <dt><i class="bi bi-tools"></i> Troubleshooting</dt>
+            <dd>Identify potential issues with your microphone settings that might be affecting your audio quality or performance.</dd>
+          </dl>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+          <h2>How to Find Out What Microphone You Have</h2>
+          <p>Not sure what microphone do I have connected right now? This tool reads your browser's audio device list and shows you every input device your system has registered — all without any software to install. <!-- SILO_START:slot_b -->The <a href="/mic-recorder">online mic recorder</a> captures audio from your microphone with no upload and no account required.<!-- SILO_END:slot_b --></p>
+          <ol>
+            <li><strong>Click "Allow"</strong> when your browser asks for microphone permission. This is required for the tool to read device names and specs — no audio is recorded.</li>
+            <li><strong>Browse the detected devices</strong> in the Connected Microphones panel. Each card shows a device name and a partial device ID.</li>
+            <li><strong>Click a device card</strong> to expand its full microphone details: sample rate, channel count, echo cancellation status, estimated quality rating, and more.</li>
+            <li><strong>Press "Test Microphone"</strong> to confirm it's picking up audio and to visualise the frequency response in the spectrogram.</li>
+            <li><strong>Click Refresh</strong> if you've just plugged in a new microphone and it hasn't appeared yet.</li>
+          </ol>
+          <p>If the device name shows as "Default" or a generic label, you may be on a browser or OS that restricts full device enumeration. Granting full permission (Allow, not Block) gives the most complete results. For latency measurements, run the audio latency test after identifying your microphone here.</p>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+          <h2>Understanding Your Microphone Details and Audio Input Specifications</h2>
+          <h3>Device Name — What Microphone Do I Have?</h3>
+          <p>The device name is the most direct answer to the question: <em>what microphone do I have?</em> It's typically pulled from the device driver and reflects the model name your operating system registered when you connected the microphone. Built-in laptop mics often appear as "Built-in Microphone" or "Internal Mic". USB microphones usually show their product name (e.g. "Blue Yeti USB Microphone"). Headset mics connected via a combined audio jack may display the headset brand, or sometimes just "Headset Microphone". If the name is blank or shows only a device ID string, your browser hasn't yet been granted full permission — click Allow to get full details. <!-- SILO_START:slot_c -->A quick <a href="/echo-test">echo test</a> reveals echo problems before they affect a live call or recording.<!-- SILO_END:slot_c --></p>
+
+          <h3>Sample Rate — 44.1 kHz vs 48 kHz for Audio Input</h3>
+          <p>The sample rate tells you how many audio samples per second your microphone captures. The two most common values are:</p>
+          <ul>
+            <li><strong>44,100 Hz (44.1 kHz)</strong> — the CD-quality standard, used most often for music recording and consumer audio devices.</li>
+            <li><strong>48,000 Hz (48 kHz)</strong> — the broadcast and video production standard; the default rate for many professional USB microphones, webcams, and conference systems.</li>
+          </ul>
+          <p>Higher is generally better, but for voice calls, podcasting, and video conferencing, 48 kHz is more than sufficient. If your microphone is reporting a lower rate (e.g. 8 kHz or 16 kHz), it may be a low-quality built-in device or a telephony-mode mic that's been configured for voice-only capture.</p>
+
+          <h3>Channel Count — Mono vs Stereo Microphone Input</h3>
+          <p>Most microphones are mono (1 channel) — they capture a single audio stream regardless of whether your headphones are stereo. A channel count of 2 means the audio input device is reporting a stereo signal, which is less common but does occur with some USB audio interfaces and conference microphones. For recording purposes, mono is standard for vocals and podcasting; stereo input is more relevant to room microphones or binaural recording setups. If you need to verify your speaker output channels separately, use the echo test to check for audio loopback issues.</p>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+          <h2>Audio Processing Features — Echo Cancellation, Noise Suppression, and Auto Gain</h2>
+          <h3>Echo Cancellation — What It Does and When to Disable It</h3>
+          <p>Echo cancellation is a browser-level audio processing feature that removes the sound of your speakers from the microphone signal. It's useful for video calls where the other person's voice would otherwise be picked up by your mic and sent back to them as an echo. Most modern browsers enable it by default. However, if you're recording music, voiceovers, or any audio where you want to capture the full sound of your room, echo cancellation can alter the frequency response and should be turned off. The status shown here reflects the current browser constraint setting — changing it requires code-level control, not the OS settings panel.</p>
+
+          <h3>Noise Suppression — Automatic vs Manual Control</h3>
+          <p>Noise suppression (sometimes listed as noise reduction) applies a real-time filter to attenuate background noise — fans, air conditioning, keyboard clicks — from the microphone signal. Like echo cancellation, it's helpful for calls but counterproductive for music recording. Browser-based noise suppression is less aggressive than dedicated apps (such as Krisp or NVIDIA RTX Voice) but is built into Chrome, Edge, and Firefox at the WebRTC layer. If you're testing a mic for a specific recording application, check whether suppression is on and compare results with it toggled via browser flags.</p>
+
+          <h3>Auto Gain Control — Microphone Level Management</h3>
+          <p>Auto gain control (AGC) automatically adjusts microphone input sensitivity to keep the recorded volume consistent regardless of how loud or quiet you speak. While convenient for casual use, it can cause problems for singers and podcasters — it may boost background noise during pauses or compress dynamic range during louder passages. Professional recording setups typically disable AGC and set input levels manually. The AGC status displayed here is browser-reported and may not always match the OS-level audio setting.</p>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+          <h2>Common Audio Input Device Types — What Microphone Might You Have?</h2>
+          <h3>Built-In Laptop and Desktop Microphones</h3>
+          <p>The most common result when asking "what microphone do I have?" is a built-in device. Laptop internal mics are typically compact electret condenser elements with limited frequency range — adequate for calls but not ideal for recording. They usually operate at 44.1 kHz or 48 kHz, mono, with echo cancellation and noise suppression enabled by default. Desktop PCs rarely have built-in microphones unless it's an all-in-one model.</p>
+
+          <h3>USB Microphones — Plug-and-Play Audio Input Devices</h3>
+          <p>USB microphones appear by their product name in the device list and are among the easiest audio input devices to identify. Models like the Blue Yeti, Audio-Technica AT2020 USB, and Rode NT-USB typically report 48 kHz sample rate, 16-bit or 24-bit sample size, and appear as a dedicated audio interface. USB mics bypass the computer's built-in sound card, which is why they often produce cleaner microphone details in this tool than integrated audio hardware.</p>
+
+          <h3>Headset and 3.5mm Microphones</h3>
+          <p>Gaming headsets and 3.5mm combo audio jacks (TRRS plug) are detected as audio input devices but may show a shared device name with the headphone output. If your headset mic is connected via USB, it will appear as its own device. If via 3.5mm, it shares the sound card with the speakers and may show as "Realtek Audio" or similar chipset name rather than the headset brand. These typically support 44.1 kHz, mono, with variable quality depending on the headset.</p>
+
+          <h3>XLR Microphones via Audio Interface</h3>
+          <p>If you're using an XLR condenser or dynamic microphone connected via an audio interface (e.g. Focusrite Scarlett, Audient iD4), the device name displayed will be the audio interface, not the microphone itself. For example, you'd see "Scarlett Solo USB" rather than "Shure SM7B". The audio input specifications shown (sample rate, channel count) reflect the interface's capabilities, which are typically 44.1–192 kHz and may offer stereo input if the interface has two inputs.</p>
+      </div>
+
+      <div class="content-panel prose max-w-none" id="faq">
+        <h2>Show My Microphone — Frequently Asked Questions</h2>
+        <details class="panel" open>
+          <summary><strong>Why does my browser show the wrong microphone?</strong></summary>
+          <p>Browsers default to the system's "Default Input Device" setting, not necessarily the last microphone you plugged in. To check which one the browser is using, open your OS sound settings (Windows: Sound → Input; macOS: System Settings → Sound → Input) and confirm which device is set as the default. After changing it, refresh this page — the device list will update to reflect the new default at the top of the selection order.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>What does it mean if my microphone name shows as &quot;Default&quot; or a partial ID?</strong></summary>
+          <p>This usually means the browser hasn't been granted full microphone permission yet, or your browser version limits device label exposure for privacy reasons. Click Allow on the permission prompt to unlock full device names and specifications. In Firefox, you may need to select "Remember this decision" to retain access across sessions. In Brave or Safari, device enumeration may be partially restricted even with permission granted.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Can this tool identify my exact microphone model?</strong></summary>
+          <p>The tool reads exactly what your browser's MediaDevices API reports, which comes from your operating system's audio driver registration. If your OS has the correct driver installed, you'll see the full product name. If the driver is generic or the device uses a shared USB audio class driver, the name may be a chipset or class identifier rather than a brand name. To confirm the exact model, check Device Manager (Windows) or System Information (macOS) for the full hardware descriptor.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>My microphone has a &quot;Fair&quot; or &quot;Basic&quot; quality rating — what should I check?</strong></summary>
+          <p>The quality rating is calculated from five factors: sample rate, sample size, channel count, latency, and whether audio processing features are active. A low rating most often means your sample rate is below 44.1 kHz, your sample size is 8-bit, or your mic is operating in a degraded mode (e.g. via a heavily compressed Bluetooth connection). Check your OS audio settings to ensure the device isn't forced into a telephony mode (8 kHz or 16 kHz). For Bluetooth mics, switching the device out of "hands-free" mode into a higher-quality audio profile can significantly improve the rating.</p>
+        </details>
+      </div>
+
+        </div>
+
+        <!-- RIGHT: sidebar -->
+        <div>
+
+
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Comments -->
+    <section class="comments-panel">
+      <div class="max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="max-w-[760px] mx-auto">
+          <h3 class="flex items-center gap-2 mb-4"><i class="bi bi-chat-dots" style="color:var(--amber)"></i>Comments &amp; Feedback</h3>
+          <script defer src="https://comments.tickspike.com/comentario.js"></script>
+          <comentario-comments theme="light"></comentario-comments>
+        </div>
+      </div>
+    </section>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var comentarioEl = document.querySelector('comentario-comments');
+        if (!comentarioEl) return;
+        comentarioEl.addEventListener('keydown', function(e) { e.stopPropagation(); }, true);
+        comentarioEl.addEventListener('keyup', function(e) { e.stopPropagation(); }, true);
+        comentarioEl.addEventListener('keypress', function(e) { e.stopPropagation(); }, true);
+      }, 2000);
+    });
+    </script>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-6">
+          <div class="lg:col-span-1 sm:col-span-2">
+            <div class="footer-brand">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+                <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+                <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M12 18v3M9 21h6" stroke-width="1.7" stroke-linecap="round"/>
+              </svg>
+              MicTest
+            </div>
+            <p class="footer-desc">Free online microphone and audio testing tools. Test your microphone, speakers, and audio devices directly in your browser without any downloads.</p>
+          </div>
+          <div>
+            <span class="footer-col-heading">Mic Tools</span>
+            <ul class="footer-links">
+              <li><a href="/" title="Free Online Microphone Test">Microphone Test</a></li>
+              <li><a href="/show-mic" title="View Microphone Details">Show My Mic</a></li>
+              <li><a href="/mic-recorder" title="Record Your Voice">Mic Recorder</a></li>
+              <li><a href="/sound-level-meter" title="Measure Decibel Levels">Sound Level Meter</a></li>
+              <li><a href="/echo-test" title="Test for Echo Issues">Echo Test</a></li>
+              <li><a href="/background-noise-analyzer" title="Analyze Background Noise">Noise Analyzer</a></li>
+              <li><a href="/voice-frequency-analyzer" title="Analyze Voice Frequencies">Frequency Analyzer</a></li>
+              <li><a href="/audio-latency-test" title="Measure Audio Latency">Latency Test</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="footer-col-heading">Speaker Tools</span>
+            <ul class="footer-links">
+              <li><a href="/show-speakers" title="View Speaker Details">Show My Speakers</a></li>
+              <li><a href="/tone-generator" title="Generate Test Tones">Tone Generator</a></li>
+              <li><a href="/stereo-test" title="Test Left Right Channels">Stereo Test</a></li>
+              <li><a href="/bass-test" title="Test Low Frequencies">Bass Test</a></li>
+              <li><a href="/speaker-volume-test" title="Calibrate Volume">Speaker Volume Test</a></li>
+            </ul>
+            <span class="footer-col-heading" style="margin-top:1rem;display:block">Headphones &amp; Hearing</span>
+            <ul class="footer-links">
+              <li><a href="/headphone-test" title="Test Your Headphones">Headphone Test</a></li>
+              <li><a href="/hearing-test" title="Online Hearing Test">Hearing Test</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="footer-col-heading">Resources</span>
+            <ul class="footer-links">
+              <li><a href="/troubleshooting" title="Fix Audio Problems">Troubleshooting Guide</a></li>
+              <li><a href="/about" title="About MicTest">About MicTest</a></li>
+              <li><a href="/contact" title="Contact Us">Contact</a></li>
+              <li><a href="/sitemap" title="Site Map">Sitemap</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          &copy; 2025&ndash;<span id="footer-current-year"></span> MicTest. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function() {
+  var yearEl = document.getElementById('footer-current-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+})();
+</script>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var STORE_KEY = 'mictest-theme';
+
+  function readStored() {
+    try { return localStorage.getItem(STORE_KEY); } catch (e) { return null; }
+  }
+  function writeStored(v) {
+    try { localStorage.setItem(STORE_KEY, v); } catch (e) {}
+  }
+
+  var stored = readStored();
+  if (stored === 'light' || stored === 'dark') {
+    root.setAttribute('data-theme', stored);
+  }
+
+  function currentMode() {
+    var attr = root.getAttribute('data-theme');
+    if (attr === 'light' || attr === 'dark') return attr;
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'dark' : 'light';
+  }
+
+  function paint() {
+    var mode = currentMode();
+    var dots = document.querySelectorAll('.theme-dot');
+    var labels = document.querySelectorAll('.theme-label');
+    for (var i = 0; i < dots.length; i++) {
+      if (mode === 'dark') { dots[i].style.left = 'auto'; dots[i].style.right = '2px'; }
+      else { dots[i].style.right = 'auto'; dots[i].style.left = '2px'; }
+    }
+    for (var j = 0; j < labels.length; j++) {
+      labels[j].textContent = mode === 'dark' ? 'Dark panel' : 'Light panel';
+    }
+  }
+
+  var buttons = document.querySelectorAll('.theme-toggle-btn');
+  for (var k = 0; k < buttons.length; k++) {
+    buttons[k].addEventListener('click', function () {
+      var next = currentMode() === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      writeStored(next);
+      paint();
+    });
+  }
+
+  paint();
+})();
+</script>
+
+<script>
+(function() {
+  var path = window.location.pathname.replace(/\/$/, '');
+  var page = (path === '' || path === '/index' || path === '/index.html') ? 'index' : path.replace(/^\//, '').replace(/\.html$/, '');
+  var els = document.querySelectorAll('.rail-link[data-page="' + page + '"]');
+  els.forEach(function(el) { el.classList.add('active'); el.setAttribute('aria-current', 'page'); });
+})();
+</script>
+
+<script>
+(function() {
+  var btn = document.getElementById('mobile-menu-btn');
+  var closeBtn = document.getElementById('mobile-drawer-close');
+  var drawer = document.getElementById('mobile-drawer');
+  if (!btn || !drawer) return;
+  btn.addEventListener('click', function() { drawer.classList.add('open'); });
+  if (closeBtn) closeBtn.addEventListener('click', function() { drawer.classList.remove('open'); });
+  drawer.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() { drawer.classList.remove('open'); });
+  });
+})();
+</script>
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // DOM Elements
+    const browserAlert = document.getElementById('browser-alert');
+    const browserMessage = document.getElementById('browser-message');
+    const devicesContainer = document.getElementById('devices-container');
+    const deviceDetails = document.getElementById('device-details');
+    const refreshButton = document.getElementById('refresh-button');
+    const testButton = document.getElementById('test-button');
+    const stopButton = document.getElementById('stop-button');
+    const spectrogram = document.getElementById('spectrogram');
+
+    // Variables for audio handling
+    let audioContext;
+    let analyser;
+    let microphone;
+    let spectrogramCtx;
+    let activeDeviceId = null;
+    let audioStream = null;
+    let animationFrame = null;
+
+    // Initialize the canvas
+    spectrogramCtx = spectrogram.getContext('2d');
+
+    // Function to resize the canvas
+    function resizeCanvas() {
+      spectrogram.width = spectrogram.offsetWidth;
+      spectrogram.height = spectrogram.offsetHeight;
+    }
+
+    // Call resize initially and on window resize
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Check browser compatibility for media devices
+    if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+      browserMessage.innerHTML = `
+                    <i class="bi bi-exclamation-triangle-fill me-2 text-danger"></i>
+                    Your browser doesn't support the required features to detect audio devices. Please use a modern browser like Chrome, Firefox, or Edge.
+                `;
+      browserAlert.classList.remove('alert-info');
+      browserAlert.classList.add('alert-danger');
+      return;
+    }
+
+    // Function to fetch and display all audio input devices
+    function getAudioDevices() {
+      browserMessage.innerHTML = `
+                    <i class="bi bi-info-circle-fill me-2"></i>
+                    Detecting your microphones. Please wait...
+                `;
+
+      // Clear existing devices
+      devicesContainer.innerHTML = '';
+
+      // Flag to check if we need permission first
+      let needsPermission = true;
+
+      // First, enumerate to check if we need permission
+      navigator.mediaDevices.enumerateDevices()
+        .then(devices => {
+          const mics = devices.filter(device => device.kind === 'audioinput');
+
+          // If we already have labels, we don't need to request permission
+          if (mics.length > 0 && mics.some(mic => mic.label)) {
+            needsPermission = false;
+            displayDevices(mics);
+          } else if (mics.length === 0) {
+            // No microphones found
+            displayNoMicrophones();
+            needsPermission = false;
+          }
+
+          // If we need permission, request it
+          if (needsPermission) {
+            browserMessage.innerHTML = `
+                                <i class="bi bi-info-circle-fill me-2"></i>
+                                Please allow access to your microphone when prompted.
+                            `;
+
+            return navigator.mediaDevices.getUserMedia({audio: true})
+              .then(stream => {
+                // Stop the stream immediately, we just needed permission
+                stream.getTracks().forEach(track => track.stop());
+
+                // Now enumerate devices again with permission
+                return navigator.mediaDevices.enumerateDevices();
+              })
+              .then(devices => {
+                const mics = devices.filter(device => device.kind === 'audioinput');
+                displayDevices(mics);
+              });
+          }
+        })
+        .catch(error => {
+          console.error('Error enumerating devices:', error);
+          browserMessage.innerHTML = `
+                            <i class="bi bi-exclamation-triangle-fill me-2 text-danger"></i>
+                            Error accessing your audio devices: ${error.message}. Please ensure you've granted permission to access your microphone.
+                        `;
+          browserAlert.classList.remove('alert-info');
+          browserAlert.classList.add('alert-danger');
+        });
+    }
+
+    // Function to display no microphones message
+    function displayNoMicrophones() {
+      devicesContainer.innerHTML = `
+                    <div class="col-12">
+                        <div class="no-microphones">
+                            <i class="bi bi-mic-mute"></i>
+                            <h4>No Microphones Detected</h4>
+                            <p>We couldn't find any microphones connected to your device. Please connect a microphone and click the Refresh button.</p>
+                        </div>
+                    </div>
+                `;
+
+      browserMessage.innerHTML = `
+                    <i class="bi bi-exclamation-triangle-fill me-2 text-warning"></i>
+                    No microphones detected. Please connect a microphone and refresh.
+                `;
+      browserAlert.classList.remove('alert-info');
+      browserAlert.classList.add('alert-warning');
+
+      // Hide device details
+      deviceDetails.classList.add('d-none');
+    }
+
+    // Function to display found devices
+    function displayDevices(mics) {
+      if (mics.length === 0) {
+        displayNoMicrophones();
+        return;
+      }
+
+      browserMessage.innerHTML = `
+                    <i class="bi bi-check-circle-fill me-2 text-success"></i>
+                    Found ${mics.length} microphone${mics.length > 1 ? 's' : ''}. Click on a microphone to view detailed information.
+                `;
+      browserAlert.classList.remove('alert-info');
+      browserAlert.classList.add('alert-success');
+
+      // Create card for each device
+      mics.forEach((device, index) => {
+        const deviceCard = document.createElement('div');
+        deviceCard.className = 'col-md-4';
+        deviceCard.innerHTML = `
+                        <div class="card device-card" data-device-id="${device.deviceId}">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <span class="status-dot connected"></span>
+                                    ${device.label || `Microphone ${index + 1}`}
+                                </h5>
+                                <p class="card-text text-muted">
+                                    ${device.deviceId.substring(0, 8)}...
+                                </p>
+                                <button class="btn btn-outline-primary btn-sm">
+                                    <i class="bi bi-info-circle me-1"></i>View Details
+                                </button>
+                            </div>
+                        </div>
+                    `;
+        devicesContainer.appendChild(deviceCard);
+
+        // Add click event to the card
+        const card = deviceCard.querySelector('.device-card');
+        card.addEventListener('click', () => {
+          // Remove selected class from all cards
+          document.querySelectorAll('.device-card').forEach(c => {
+            c.classList.remove('selected');
+          });
+
+          // Add selected class to this card
+          card.classList.add('selected');
+
+          // Show device details
+          showDeviceDetails(device);
+        });
+      });
+    }
+
+    // Function to show device details
+    function showDeviceDetails(device) {
+      // Set active device ID
+      activeDeviceId = device.deviceId;
+
+      // Show the details card
+      deviceDetails.classList.remove('d-none');
+
+      // Update the device name
+      document.getElementById('selected-device-name').textContent = device.label || 'Unknown Microphone';
+
+      // Update basic info
+      document.getElementById('device-id').textContent = device.deviceId;
+      document.getElementById('group-id').textContent = device.groupId;
+      document.getElementById('is-default').textContent = 'Checking...';
+      document.getElementById('device-status').innerHTML = '<span class="status-dot connected"></span> Connected';
+
+      // Get detailed info about the device
+      getDeviceDetails(device.deviceId);
+    }
+
+    // Function to get detailed device information
+    function getDeviceDetails(deviceId) {
+      // Reset all fields first
+      document.getElementById('sample-rate').textContent = '—';
+      document.getElementById('sample-size').textContent = '—';
+      document.getElementById('channel-count').textContent = '—';
+      document.getElementById('latency').textContent = '—';
+      document.getElementById('auto-gain').textContent = '—';
+      document.getElementById('echo-cancellation').textContent = '—';
+      document.getElementById('noise-suppression').textContent = '—';
+      document.getElementById('volume').textContent = '—';
+      document.getElementById('quality-rating').textContent = '—';
+
+      // Request access to the specific device
+      navigator.mediaDevices.getUserMedia({
+        audio: {
+          deviceId: {exact: deviceId}
+        }
+      })
+        .then(stream => {
+          // Store the stream so we can stop it later
+          if (audioStream) {
+            audioStream.getTracks().forEach(track => track.stop());
+          }
+          audioStream = stream;
+
+          // Get the audio track
+          const track = stream.getAudioTracks()[0];
+
+          // Get capabilities and settings
+          const capabilities = track.getCapabilities ? track.getCapabilities() : {};
+          const settings = track.getSettings ? track.getSettings() : {};
+
+          // Update UI with settings
+          if (settings.sampleRate) {
+            document.getElementById('sample-rate').textContent = settings.sampleRate + ' Hz';
+          }
+
+          if (settings.sampleSize) {
+            document.getElementById('sample-size').textContent = settings.sampleSize + ' bits';
+          }
+
+          if (settings.channelCount) {
+            document.getElementById('channel-count').textContent = settings.channelCount + ' channel' + (settings.channelCount > 1 ? 's' : '');
+          }
+
+          if (settings.latency) {
+            document.getElementById('latency').textContent = settings.latency + ' ms';
+          }
+
+          if (settings.autoGainControl !== undefined) {
+            document.getElementById('auto-gain').textContent = settings.autoGainControl ? 'Enabled' : 'Disabled';
+          }
+
+          if (settings.echoCancellation !== undefined) {
+            document.getElementById('echo-cancellation').textContent = settings.echoCancellation ? 'Enabled' : 'Disabled';
+          }
+
+          if (settings.noiseSuppression !== undefined) {
+            document.getElementById('noise-suppression').textContent = settings.noiseSuppression ? 'Enabled' : 'Disabled';
+          }
+
+          // Check if this is the default device
+          navigator.mediaDevices.enumerateDevices()
+            .then(devices => {
+              const audioInputs = devices.filter(d => d.kind === 'audioinput');
+
+              if (audioInputs.length > 0 && audioInputs[0].deviceId === deviceId) {
+                document.getElementById('is-default').innerHTML = '<span class="status-dot default"></span> Default Device';
+              } else {
+                document.getElementById('is-default').innerHTML = 'Not Default';
+              }
+            });
+
+          // Calculate quality rating
+          let qualityScore = 0;
+          if (settings.channelCount && settings.channelCount >= 2) qualityScore += 1;
+          if (settings.sampleRate && settings.sampleRate >= 44100) qualityScore += 1;
+          if (settings.sampleSize && settings.sampleSize >= 24) qualityScore += 1;
+          if (settings.autoGainControl) qualityScore += 0.5;
+          if (settings.echoCancellation) qualityScore += 0.5;
+          if (settings.noiseSuppression) qualityScore += 0.5;
+          if (settings.latency && settings.latency < 50) qualityScore += 0.5;
+
+          let qualityRating;
+          let qualityClass;
+
+          if (qualityScore >= 4) {
+            qualityRating = 'Excellent';
+            qualityClass = 'text-success';
+          } else if (qualityScore >= 3) {
+            qualityRating = 'Very Good';
+            qualityClass = 'text-primary';
+          } else if (qualityScore >= 2) {
+            qualityRating = 'Good';
+            qualityClass = 'text-info';
+          } else if (qualityScore >= 1) {
+            qualityRating = 'Fair';
+            qualityClass = 'text-warning';
+          } else {
+            qualityRating = 'Basic';
+            qualityClass = 'text-danger';
+          }
+
+          document.getElementById('quality-rating').innerHTML = `<span class="${qualityClass}">${qualityRating}</span>`;
+
+          // Stop the stream after getting info
+          stream.getTracks().forEach(track => track.stop());
+          audioStream = null;
+        })
+        .catch(error => {
+          console.error('Error getting device details:', error);
+          document.getElementById('device-status').innerHTML = '<span class="status-dot disconnected"></span> Error: ' + error.message;
+        });
+    }
+
+    // Function to test the microphone
+    function testMicrophone() {
+      if (!activeDeviceId) {
+        alert('Please select a microphone first');
+        return;
+      }
+
+      // Swap buttons
+      testButton.classList.add('d-none');
+      stopButton.classList.remove('d-none');
+
+      // Initialize audio context (wait until user interaction)
+      if (!audioContext) {
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioContext = new AudioContext();
+      }
+
+      // Request the selected device
+      navigator.mediaDevices.getUserMedia({
+        audio: {
+          deviceId: {exact: activeDeviceId}
+        }
+      })
+        .then(stream => {
+          // Store the stream
+          audioStream = stream;
+
+          // Create analyzer
+          analyser = audioContext.createAnalyser();
+          analyser.fftSize = 2048;
+
+          // Connect microphone to analyser
+          microphone = audioContext.createMediaStreamSource(stream);
+          microphone.connect(analyser);
+
+          // Start visualization
+          visualize();
+
+          // Start monitoring volume
+          startVolumeMonitoring();
+        })
+        .catch(error => {
+          console.error('Error accessing microphone:', error);
+          alert('Error accessing microphone: ' + error.message);
+
+          // Reset buttons
+          stopButton.classList.add('d-none');
+          testButton.classList.remove('d-none');
+        });
+    }
+
+    // Function to visualize audio
+    function visualize() {
+      if (!analyser) return;
+
+      // Get the canvas dimensions
+      const width = spectrogram.width;
+      const height = spectrogram.height;
+
+      // Set up the analyzer
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+
+      // Clear the canvas
+      spectrogramCtx.clearRect(0, 0, width, height);
+      spectrogramCtx.fillStyle = 'rgb(248, 249, 250)';
+      spectrogramCtx.fillRect(0, 0, width, height);
+
+      function draw() {
+        if (!analyser) {
+          return;
+        }
+
+        // Request next frame
+        animationFrame = requestAnimationFrame(draw);
+
+        // Get frequency data
+        analyser.getByteFrequencyData(dataArray);
+
+        // Clear canvas
+        spectrogramCtx.clearRect(0, 0, width, height);
+        spectrogramCtx.fillStyle = 'rgb(248, 249, 250)';
+        spectrogramCtx.fillRect(0, 0, width, height);
+
+        // Draw frequency bars
+        const barWidth = width / bufferLength * 2.5;
+        let x = 0;
+
+        for (let i = 0; i < bufferLength; i++) {
+          const barHeight = dataArray[i] / 255 * height;
+
+          // Create gradient
+          const gradient = spectrogramCtx.createLinearGradient(0, height, 0, height - barHeight);
+          gradient.addColorStop(0, 'rgb(13, 110, 253, 0.8)');
+          gradient.addColorStop(1, 'rgb(13, 110, 253, 0.2)');
+
+          spectrogramCtx.fillStyle = gradient;
+          spectrogramCtx.fillRect(x, height - barHeight, barWidth, barHeight);
+
+          x += barWidth + 1;
+
+          // Only draw a subset of bars for performance
+          if (i > bufferLength / 4) break;
+        }
+      }
+
+      draw();
+    }
+
+    // Function to monitor volume
+    function startVolumeMonitoring() {
+      if (!analyser) return;
+
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+
+      function checkVolume() {
+        if (!analyser) {
+          return;
+        }
+
+        // Get time domain data
+        analyser.getByteTimeDomainData(dataArray);
+
+        // Calculate volume
+        let sum = 0;
+        for (let i = 0; i < bufferLength; i++) {
+          sum += Math.abs(dataArray[i] - 128);
+        }
+
+        const average = sum / bufferLength;
+        const volume = Math.round((average / 128) * 100);
+
+        // Update UI
+        document.getElementById('volume').textContent = volume + '%';
+
+        // Call again
+        setTimeout(checkVolume, 100);
+      }
+
+      checkVolume();
+    }
+
+    // Function to stop microphone test
+    function stopMicTest() {
+      // Cancel animation frame
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+      }
+
+      // Stop the audio stream
+      if (audioStream) {
+        audioStream.getTracks().forEach(track => track.stop());
+        audioStream = null;
+      }
+
+      // Clean up audio nodes
+      if (microphone) {
+        microphone.disconnect();
+        microphone = null;
+      }
+
+      analyser = null;
+
+      // Reset buttons
+      stopButton.classList.add('d-none');
+      testButton.classList.remove('d-none');
+
+      // Clear canvas
+      spectrogramCtx.clearRect(0, 0, spectrogram.width, spectrogram.height);
+      spectrogramCtx.fillStyle = 'rgb(248, 249, 250)';
+      spectrogramCtx.fillRect(0, 0, spectrogram.width, spectrogram.height);
+
+      // Reset volume display
+      document.getElementById('volume').textContent = '—';
+    }
+
+    // Event listeners
+    refreshButton.addEventListener('click', getAudioDevices);
+    testButton.addEventListener('click', testMicrophone);
+    stopButton.addEventListener('click', stopMicTest);
+
+    // Initialize
+    getAudioDevices();
+  });
+
+</script>
+</body>
+</html>

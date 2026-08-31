@@ -1,0 +1,42 @@
+{
+  "slug": "sitemap",
+  "meta_title": "Sitemap - MicTest | All Audio Testing Tools",
+  "meta_description": "Browse all MicTest tools and pages — microphone tests, speaker tests, hearing tests, audio analysis tools, and more.",
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Sitemap - MicTest",
+    "url": "https://mictest.dev/sitemap",
+    "description": "Full list of all MicTest audio testing tools and pages.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "MicTest",
+      "url": "https://mictest.dev"
+    }
+  },
+  "eyebrow": "Unit 18 · Site Index",
+  "h1": "Sitemap",
+  "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">All MicTest tools and pages, organised by category.</p>",
+  "content_blocks": [
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-house-fill me-2 text-primary\"></i>Main</h2>\n<ul>\n  <li><a href=\"/\" title=\"Free Online Microphone Test\"><strong>Microphone Test</strong></a> — Test your mic directly in the browser</li>\n</ul>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-mic me-2 text-primary\"></i>Mic Tools</h2>\n<ul>\n  <li><a href=\"/show-mic\" title=\"View Microphone Details\"><strong>Show My Mic</strong></a> — Identify your connected microphone device</li>\n  <li><a href=\"/mic-recorder\" title=\"Record Your Voice Online\"><strong>Mic Recorder</strong></a> — Record and play back your voice in the browser</li>\n  <li><a href=\"/sound-level-meter\" title=\"Measure Decibel Levels\"><strong>Sound Level Meter</strong></a> — Measure ambient noise in decibels</li>\n  <li><a href=\"/voice-frequency-analyzer\" title=\"Analyze Voice Frequencies\"><strong>Voice Frequency Analyzer</strong></a> — Visualise the frequency content of your voice</li>\n  <li><a href=\"/background-noise-analyzer\" title=\"Analyze Ambient Noise\"><strong>Background Noise Analyzer</strong></a> — Detect and categorise background noise by frequency band</li>\n  <li><a href=\"/echo-test\" title=\"Test for Audio Echo\"><strong>Echo Test</strong></a> — Check whether your audio setup produces echo</li>\n  <li><a href=\"/audio-latency-test\" title=\"Measure Audio Latency\"><strong>Audio Latency Test</strong></a> — Measure the round-trip delay in your audio chain</li>\n</ul>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-speaker me-2 text-primary\"></i>Speaker Tools</h2>\n<ul>\n  <li><a href=\"/show-speakers\" title=\"View Speaker Details\"><strong>Show My Speakers</strong></a> — Identify the speaker or output device in use</li>\n  <li><a href=\"/tone-generator\" title=\"Generate Test Tones\"><strong>Tone Generator</strong></a> — Generate sine, square, or sawtooth tones at any frequency</li>\n  <li><a href=\"/stereo-test\" title=\"Test Left Right Channels\"><strong>Stereo Test</strong></a> — Verify left and right channel separation</li>\n  <li><a href=\"/bass-test\" title=\"Test Low Frequency Response\"><strong>Bass Test</strong></a> — Check low-frequency response from 20 Hz upward</li>\n  <li><a href=\"/speaker-volume-test\" title=\"Calibrate Speaker Volume\"><strong>Speaker Volume Test</strong></a> — Calibrate and compare speaker output levels</li>\n</ul>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-headphones me-2 text-primary\"></i>Headphones &amp; Hearing</h2>\n<ul>\n  <li><a href=\"/headphone-test\" title=\"Test Your Headphones\"><strong>Headphone Test</strong></a> — Test channel balance, frequency response, and driver health</li>\n  <li><a href=\"/hearing-test\" title=\"Online Hearing Test\"><strong>Hearing Test</strong></a> — Check your hearing range across common frequencies</li>\n</ul>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-info-circle me-2 text-primary\"></i>Resources</h2>\n<ul>\n  <li><a href=\"/troubleshooting\" title=\"Fix Audio Problems\"><strong>Troubleshooting Guide</strong></a> — Solutions for common microphone and audio issues</li>\n  <li><a href=\"/about\" title=\"About MicTest\"><strong>About MicTest</strong></a> — What MicTest is, how it works, and who built it</li>\n  <li><a href=\"/contact\" title=\"Contact Us\"><strong>Contact</strong></a> — Get in touch with a question or feedback</li>\n</ul>"
+    }
+  ]
+}

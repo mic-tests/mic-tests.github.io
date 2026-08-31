@@ -1,0 +1,213 @@
+[
+  {
+    "slug": "troubleshooting",
+    "meta_title": "Audio Troubleshooting - Fix Microphone & Speaker Issues",
+    "meta_description": "Fix common microphone and speaker problems. Troubleshoot audio issues on Windows, Mac, and Chrome. Solutions for no sound, mic not working, echo, and more.",
+    "json_ld": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "name": "Audio Troubleshooting Guide",
+      "url": "https://mictest.dev/troubleshooting",
+      "description": "Fix common microphone and speaker problems. Troubleshoot audio issues on Windows, Mac, and Chrome.",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I fix my microphone not working?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Check physical connection, ensure browser permissions are granted, verify system settings (Windows: Settings > Privacy > Microphone; Mac: System Preferences > Security & Privacy > Microphone), select the correct input device, and update audio drivers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is there no sound from my speakers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Check all volume levels (system, browser, physical), verify the correct output device is selected, test with different audio sources, and try restarting the audio service (Windows: services.msc > Windows Audio > Restart; Mac: sudo killall coreaudiod)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I fix browser permission denied for microphone?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Reset site permissions by clicking the lock icon in your address bar, check Chrome settings at chrome://settings/content/microphone, and verify system-level permissions allow your browser to access the microphone."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I fix audio echo or feedback?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use headphones to prevent speaker audio from reaching the mic, lower speaker volume, increase distance between microphone and speakers, and enable echo cancellation in your app or software settings."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I fix low volume or quiet audio?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Check all volume controls (system, app, browser, device), boost microphone levels in system sound settings, and position the microphone closer (typically 6-12 inches for best results)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I fix distorted or crackling sound?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Lower input gain to prevent audio clipping, check and replace damaged cables, and move away from electronic devices that may cause interference."
+          }
+        }
+      ],
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "MicTest",
+        "url": "https://mictest.dev"
+      }
+    },
+    "eyebrow": "Unit 15 · Fault Isolation",
+    "h1": "Fix Audio Issues — Microphone & Speaker Troubleshooting Guide",
+    "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">This <strong>audio troubleshooting guide</strong> walks you through fixes for the most common microphone and speaker problems — mic not detected, no audio input, browser permission errors, distorted sound, and more. Pick the <strong>issue category</strong> that matches your problem and work through the <strong>step-by-step checklist</strong>; each section tells you exactly what to check and what to change on your device. If you've already run the <strong>mic test online</strong> and confirmed your hardware is working, start here to pinpoint whether the issue is in your browser settings, OS permissions, or audio drivers.</p>",
+    "content_blocks": [
+      {
+        "id": null,
+        "html": "<h2><i class=\"bi bi-lightning me-2\"></i>Quick Diagnostic</h2>\n<ul>\n  <li><a href=\"/\"><i class=\"bi bi-mic me-1\"></i>Test Microphone</a></li>\n  <li><a href=\"/speaker-volume-test\"><i class=\"bi bi-volume-up me-1\"></i>Test Speakers</a></li>\n  <li><a href=\"/show-mic\"><i class=\"bi bi-info-circle me-1\"></i>View Mic Info</a></li>\n  <li><a href=\"/echo-test\"><i class=\"bi bi-arrow-repeat me-1\"></i>Echo Test</a></li>\n</ul>"
+      },
+      {
+        "id": null,
+        "html": "<h2><i class=\"bi bi-wrench me-2\"></i>Select Your Issue</h2>\n<details class=\"panel\" open>\n  <summary><i class=\"bi bi-mic-mute me-2 text-danger\"></i><strong>Microphone Not Working</strong></summary>\n  <h4>Microphone Not Working - Solutions</h4>\n  <ol>\n    <li><strong>Check Physical Connection</strong> — Ensure your microphone is properly plugged in. For USB mics, try a different port. For wireless, check battery.</li>\n    <li><strong>Check Browser Permissions</strong> — Click the lock icon in your browser's address bar → Site Settings → Allow Microphone access.</li>\n    <li><strong>Check System Settings</strong> — <strong>Windows:</strong> Settings → Privacy → Microphone → Enable access<br><strong>Mac:</strong> System Preferences → Security &amp; Privacy → Microphone</li>\n    <li><strong>Select Correct Input Device</strong> — In your system sound settings, ensure the correct microphone is selected as the default input device. <a href=\"/show-mic\">View detected devices</a>.</li>\n    <li><strong>Update Audio Drivers</strong> — Outdated drivers can cause issues. Check your device manufacturer's website for updates.</li>\n  </ol>\n</details>\n<details class=\"panel\">\n  <summary><i class=\"bi bi-volume-mute me-2 text-danger\"></i><strong>No Sound from Speakers</strong></summary>\n  <h4>No Sound from Speakers - Solutions</h4>\n  <ol>\n    <li><strong>Check Volume Levels</strong> — Check system volume, browser volume, and physical speaker/headphone volume controls.</li>\n    <li><strong>Check Output Device</strong> — Ensure correct output device is selected. <a href=\"/show-speakers\">Check speaker details</a>.</li>\n    <li><strong>Test with Different Audio</strong> — Try playing audio from another website or application to isolate the issue. <a href=\"/speaker-volume-test\">Use our speaker test</a>.</li>\n    <li><strong>Restart Audio Service</strong> — <strong>Windows:</strong> services.msc → Windows Audio → Restart<br><strong>Mac:</strong> sudo killall coreaudiod</li>\n  </ol>\n</details>\n<details class=\"panel\">\n  <summary><i class=\"bi bi-shield-x me-2 text-warning\"></i><strong>Browser Permission Denied</strong></summary>\n  <h4>Browser Permission Denied - Solutions</h4>\n  <ol>\n    <li><strong>Reset Site Permissions</strong> — Click the lock/info icon in your address bar → Reset permissions → Reload the page.</li>\n    <li><strong>Chrome Settings</strong> — Go to chrome://settings/content/microphone → Remove this site from blocked list → Reload.</li>\n    <li><strong>System-Level Permissions</strong> — <strong>Windows:</strong> Settings → Privacy → Microphone → Allow apps to access<br><strong>Mac:</strong> System Preferences → Security &amp; Privacy → Microphone → Enable for your browser</li>\n  </ol>\n</details>\n<details class=\"panel\">\n  <summary><i class=\"bi bi-arrow-repeat me-2 text-warning\"></i><strong>Echo or Feedback</strong></summary>\n  <h4>Echo or Feedback - Solutions</h4>\n  <ol>\n    <li><strong>Use Headphones</strong> — The most effective solution. Prevents speaker audio from being picked up by the mic. <a href=\"/headphone-test\">Test your headphones</a>.</li>\n    <li><strong>Lower Speaker Volume</strong> — Reduce volume to minimize audio reaching the microphone.</li>\n    <li><strong>Increase Distance</strong> — Move your microphone away from speakers.</li>\n    <li><strong>Enable Echo Cancellation</strong> — Check your app/software settings for echo cancellation options. <a href=\"/echo-test\">Test for echo</a>.</li>\n  </ol>\n</details>\n<details class=\"panel\">\n  <summary><i class=\"bi bi-volume-down me-2 text-warning\"></i><strong>Low Volume / Quiet Audio</strong></summary>\n  <h4>Low Volume - Solutions</h4>\n  <ol>\n    <li><strong>Check All Volume Controls</strong> — System volume, app volume, browser volume, and physical device volume.</li>\n    <li><strong>Boost Microphone Levels</strong> — <strong>Windows:</strong> Sound settings → Recording → Properties → Levels → Increase Microphone Boost<br><strong>Mac:</strong> System Preferences → Sound → Input → Increase input volume</li>\n    <li><strong>Position Microphone Closer</strong> — Move closer to your microphone, typically 6-12 inches for best results. <a href=\"/sound-level-meter\">Check audio levels</a>.</li>\n  </ol>\n</details>\n<details class=\"panel\">\n  <summary><i class=\"bi bi-soundwave me-2 text-warning\"></i><strong>Distorted or Crackling Sound</strong></summary>\n  <h4>Distorted Sound - Solutions</h4>\n  <ol>\n    <li><strong>Lower Input Gain</strong> — Audio clipping causes distortion. Reduce microphone gain/boost in system settings.</li>\n    <li><strong>Check Cable Connections</strong> — Loose or damaged cables cause crackling. Try different cables.</li>\n    <li><strong>Reduce Interference</strong> — Move away from electronic devices, routers, and phones that may cause interference. <a href=\"/background-noise-analyzer\">Analyze background noise</a>.</li>\n  </ol>\n</details>\n<details class=\"panel\">\n  <summary><i class=\"bi bi-usb-drive me-2 text-info\"></i><strong>Wrong Device Selected</strong></summary>\n  <h4>Wrong Device Selected - Solutions</h4>\n  <ol>\n    <li><strong>Check System Sound Settings</strong> — Open system sound settings and verify the correct input/output device is selected as default.</li>\n    <li><strong>Use Device Selector</strong> — Many of our tools have device selectors. <a href=\"/show-mic\">View your microphones</a> or <a href=\"/show-speakers\">view your speakers</a>.</li>\n  </ol>\n</details>\n<details class=\"panel\">\n  <summary><i class=\"bi bi-bluetooth me-2 text-info\"></i><strong>Bluetooth Audio Issues</strong></summary>\n  <h4>Bluetooth Audio Issues - Solutions</h4>\n  <ol>\n    <li><strong>Re-pair Device</strong> — Remove the Bluetooth device and pair it again.</li>\n    <li><strong>Check Battery</strong> — Low battery can cause audio issues. Charge your device.</li>\n    <li><strong>Reduce Distance</strong> — Stay within range of your computer. Walls and obstacles can affect signal.</li>\n    <li><strong>Check Audio Codec</strong> — Some Bluetooth profiles have poor microphone quality. Try using \"Hands-Free\" profile for calls. <a href=\"/audio-latency-test\">Test latency</a>.</li>\n  </ol>\n</details>"
+      },
+      {
+        "id": null,
+        "html": "<h2><i class=\"bi bi-question-circle me-2\"></i>Still Need Help?</h2>\n<p><a href=\"/contact\">Contact us</a> with details about your problem and we'll try to help.</p>\n<p>Learn more about our audio testing tools on our <a href=\"/about\">about page</a>.</p>"
+      }
+    ],
+    "ads": {
+      "mid": "9146528954"
+    }
+  },
+  {
+    "slug": "about",
+    "meta_title": "About MicTest - Advanced Online Microphone Testing Platform",
+    "meta_description": "MicTest is a free browser-based audio testing platform for microphones, speakers, and hearing. Learn what it does, how each tool works, and who built it.",
+    "json_ld": {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "name": "About MicTest",
+      "url": "https://mictest.dev/about",
+      "description": "Learn about MicTest's comprehensive microphone testing platform and browser-based audio testing tools.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "MicTest",
+        "url": "https://mictest.dev"
+      }
+    },
+    "eyebrow": "Unit 17 · Maker's Note",
+    "h1": "About MicTest",
+    "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">Hey, I'm Vinitha — designer, developer, and the person behind MicTest.</p>",
+    "content_blocks": [
+      {
+        "id": null,
+        "html": "<h2><i class=\"bi bi-person-fill me-2 text-primary\"></i>A Little About Me</h2>\n<p>I'm a designer and developer from Palakkad, Kerala, India. My background spans textile and apparel design into digital design and web development. I've always believed that building things for the web is just as creative as designing — maybe even more so.</p>\n<p>I focus on creating free tools that solve real problems — ones I've personally run into and couldn't find a good solution for.</p>"
+      },
+      {
+        "id": null,
+        "html": "<h2><i class=\"bi bi-lightbulb-fill me-2 text-warning\"></i>Why I Built MicTest</h2>\n<p>The frustration started when I needed a quick way to check if a microphone was working properly before a call or recording session. Most tools either required a download, asked for sign-ups, or were buried under layers of ads and popups.</p>\n<p>MicTest was built as a straightforward alternative — open your browser, test your mic, done. No account, no download, no nonsense. The same idea extends to every tool on the platform: speakers, headphones, tone generation, hearing range — all free, all instant.</p>"
+      },
+      {
+        "id": null,
+        "html": "<h2><i class=\"bi bi-shield-check me-2 text-success\"></i>Privacy First</h2>\n<p>All audio processing happens locally in your browser. Nothing is recorded, uploaded, or stored on any server. Your microphone input never leaves your device — the Web Audio API handles everything right there in your tab.</p>\n<p>This isn't a compromise — it's how it was designed from the start.</p>"
+      },
+      {
+        "id": null,
+        "html": "<h2><i class=\"bi bi-tools me-2 text-primary\"></i>What's on MicTest</h2>\n<p>MicTest offers 18 free browser-based audio tools covering microphone testing, voice recording, speaker output, stereo channels, bass response, frequency analysis, hearing range, latency measurement, and more.</p>\n<p>Every tool works across Windows, macOS, Linux, iOS, and Android — on Chrome, Firefox, Safari, and Edge.</p>"
+      },
+      {
+        "id": null,
+        "html": "<h2><i class=\"bi bi-quote me-2 text-secondary\"></i>My Philosophy</h2>\n<p class=\"mb-0 fst-italic\">\"Tools should just work. They should be simple, fast, and respect your time.\"</p>"
+      }
+    ],
+    "ads": {
+      "mid": "9146528954"
+    }
+  },
+  {
+    "slug": "contact",
+    "meta_title": "Contact MicTest - Get Help with Audio Issues",
+    "meta_description": "Have a question, found a bug, or want to suggest a new audio testing feature? Contact the MicTest team by email — every message is read and gets a reply.",
+    "json_ld": {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Contact MicTest",
+      "url": "https://mictest.dev/contact",
+      "description": "Contact MicTest support for assistance with audio device issues, testing problems, or technical questions.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "MicTest",
+        "url": "https://mictest.dev"
+      }
+    },
+    "eyebrow": "Unit 16 · Support Channel",
+    "h1": "Contact MicTest",
+    "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">Have a question, found a bug, or just want to say hello? Drop me an email — I read every message.</p>",
+    "content_blocks": [
+      {
+        "id": null,
+        "html": "<h2><i class=\"bi bi-envelope-fill me-2 text-primary\"></i>Email</h2>\n<div class=\"d-flex align-items-center\">\n  <i class=\"bi bi-envelope-fill fs-4 me-3 text-primary\"></i>\n  <p class=\"mb-0 fs-5\"><a href=\"mailto:vinithablog@gmail.com\">vinithablog@gmail.com</a></p>\n</div>\n<p class=\"text-muted small mt-2 mb-0\">I typically respond within 24–48 hours on business days.</p>"
+      },
+      {
+        "id": null,
+        "html": "<h2><i class=\"bi bi-chat-dots me-2 text-primary\"></i>What to Include</h2>\n<p>To help me look into your issue quickly, please mention:</p>\n<ul class=\"mb-0\">\n  <li><strong>Browser and version</strong> — e.g. Chrome 120, Firefox 121, Safari 17</li>\n  <li><strong>Operating system</strong> — e.g. Windows 11, macOS Sonoma, Android 14</li>\n  <li><strong>Device type</strong> — desktop, laptop, smartphone, or tablet</li>\n  <li><strong>Microphone or speaker</strong> — built-in, USB, Bluetooth, etc.</li>\n  <li><strong>Which tool</strong> — e.g. Mic Test, Recorder, Stereo Test</li>\n  <li><strong>What happened</strong> — describe the issue and what you expected</li>\n  <li><strong>Any error messages</strong> — copy them in if you see any</li>\n</ul>"
+      },
+      {
+        "id": null,
+        "html": "<h2><i class=\"bi bi-lightbulb me-2 text-warning\"></i>Before You Write</h2>\n<p class=\"mb-0\">Most common issues — microphone not detected, no sound, echo, low volume — are covered in the troubleshooting guide. It’s worth a quick check before reaching out, as the fix is often a browser permission or system setting.</p>"
+      }
+    ],
+    "ads": {
+      "mid": "9146528954"
+    }
+  },
+  {
+    "slug": "sitemap",
+    "meta_title": "Sitemap - MicTest | All Audio Testing Tools",
+    "meta_description": "Browse all MicTest tools and pages — microphone tests, speaker tests, hearing tests, audio analysis tools, and more.",
+    "json_ld": {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Sitemap - MicTest",
+      "url": "https://mictest.dev/sitemap",
+      "description": "Full list of all MicTest audio testing tools and pages.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "MicTest",
+        "url": "https://mictest.dev"
+      }
+    },
+    "eyebrow": "Unit 18 · Site Index",
+    "h1": "Sitemap",
+    "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">All MicTest tools and pages, organised by category.</p>",
+    "content_blocks": [
+      {
+        "id": null,
+        "html": "<h2><i class=\"bi bi-house-fill me-2 text-primary\"></i>Main</h2>\n<ul>\n  <li><a href=\"/\" title=\"Free Online Microphone Test\"><strong>Microphone Test</strong></a> — Test your mic directly in the browser</li>\n</ul>"
+      },
+      {
+        "id": null,
+        "html": "<h2><i class=\"bi bi-mic me-2 text-primary\"></i>Mic Tools</h2>\n<ul>\n  <li><a href=\"/show-mic\" title=\"View Microphone Details\"><strong>Show My Mic</strong></a> — Identify your connected microphone device</li>\n  <li><a href=\"/mic-recorder\" title=\"Record Your Voice Online\"><strong>Mic Recorder</strong></a> — Record and play back your voice in the browser</li>\n  <li><a href=\"/sound-level-meter\" title=\"Measure Decibel Levels\"><strong>Sound Level Meter</strong></a> — Measure ambient noise in decibels</li>\n  <li><a href=\"/voice-frequency-analyzer\" title=\"Analyze Voice Frequencies\"><strong>Voice Frequency Analyzer</strong></a> — Visualise the frequency content of your voice</li>\n  <li><a href=\"/background-noise-analyzer\" title=\"Analyze Ambient Noise\"><strong>Background Noise Analyzer</strong></a> — Detect and categorise background noise by frequency band</li>\n  <li><a href=\"/echo-test\" title=\"Test for Audio Echo\"><strong>Echo Test</strong></a> — Check whether your audio setup produces echo</li>\n  <li><a href=\"/audio-latency-test\" title=\"Measure Audio Latency\"><strong>Audio Latency Test</strong></a> — Measure the round-trip delay in your audio chain</li>\n</ul>"
+      },
+      {
+        "id": null,
+        "html": "<h2><i class=\"bi bi-speaker me-2 text-primary\"></i>Speaker Tools</h2>\n<ul>\n  <li><a href=\"/show-speakers\" title=\"View Speaker Details\"><strong>Show My Speakers</strong></a> — Identify the speaker or output device in use</li>\n  <li><a href=\"/tone-generator\" title=\"Generate Test Tones\"><strong>Tone Generator</strong></a> — Generate sine, square, or sawtooth tones at any frequency</li>\n  <li><a href=\"/stereo-test\" title=\"Test Left Right Channels\"><strong>Stereo Test</strong></a> — Verify left and right channel separation</li>\n  <li><a href=\"/bass-test\" title=\"Test Low Frequency Response\"><strong>Bass Test</strong></a> — Check low-frequency response from 20 Hz upward</li>\n  <li><a href=\"/speaker-volume-test\" title=\"Calibrate Speaker Volume\"><strong>Speaker Volume Test</strong></a> — Calibrate and compare speaker output levels</li>\n</ul>"
+      },
+      {
+        "id": null,
+        "html": "<h2><i class=\"bi bi-headphones me-2 text-primary\"></i>Headphones &amp; Hearing</h2>\n<ul>\n  <li><a href=\"/headphone-test\" title=\"Test Your Headphones\"><strong>Headphone Test</strong></a> — Test channel balance, frequency response, and driver health</li>\n  <li><a href=\"/hearing-test\" title=\"Online Hearing Test\"><strong>Hearing Test</strong></a> — Check your hearing range across common frequencies</li>\n</ul>"
+      },
+      {
+        "id": null,
+        "html": "<h2><i class=\"bi bi-info-circle me-2 text-primary\"></i>Resources</h2>\n<ul>\n  <li><a href=\"/troubleshooting\" title=\"Fix Audio Problems\"><strong>Troubleshooting Guide</strong></a> — Solutions for common microphone and audio issues</li>\n  <li><a href=\"/about\" title=\"About MicTest\"><strong>About MicTest</strong></a> — What MicTest is, how it works, and who built it</li>\n  <li><a href=\"/contact\" title=\"Contact Us\"><strong>Contact</strong></a> — Get in touch with a question or feedback</li>\n</ul>"
+      }
+    ]
+  }
+]

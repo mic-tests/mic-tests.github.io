@@ -26,6 +26,17 @@ import sys
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# As of the JSON-driven build pipeline (src/build_data.py + src/generate.py,
+# see CLAUDE.md), page HTML lives in public/ (generated, committed) rather
+# than at the repo root — this script now runs as the LAST step of the
+# build, patching the already-rendered public/*.html files in place. It
+# still writes only the marker comments' inner content (see insert_markers/
+# update_markers below); it never touches src/content/<slug>.json, so a
+# rerun of generate.py without also rerunning this script would revert the
+# current month's rotation back to whatever's in each JSON's own
+# content_blocks/intro_html — see CLAUDE.md's build-order note.
+PAGES_DIR = os.path.join(REPO_ROOT, "public")
+
 # ---------------------------------------------------------------------------
 # Silo structure
 # ---------------------------------------------------------------------------
@@ -524,7 +535,7 @@ def run(today: datetime.date, dry_run: bool = False) -> None:
     errors: list[str] = []
 
     for page_file, link_defs in silo_links.items():
-        filepath = os.path.join(REPO_ROOT, page_file)
+        filepath = os.path.join(PAGES_DIR, page_file)
         if not os.path.exists(filepath):
             errors.append(f"MISSING FILE: {page_file}")
             continue

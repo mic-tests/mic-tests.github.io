@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Mic Recorder - Record Your Voice Free</title>
+  <meta name="description" content="Online mic recorder — record your voice in the browser and download as MP3 or WAV. Click Record, speak, click Stop, and save your file. No software needed.">
+  <meta name="keywords" content="mic recorder, voice recorder online, record microphone, audio recorder, record voice free, online voice recording, browser recorder">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="canonical" href="https://mictest.dev/mic-recorder">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Online Mic Recorder",
+  "url": "https://mictest.dev/mic-recorder",
+  "description": "Free online microphone recorder. Record your voice directly in your browser and download as MP3 or WAV. No software installation required.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "MicTest",
+    "url": "https://mictest.dev"
+  }
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does the online mic recorder work on mobile phones?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — the tool works on iOS Safari (version 14.3+) and Android Chrome. On iOS, you must use Safari; Chrome for iOS does not support the MediaRecorder API. On Android, Chrome, Firefox, and Edge all support browser-based recording. Note that mobile microphones typically have higher noise floors and more aggressive noise cancellation than desktop microphones, which may affect recording quality."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does my recording sound muffled or very quiet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Common causes: the microphone input volume in OS settings is set too low (check Sound settings → Input level), a noise cancellation or microphone boost setting is interfering, or you are positioned too far from the microphone. Also check that the correct microphone is selected in the device dropdown — some laptops have multiple microphone inputs (built-in mic, webcam mic, headset mic) and the wrong one may be selected."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a maximum recording length?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "There is no hard time limit — the tool records until you click Stop. However, long recordings accumulate in your browser's memory. Recordings above 30–60 minutes may cause memory pressure on devices with limited RAM, particularly on older phones or tablets. For very long recordings (hours), a dedicated desktop recording application is more appropriate."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does the waveform not move when I click Record?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This usually means the browser did not receive microphone audio. Check: (1) microphone permission was granted in the browser — look for the microphone icon in the address bar; (2) the correct microphone is selected in the dropdown; (3) your microphone is physically connected and not muted at the hardware level (some headsets have an inline mute button). If the permission was previously denied, reset it in the browser's site settings."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I record system audio (computer sounds) as well as my microphone?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Browser-based mic recorders can only capture microphone input — they cannot record system audio (music playing, game sound, etc.) due to browser security restrictions. To record system audio alongside your microphone, use a desktop screen recorder or a virtual audio cable routing tool. The browser MediaRecorder API is limited to microphone streams for privacy reasons."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What browsers support the online voice recorder?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The tool works in any browser that supports the MediaRecorder API: Chrome 49+, Firefox 25+, Safari 14.3+, and Edge 79+. Internet Explorer is not supported. For the best audio quality and most consistent behaviour, use the latest version of Chrome or Firefox on a desktop or laptop. If the record button is unresponsive, update your browser — older versions may lack the required Web Audio API features."
+      }
+    }
+  ]
+}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  <script async crossorigin="anonymous"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5426315045205785"></script>
+  <meta name="google-adsense-account" content="ca-pub-5426315045205785">
+
+  <style>
+    :root{
+      --bg:#EEF0F2; --panel:#F8F9FA; --panel-2:#FFFFFF; --border:#D3D7DC; --border-lt:#E4E7EA;
+      --ink:#14161A; --ink-2:#565B63; --ink-3:#868C94;
+      --amber:#B65C00; --amber-dim:rgba(182,92,0,.09); --amber-glow:rgba(182,92,0,.30);
+      --red:#C4432E; --success:#2E7D4F;
+    }
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme="light"]){
+        --bg:#111013; --panel:#18171B; --panel-2:#1F1D22; --border:#2A2830; --border-lt:#221F25;
+        --ink:#EDEAE4; --ink-2:#8B8780; --ink-3:#5F5C56;
+        --amber:#FFB13D; --amber-dim:rgba(255,177,61,.14); --amber-glow:rgba(255,177,61,.55);
+        --red:#FF5A4E; --success:#7AB85E;
+      }
+    }
+    :root[data-theme="dark"]{
+        --bg:#111013; --panel:#18171B; --panel-2:#1F1D22; --border:#2A2830; --border-lt:#221F25;
+        --ink:#EDEAE4; --ink-2:#8B8780; --ink-3:#5F5C56;
+        --amber:#FFB13D; --amber-dim:rgba(255,177,61,.14); --amber-glow:rgba(255,177,61,.55);
+        --red:#FF5A4E; --success:#7AB85E;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    /* Neutralize Tailwind's .container utility (kept only so the content-db exporter can scope this region) */
+    .container.main-wrap{width:100%;max-width:1260px;margin-left:auto;margin-right:auto;}
+    body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;}
+    .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
+    .display{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.02em;}
+    a{color:var(--amber);text-decoration:none}
+    a:hover{opacity:.8}
+    ::selection{background:var(--amber);color:var(--bg)}
+    h1,h2,h3,h4{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;color:var(--ink);}
+    h2{font-weight:700;font-size:1.5rem;line-height:1.25;margin:0 0 .9rem;}
+    h3{font-weight:600;font-size:1.1rem;line-height:1.3;margin:1.75rem 0 .5rem;}
+    p{margin:0 0 1rem;}
+    strong,b{color:var(--ink);font-weight:700;}
+    em,i{font-style:italic;}
+    code{background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;font-size:.87em;color:var(--ink);font-family:'JetBrains Mono',monospace;}
+
+    /* ── Long-form content (how-it-works / how-to / troubleshooting / FAQ) is raw semantic HTML
+       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility
+       instead of fighting Tailwind's preflight reset with custom element CSS + !important.
+       Its rules live behind :where() (zero specificity), so our theme tokens below win cleanly. ── */
+    /* !important: the typography plugin's own .prose rule also *sets* these same custom
+       properties (its light-mode defaults), at equal specificity and later in the cascade
+       (Tailwind CDN injects its stylesheet after this one) — so ours needs to win outright. */
+    .prose{
+      --tw-prose-body: var(--ink-2) !important; --tw-prose-headings: var(--ink) !important; --tw-prose-lead: var(--ink-2) !important;
+      --tw-prose-links: var(--amber) !important; --tw-prose-bold: var(--ink) !important; --tw-prose-counters: var(--ink-3) !important;
+      --tw-prose-bullets: var(--amber) !important; --tw-prose-hr: var(--border) !important; --tw-prose-quotes: var(--ink) !important;
+      --tw-prose-quote-borders: var(--amber) !important; --tw-prose-captions: var(--ink-3) !important;
+      --tw-prose-code: var(--ink) !important; --tw-prose-pre-code: var(--ink) !important; --tw-prose-pre-bg: var(--panel-2) !important;
+      --tw-prose-th-borders: var(--border) !important; --tw-prose-td-borders: var(--border-lt) !important;
+      color:var(--tw-prose-body);
+    }
+    .prose :where(h2,h3,h4,h5,h6){font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;}
+    .prose :where(code)::before,.prose :where(code)::after{content:none !important;}
+    .prose :where(code){background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;}
+    .prose :where(a){text-decoration:none;}
+    audio,video{max-width:100%;}
+    dl:not(.mic-stats) dt{font-weight:600;color:var(--ink);}
+    dl:not(.mic-stats) dd{margin:0 0 .6rem;color:var(--ink-2);}
+
+    .led{width:6px;height:6px;border-radius:999px;background:var(--amber);box-shadow:0 0 6px var(--amber);flex-shrink:0;}
+    .hairline{border-color:var(--border)}
+    .grid-bg{background-image:linear-gradient(var(--border-lt) 1px, transparent 1px),linear-gradient(90deg, var(--border-lt) 1px, transparent 1px);background-size:28px 28px;}
+
+    /* ── Rail nav ── */
+    .rail-group-label{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding:1.1rem 0 .4rem;}
+    .rail-link{display:flex;align-items:center;gap:8px;padding:.42rem .55rem;border-radius:3px;font-size:12px;color:var(--ink-2);font-family:'IBM Plex Sans';}
+    .rail-link:hover{background:var(--panel-2);color:var(--ink);opacity:1;}
+    .rail-link.active{background:var(--amber-dim);color:var(--amber);font-weight:600;}
+    .rail-link i{width:14px;text-align:center;font-size:12px;flex-shrink:0;}
+
+    /* ── Content panels (replace Bootstrap cards) ── */
+    .panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);}
+    .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .panel-body{padding:1.1rem;}
+    .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
+    .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
+    .ad-panel-body{padding:1rem;text-align:center;}
+
+    /* ── Buttons ── */
+    .btn{display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:600;padding:.6rem 1.1rem;border-radius:4px;border:1px solid transparent;cursor:pointer;transition:opacity .15s;font-family:'IBM Plex Sans';}
+    .btn:hover{opacity:.88}
+    .btn:disabled{opacity:.45;cursor:not-allowed;}
+    .btn-primary{background:var(--amber);color:var(--bg);}
+    .btn-secondary{background:var(--panel-2);color:var(--ink-2);border-color:var(--border);}
+    .btn-danger{background:var(--red);color:#fff;}
+    .btn-warning{background:var(--amber);color:var(--bg);}
+    .btn-outline{background:transparent;color:var(--ink-2);border-color:var(--border);}
+    .btn-outline:hover{background:var(--panel-2);color:var(--ink);opacity:1;}
+    .btn-sm{padding:.4rem .8rem;font-size:11.5px;}
+    .btn-toolbar{display:flex;flex-wrap:wrap;gap:.5rem;}
+    .w-100{width:100%;}
+    .d-grid{display:grid;gap:.5rem;}
+    .d-none{display:none !important;}
+
+    /* ── Forms ── */
+    .form-label{display:block;font-size:10.5px;font-weight:600;margin-bottom:.4rem;color:var(--ink-2);font-family:'JetBrains Mono';text-transform:uppercase;letter-spacing:.06em;}
+    .form-select,.form-control{width:100%;padding:.6rem .75rem;border:1px solid var(--border);border-radius:4px;background:var(--panel-2);color:var(--ink);font-size:13px;font-family:'IBM Plex Sans';}
+    .form-select:focus,.form-control:focus{outline:none;border-color:var(--amber);}
+
+    /* ── Alerts / status ── */
+    .status-message{padding:.6rem .85rem;margin-bottom:.85rem;border-radius:4px;font-size:13px;border:1px solid var(--border);}
+    .status-step{display:flex;align-items:center;}
+    .status-icon{margin-right:8px;width:18px;text-align:center;flex-shrink:0;}
+    .alert-info{background:var(--panel-2);color:var(--ink-2);}
+    .alert-success{background:rgba(46,125,79,.10);color:var(--success);border-color:rgba(46,125,79,.3);}
+    .alert-warning{background:var(--amber-dim);color:var(--amber);border-color:rgba(182,92,0,.3);}
+    .alert-danger, .alert-recording{background:rgba(196,67,46,.10);color:var(--red);border-color:rgba(196,67,46,.3);}
+    .recording-pulse{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--red);margin-right:8px;animation:pulse 1.5s infinite;vertical-align:middle;}
+    @keyframes pulse{0%{transform:scale(.95);box-shadow:0 0 0 0 rgba(196,67,46,.6);}70%{transform:scale(1);box-shadow:0 0 0 7px rgba(196,67,46,0);}100%{transform:scale(.95);box-shadow:0 0 0 0 rgba(196,67,46,0);}}
+
+    /* ── Visualizer ── */
+    canvas{width:100%;height:200px;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;display:block;}
+    #visualizer-container{position:relative;border-radius:4px;overflow:hidden;}
+    .amplitude-bars{position:absolute;bottom:0;left:0;width:100%;height:100%;display:flex;align-items:flex-end;padding:0 4px;pointer-events:none;}
+    .amplitude-bar{flex:1;background:linear-gradient(to top, var(--amber), transparent);margin:0 1px;max-height:100%;transition:height .08s ease;border-radius:2px 2px 0 0;}
+
+    /* ── Progress ── */
+    .progress{height:4px;border-radius:99px;background:var(--border);overflow:hidden;margin-bottom:10px;}
+    .progress-bar{height:100%;background:var(--amber);border-radius:99px;transition:width .1s linear;}
+
+    /* ── Quality / info rows ── */
+    .quality-indicator{display:inline-block;font-weight:700;font-family:'JetBrains Mono';font-size:13px;}
+    .quality-excellent{color:var(--success);}
+    .quality-verygood{color:var(--amber);}
+    .quality-good{color:var(--amber);opacity:.85;}
+    .quality-fair{color:var(--red);opacity:.85;}
+    .quality-poor{color:var(--red);}
+    .quality-unknown{color:var(--ink-3);}
+    .info-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border-lt);}
+    .info-row:last-child{border-bottom:none;padding-bottom:0;}
+    .info-label{color:var(--ink-3);font-weight:500;font-family:'JetBrains Mono';font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;}
+    .info-val{color:var(--ink);font-weight:600;text-align:right;max-width:55%;font-size:12.5px;font-family:'JetBrains Mono';}
+
+    /* ── Testimonials ── */
+    .testimonial{padding:.6rem 0;border-bottom:1px solid var(--border-lt);}
+    .testimonial:last-of-type{border-bottom:none;}
+    .testimonial p{font-size:12.5px;font-style:italic;color:var(--ink-2);margin:0 0 .2rem;}
+    .text-muted{color:var(--ink-3);font-size:11px;}
+    .mb-0{margin-bottom:0 !important;}
+    .review-form{display:none;margin-top:.85rem;padding:.9rem;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;}
+
+    /* ── Pro tip ── */
+    aside.pro-tip{display:flex;gap:.7rem;align-items:flex-start;background:var(--amber-dim);border-left:3px solid var(--amber);border-radius:0 4px 4px 0;padding:.85rem 1rem;margin-top:1.25rem;font-size:13.5px;color:var(--ink);}
+    aside.pro-tip>i{color:var(--amber);flex-shrink:0;font-size:1rem;line-height:1.55;}
+
+    /* ── Mic stats dl ── */
+    dl.mic-stats{display:grid;grid-template-columns:minmax(180px,26%) 1fr;gap:.3rem 1.1rem;align-items:baseline;}
+    dl.mic-stats dt{font-weight:600;color:var(--ink);padding:.6rem 0 .1rem;border-top:1px solid var(--border-lt);font-family:'JetBrains Mono';font-size:12.5px;}
+    dl.mic-stats dd{margin:0;padding:.6rem 0 .1rem;border-top:1px solid var(--border-lt);color:var(--ink-2);line-height:1.65;font-size:13px;}
+    dl.mic-stats dt:first-child, dl.mic-stats dd:first-of-type{border-top:none;}
+    @media (max-width:575px){dl.mic-stats{grid-template-columns:1fr;}dl.mic-stats dd{border-top:none;padding-top:0;}}
+
+    /* ── Details / accordion panels ── */
+    details.panel{border:1px solid var(--border);border-radius:4px;margin-bottom:.5rem;overflow:hidden;background:var(--panel);}
+    details.panel>summary{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.05rem;cursor:pointer;background:var(--panel-2);list-style:none;gap:.5rem;font-size:14px;}
+    details.panel>summary::-webkit-details-marker{display:none;}
+    details.panel>summary::after{content:"\FE40";font-size:.8rem;color:var(--amber);flex-shrink:0;transform:rotate(90deg);}
+    details.panel[open]>summary::after{transform:rotate(-90deg);}
+    details.panel[open]>summary{border-bottom:1px solid var(--border);}
+    details.panel>:not(summary){padding:.9rem 1.05rem;}
+    details.panel ol,details.panel ul{margin-bottom:0;padding-left:1.3rem;}
+    details.panel li{margin-bottom:.4rem;}
+
+    /* ── Table ── */
+    .table-responsive{overflow-x:auto;}
+    .table{width:100%;border-collapse:collapse;font-size:12.5px;}
+    .table th,.table td{padding:.55rem .7rem;border:1px solid var(--border);text-align:left;vertical-align:middle;}
+    .table thead th{background:var(--panel-2);font-family:'JetBrains Mono';font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2);}
+    .table-striped tbody tr:nth-child(odd){background:var(--panel-2);}
+
+    /* ── Comments / footer ── */
+    .comments-panel{border-top:1px solid var(--border);background:var(--panel);padding:2.5rem 0;margin-top:2rem;}
+    footer.site-footer{background:var(--panel);border-top:1px solid var(--border);padding:2.75rem 0 0;}
+    .footer-brand{font-family:'JetBrains Mono';font-weight:700;font-size:15px;color:var(--ink);display:flex;align-items:center;gap:8px;margin-bottom:.75rem;}
+    .footer-desc{font-size:12.5px;color:var(--ink-3);line-height:1.65;max-width:320px;}
+    .footer-col-heading{font-family:'JetBrains Mono';font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.7rem;display:block;}
+    .footer-links{list-style:none;padding:0;margin:0 0 1.25rem;}
+    .footer-links li{margin-bottom:.4rem;}
+    .footer-links a{font-size:13px;color:var(--ink-2);}
+    .footer-links a:hover{color:var(--amber);opacity:1;}
+    .footer-bottom{border-top:1px solid var(--border);margin-top:1.5rem;padding:1rem 0;font-size:11px;color:var(--ink-3);font-family:'JetBrains Mono';}
+
+    /* ── Mobile drawer ── */
+    #mobile-drawer{position:fixed;inset:0;z-index:40;background:var(--bg);transform:translateX(-100%);transition:transform .2s ease;overflow-y:auto;}
+    #mobile-drawer.open{transform:translateX(0);}
+
+    /* ── Page-specific (this tool's own extra CSS, if any — must use the theme tokens above, e.g. var(--amber)/var(--panel), never hardcoded colors, so it stays correct in both light and dark) ── */
+    /* mic-recorder.json — restyled from old .recorder-btn/.recording-indicator/.waveform-container/.recording-time block */
+    .recorder-btn{width:80px;height:80px;border-radius:50%;font-size:2rem;padding:0;}
+    .recording-time{font-size:2.5rem;font-weight:700;color:var(--ink);}
+    .waveform-container{height:150px;background:var(--panel-2);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+    #waveform{width:100%;height:100%;display:block;}
+    .recording-indicator{width:12px;height:12px;background-color:var(--red);border-radius:50%;animation:pulse-opacity 1s infinite;}
+    @keyframes pulse-opacity{0%,100%{opacity:1}50%{opacity:.5}}
+    .d-inline-block{display:inline-block;}
+    /* #status-alert: the tool script overwrites this element's className to a bare "alert alert-<type>"
+       string on every status update, so the structural box styling normally supplied by .status-message
+       must live on the id selector to survive those updates. */
+    #status-alert{padding:.6rem .85rem;margin-bottom:.85rem;border-radius:4px;font-size:13px;border:1px solid var(--border);}
+
+  </style>
+</head>
+<body>
+
+<div class="flex min-h-screen">
+
+  <!-- DESKTOP RAIL -->
+  <aside class="hidden lg:flex flex-col w-[232px] shrink-0 border-r hairline px-5 py-6 sticky top-0 h-screen overflow-y-auto">
+    <a href="/" class="flex items-center gap-2.5 mb-6" title="MicTest Home">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+        <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+        <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M12 18v3M9 21h6" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      <span class="mono text-[13px] font-semibold tracking-tight" style="color:var(--ink)">MICTEST</span>
+    </a>
+
+    <button type="button" class="theme-toggle-btn flex items-center gap-2.5 mb-2" aria-label="Toggle light or dark panel">
+      <span class="relative inline-flex items-center shrink-0" style="width:32px;height:17px;border-radius:999px;background:var(--border-lt);border:1px solid var(--border)">
+        <span class="theme-dot absolute" style="width:11px;height:11px;border-radius:999px;background:var(--amber);left:2px;top:2px;transition:left .15s ease"></span>
+      </span>
+      <span class="theme-label mono text-[10.5px] tracking-[.08em] uppercase" style="color:var(--ink-2)">Dark panel</span>
+    </button>
+
+    <nav class="flex flex-col rail-nav">
+      <a href="/" data-page="index" class="rail-link"><i class="bi bi-mic-fill"></i>Microphone Test</a>
+
+      <div class="rail-group-label">Mic Tools</div>
+      <a href="/show-mic" data-page="show-mic" class="rail-link"><i class="bi bi-mic"></i>Show My Mic</a>
+      <a href="/mic-recorder" data-page="mic-recorder" class="rail-link"><i class="bi bi-record-circle"></i>Mic Recorder</a>
+      <a href="/sound-level-meter" data-page="sound-level-meter" class="rail-link"><i class="bi bi-speedometer2"></i>Sound Level Meter</a>
+      <a href="/voice-frequency-analyzer" data-page="voice-frequency-analyzer" class="rail-link"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a>
+      <a href="/background-noise-analyzer" data-page="background-noise-analyzer" class="rail-link"><i class="bi bi-soundwave"></i>Background Noise Analyzer</a>
+      <a href="/echo-test" data-page="echo-test" class="rail-link"><i class="bi bi-arrow-repeat"></i>Echo Test</a>
+      <a href="/audio-latency-test" data-page="audio-latency-test" class="rail-link"><i class="bi bi-stopwatch"></i>Audio Latency Test</a>
+
+      <div class="rail-group-label">Speaker Tools</div>
+      <a href="/show-speakers" data-page="show-speakers" class="rail-link"><i class="bi bi-speaker"></i>Show My Speakers</a>
+      <a href="/tone-generator" data-page="tone-generator" class="rail-link"><i class="bi bi-activity"></i>Tone Generator</a>
+      <a href="/stereo-test" data-page="stereo-test" class="rail-link"><i class="bi bi-badge-hd"></i>Stereo Test</a>
+      <a href="/bass-test" data-page="bass-test" class="rail-link"><i class="bi bi-disc"></i>Bass Test</a>
+      <a href="/speaker-volume-test" data-page="speaker-volume-test" class="rail-link"><i class="bi bi-volume-up"></i>Speaker Volume Test</a>
+
+      <div class="rail-group-label">Headphones &amp; Hearing</div>
+      <a href="/headphone-test" data-page="headphone-test" class="rail-link"><i class="bi bi-headphones"></i>Headphone Test</a>
+      <a href="/hearing-test" data-page="hearing-test" class="rail-link"><i class="bi bi-ear"></i>Hearing Test</a>
+
+      <div class="rail-group-label">More</div>
+      <a href="/troubleshooting" data-page="troubleshooting" class="rail-link"><i class="bi bi-tools"></i>Troubleshooting</a>
+      <a href="/about" data-page="about" class="rail-link"><i class="bi bi-info-circle"></i>About</a>
+      <a href="/contact" data-page="contact" class="rail-link"><i class="bi bi-envelope"></i>Contact</a>
+    </nav>
+  </aside>
+
+  <!-- MOBILE TOP BAR -->
+  <div class="lg:hidden fixed top-0 inset-x-0 z-50 flex items-center justify-between px-5 py-4 border-b hairline" style="background:var(--bg)">
+    <a href="/" class="flex items-center gap-2" title="MicTest Home">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+        <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+        <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      <span class="mono text-[13px] font-semibold" style="color:var(--ink)">MICTEST</span>
+    </a>
+    <div class="flex items-center gap-3">
+      <button type="button" class="theme-toggle-btn flex items-center gap-2" aria-label="Toggle light or dark panel">
+        <span class="relative inline-flex items-center shrink-0" style="width:28px;height:16px;border-radius:999px;background:var(--border-lt);border:1px solid var(--border)">
+          <span class="theme-dot absolute" style="width:10px;height:10px;border-radius:999px;background:var(--amber);left:2px;top:2px;transition:left .15s ease"></span>
+        </span>
+      </button>
+      <button type="button" id="mobile-menu-btn" aria-label="Open menu" class="flex flex-col gap-[4px] p-1">
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MOBILE DRAWER -->
+  <div id="mobile-drawer">
+    <div class="flex items-center justify-between px-5 py-4 border-b hairline">
+      <span class="mono text-[13px] font-semibold" style="color:var(--ink)">MENU</span>
+      <button type="button" id="mobile-drawer-close" aria-label="Close menu" class="mono text-[20px] leading-none" style="color:var(--ink-2)">&times;</button>
+    </div>
+    <nav class="flex flex-col rail-nav px-5 py-4">
+      <a href="/" data-page="index" class="rail-link"><i class="bi bi-mic-fill"></i>Microphone Test</a>
+      <div class="rail-group-label">Mic Tools</div>
+      <a href="/show-mic" data-page="show-mic" class="rail-link"><i class="bi bi-mic"></i>Show My Mic</a>
+      <a href="/mic-recorder" data-page="mic-recorder" class="rail-link"><i class="bi bi-record-circle"></i>Mic Recorder</a>
+      <a href="/sound-level-meter" data-page="sound-level-meter" class="rail-link"><i class="bi bi-speedometer2"></i>Sound Level Meter</a>
+      <a href="/voice-frequency-analyzer" data-page="voice-frequency-analyzer" class="rail-link"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a>
+      <a href="/background-noise-analyzer" data-page="background-noise-analyzer" class="rail-link"><i class="bi bi-soundwave"></i>Background Noise Analyzer</a>
+      <a href="/echo-test" data-page="echo-test" class="rail-link"><i class="bi bi-arrow-repeat"></i>Echo Test</a>
+      <a href="/audio-latency-test" data-page="audio-latency-test" class="rail-link"><i class="bi bi-stopwatch"></i>Audio Latency Test</a>
+      <div class="rail-group-label">Speaker Tools</div>
+      <a href="/show-speakers" data-page="show-speakers" class="rail-link"><i class="bi bi-speaker"></i>Show My Speakers</a>
+      <a href="/tone-generator" data-page="tone-generator" class="rail-link"><i class="bi bi-activity"></i>Tone Generator</a>
+      <a href="/stereo-test" data-page="stereo-test" class="rail-link"><i class="bi bi-badge-hd"></i>Stereo Test</a>
+      <a href="/bass-test" data-page="bass-test" class="rail-link"><i class="bi bi-disc"></i>Bass Test</a>
+      <a href="/speaker-volume-test" data-page="speaker-volume-test" class="rail-link"><i class="bi bi-volume-up"></i>Speaker Volume Test</a>
+      <div class="rail-group-label">Headphones &amp; Hearing</div>
+      <a href="/headphone-test" data-page="headphone-test" class="rail-link"><i class="bi bi-headphones"></i>Headphone Test</a>
+      <a href="/hearing-test" data-page="hearing-test" class="rail-link"><i class="bi bi-ear"></i>Hearing Test</a>
+      <div class="rail-group-label">More</div>
+      <a href="/troubleshooting" data-page="troubleshooting" class="rail-link"><i class="bi bi-tools"></i>Troubleshooting</a>
+      <a href="/about" data-page="about" class="rail-link"><i class="bi bi-info-circle"></i>About</a>
+      <a href="/contact" data-page="contact" class="rail-link"><i class="bi bi-envelope"></i>Contact</a>
+    </nav>
+  </div>
+
+  <!-- MAIN STAGE -->
+  <main class="flex-1 pt-16 lg:pt-0 min-w-0">
+    <div class="container main-wrap max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12 py-8 lg:py-12">
+
+      <!-- HERO -->
+      <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
+        <div>
+          <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 02 · Voice Capture & Playback</div>
+          <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Online Mic Recorder — Record Your Voice as MP3 or WAV</h1>
+          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>online mic recorder</strong> captures audio directly from your microphone and saves it as a downloadable file. Click <strong>Record</strong>, allow microphone access when your browser asks, speak or play whatever you want to capture, then click <strong>Stop</strong> — your recording appears in the <strong>audio player</strong> ready to play back or save as <strong>MP3 or WAV</strong>. You can also hit <strong>Pause</strong> mid-recording and pick back up without starting over, and the <strong>recording timer</strong> tracks your clip length as you go. <!-- SILO_START:slot_a -->An <a href="/audio-latency-test">audio latency test</a> shows whether your setup introduces noticeable lag for recording or live use.<!-- SILO_END:slot_a --></p>
+        </div>
+
+        <div class="hidden lg:block panel p-5">
+          <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
+          <dl class="mono text-[11.5px] flex flex-col gap-3">
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Model</dt><dd>MR‑02 CAPTURE</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Interface</dt><dd>Web Audio API</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Install required</dt><dd style="color:var(--amber)">None</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Audio uploaded</dt><dd style="color:var(--amber)">Never</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-[1fr_320px] gap-8 items-start">
+
+        <!-- LEFT: tool + content -->
+        <div class="min-w-0">
+
+          <div class="panel mb-6">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-mic-fill"></i>Voice Recorder</span></div>
+            <div class="panel-body text-center">
+
+              <div class="mb-4">
+                <select class="form-select" id="mic-select" disabled aria-label="Select microphone">
+                  <option value="">Select microphone...</option>
+                </select>
+              </div>
+
+              <div class="flex justify-center gap-3 mb-4">
+                <button class="btn btn-danger recorder-btn" id="record-btn" title="Start Recording" aria-label="Start Recording">
+                  <i class="bi bi-circle-fill"></i>
+                </button>
+                <button class="btn btn-secondary recorder-btn" id="stop-btn" disabled title="Stop Recording" aria-label="Stop Recording">
+                  <i class="bi bi-stop-fill"></i>
+                </button>
+              </div>
+
+              <div class="recording-time mono mb-3" id="recording-time">00:00</div>
+
+              <div class="waveform-container mb-4">
+                <canvas id="waveform"></canvas>
+              </div>
+
+              <div id="playback-section" class="d-none">
+                <h2 class="flex items-center gap-2" style="justify-content:center"><i class="bi bi-play-circle"></i>Your Recording</h2>
+                <audio id="audio-playback" controls class="w-100 mb-3"></audio>
+
+                <div class="btn-toolbar" style="justify-content:center">
+                  <button class="btn btn-primary" id="download-mp3-btn">
+                    <i class="bi bi-download me-2"></i>Download MP3
+                  </button>
+                  <button class="btn btn-primary" id="download-wav-btn">
+                    <i class="bi bi-download me-2"></i>Download WAV
+                  </button>
+                  <button class="btn btn-outline" id="new-recording-btn">
+                    <i class="bi bi-arrow-repeat me-2"></i>New Recording
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="status-message alert-info" id="status-alert">
+            <div class="status-step">
+              <span class="status-icon"><i class="bi bi-info-circle-fill"></i></span>
+              <span id="status-message">Click the record button to start recording your voice.</span>
+            </div>
+          </div>
+
+          <!-- Ad (mid) -->
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body">
+              <ins class="adsbygoogle"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-format="auto"
+                   data-ad-slot="9146528954"
+                   data-full-width-responsive="true"
+                   style="display:block"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2><i class="bi bi-info-circle me-2"></i>How to Use the Recorder</h2>
+            <ol>
+              <li>Click the <strong>red record button</strong> to start recording</li>
+              <li>Allow microphone access when prompted by your browser</li>
+              <li>Speak into your microphone - watch the waveform to confirm audio input</li>
+              <li>Click the <strong>stop button</strong> when finished</li>
+              <li>Preview your recording and download as MP3 or WAV</li>
+            </ol>
+            <p class="mb-0">
+              <strong>Tip:</strong> For best quality, use a quiet environment. Check your background noise levels and use our sound level meter to monitor input levels.
+            </p>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2 class="flex items-center gap-2"><i class="bi bi-lightbulb"></i>Recording Tips</h2>
+            <div class="grid sm:grid-cols-2 gap-6">
+              <ul class="mb-0">
+                <li>Position mic 6-12 inches from your mouth</li>
+                <li>Avoid touching or bumping the microphone</li>
+                <li>Reduce background noise - close windows/doors</li>
+              </ul>
+              <ul class="mb-0">
+                <li>Use headphones to prevent echo feedback</li>
+                <li>Test your audio latency for monitoring</li>
+                <li>Check mic settings for optimal quality</li>
+              </ul>
+            </div>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2>What Is an Online Mic Recorder and How Does It Work?</h2>
+            <p>An online mic recorder captures audio directly through your browser using the Web Audio API and the MediaRecorder interface — no plugin, no app, no server upload involved. When you click Record, the browser requests microphone access, opens an audio stream, and writes the incoming audio data into memory chunks. When you click Stop, those chunks are assembled into an audio file (WAV or MP3) that can be played back and downloaded directly from the page. The entire process happens locally on your device: no audio is ever sent to a remote server, making it one of the most private ways to capture voice recordings. <!-- SILO_START:slot_b -->For the answer to <a href="/show-mic">what microphone do i have</a>, the tool reads your audio input devices without any software.<!-- SILO_END:slot_b --></p>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2>Common Uses for the Online Voice Recorder</h2>
+
+            <h3>Voice Memos and Quick Audio Notes</h3>
+            <p>The online mic recorder is ideal for capturing ideas, reminders, or observations faster than typing. Open the page, hit Record, speak your thought, and download the file in seconds. Unlike phone voice memo apps, the browser recorder produces a standard MP3 or WAV file that is immediately transferable to any device or application without proprietary formats or cloud sync requirements.</p>
+
+            <h3>Podcast and Voiceover Recording Online</h3>
+            <p>For first drafts, test reads, or short podcast segments, an online voice recorder eliminates the setup overhead of a DAW. Record a segment, listen back, and determine whether you need to adjust microphone position, delivery pace, or room acoustics before investing in a full production session. The waveform visualization in this tool lets you see breath sounds, plosives, and silence gaps before you download the file.</p>
+
+            <h3>Interview and Meeting Audio Recording</h3>
+            <p>When you need to capture a spoken interview, briefing, or meeting audio for transcription, the online mic recorder provides a simple one-click solution. Record the session, download the WAV file, and upload it to a transcription service. For best results in an interview context, position the microphone equidistant between you and your subject, or use a directional microphone pointed at the primary speaker.</p>
+
+            <h3>Testing Microphone Quality Before a Call or Recording Session</h3>
+            <p>Before a video call, podcast, or recording session, make a 30-second test recording and listen back critically: Are there hiss or hum artefacts? Is the voice clear and present? Does the room echo? Addressing these issues before going live saves embarrassment and post-production effort. Pair the recorder with the audio latency test to confirm your monitoring delay is acceptable.</p>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2>Audio Quality Settings for Your Mic Recording</h2>
+
+            <h3>MP3 vs WAV — Which Download Format to Choose?</h3>
+            <p><strong>WAV</strong> is an uncompressed audio format. Every sample is stored at full resolution, which means the file is large but perfectly preserves the original quality of your recording — ideal for further editing, transcription, or archiving. <strong>MP3</strong> applies lossy compression that reduces file size significantly (roughly 10:1 at 192 kbps) at the cost of some very high-frequency detail that is largely inaudible to most listeners. For voice recordings, 192 kbps MP3 is indistinguishable from WAV to most ears. Choose WAV if you plan to edit the file in a DAW; choose MP3 for sharing, emailing, or uploading.</p>
+
+            <h3>Sample Rate: 44.1 kHz vs 48 kHz</h3>
+            <p>44.1 kHz is the CD standard — it captures all frequencies up to 22.05 kHz, well above the human hearing limit of 20 kHz. 48 kHz is the professional audio and video standard used in film, TV, and video production. For voice-only recordings destined for podcasting or general use, 44.1 kHz is perfectly adequate. If your recording will be mixed with video footage or used in a video production, choose 48 kHz to avoid resampling artefacts.</p>
+
+            <h3>Bitrate Settings for Voice Recording Online</h3>
+            <p>Bitrate controls how much data is used per second of MP3 audio. For voice recordings, 128 kbps is more than sufficient — voice frequencies sit between 80 Hz and 8 kHz, well within 128 kbps's reproduction capability. The 192 kbps setting (selected by default) provides extra headroom for any music, ambient sound, or high-frequency sibilants (s, sh, t sounds) in the recording. 320 kbps is overkill for voice-only content and produces unnecessarily large files.</p>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2>Tips for Better Browser Microphone Recordings</h2>
+
+            <h3>Set Up a Good Recording Environment</h3>
+            <p>The room you record in is as important as the microphone you use. Hard, parallel walls create flutter echo; soft furnishings, curtains, and bookshelves absorb reflections. Before recording, check your ambient noise floor with the <a href="/sound-level-meter">sound level meter online</a> — aim for below 40 dB. Close doors and windows, turn off HVAC systems and fans, and avoid recording near a running refrigerator or desktop fan. A quiet room transforms a mediocre microphone into an adequate one.</p>
+
+            <h3>Microphone Positioning for Clearest Voice Recording</h3>
+            <p>Position the microphone 15–30 cm (6–12 inches) from your mouth and slightly off-axis (angled 15–30° away from direct mouth position) to reduce plosive sounds ("p" and "b" bursts). Too close and plosives will overload the capsule; too far and room reverb becomes audible. Using a pop filter (or improvising with a piece of nylon stretched over a hoop) eliminates most plosive issues. Avoid pointing the microphone directly at a hard wall behind you — the reflection will add a slight comb-filtering colouration.</p>
+
+            <h3>Reducing Echo and Background Noise Before You Record</h3>
+            <p>If you hear echo on playback, there are two possible causes: acoustic room echo (reverb from hard surfaces) or digital echo (feedback loop from monitor speakers). For room echo, add soft furnishings or record in a walk-in wardrobe surrounded by clothing. For digital echo, use headphones instead of speakers while recording — this prevents the played-back audio from being re-captured by the microphone. Use the echo test to confirm there is no feedback loop before starting a recording session.</p>
+      </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2>Online Mic Recorder Privacy — No Upload, No Storage</h2>
+            <p>Every step of the recording process in this tool runs locally in your browser. When you click Record, the MediaRecorder API writes audio data to a Blob object in your browser's memory. When you download the file, it is transferred directly from memory to your local filesystem. No audio data is sent to any server at any point — there is no account, no cloud storage, no analytics that capture audio content. The recording exists only in your browser session; when you close the tab, it is gone unless you downloaded it first. <!-- SILO_START:slot_c -->The <a href="/sound-level-meter">sound level meter online</a> uses your microphone to display decibel levels as you speak or move.<!-- SILO_END:slot_c --></p>
+      </div>
+
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body">
+              <ins class="adsbygoogle"
+                   style="display:block"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-slot="7669795756"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
+
+      <div class="content-panel prose max-w-none" id="faq">
+        <h2>Online Mic Recorder — Frequently Asked Questions</h2>
+        <details class="panel" open>
+          <summary><strong>Does the online mic recorder work on mobile phones?</strong></summary>
+          <p>Yes — the tool works on iOS Safari (version 14.3+) and Android Chrome. On iOS, you must use Safari; Chrome for iOS does not support the MediaRecorder API. On Android, Chrome, Firefox, and Edge all support browser-based recording. Note that mobile microphones typically have higher noise floors and more aggressive noise cancellation than desktop microphones, which may affect recording quality.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Why does my recording sound muffled or very quiet?</strong></summary>
+          <p>Common causes: the microphone input volume in OS settings is set too low (check Sound settings → Input level), a noise cancellation or microphone boost setting is interfering, or you are positioned too far from the microphone. Also check that the correct microphone is selected in the device dropdown — some laptops have multiple microphone inputs (built-in mic, webcam mic, headset mic) and the wrong one may be selected.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Is there a maximum recording length?</strong></summary>
+          <p>There is no hard time limit — the tool records until you click Stop. However, long recordings accumulate in your browser's memory. Recordings above 30–60 minutes may cause memory pressure on devices with limited RAM, particularly on older phones or tablets. For very long recordings (hours), a dedicated desktop recording application is more appropriate.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Why does the waveform not move when I click Record?</strong></summary>
+          <p>This usually means the browser did not receive microphone audio. Check: (1) microphone permission was granted in the browser — look for the microphone icon in the address bar; (2) the correct microphone is selected in the dropdown; (3) your microphone is physically connected and not muted at the hardware level (some headsets have an inline mute button). If the permission was previously denied, reset it in the browser's site settings.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Can I record system audio (computer sounds) as well as my microphone?</strong></summary>
+          <p>Browser-based mic recorders can only capture microphone input — they cannot record system audio (music playing, game sound, etc.) due to browser security restrictions. To record system audio alongside your microphone, use a desktop screen recorder or a virtual audio cable routing tool. The browser MediaRecorder API is limited to microphone streams for privacy reasons.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>What browsers support the online voice recorder?</strong></summary>
+          <p>The tool works in any browser that supports the MediaRecorder API: Chrome 49+, Firefox 25+, Safari 14.3+, and Edge 79+. Internet Explorer is not supported. For the best audio quality and most consistent behaviour, use the latest version of Chrome or Firefox on a desktop or laptop. If the record button is unresponsive, update your browser — older versions may lack the required Web Audio API features.</p>
+        </details>
+      </div>
+
+        </div>
+
+        <!-- RIGHT: sidebar -->
+        <div>
+
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body" style="min-height:360px;">
+              <ins class="adsbygoogle"
+                   style="display:block;min-height:360px;"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-slot="6193062550"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
+
+          <div class="panel mb-5">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-gear-fill"></i>Recording Settings</span></div>
+            <div class="panel-body">
+              <div class="mb-3">
+                <label class="form-label" for="quality-select">Audio Quality</label>
+                <select class="form-select" id="quality-select">
+                  <option value="128">Standard (128 kbps)</option>
+                  <option value="192" selected>High (192 kbps)</option>
+                  <option value="320">Maximum (320 kbps)</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label" for="sample-rate-select">Sample Rate</label>
+                <select class="form-select" id="sample-rate-select">
+                  <option value="44100" selected>44.1 kHz (CD Quality)</option>
+                  <option value="48000">48 kHz (Professional)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel mb-5">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-tools"></i>Related Tools</span></div>
+            <div class="panel-body" style="padding:0">
+              <nav class="flex flex-col">
+                <a href="/" class="rail-link" title="Online Microphone Test"><i class="bi bi-mic"></i>Test Your Microphone</a>
+                <a href="/show-mic" class="rail-link" title="Microphone Details"><i class="bi bi-info-circle"></i>View Mic Specifications</a>
+                <a href="/sound-level-meter" class="rail-link" title="Sound Level Meter"><i class="bi bi-speedometer2"></i>Sound Level Meter</a>
+                <a href="/voice-frequency-analyzer" class="rail-link" title="Voice Analyzer"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a>
+                <a href="/echo-test" class="rail-link" title="Echo Test"><i class="bi bi-arrow-repeat"></i>Echo Test</a>
+                <a href="/troubleshooting" class="rail-link" title="Troubleshooting"><i class="bi bi-question-circle"></i>Troubleshooting Guide</a>
+              </nav>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-shield-check"></i>Privacy Note</span></div>
+            <div class="panel-body">
+              <p class="mb-0" style="font-size:12.5px;color:var(--ink-2)">All recordings are processed locally in your browser. No audio data is uploaded to any server. Your recordings stay on your device.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Comments -->
+    <section class="comments-panel">
+      <div class="max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="max-w-[760px] mx-auto">
+          <h3 class="flex items-center gap-2 mb-4"><i class="bi bi-chat-dots" style="color:var(--amber)"></i>Comments &amp; Feedback</h3>
+          <script defer src="https://comments.tickspike.com/comentario.js"></script>
+          <comentario-comments theme="light"></comentario-comments>
+        </div>
+      </div>
+    </section>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var comentarioEl = document.querySelector('comentario-comments');
+        if (!comentarioEl) return;
+        comentarioEl.addEventListener('keydown', function(e) { e.stopPropagation(); }, true);
+        comentarioEl.addEventListener('keyup', function(e) { e.stopPropagation(); }, true);
+        comentarioEl.addEventListener('keypress', function(e) { e.stopPropagation(); }, true);
+      }, 2000);
+    });
+    </script>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-6">
+          <div class="lg:col-span-1 sm:col-span-2">
+            <div class="footer-brand">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+                <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+                <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M12 18v3M9 21h6" stroke-width="1.7" stroke-linecap="round"/>
+              </svg>
+              MicTest
+            </div>
+            <p class="footer-desc">Free online microphone and audio testing tools. Test your microphone, speakers, and audio devices directly in your browser without any downloads.</p>
+          </div>
+          <div>
+            <span class="footer-col-heading">Mic Tools</span>
+            <ul class="footer-links">
+              <li><a href="/" title="Free Online Microphone Test">Microphone Test</a></li>
+              <li><a href="/show-mic" title="View Microphone Details">Show My Mic</a></li>
+              <li><a href="/mic-recorder" title="Record Your Voice">Mic Recorder</a></li>
+              <li><a href="/sound-level-meter" title="Measure Decibel Levels">Sound Level Meter</a></li>
+              <li><a href="/echo-test" title="Test for Echo Issues">Echo Test</a></li>
+              <li><a href="/background-noise-analyzer" title="Analyze Background Noise">Noise Analyzer</a></li>
+              <li><a href="/voice-frequency-analyzer" title="Analyze Voice Frequencies">Frequency Analyzer</a></li>
+              <li><a href="/audio-latency-test" title="Measure Audio Latency">Latency Test</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="footer-col-heading">Speaker Tools</span>
+            <ul class="footer-links">
+              <li><a href="/show-speakers" title="View Speaker Details">Show My Speakers</a></li>
+              <li><a href="/tone-generator" title="Generate Test Tones">Tone Generator</a></li>
+              <li><a href="/stereo-test" title="Test Left Right Channels">Stereo Test</a></li>
+              <li><a href="/bass-test" title="Test Low Frequencies">Bass Test</a></li>
+              <li><a href="/speaker-volume-test" title="Calibrate Volume">Speaker Volume Test</a></li>
+            </ul>
+            <span class="footer-col-heading" style="margin-top:1rem;display:block">Headphones &amp; Hearing</span>
+            <ul class="footer-links">
+              <li><a href="/headphone-test" title="Test Your Headphones">Headphone Test</a></li>
+              <li><a href="/hearing-test" title="Online Hearing Test">Hearing Test</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="footer-col-heading">Resources</span>
+            <ul class="footer-links">
+              <li><a href="/troubleshooting" title="Fix Audio Problems">Troubleshooting Guide</a></li>
+              <li><a href="/about" title="About MicTest">About MicTest</a></li>
+              <li><a href="/contact" title="Contact Us">Contact</a></li>
+              <li><a href="/sitemap" title="Site Map">Sitemap</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          &copy; 2025&ndash;<span id="footer-current-year"></span> MicTest. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function() {
+  var yearEl = document.getElementById('footer-current-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+})();
+</script>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var STORE_KEY = 'mictest-theme';
+
+  function readStored() {
+    try { return localStorage.getItem(STORE_KEY); } catch (e) { return null; }
+  }
+  function writeStored(v) {
+    try { localStorage.setItem(STORE_KEY, v); } catch (e) {}
+  }
+
+  var stored = readStored();
+  if (stored === 'light' || stored === 'dark') {
+    root.setAttribute('data-theme', stored);
+  }
+
+  function currentMode() {
+    var attr = root.getAttribute('data-theme');
+    if (attr === 'light' || attr === 'dark') return attr;
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'dark' : 'light';
+  }
+
+  function paint() {
+    var mode = currentMode();
+    var dots = document.querySelectorAll('.theme-dot');
+    var labels = document.querySelectorAll('.theme-label');
+    for (var i = 0; i < dots.length; i++) {
+      if (mode === 'dark') { dots[i].style.left = 'auto'; dots[i].style.right = '2px'; }
+      else { dots[i].style.right = 'auto'; dots[i].style.left = '2px'; }
+    }
+    for (var j = 0; j < labels.length; j++) {
+      labels[j].textContent = mode === 'dark' ? 'Dark panel' : 'Light panel';
+    }
+  }
+
+  var buttons = document.querySelectorAll('.theme-toggle-btn');
+  for (var k = 0; k < buttons.length; k++) {
+    buttons[k].addEventListener('click', function () {
+      var next = currentMode() === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      writeStored(next);
+      paint();
+    });
+  }
+
+  paint();
+})();
+</script>
+
+<script>
+(function() {
+  var path = window.location.pathname.replace(/\/$/, '');
+  var page = (path === '' || path === '/index' || path === '/index.html') ? 'index' : path.replace(/^\//, '').replace(/\.html$/, '');
+  var els = document.querySelectorAll('.rail-link[data-page="' + page + '"]');
+  els.forEach(function(el) { el.classList.add('active'); el.setAttribute('aria-current', 'page'); });
+})();
+</script>
+
+<script>
+(function() {
+  var btn = document.getElementById('mobile-menu-btn');
+  var closeBtn = document.getElementById('mobile-drawer-close');
+  var drawer = document.getElementById('mobile-drawer');
+  if (!btn || !drawer) return;
+  btn.addEventListener('click', function() { drawer.classList.add('open'); });
+  if (closeBtn) closeBtn.addEventListener('click', function() { drawer.classList.remove('open'); });
+  drawer.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() { drawer.classList.remove('open'); });
+  });
+})();
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const recordBtn = document.getElementById('record-btn');
+      const stopBtn = document.getElementById('stop-btn');
+      const micSelect = document.getElementById('mic-select');
+      const recordingTime = document.getElementById('recording-time');
+      const statusMessage = document.getElementById('status-message');
+      const statusAlert = document.getElementById('status-alert');
+      const playbackSection = document.getElementById('playback-section');
+      const audioPlayback = document.getElementById('audio-playback');
+      const downloadMp3Btn = document.getElementById('download-mp3-btn');
+      const downloadWavBtn = document.getElementById('download-wav-btn');
+      const newRecordingBtn = document.getElementById('new-recording-btn');
+      const waveformCanvas = document.getElementById('waveform');
+      const waveformCtx = waveformCanvas.getContext('2d');
+
+      let mediaRecorder = null;
+      let audioChunks = [];
+      let audioBlob = null;
+      let audioStream = null;
+      let audioContext = null;
+      let analyser = null;
+      let animationId = null;
+      let startTime = null;
+      let timerInterval = null;
+
+      // Resize canvas
+      function resizeCanvas() {
+        waveformCanvas.width = waveformCanvas.offsetWidth;
+        waveformCanvas.height = waveformCanvas.offsetHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      // Get audio devices
+      async function getAudioDevices() {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          stream.getTracks().forEach(track => track.stop());
+
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const audioInputs = devices.filter(d => d.kind === 'audioinput');
+
+          micSelect.innerHTML = '';
+          audioInputs.forEach((device, index) => {
+            const option = document.createElement('option');
+            option.value = device.deviceId;
+            option.text = device.label || `Microphone ${index + 1}`;
+            micSelect.appendChild(option);
+          });
+          micSelect.disabled = false;
+        } catch (error) {
+          updateStatus('danger', 'Microphone access denied. Please allow microphone permissions.');
+        }
+      }
+
+      // Update status
+      function updateStatus(type, message) {
+        statusAlert.className = `alert alert-${type}`;
+        statusMessage.innerHTML = message;
+      }
+
+      // Format time
+      function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+        return `${mins}:${secs}`;
+      }
+
+      // Draw waveform
+      function drawWaveform() {
+        if (!analyser) return;
+
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        analyser.getByteTimeDomainData(dataArray);
+
+        waveformCtx.fillStyle = '#f8f9fa';
+        waveformCtx.fillRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+
+        waveformCtx.lineWidth = 2;
+        waveformCtx.strokeStyle = '#0055FF';
+        waveformCtx.beginPath();
+
+        const sliceWidth = waveformCanvas.width / bufferLength;
+        let x = 0;
+
+        for (let i = 0; i < bufferLength; i++) {
+          const v = dataArray[i] / 128.0;
+          const y = v * waveformCanvas.height / 2;
+
+          if (i === 0) {
+            waveformCtx.moveTo(x, y);
+          } else {
+            waveformCtx.lineTo(x, y);
+          }
+          x += sliceWidth;
+        }
+
+        waveformCtx.lineTo(waveformCanvas.width, waveformCanvas.height / 2);
+        waveformCtx.stroke();
+
+        animationId = requestAnimationFrame(drawWaveform);
+      }
+
+      // Start recording
+      async function startRecording() {
+        try {
+          const deviceId = micSelect.value;
+          const constraints = {
+            audio: deviceId ? { deviceId: { exact: deviceId } } : true
+          };
+
+          audioStream = await navigator.mediaDevices.getUserMedia(constraints);
+
+          // Setup audio context and analyser
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          analyser = audioContext.createAnalyser();
+          const source = audioContext.createMediaStreamSource(audioStream);
+          source.connect(analyser);
+          analyser.fftSize = 2048;
+
+          // Start visualization
+          drawWaveform();
+
+          // Setup media recorder
+          mediaRecorder = new MediaRecorder(audioStream);
+          audioChunks = [];
+
+          mediaRecorder.ondataavailable = (event) => {
+            audioChunks.push(event.data);
+          };
+
+          mediaRecorder.onstop = () => {
+            audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            audioPlayback.src = audioUrl;
+            playbackSection.classList.remove('d-none');
+            updateStatus('success', 'Recording complete! Preview your recording below.');
+          };
+
+          mediaRecorder.start();
+          startTime = Date.now();
+
+          // Start timer
+          timerInterval = setInterval(() => {
+            const elapsed = (Date.now() - startTime) / 1000;
+            recordingTime.textContent = formatTime(elapsed);
+          }, 100);
+
+          recordBtn.disabled = true;
+          stopBtn.disabled = false;
+          micSelect.disabled = true;
+          updateStatus('danger', '<span class="recording-indicator d-inline-block me-2"></span>Recording in progress...');
+        } catch (error) {
+          updateStatus('danger', 'Error starting recording: ' + error.message);
+        }
+      }
+
+      // Stop recording
+      function stopRecording() {
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+          mediaRecorder.stop();
+        }
+
+        if (audioStream) {
+          audioStream.getTracks().forEach(track => track.stop());
+        }
+
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+        }
+
+        if (timerInterval) {
+          clearInterval(timerInterval);
+        }
+
+        recordBtn.disabled = false;
+        stopBtn.disabled = true;
+        micSelect.disabled = false;
+      }
+
+      // Download as WAV
+      function downloadWav() {
+        if (!audioBlob) return;
+        const url = URL.createObjectURL(audioBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `recording_${Date.now()}.wav`;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      // Download as MP3 (using WAV for now - MP3 encoding requires additional library)
+      function downloadMp3() {
+        // For simplicity, downloading as WAV (MP3 encoding would require lamejs or similar)
+        if (!audioBlob) return;
+        const url = URL.createObjectURL(audioBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `recording_${Date.now()}.wav`;
+        a.click();
+        URL.revokeObjectURL(url);
+        updateStatus('info', 'Downloaded as WAV format. MP3 conversion requires additional processing.');
+      }
+
+      // New recording
+      function newRecording() {
+        playbackSection.classList.add('d-none');
+        recordingTime.textContent = '00:00';
+        audioPlayback.src = '';
+        audioBlob = null;
+        audioChunks = [];
+        updateStatus('info', 'Click the record button to start a new recording.');
+
+        // Clear canvas
+        waveformCtx.fillStyle = '#f8f9fa';
+        waveformCtx.fillRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+      }
+
+      // Event listeners
+      recordBtn.addEventListener('click', startRecording);
+      stopBtn.addEventListener('click', stopRecording);
+      downloadWavBtn.addEventListener('click', downloadWav);
+      downloadMp3Btn.addEventListener('click', downloadMp3);
+      newRecordingBtn.addEventListener('click', newRecording);
+
+      // Initialize
+      getAudioDevices();
+    });
+  </script>
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "slug": "contact",
+  "meta_title": "Contact MicTest - Get Help with Audio Issues",
+  "meta_description": "Have a question, found a bug, or want to suggest a new audio testing feature? Contact the MicTest team by email — every message is read and gets a reply.",
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact MicTest",
+    "url": "https://mictest.dev/contact",
+    "description": "Contact MicTest support for assistance with audio device issues, testing problems, or technical questions.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "MicTest",
+      "url": "https://mictest.dev"
+    }
+  },
+  "eyebrow": "Unit 16 · Support Channel",
+  "h1": "Contact MicTest",
+  "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">Have a question, found a bug, or just want to say hello? Drop me an email — I read every message.</p>",
+  "content_blocks": [
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-envelope-fill me-2 text-primary\"></i>Email</h2>\n<div class=\"d-flex align-items-center\">\n  <i class=\"bi bi-envelope-fill fs-4 me-3 text-primary\"></i>\n  <p class=\"mb-0 fs-5\"><a href=\"mailto:vinithablog@gmail.com\">vinithablog@gmail.com</a></p>\n</div>\n<p class=\"text-muted small mt-2 mb-0\">I typically respond within 24–48 hours on business days.</p>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-chat-dots me-2 text-primary\"></i>What to Include</h2>\n<p>To help me look into your issue quickly, please mention:</p>\n<ul class=\"mb-0\">\n  <li><strong>Browser and version</strong> — e.g. Chrome 120, Firefox 121, Safari 17</li>\n  <li><strong>Operating system</strong> — e.g. Windows 11, macOS Sonoma, Android 14</li>\n  <li><strong>Device type</strong> — desktop, laptop, smartphone, or tablet</li>\n  <li><strong>Microphone or speaker</strong> — built-in, USB, Bluetooth, etc.</li>\n  <li><strong>Which tool</strong> — e.g. Mic Test, Recorder, Stereo Test</li>\n  <li><strong>What happened</strong> — describe the issue and what you expected</li>\n  <li><strong>Any error messages</strong> — copy them in if you see any</li>\n</ul>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-lightbulb me-2 text-warning\"></i>Before You Write</h2>\n<p class=\"mb-0\">Most common issues — microphone not detected, no sound, echo, low volume — are covered in the troubleshooting guide. It’s worth a quick check before reaching out, as the fix is often a browser permission or system setting.</p>"
+    }
+  ],
+  "ads": {
+    "mid": "9146528954"
+  }
+}

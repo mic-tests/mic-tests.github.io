@@ -1,0 +1,87 @@
+{
+  "slug": "troubleshooting",
+  "meta_title": "Audio Troubleshooting - Fix Microphone & Speaker Issues",
+  "meta_description": "Fix common microphone and speaker problems. Troubleshoot audio issues on Windows, Mac, and Chrome. Solutions for no sound, mic not working, echo, and more.",
+  "json_ld": {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "name": "Audio Troubleshooting Guide",
+    "url": "https://mictest.dev/troubleshooting",
+    "description": "Fix common microphone and speaker problems. Troubleshoot audio issues on Windows, Mac, and Chrome.",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I fix my microphone not working?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Check physical connection, ensure browser permissions are granted, verify system settings (Windows: Settings > Privacy > Microphone; Mac: System Preferences > Security & Privacy > Microphone), select the correct input device, and update audio drivers."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is there no sound from my speakers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Check all volume levels (system, browser, physical), verify the correct output device is selected, test with different audio sources, and try restarting the audio service (Windows: services.msc > Windows Audio > Restart; Mac: sudo killall coreaudiod)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I fix browser permission denied for microphone?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Reset site permissions by clicking the lock icon in your address bar, check Chrome settings at chrome://settings/content/microphone, and verify system-level permissions allow your browser to access the microphone."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I fix audio echo or feedback?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use headphones to prevent speaker audio from reaching the mic, lower speaker volume, increase distance between microphone and speakers, and enable echo cancellation in your app or software settings."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I fix low volume or quiet audio?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Check all volume controls (system, app, browser, device), boost microphone levels in system sound settings, and position the microphone closer (typically 6-12 inches for best results)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I fix distorted or crackling sound?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Lower input gain to prevent audio clipping, check and replace damaged cables, and move away from electronic devices that may cause interference."
+        }
+      }
+    ],
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "MicTest",
+      "url": "https://mictest.dev"
+    }
+  },
+  "eyebrow": "Unit 15 · Fault Isolation",
+  "h1": "Fix Audio Issues — Microphone & Speaker Troubleshooting Guide",
+  "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">This <strong>audio troubleshooting guide</strong> walks you through fixes for the most common microphone and speaker problems — mic not detected, no audio input, browser permission errors, distorted sound, and more. Pick the <strong>issue category</strong> that matches your problem and work through the <strong>step-by-step checklist</strong>; each section tells you exactly what to check and what to change on your device. If you've already run the <strong>mic test online</strong> and confirmed your hardware is working, start here to pinpoint whether the issue is in your browser settings, OS permissions, or audio drivers.</p>",
+  "content_blocks": [
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-lightning me-2\"></i>Quick Diagnostic</h2>\n<ul>\n  <li><a href=\"/\"><i class=\"bi bi-mic me-1\"></i>Test Microphone</a></li>\n  <li><a href=\"/speaker-volume-test\"><i class=\"bi bi-volume-up me-1\"></i>Test Speakers</a></li>\n  <li><a href=\"/show-mic\"><i class=\"bi bi-info-circle me-1\"></i>View Mic Info</a></li>\n  <li><a href=\"/echo-test\"><i class=\"bi bi-arrow-repeat me-1\"></i>Echo Test</a></li>\n</ul>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-wrench me-2\"></i>Select Your Issue</h2>\n<details class=\"panel\" open>\n  <summary><i class=\"bi bi-mic-mute me-2 text-danger\"></i><strong>Microphone Not Working</strong></summary>\n  <h4>Microphone Not Working - Solutions</h4>\n  <ol>\n    <li><strong>Check Physical Connection</strong> — Ensure your microphone is properly plugged in. For USB mics, try a different port. For wireless, check battery.</li>\n    <li><strong>Check Browser Permissions</strong> — Click the lock icon in your browser's address bar → Site Settings → Allow Microphone access.</li>\n    <li><strong>Check System Settings</strong> — <strong>Windows:</strong> Settings → Privacy → Microphone → Enable access<br><strong>Mac:</strong> System Preferences → Security &amp; Privacy → Microphone</li>\n    <li><strong>Select Correct Input Device</strong> — In your system sound settings, ensure the correct microphone is selected as the default input device. <a href=\"/show-mic\">View detected devices</a>.</li>\n    <li><strong>Update Audio Drivers</strong> — Outdated drivers can cause issues. Check your device manufacturer's website for updates.</li>\n  </ol>\n</details>\n<details class=\"panel\">\n  <summary><i class=\"bi bi-volume-mute me-2 text-danger\"></i><strong>No Sound from Speakers</strong></summary>\n  <h4>No Sound from Speakers - Solutions</h4>\n  <ol>\n    <li><strong>Check Volume Levels</strong> — Check system volume, browser volume, and physical speaker/headphone volume controls.</li>\n    <li><strong>Check Output Device</strong> — Ensure correct output device is selected. <a href=\"/show-speakers\">Check speaker details</a>.</li>\n    <li><strong>Test with Different Audio</strong> — Try playing audio from another website or application to isolate the issue. <a href=\"/speaker-volume-test\">Use our speaker test</a>.</li>\n    <li><strong>Restart Audio Service</strong> — <strong>Windows:</strong> services.msc → Windows Audio → Restart<br><strong>Mac:</strong> sudo killall coreaudiod</li>\n  </ol>\n</details>\n<details class=\"panel\">\n  <summary><i class=\"bi bi-shield-x me-2 text-warning\"></i><strong>Browser Permission Denied</strong></summary>\n  <h4>Browser Permission Denied - Solutions</h4>\n  <ol>\n    <li><strong>Reset Site Permissions</strong> — Click the lock/info icon in your address bar → Reset permissions → Reload the page.</li>\n    <li><strong>Chrome Settings</strong> — Go to chrome://settings/content/microphone → Remove this site from blocked list → Reload.</li>\n    <li><strong>System-Level Permissions</strong> — <strong>Windows:</strong> Settings → Privacy → Microphone → Allow apps to access<br><strong>Mac:</strong> System Preferences → Security &amp; Privacy → Microphone → Enable for your browser</li>\n  </ol>\n</details>\n<details class=\"panel\">\n  <summary><i class=\"bi bi-arrow-repeat me-2 text-warning\"></i><strong>Echo or Feedback</strong></summary>\n  <h4>Echo or Feedback - Solutions</h4>\n  <ol>\n    <li><strong>Use Headphones</strong> — The most effective solution. Prevents speaker audio from being picked up by the mic. <a href=\"/headphone-test\">Test your headphones</a>.</li>\n    <li><strong>Lower Speaker Volume</strong> — Reduce volume to minimize audio reaching the microphone.</li>\n    <li><strong>Increase Distance</strong> — Move your microphone away from speakers.</li>\n    <li><strong>Enable Echo Cancellation</strong> — Check your app/software settings for echo cancellation options. <a href=\"/echo-test\">Test for echo</a>.</li>\n  </ol>\n</details>\n<details class=\"panel\">\n  <summary><i class=\"bi bi-volume-down me-2 text-warning\"></i><strong>Low Volume / Quiet Audio</strong></summary>\n  <h4>Low Volume - Solutions</h4>\n  <ol>\n    <li><strong>Check All Volume Controls</strong> — System volume, app volume, browser volume, and physical device volume.</li>\n    <li><strong>Boost Microphone Levels</strong> — <strong>Windows:</strong> Sound settings → Recording → Properties → Levels → Increase Microphone Boost<br><strong>Mac:</strong> System Preferences → Sound → Input → Increase input volume</li>\n    <li><strong>Position Microphone Closer</strong> — Move closer to your microphone, typically 6-12 inches for best results. <a href=\"/sound-level-meter\">Check audio levels</a>.</li>\n  </ol>\n</details>\n<details class=\"panel\">\n  <summary><i class=\"bi bi-soundwave me-2 text-warning\"></i><strong>Distorted or Crackling Sound</strong></summary>\n  <h4>Distorted Sound - Solutions</h4>\n  <ol>\n    <li><strong>Lower Input Gain</strong> — Audio clipping causes distortion. Reduce microphone gain/boost in system settings.</li>\n    <li><strong>Check Cable Connections</strong> — Loose or damaged cables cause crackling. Try different cables.</li>\n    <li><strong>Reduce Interference</strong> — Move away from electronic devices, routers, and phones that may cause interference. <a href=\"/background-noise-analyzer\">Analyze background noise</a>.</li>\n  </ol>\n</details>\n<details class=\"panel\">\n  <summary><i class=\"bi bi-usb-drive me-2 text-info\"></i><strong>Wrong Device Selected</strong></summary>\n  <h4>Wrong Device Selected - Solutions</h4>\n  <ol>\n    <li><strong>Check System Sound Settings</strong> — Open system sound settings and verify the correct input/output device is selected as default.</li>\n    <li><strong>Use Device Selector</strong> — Many of our tools have device selectors. <a href=\"/show-mic\">View your microphones</a> or <a href=\"/show-speakers\">view your speakers</a>.</li>\n  </ol>\n</details>\n<details class=\"panel\">\n  <summary><i class=\"bi bi-bluetooth me-2 text-info\"></i><strong>Bluetooth Audio Issues</strong></summary>\n  <h4>Bluetooth Audio Issues - Solutions</h4>\n  <ol>\n    <li><strong>Re-pair Device</strong> — Remove the Bluetooth device and pair it again.</li>\n    <li><strong>Check Battery</strong> — Low battery can cause audio issues. Charge your device.</li>\n    <li><strong>Reduce Distance</strong> — Stay within range of your computer. Walls and obstacles can affect signal.</li>\n    <li><strong>Check Audio Codec</strong> — Some Bluetooth profiles have poor microphone quality. Try using \"Hands-Free\" profile for calls. <a href=\"/audio-latency-test\">Test latency</a>.</li>\n  </ol>\n</details>"
+    },
+    {
+      "id": null,
+      "html": "<h2><i class=\"bi bi-question-circle me-2\"></i>Still Need Help?</h2>\n<p><a href=\"/contact\">Contact us</a> with details about your problem and we'll try to help.</p>\n<p>Learn more about our audio testing tools on our <a href=\"/about\">about page</a>.</p>"
+    }
+  ],
+  "ads": {
+    "mid": "9146528954"
+  }
+}

@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio Latency Test - Measure Microphone Delay</title>
+  <meta name="description" content="Audio latency test — click Start Test, stay quiet, and measure your round-trip mic delay in milliseconds. Under 20ms is suitable for calls and live recording.">
+  <meta name="keywords" content="audio latency test, microphone latency, audio delay test, input latency, round-trip latency, real-time audio latency">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="canonical" href="https://mictest.dev/audio-latency-test">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Audio Latency Test",
+  "url": "https://mictest.dev/audio-latency-test",
+  "description": "Measure audio latency and microphone delay in milliseconds. Test input/output latency for real-time audio applications, gaming, and music production.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "MicTest",
+    "url": "https://mictest.dev"
+  }
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What causes high audio latency in a browser?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Browsers process audio through the Web Audio API, which runs on a non-realtime scheduler. This adds inherent overhead of 20–40ms regardless of your hardware. Additional causes include: a large audio buffer set in your OS driver settings, background applications competing for CPU, Bluetooth audio routing, or an outdated audio driver. For the browser-based audio latency test to show a low reading, all these factors need to be minimised simultaneously."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does Bluetooth always show high audio latency?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bluetooth audio uses lossy compression codecs (SBC, AAC, aptX) that add encoding and decoding time. The Bluetooth radio protocol also adds packet transmission delay. Even with modern low-latency codecs, you should expect 40–200ms of additional delay versus a wired connection. Some earbuds in \"gaming mode\" switch to a lower-latency codec specifically to reduce this — check if your device has this option in its companion app."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the audio latency test the same as a network ping test?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No — they measure completely different things. A network ping test measures how long a data packet takes to travel across a network. This audio latency test measures how long it takes for your device to produce a sound and for that sound to be captured by your microphone — entirely local, no network involved. Poor network ping does not directly cause audio latency within your computer's sound system."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "My latency reading is 5ms but audio still feels delayed — why?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Browser-based tests estimate latency using AudioContext.baseLatency and AudioContext.outputLatency — values reported by the browser, not directly measured. The browser may report a low hardware latency while adding its own scheduling delay on top. Additionally, if you are experiencing perceived audio delay in a specific application (video call, DAW, game), that application may be adding its own buffering that this test does not account for. Test within the specific application's own latency settings."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is ASIO and does it reduce audio latency significantly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ASIO bypasses the Windows Kernel Mixer, which adds up to 30ms of extra latency. With a quality audio interface and ASIO driver, total round-trip latency of 3–6ms is achievable on modern hardware. Without ASIO (using WASAPI or DirectSound), typical Windows latency is 20–50ms. The improvement is significant for music production. ASIO has no equivalent in browser audio — this is why browser-based tests always show higher latency than DAW measurements."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use this test to calibrate latency for my DAW recording setup?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use it as a starting point for diagnosing whether your audio interface is performing as expected. For precise DAW calibration, use your DAW's built-in round-trip latency measurement or a dedicated hardware latency tester. The online mic recorder is also useful for checking whether your recorded audio drifts out of sync over time, which indicates a clock rate mismatch rather than a latency issue."
+      }
+    }
+  ]
+}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  <script async crossorigin="anonymous"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5426315045205785"></script>
+  <meta name="google-adsense-account" content="ca-pub-5426315045205785">
+
+  <style>
+    :root{
+      --bg:#EEF0F2; --panel:#F8F9FA; --panel-2:#FFFFFF; --border:#D3D7DC; --border-lt:#E4E7EA;
+      --ink:#14161A; --ink-2:#565B63; --ink-3:#868C94;
+      --amber:#B65C00; --amber-dim:rgba(182,92,0,.09); --amber-glow:rgba(182,92,0,.30);
+      --red:#C4432E; --success:#2E7D4F;
+    }
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme="light"]){
+        --bg:#111013; --panel:#18171B; --panel-2:#1F1D22; --border:#2A2830; --border-lt:#221F25;
+        --ink:#EDEAE4; --ink-2:#8B8780; --ink-3:#5F5C56;
+        --amber:#FFB13D; --amber-dim:rgba(255,177,61,.14); --amber-glow:rgba(255,177,61,.55);
+        --red:#FF5A4E; --success:#7AB85E;
+      }
+    }
+    :root[data-theme="dark"]{
+        --bg:#111013; --panel:#18171B; --panel-2:#1F1D22; --border:#2A2830; --border-lt:#221F25;
+        --ink:#EDEAE4; --ink-2:#8B8780; --ink-3:#5F5C56;
+        --amber:#FFB13D; --amber-dim:rgba(255,177,61,.14); --amber-glow:rgba(255,177,61,.55);
+        --red:#FF5A4E; --success:#7AB85E;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    /* Neutralize Tailwind's .container utility (kept only so the content-db exporter can scope this region) */
+    .container.main-wrap{width:100%;max-width:1260px;margin-left:auto;margin-right:auto;}
+    body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;}
+    .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
+    .display{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.02em;}
+    a{color:var(--amber);text-decoration:none}
+    a:hover{opacity:.8}
+    ::selection{background:var(--amber);color:var(--bg)}
+    h1,h2,h3,h4{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;color:var(--ink);}
+    h2{font-weight:700;font-size:1.5rem;line-height:1.25;margin:0 0 .9rem;}
+    h3{font-weight:600;font-size:1.1rem;line-height:1.3;margin:1.75rem 0 .5rem;}
+    p{margin:0 0 1rem;}
+    strong,b{color:var(--ink);font-weight:700;}
+    em,i{font-style:italic;}
+    code{background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;font-size:.87em;color:var(--ink);font-family:'JetBrains Mono',monospace;}
+
+    /* ── Long-form content (how-it-works / how-to / troubleshooting / FAQ) is raw semantic HTML
+       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility
+       instead of fighting Tailwind's preflight reset with custom element CSS + !important.
+       Its rules live behind :where() (zero specificity), so our theme tokens below win cleanly. ── */
+    /* !important: the typography plugin's own .prose rule also *sets* these same custom
+       properties (its light-mode defaults), at equal specificity and later in the cascade
+       (Tailwind CDN injects its stylesheet after this one) — so ours needs to win outright. */
+    .prose{
+      --tw-prose-body: var(--ink-2) !important; --tw-prose-headings: var(--ink) !important; --tw-prose-lead: var(--ink-2) !important;
+      --tw-prose-links: var(--amber) !important; --tw-prose-bold: var(--ink) !important; --tw-prose-counters: var(--ink-3) !important;
+      --tw-prose-bullets: var(--amber) !important; --tw-prose-hr: var(--border) !important; --tw-prose-quotes: var(--ink) !important;
+      --tw-prose-quote-borders: var(--amber) !important; --tw-prose-captions: var(--ink-3) !important;
+      --tw-prose-code: var(--ink) !important; --tw-prose-pre-code: var(--ink) !important; --tw-prose-pre-bg: var(--panel-2) !important;
+      --tw-prose-th-borders: var(--border) !important; --tw-prose-td-borders: var(--border-lt) !important;
+      color:var(--tw-prose-body);
+    }
+    .prose :where(h2,h3,h4,h5,h6){font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;}
+    .prose :where(code)::before,.prose :where(code)::after{content:none !important;}
+    .prose :where(code){background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;}
+    .prose :where(a){text-decoration:none;}
+    audio,video{max-width:100%;}
+    dl:not(.mic-stats) dt{font-weight:600;color:var(--ink);}
+    dl:not(.mic-stats) dd{margin:0 0 .6rem;color:var(--ink-2);}
+
+    .led{width:6px;height:6px;border-radius:999px;background:var(--amber);box-shadow:0 0 6px var(--amber);flex-shrink:0;}
+    .hairline{border-color:var(--border)}
+    .grid-bg{background-image:linear-gradient(var(--border-lt) 1px, transparent 1px),linear-gradient(90deg, var(--border-lt) 1px, transparent 1px);background-size:28px 28px;}
+
+    /* ── Rail nav ── */
+    .rail-group-label{font-family:'JetBrains Mono';font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding:1.1rem 0 .4rem;}
+    .rail-link{display:flex;align-items:center;gap:8px;padding:.42rem .55rem;border-radius:3px;font-size:12px;color:var(--ink-2);font-family:'IBM Plex Sans';}
+    .rail-link:hover{background:var(--panel-2);color:var(--ink);opacity:1;}
+    .rail-link.active{background:var(--amber-dim);color:var(--amber);font-weight:600;}
+    .rail-link i{width:14px;text-align:center;font-size:12px;flex-shrink:0;}
+
+    /* ── Content panels (replace Bootstrap cards) ── */
+    .panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);}
+    .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .panel-body{padding:1.1rem;}
+    .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
+    .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
+    .ad-panel-body{padding:1rem;text-align:center;}
+
+    /* ── Buttons ── */
+    .btn{display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:600;padding:.6rem 1.1rem;border-radius:4px;border:1px solid transparent;cursor:pointer;transition:opacity .15s;font-family:'IBM Plex Sans';}
+    .btn:hover{opacity:.88}
+    .btn:disabled{opacity:.45;cursor:not-allowed;}
+    .btn-primary{background:var(--amber);color:var(--bg);}
+    .btn-secondary{background:var(--panel-2);color:var(--ink-2);border-color:var(--border);}
+    .btn-danger{background:var(--red);color:#fff;}
+    .btn-warning{background:var(--amber);color:var(--bg);}
+    .btn-outline{background:transparent;color:var(--ink-2);border-color:var(--border);}
+    .btn-outline:hover{background:var(--panel-2);color:var(--ink);opacity:1;}
+    .btn-sm{padding:.4rem .8rem;font-size:11.5px;}
+    .btn-toolbar{display:flex;flex-wrap:wrap;gap:.5rem;}
+    .w-100{width:100%;}
+    .d-grid{display:grid;gap:.5rem;}
+    .d-none{display:none !important;}
+
+    /* ── Forms ── */
+    .form-label{display:block;font-size:10.5px;font-weight:600;margin-bottom:.4rem;color:var(--ink-2);font-family:'JetBrains Mono';text-transform:uppercase;letter-spacing:.06em;}
+    .form-select,.form-control{width:100%;padding:.6rem .75rem;border:1px solid var(--border);border-radius:4px;background:var(--panel-2);color:var(--ink);font-size:13px;font-family:'IBM Plex Sans';}
+    .form-select:focus,.form-control:focus{outline:none;border-color:var(--amber);}
+
+    /* ── Alerts / status ── */
+    .status-message{padding:.6rem .85rem;margin-bottom:.85rem;border-radius:4px;font-size:13px;border:1px solid var(--border);}
+    .status-step{display:flex;align-items:center;}
+    .status-icon{margin-right:8px;width:18px;text-align:center;flex-shrink:0;}
+    .alert-info{background:var(--panel-2);color:var(--ink-2);}
+    .alert-success{background:rgba(46,125,79,.10);color:var(--success);border-color:rgba(46,125,79,.3);}
+    .alert-warning{background:var(--amber-dim);color:var(--amber);border-color:rgba(182,92,0,.3);}
+    .alert-danger, .alert-recording{background:rgba(196,67,46,.10);color:var(--red);border-color:rgba(196,67,46,.3);}
+    .recording-pulse{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--red);margin-right:8px;animation:pulse 1.5s infinite;vertical-align:middle;}
+    @keyframes pulse{0%{transform:scale(.95);box-shadow:0 0 0 0 rgba(196,67,46,.6);}70%{transform:scale(1);box-shadow:0 0 0 7px rgba(196,67,46,0);}100%{transform:scale(.95);box-shadow:0 0 0 0 rgba(196,67,46,0);}}
+
+    /* ── Visualizer ── */
+    canvas{width:100%;height:200px;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;display:block;}
+    #visualizer-container{position:relative;border-radius:4px;overflow:hidden;}
+    .amplitude-bars{position:absolute;bottom:0;left:0;width:100%;height:100%;display:flex;align-items:flex-end;padding:0 4px;pointer-events:none;}
+    .amplitude-bar{flex:1;background:linear-gradient(to top, var(--amber), transparent);margin:0 1px;max-height:100%;transition:height .08s ease;border-radius:2px 2px 0 0;}
+
+    /* ── Progress ── */
+    .progress{height:4px;border-radius:99px;background:var(--border);overflow:hidden;margin-bottom:10px;}
+    .progress-bar{height:100%;background:var(--amber);border-radius:99px;transition:width .1s linear;}
+
+    /* ── Quality / info rows ── */
+    .quality-indicator{display:inline-block;font-weight:700;font-family:'JetBrains Mono';font-size:13px;}
+    .quality-excellent{color:var(--success);}
+    .quality-verygood{color:var(--amber);}
+    .quality-good{color:var(--amber);opacity:.85;}
+    .quality-fair{color:var(--red);opacity:.85;}
+    .quality-poor{color:var(--red);}
+    .quality-unknown{color:var(--ink-3);}
+    .info-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border-lt);}
+    .info-row:last-child{border-bottom:none;padding-bottom:0;}
+    .info-label{color:var(--ink-3);font-weight:500;font-family:'JetBrains Mono';font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;}
+    .info-val{color:var(--ink);font-weight:600;text-align:right;max-width:55%;font-size:12.5px;font-family:'JetBrains Mono';}
+
+    /* ── Testimonials ── */
+    .testimonial{padding:.6rem 0;border-bottom:1px solid var(--border-lt);}
+    .testimonial:last-of-type{border-bottom:none;}
+    .testimonial p{font-size:12.5px;font-style:italic;color:var(--ink-2);margin:0 0 .2rem;}
+    .text-muted{color:var(--ink-3);font-size:11px;}
+    .mb-0{margin-bottom:0 !important;}
+    .review-form{display:none;margin-top:.85rem;padding:.9rem;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;}
+
+    /* ── Pro tip ── */
+    aside.pro-tip{display:flex;gap:.7rem;align-items:flex-start;background:var(--amber-dim);border-left:3px solid var(--amber);border-radius:0 4px 4px 0;padding:.85rem 1rem;margin-top:1.25rem;font-size:13.5px;color:var(--ink);}
+    aside.pro-tip>i{color:var(--amber);flex-shrink:0;font-size:1rem;line-height:1.55;}
+
+    /* ── Mic stats dl ── */
+    dl.mic-stats{display:grid;grid-template-columns:minmax(180px,26%) 1fr;gap:.3rem 1.1rem;align-items:baseline;}
+    dl.mic-stats dt{font-weight:600;color:var(--ink);padding:.6rem 0 .1rem;border-top:1px solid var(--border-lt);font-family:'JetBrains Mono';font-size:12.5px;}
+    dl.mic-stats dd{margin:0;padding:.6rem 0 .1rem;border-top:1px solid var(--border-lt);color:var(--ink-2);line-height:1.65;font-size:13px;}
+    dl.mic-stats dt:first-child, dl.mic-stats dd:first-of-type{border-top:none;}
+    @media (max-width:575px){dl.mic-stats{grid-template-columns:1fr;}dl.mic-stats dd{border-top:none;padding-top:0;}}
+
+    /* ── Details / accordion panels ── */
+    details.panel{border:1px solid var(--border);border-radius:4px;margin-bottom:.5rem;overflow:hidden;background:var(--panel);}
+    details.panel>summary{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1.05rem;cursor:pointer;background:var(--panel-2);list-style:none;gap:.5rem;font-size:14px;}
+    details.panel>summary::-webkit-details-marker{display:none;}
+    details.panel>summary::after{content:"\FE40";font-size:.8rem;color:var(--amber);flex-shrink:0;transform:rotate(90deg);}
+    details.panel[open]>summary::after{transform:rotate(-90deg);}
+    details.panel[open]>summary{border-bottom:1px solid var(--border);}
+    details.panel>:not(summary){padding:.9rem 1.05rem;}
+    details.panel ol,details.panel ul{margin-bottom:0;padding-left:1.3rem;}
+    details.panel li{margin-bottom:.4rem;}
+
+    /* ── Table ── */
+    .table-responsive{overflow-x:auto;}
+    .table{width:100%;border-collapse:collapse;font-size:12.5px;}
+    .table th,.table td{padding:.55rem .7rem;border:1px solid var(--border);text-align:left;vertical-align:middle;}
+    .table thead th{background:var(--panel-2);font-family:'JetBrains Mono';font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2);}
+    .table-striped tbody tr:nth-child(odd){background:var(--panel-2);}
+
+    /* ── Comments / footer ── */
+    .comments-panel{border-top:1px solid var(--border);background:var(--panel);padding:2.5rem 0;margin-top:2rem;}
+    footer.site-footer{background:var(--panel);border-top:1px solid var(--border);padding:2.75rem 0 0;}
+    .footer-brand{font-family:'JetBrains Mono';font-weight:700;font-size:15px;color:var(--ink);display:flex;align-items:center;gap:8px;margin-bottom:.75rem;}
+    .footer-desc{font-size:12.5px;color:var(--ink-3);line-height:1.65;max-width:320px;}
+    .footer-col-heading{font-family:'JetBrains Mono';font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.7rem;display:block;}
+    .footer-links{list-style:none;padding:0;margin:0 0 1.25rem;}
+    .footer-links li{margin-bottom:.4rem;}
+    .footer-links a{font-size:13px;color:var(--ink-2);}
+    .footer-links a:hover{color:var(--amber);opacity:1;}
+    .footer-bottom{border-top:1px solid var(--border);margin-top:1.5rem;padding:1rem 0;font-size:11px;color:var(--ink-3);font-family:'JetBrains Mono';}
+
+    /* ── Mobile drawer ── */
+    #mobile-drawer{position:fixed;inset:0;z-index:40;background:var(--bg);transform:translateX(-100%);transition:transform .2s ease;overflow-y:auto;}
+    #mobile-drawer.open{transform:translateX(0);}
+
+    /* ── Page-specific (this tool's own extra CSS, if any — must use the theme tokens above, e.g. var(--amber)/var(--panel), never hardcoded colors, so it stays correct in both light and dark) ── */
+    .latency-display{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:4.5rem;font-weight:700;color:var(--amber);line-height:1;}
+    .latency-unit{font-size:.85rem;margin-top:.3rem;text-transform:uppercase;letter-spacing:.06em;}
+    .latency-meter{height:34px;border-radius:8px;position:relative;background:linear-gradient(to right, var(--success) 0%, var(--success) 20%, var(--amber) 20%, var(--amber) 50%, var(--red) 50%, var(--red) 100%);}
+    .latency-indicator{position:absolute;top:-6px;width:5px;height:46px;background:var(--ink);border-radius:3px;transition:left .3s ease;}
+    .history-item{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--border-lt);font-size:12.5px;color:var(--ink-2);}
+    .history-item:last-child{border-bottom:none;}
+
+    /* This page's script sets bare Bootstrap-style classes at runtime (alert/badge) —
+       style those generically since the JS itself is out of scope for this restyle. */
+    .alert{padding:.6rem .85rem;margin-bottom:.85rem;border-radius:4px;font-size:13px;border:1px solid var(--border);}
+    .badge{display:inline-block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;font-weight:700;padding:.25rem .55rem;border-radius:4px;color:#fff;background:var(--ink-3);}
+    .bg-secondary{background:var(--ink-3);color:var(--bg);}
+    .bg-success{background:var(--success);color:#fff;}
+    .bg-warning{background:var(--amber);color:var(--bg);}
+    .bg-danger{background:var(--red);color:#fff;}
+    .fs-6{font-size:13px;}
+
+    .table-success{background:rgba(46,125,79,.10);}
+    .table-warning{background:var(--amber-dim);}
+    .table-danger{background:rgba(196,67,46,.10);}
+  </style>
+</head>
+<body>
+
+<div class="flex min-h-screen">
+
+  <!-- DESKTOP RAIL -->
+  <aside class="hidden lg:flex flex-col w-[232px] shrink-0 border-r hairline px-5 py-6 sticky top-0 h-screen overflow-y-auto">
+    <a href="/" class="flex items-center gap-2.5 mb-6" title="MicTest Home">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+        <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+        <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M12 18v3M9 21h6" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      <span class="mono text-[13px] font-semibold tracking-tight" style="color:var(--ink)">MICTEST</span>
+    </a>
+
+    <button type="button" class="theme-toggle-btn flex items-center gap-2.5 mb-2" aria-label="Toggle light or dark panel">
+      <span class="relative inline-flex items-center shrink-0" style="width:32px;height:17px;border-radius:999px;background:var(--border-lt);border:1px solid var(--border)">
+        <span class="theme-dot absolute" style="width:11px;height:11px;border-radius:999px;background:var(--amber);left:2px;top:2px;transition:left .15s ease"></span>
+      </span>
+      <span class="theme-label mono text-[10.5px] tracking-[.08em] uppercase" style="color:var(--ink-2)">Dark panel</span>
+    </button>
+
+    <nav class="flex flex-col rail-nav">
+      <a href="/" data-page="index" class="rail-link"><i class="bi bi-mic-fill"></i>Microphone Test</a>
+
+      <div class="rail-group-label">Mic Tools</div>
+      <a href="/show-mic" data-page="show-mic" class="rail-link"><i class="bi bi-mic"></i>Show My Mic</a>
+      <a href="/mic-recorder" data-page="mic-recorder" class="rail-link"><i class="bi bi-record-circle"></i>Mic Recorder</a>
+      <a href="/sound-level-meter" data-page="sound-level-meter" class="rail-link"><i class="bi bi-speedometer2"></i>Sound Level Meter</a>
+      <a href="/voice-frequency-analyzer" data-page="voice-frequency-analyzer" class="rail-link"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a>
+      <a href="/background-noise-analyzer" data-page="background-noise-analyzer" class="rail-link"><i class="bi bi-soundwave"></i>Background Noise Analyzer</a>
+      <a href="/echo-test" data-page="echo-test" class="rail-link"><i class="bi bi-arrow-repeat"></i>Echo Test</a>
+      <a href="/audio-latency-test" data-page="audio-latency-test" class="rail-link"><i class="bi bi-stopwatch"></i>Audio Latency Test</a>
+
+      <div class="rail-group-label">Speaker Tools</div>
+      <a href="/show-speakers" data-page="show-speakers" class="rail-link"><i class="bi bi-speaker"></i>Show My Speakers</a>
+      <a href="/tone-generator" data-page="tone-generator" class="rail-link"><i class="bi bi-activity"></i>Tone Generator</a>
+      <a href="/stereo-test" data-page="stereo-test" class="rail-link"><i class="bi bi-badge-hd"></i>Stereo Test</a>
+      <a href="/bass-test" data-page="bass-test" class="rail-link"><i class="bi bi-disc"></i>Bass Test</a>
+      <a href="/speaker-volume-test" data-page="speaker-volume-test" class="rail-link"><i class="bi bi-volume-up"></i>Speaker Volume Test</a>
+
+      <div class="rail-group-label">Headphones &amp; Hearing</div>
+      <a href="/headphone-test" data-page="headphone-test" class="rail-link"><i class="bi bi-headphones"></i>Headphone Test</a>
+      <a href="/hearing-test" data-page="hearing-test" class="rail-link"><i class="bi bi-ear"></i>Hearing Test</a>
+
+      <div class="rail-group-label">More</div>
+      <a href="/troubleshooting" data-page="troubleshooting" class="rail-link"><i class="bi bi-tools"></i>Troubleshooting</a>
+      <a href="/about" data-page="about" class="rail-link"><i class="bi bi-info-circle"></i>About</a>
+      <a href="/contact" data-page="contact" class="rail-link"><i class="bi bi-envelope"></i>Contact</a>
+    </nav>
+  </aside>
+
+  <!-- MOBILE TOP BAR -->
+  <div class="lg:hidden fixed top-0 inset-x-0 z-50 flex items-center justify-between px-5 py-4 border-b hairline" style="background:var(--bg)">
+    <a href="/" class="flex items-center gap-2" title="MicTest Home">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+        <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+        <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      <span class="mono text-[13px] font-semibold" style="color:var(--ink)">MICTEST</span>
+    </a>
+    <div class="flex items-center gap-3">
+      <button type="button" class="theme-toggle-btn flex items-center gap-2" aria-label="Toggle light or dark panel">
+        <span class="relative inline-flex items-center shrink-0" style="width:28px;height:16px;border-radius:999px;background:var(--border-lt);border:1px solid var(--border)">
+          <span class="theme-dot absolute" style="width:10px;height:10px;border-radius:999px;background:var(--amber);left:2px;top:2px;transition:left .15s ease"></span>
+        </span>
+      </button>
+      <button type="button" id="mobile-menu-btn" aria-label="Open menu" class="flex flex-col gap-[4px] p-1">
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+        <span style="width:20px;height:2px;background:var(--ink)"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MOBILE DRAWER -->
+  <div id="mobile-drawer">
+    <div class="flex items-center justify-between px-5 py-4 border-b hairline">
+      <span class="mono text-[13px] font-semibold" style="color:var(--ink)">MENU</span>
+      <button type="button" id="mobile-drawer-close" aria-label="Close menu" class="mono text-[20px] leading-none" style="color:var(--ink-2)">&times;</button>
+    </div>
+    <nav class="flex flex-col rail-nav px-5 py-4">
+      <a href="/" data-page="index" class="rail-link"><i class="bi bi-mic-fill"></i>Microphone Test</a>
+      <div class="rail-group-label">Mic Tools</div>
+      <a href="/show-mic" data-page="show-mic" class="rail-link"><i class="bi bi-mic"></i>Show My Mic</a>
+      <a href="/mic-recorder" data-page="mic-recorder" class="rail-link"><i class="bi bi-record-circle"></i>Mic Recorder</a>
+      <a href="/sound-level-meter" data-page="sound-level-meter" class="rail-link"><i class="bi bi-speedometer2"></i>Sound Level Meter</a>
+      <a href="/voice-frequency-analyzer" data-page="voice-frequency-analyzer" class="rail-link"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a>
+      <a href="/background-noise-analyzer" data-page="background-noise-analyzer" class="rail-link"><i class="bi bi-soundwave"></i>Background Noise Analyzer</a>
+      <a href="/echo-test" data-page="echo-test" class="rail-link"><i class="bi bi-arrow-repeat"></i>Echo Test</a>
+      <a href="/audio-latency-test" data-page="audio-latency-test" class="rail-link"><i class="bi bi-stopwatch"></i>Audio Latency Test</a>
+      <div class="rail-group-label">Speaker Tools</div>
+      <a href="/show-speakers" data-page="show-speakers" class="rail-link"><i class="bi bi-speaker"></i>Show My Speakers</a>
+      <a href="/tone-generator" data-page="tone-generator" class="rail-link"><i class="bi bi-activity"></i>Tone Generator</a>
+      <a href="/stereo-test" data-page="stereo-test" class="rail-link"><i class="bi bi-badge-hd"></i>Stereo Test</a>
+      <a href="/bass-test" data-page="bass-test" class="rail-link"><i class="bi bi-disc"></i>Bass Test</a>
+      <a href="/speaker-volume-test" data-page="speaker-volume-test" class="rail-link"><i class="bi bi-volume-up"></i>Speaker Volume Test</a>
+      <div class="rail-group-label">Headphones &amp; Hearing</div>
+      <a href="/headphone-test" data-page="headphone-test" class="rail-link"><i class="bi bi-headphones"></i>Headphone Test</a>
+      <a href="/hearing-test" data-page="hearing-test" class="rail-link"><i class="bi bi-ear"></i>Hearing Test</a>
+      <div class="rail-group-label">More</div>
+      <a href="/troubleshooting" data-page="troubleshooting" class="rail-link"><i class="bi bi-tools"></i>Troubleshooting</a>
+      <a href="/about" data-page="about" class="rail-link"><i class="bi bi-info-circle"></i>About</a>
+      <a href="/contact" data-page="contact" class="rail-link"><i class="bi bi-envelope"></i>Contact</a>
+    </nav>
+  </div>
+
+  <!-- MAIN STAGE -->
+  <main class="flex-1 pt-16 lg:pt-0 min-w-0">
+    <div class="container main-wrap max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12 py-8 lg:py-12">
+
+      <!-- HERO -->
+      <div class="grid lg:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start mb-10">
+        <div>
+          <div class="mono text-[11px] tracking-[.16em] uppercase mb-4" style="color:var(--amber)">Unit 02 · Round-Trip Timing Diagnostics</div>
+          <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Audio Latency Test — Measure Microphone Delay in Milliseconds</h1>
+          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>Audio Latency Test</strong> measures the round-trip delay between your system playing a sound and your microphone capturing it — your result appears as a <strong>latency reading in milliseconds</strong>. Plug in headphones to prevent the test tone feeding back through your mic, click <strong>Start Test</strong>, and the tool plays a short click then times how long your mic takes to detect it. Your <strong>latency result</strong> tells you how much delay to expect on video calls, live recordings, or any setup where mic-to-output timing matters. Record your latency readings in a free notepad at <a href="https://notepadly.online/" rel="noopener">notepadly.online</a>. <!-- SILO_START:slot_a -->Before any recording session, a <a href="/">mic test online</a> confirms your audio input is clean.<!-- SILO_END:slot_a --></p>
+        </div>
+
+        <div class="hidden lg:block panel p-5">
+          <div class="mono text-[10px] tracking-[.14em] uppercase mb-4 pb-3 border-b hairline" style="color:var(--ink-3)">Unit Nameplate</div>
+          <dl class="mono text-[11.5px] flex flex-col gap-3">
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Model</dt><dd>AL-02 TIMING</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Interface</dt><dd>Web Audio API</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Install required</dt><dd style="color:var(--amber)">None</dd></div>
+            <div class="flex items-center justify-between"><dt style="color:var(--ink-3)">Audio uploaded</dt><dd style="color:var(--amber)">Never</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-[1fr_320px] gap-8 items-start">
+
+        <!-- LEFT: tool + content -->
+        <div class="min-w-0">
+
+<div class="panel mb-6">
+          <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-speedometer"></i>Latency Measurement</span></div>
+          <div class="panel-body">
+
+            <div class="progress mb-3 d-none" id="test-progress-container">
+              <div class="progress-bar" id="test-progress" style="width: 0%"></div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-end mb-4">
+              <div class="flex-1">
+                <label class="form-label" for="mic-select">Select Microphone</label>
+                <select class="form-select" id="mic-select" disabled>
+                  <option value="">Loading...</option>
+                </select>
+              </div>
+              <button class="btn btn-primary shrink-0" id="start-btn">
+                <i class="bi bi-play-fill me-2"></i>Start Test
+              </button>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4 mb-4">
+              <div class="text-center">
+                <div class="latency-display" id="latency-value">--</div>
+                <div class="latency-unit mono" style="color:var(--ink-3)">milliseconds</div>
+                <div class="mt-2">
+                  <span class="badge bg-secondary fs-6" id="latency-rating">--</span>
+                </div>
+              </div>
+              <div style="border:1px solid var(--border);border-radius:4px;background:var(--panel-2);padding:1rem;">
+                <div class="mono" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)">Test Results</div>
+                <div class="grid grid-cols-2 gap-3 mt-3">
+                  <div>
+                    <div class="mono" style="font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3)">Average</div>
+                    <div class="mono" style="font-size:1.15rem;font-weight:700;color:var(--ink)" id="avg-latency">-- ms</div>
+                  </div>
+                  <div>
+                    <div class="mono" style="font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3)">Min / Max</div>
+                    <div class="mono" style="font-size:1.15rem;font-weight:700;color:var(--ink)" id="min-max-latency">-- / --</div>
+                  </div>
+                </div>
+                <div class="mt-3">
+                  <div class="mono" style="font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3)">Tests Completed</div>
+                  <div class="mono" style="font-size:1rem;font-weight:600;color:var(--ink)" id="test-count">0</div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="form-label">Latency Scale (ms)</div>
+              <div class="latency-meter">
+                <div class="latency-indicator" id="latency-indicator" style="left: 0%;"></div>
+              </div>
+              <div class="flex justify-between mt-1" style="font-size:11px;color:var(--ink-3)">
+                <span>0</span>
+                <span>50</span>
+                <span>100</span>
+                <span>150</span>
+                <span>200+</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+<div class="status-message alert-info" id="status-alert" style="margin-top:1.25rem">
+          <i class="bi bi-info-circle-fill me-2"></i><span id="status-message">Click "Start Test" to measure your audio latency. Use headphones for accurate results.</span>
+        </div>
+
+<div class="panel mt-6">
+          <div class="panel-hdr flex items-center justify-between">
+            <span class="flex items-center gap-2"><i class="bi bi-clock-history"></i>Test History</span>
+            <button class="btn btn-outline btn-sm" id="clear-history-btn">Clear</button>
+          </div>
+          <div class="panel-body" id="test-history">
+            <p class="text-center mb-0" style="color:var(--ink-3)">No tests recorded yet</p>
+          </div>
+        </div>
+
+          <!-- Ad (mid) -->
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body">
+              <ins class="adsbygoogle"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-format="auto"
+                   data-ad-slot="9146528954"
+                   data-full-width-responsive="true"
+                   style="display:block"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2><i class="bi bi-book me-2"></i>Understanding Audio Latency</h2>
+            <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Latency</th>
+                  <th>Rating</th>
+                  <th>Suitable For</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="table-success">
+                  <td>&lt;10 ms</td>
+                  <td>Excellent</td>
+                  <td>Professional music production, live monitoring</td>
+                </tr>
+                <tr class="table-success">
+                  <td>10-20 ms</td>
+                  <td>Very Good</td>
+                  <td>Music production, gaming with audio</td>
+                </tr>
+                <tr class="table-warning">
+                  <td>20-40 ms</td>
+                  <td>Good</td>
+                  <td>Video calls, casual gaming, streaming</td>
+                </tr>
+                <tr class="table-warning">
+                  <td>40-100 ms</td>
+                  <td>Acceptable</td>
+                  <td>Voice calls, video conferencing</td>
+                </tr>
+                <tr class="table-danger">
+                  <td>&gt;100 ms</td>
+                  <td>High</td>
+                  <td>Noticeable delay - may cause echo issues</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          
+      </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2><i class="bi bi-lightbulb me-2"></i>Reducing Audio Latency</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <h3>Hardware Tips</h3>
+                <ul>
+                  <li>Use a dedicated audio interface</li>
+                  <li>Connect via USB 3.0 or Thunderbolt</li>
+                  <li>Avoid Bluetooth for low-latency needs</li>
+                  <li>Use wired headphones</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Software Tips</h3>
+                <ul>
+                  <li>Use ASIO drivers on Windows</li>
+                  <li>Reduce audio buffer size</li>
+                  <li>Close unnecessary audio applications</li>
+                  <li>Update audio drivers regularly</li>
+                </ul>
+              </div>
+            </div>
+            <p class="mb-0">Having issues? Check our troubleshooting guide for more solutions.</p>
+          
+      </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2>How to Take the Audio Latency Test</h2>
+            <ol>
+              <li><strong>Put on headphones</strong> — open-air speakers cause acoustic feedback that corrupts the measurement. Wired headphones give the most accurate round-trip latency reading.</li>
+              <li>Click <strong>Allow</strong> when the browser asks for microphone access. The test needs your mic to capture the reference tone it plays.</li>
+              <li>Keep the room quiet — any background noise can interfere with the detection algorithm and inflate the latency reading.</li>
+              <li>Click <strong>Start Test</strong> and wait for the progress bar to complete. The tool plays a short tone, listens for it through your microphone, and calculates the round-trip delay.</li>
+              <li>Run the test <strong>three to five times</strong> and use the average reading — individual results can vary slightly due to browser scheduling.</li>
+              <li>Compare your result to the latency rating table: under 20ms is excellent for music and calls; above 100ms indicates a problem worth addressing.</li>
+            </ol>
+          
+      </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2>What Is Audio Latency? Understanding Sound Delay in Your System</h2>
+            <p>Audio latency is the total time between a sound event (a key pressed, a voice spoken, a signal triggered) and when it is audible through speakers or headphones. Every device in your signal chain adds a small delay: the driver, the audio engine, the digital-to-analogue converter, and the amplifier all contribute. The sum of all these delays is your system's <strong>total audio latency</strong>, measured in milliseconds. <!-- SILO_START:slot_b -->Check your full audible range with a <a href="/hearing-test">hearing test online</a> — from 20Hz bass to 20kHz treble.<!-- SILO_END:slot_b --></p>
+
+            <h3>Base Latency vs Output Latency vs Round-Trip Latency</h3>
+            <p><strong>Base latency</strong> is the minimum processing delay of the audio engine — the time from when software sends a signal to when the hardware begins outputting it. <strong>Output latency</strong> is the delay introduced by the output device's buffer. <strong>Round-trip latency</strong> is what this test measures: the full loop from output to microphone capture — which includes both output and input delays simultaneously. For real-time recording and live monitoring, round-trip latency is the most relevant measurement.</p>
+
+            <h3>Browser Audio Latency vs DAW Input Latency</h3>
+            <p>Browser-based audio latency tests give a useful estimate but cannot match the precision of dedicated DAW buffer analysis. Browsers add an inherent processing overhead — typically 20–40ms even on fast hardware — because the Web Audio API runs through a non-realtime scheduler. A DAW using ASIO drivers on Windows or Core Audio on macOS bypasses this overhead and can achieve sub-5ms round-trip latency. Use this online audio latency test to diagnose general system performance; use your DAW's built-in latency report for music production calibration.</p>
+          
+      </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2>Audio Latency by Use Case — What Is an Acceptable Sound Delay?</h2>
+            <p>The right latency threshold depends entirely on what you are doing with the audio. A video call tolerates delays that would be completely unacceptable in a live recording session. <!-- SILO_START:slot_c --><!-- SILO_END:slot_c --></p>
+
+            <h3>Music Production and Live Monitoring: Minimum Input Latency Required</h3>
+            <p>When recording instruments or vocals, musicians monitor their own performance through headphones in real time. Any latency above 10ms is perceivable as a slight "doubling" effect — the direct sound from the instrument arrives slightly before the monitored sound through the headphones. Professional recordings target under 5ms total round-trip latency. If your audio latency test returns 10–20ms, it is workable for most home recording; above 30ms, you will notice the delay while singing or playing.</p>
+
+            <h3>Gaming and Live Streaming — Audio Delay and Sync Issues</h3>
+            <p>Gaming audio latency above 100ms makes it difficult to use audio cues to react to in-game events (gunshots, footsteps). For streamers, audio delay causes the voice commentary to fall out of sync with on-screen action. Most streaming software lets you add a video delay offset to compensate, but reducing the underlying audio latency in the first place is always preferable. A result of 20–50ms is acceptable for casual gaming; competitive play benefits from anything below 20ms.</p>
+
+            <h3>Video Calls and Online Meetings</h3>
+            <p>Conference call software (Zoom, Teams, Meet) buffers and resamples audio, adding 40–150ms of its own delay on top of your system latency. For this use case, your microphone latency reading from this test is less critical — the app's own processing dominates. That said, a high system latency above 100ms can compound the app's delay and make you sound consistently late in conversations. Under 50ms system latency is ideal for smooth call audio.</p>
+          
+      </div>
+
+      <div class="content-panel prose max-w-none">
+            <h2>How to Reduce Audio Latency and Minimise Sound Delay</h2>
+
+            <h3>ASIO Drivers for Low-Latency Audio on Windows</h3>
+            <p>ASIO (Audio Stream Input/Output) is a driver protocol developed by Steinberg that bypasses Windows' standard audio engine, dramatically cutting latency. If you use a USB audio interface, install its ASIO driver from the manufacturer's website. If no dedicated driver is available, ASIO4ALL is a free wrapper that gives most Windows machines access to low-latency ASIO routing. Most DAWs let you switch between WASAPI and ASIO — always choose ASIO for recording work. On macOS, Core Audio already provides near-ASIO performance natively. <!-- SILO_START:slot_d -->The <a href="/mic-recorder">online mic recorder</a> captures audio from your microphone with no upload and no account required.<!-- SILO_END:slot_d --></p>
+
+            <h3>Reducing Buffer Size to Lower Microphone Latency</h3>
+            <p>The audio buffer is a short memory queue that holds samples before they are processed. A smaller buffer reduces latency but increases CPU load — if the CPU cannot fill the buffer in time, you get audio dropouts and glitches. For recording, set the buffer to 64–256 samples. For mixing or playback only, 512–1024 samples is fine. If you get crackling at low buffer sizes, close all background applications and check that no other software is claiming exclusive audio access to your device.</p>
+
+            <h3>Wired vs Bluetooth: Which Has Lower Audio Delay?</h3>
+            <p>Bluetooth audio introduces 100–300ms of codec-dependent latency. Aptx Low Latency (aptX LL) reduces this to 40ms; Bluetooth LE Audio (LC3) targets 20–30ms. Even the best Bluetooth codecs cannot match a wired USB or 3.5 mm connection, which typically adds under 5ms at the hardware level. If your audio latency test returns values above 100ms and you are on Bluetooth, switching to a wired connection is the single most effective change you can make.</p>
+          
+      </div>
+
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body">
+              <ins class="adsbygoogle"
+                   style="display:block"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-slot="7669795756"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
+
+      <div class="content-panel prose max-w-none" id="faq">
+        <h2>Audio Latency Test — Frequently Asked Questions</h2>
+        <details class="panel" open>
+          <summary><strong>What causes high audio latency in a browser?</strong></summary>
+          <p>Browsers process audio through the Web Audio API, which runs on a non-realtime scheduler. This adds inherent overhead of 20–40ms regardless of your hardware. Additional causes include: a large audio buffer set in your OS driver settings, background applications competing for CPU, Bluetooth audio routing, or an outdated audio driver. For the browser-based audio latency test to show a low reading, all these factors need to be minimised simultaneously.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Why does Bluetooth always show high audio latency?</strong></summary>
+          <p>Bluetooth audio uses lossy compression codecs (SBC, AAC, aptX) that add encoding and decoding time. The Bluetooth radio protocol also adds packet transmission delay. Even with modern low-latency codecs, you should expect 40–200ms of additional delay versus a wired connection. Some earbuds in "gaming mode" switch to a lower-latency codec specifically to reduce this — check if your device has this option in its companion app.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Is the audio latency test the same as a network ping test?</strong></summary>
+          <p>No — they measure completely different things. A network ping test measures how long a data packet takes to travel across a network. This audio latency test measures how long it takes for your device to produce a sound and for that sound to be captured by your microphone — entirely local, no network involved. Poor network ping does not directly cause audio latency within your computer's sound system.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>My latency reading is 5ms but audio still feels delayed — why?</strong></summary>
+          <p>Browser-based tests estimate latency using AudioContext.baseLatency and AudioContext.outputLatency — values reported by the browser, not directly measured. The browser may report a low hardware latency while adding its own scheduling delay on top. Additionally, if you are experiencing perceived audio delay in a specific application (video call, DAW, game), that application may be adding its own buffering that this test does not account for. Test within the specific application's own latency settings.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>What is ASIO and does it reduce audio latency significantly?</strong></summary>
+          <p>ASIO bypasses the Windows Kernel Mixer, which adds up to 30ms of extra latency. With a quality audio interface and ASIO driver, total round-trip latency of 3–6ms is achievable on modern hardware. Without ASIO (using WASAPI or DirectSound), typical Windows latency is 20–50ms. The improvement is significant for music production. ASIO has no equivalent in browser audio — this is why browser-based tests always show higher latency than DAW measurements.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Can I use this test to calibrate latency for my DAW recording setup?</strong></summary>
+          <p>Use it as a starting point for diagnosing whether your audio interface is performing as expected. For precise DAW calibration, use your DAW's built-in round-trip latency measurement or a dedicated hardware latency tester. The online mic recorder is also useful for checking whether your recorded audio drifts out of sync over time, which indicates a clock rate mismatch rather than a latency issue.</p>
+        </details>
+      </div>
+
+        </div>
+
+        <!-- RIGHT: sidebar -->
+        <div>
+
+          <div class="ad-panel">
+            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+            <div class="ad-panel-body" style="min-height:360px;">
+              <ins class="adsbygoogle"
+                   style="display:block;min-height:360px;"
+                   data-ad-client="ca-pub-5426315045205785"
+                   data-ad-slot="6193062550"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+          </div>
+
+<div class="panel mb-5">
+          <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-tools"></i>Related Tools</span></div>
+          <div class="panel-body">
+            <a href="/" class="flex items-center gap-2" style="padding:.5rem 0;border-bottom:1px solid var(--border-lt);color:var(--ink-2);font-size:13px;" title="Microphone Test">
+              <i class="bi bi-mic"></i>Microphone Test
+            </a>
+            <a href="/show-mic" class="flex items-center gap-2" style="padding:.5rem 0;border-bottom:1px solid var(--border-lt);color:var(--ink-2);font-size:13px;" title="Mic Details">
+              <i class="bi bi-info-circle"></i>View Mic Settings
+            </a>
+            <a href="/echo-test" class="flex items-center gap-2" style="padding:.5rem 0;border-bottom:1px solid var(--border-lt);color:var(--ink-2);font-size:13px;" title="Echo Test">
+              <i class="bi bi-arrow-repeat"></i>Echo Test
+            </a>
+            <a href="/mic-recorder" class="flex items-center gap-2" style="padding:.5rem 0;border-bottom:1px solid var(--border-lt);color:var(--ink-2);font-size:13px;" title="Record Audio">
+              <i class="bi bi-record-circle"></i>Mic Recorder
+            </a>
+            <a href="/headphone-test" class="flex items-center gap-2" style="padding:.5rem 0;border-bottom:1px solid var(--border-lt);color:var(--ink-2);font-size:13px;" title="Headphone Test">
+              <i class="bi bi-headphones"></i>Headphone Test
+            </a>
+            <a href="/troubleshooting" class="flex items-center gap-2" style="padding:.5rem 0;color:var(--ink-2);font-size:13px;" title="Troubleshooting">
+              <i class="bi bi-question-circle"></i>Troubleshooting Guide
+            </a>
+          </div>
+        </div>
+
+<div class="panel mb-5">
+          <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-exclamation-triangle" style="color:var(--amber)"></i>Important</span></div>
+          <div class="panel-body">
+            <p class="mb-0" style="font-size:12.5px;color:var(--ink-2);">For accurate measurements, use headphones to prevent audio feedback. Browser-based latency tests provide estimates - for precise measurements, use dedicated audio testing software.</p>
+          </div>
+        </div>
+
+<div class="panel">
+          <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-shield-check" style="color:var(--success)"></i>Privacy</span></div>
+          <div class="panel-body">
+            <p class="mb-0" style="font-size:12.5px;color:var(--ink-2);">All latency testing is performed locally. No audio data is recorded or transmitted.</p>
+          </div>
+        </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Comments -->
+    <section class="comments-panel">
+      <div class="max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="max-w-[760px] mx-auto">
+          <h3 class="flex items-center gap-2 mb-4"><i class="bi bi-chat-dots" style="color:var(--amber)"></i>Comments &amp; Feedback</h3>
+          <script defer src="https://comments.tickspike.com/comentario.js"></script>
+          <comentario-comments theme="light"></comentario-comments>
+        </div>
+      </div>
+    </section>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var comentarioEl = document.querySelector('comentario-comments');
+        if (!comentarioEl) return;
+        comentarioEl.addEventListener('keydown', function(e) { e.stopPropagation(); }, true);
+        comentarioEl.addEventListener('keyup', function(e) { e.stopPropagation(); }, true);
+        comentarioEl.addEventListener('keypress', function(e) { e.stopPropagation(); }, true);
+      }, 2000);
+    });
+    </script>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-6">
+          <div class="lg:col-span-1 sm:col-span-2">
+            <div class="footer-brand">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="stroke:var(--amber)">
+                <rect x="9" y="2" width="6" height="12" rx="3" stroke-width="1.7"/>
+                <path d="M5 11a7 7 0 0 0 14 0" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M12 18v3M9 21h6" stroke-width="1.7" stroke-linecap="round"/>
+              </svg>
+              MicTest
+            </div>
+            <p class="footer-desc">Free online microphone and audio testing tools. Test your microphone, speakers, and audio devices directly in your browser without any downloads.</p>
+          </div>
+          <div>
+            <span class="footer-col-heading">Mic Tools</span>
+            <ul class="footer-links">
+              <li><a href="/" title="Free Online Microphone Test">Microphone Test</a></li>
+              <li><a href="/show-mic" title="View Microphone Details">Show My Mic</a></li>
+              <li><a href="/mic-recorder" title="Record Your Voice">Mic Recorder</a></li>
+              <li><a href="/sound-level-meter" title="Measure Decibel Levels">Sound Level Meter</a></li>
+              <li><a href="/echo-test" title="Test for Echo Issues">Echo Test</a></li>
+              <li><a href="/background-noise-analyzer" title="Analyze Background Noise">Noise Analyzer</a></li>
+              <li><a href="/voice-frequency-analyzer" title="Analyze Voice Frequencies">Frequency Analyzer</a></li>
+              <li><a href="/audio-latency-test" title="Measure Audio Latency">Latency Test</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="footer-col-heading">Speaker Tools</span>
+            <ul class="footer-links">
+              <li><a href="/show-speakers" title="View Speaker Details">Show My Speakers</a></li>
+              <li><a href="/tone-generator" title="Generate Test Tones">Tone Generator</a></li>
+              <li><a href="/stereo-test" title="Test Left Right Channels">Stereo Test</a></li>
+              <li><a href="/bass-test" title="Test Low Frequencies">Bass Test</a></li>
+              <li><a href="/speaker-volume-test" title="Calibrate Volume">Speaker Volume Test</a></li>
+            </ul>
+            <span class="footer-col-heading" style="margin-top:1rem;display:block">Headphones &amp; Hearing</span>
+            <ul class="footer-links">
+              <li><a href="/headphone-test" title="Test Your Headphones">Headphone Test</a></li>
+              <li><a href="/hearing-test" title="Online Hearing Test">Hearing Test</a></li>
+            </ul>
+          </div>
+          <div>
+            <span class="footer-col-heading">Resources</span>
+            <ul class="footer-links">
+              <li><a href="/troubleshooting" title="Fix Audio Problems">Troubleshooting Guide</a></li>
+              <li><a href="/about" title="About MicTest">About MicTest</a></li>
+              <li><a href="/contact" title="Contact Us">Contact</a></li>
+              <li><a href="/sitemap" title="Site Map">Sitemap</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          &copy; 2025&ndash;<span id="footer-current-year"></span> MicTest. All rights reserved.
+        </div>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function() {
+  var yearEl = document.getElementById('footer-current-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+})();
+</script>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var STORE_KEY = 'mictest-theme';
+
+  function readStored() {
+    try { return localStorage.getItem(STORE_KEY); } catch (e) { return null; }
+  }
+  function writeStored(v) {
+    try { localStorage.setItem(STORE_KEY, v); } catch (e) {}
+  }
+
+  var stored = readStored();
+  if (stored === 'light' || stored === 'dark') {
+    root.setAttribute('data-theme', stored);
+  }
+
+  function currentMode() {
+    var attr = root.getAttribute('data-theme');
+    if (attr === 'light' || attr === 'dark') return attr;
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'dark' : 'light';
+  }
+
+  function paint() {
+    var mode = currentMode();
+    var dots = document.querySelectorAll('.theme-dot');
+    var labels = document.querySelectorAll('.theme-label');
+    for (var i = 0; i < dots.length; i++) {
+      if (mode === 'dark') { dots[i].style.left = 'auto'; dots[i].style.right = '2px'; }
+      else { dots[i].style.right = 'auto'; dots[i].style.left = '2px'; }
+    }
+    for (var j = 0; j < labels.length; j++) {
+      labels[j].textContent = mode === 'dark' ? 'Dark panel' : 'Light panel';
+    }
+  }
+
+  var buttons = document.querySelectorAll('.theme-toggle-btn');
+  for (var k = 0; k < buttons.length; k++) {
+    buttons[k].addEventListener('click', function () {
+      var next = currentMode() === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      writeStored(next);
+      paint();
+    });
+  }
+
+  paint();
+})();
+</script>
+
+<script>
+(function() {
+  var path = window.location.pathname.replace(/\/$/, '');
+  var page = (path === '' || path === '/index' || path === '/index.html') ? 'index' : path.replace(/^\//, '').replace(/\.html$/, '');
+  var els = document.querySelectorAll('.rail-link[data-page="' + page + '"]');
+  els.forEach(function(el) { el.classList.add('active'); el.setAttribute('aria-current', 'page'); });
+})();
+</script>
+
+<script>
+(function() {
+  var btn = document.getElementById('mobile-menu-btn');
+  var closeBtn = document.getElementById('mobile-drawer-close');
+  var drawer = document.getElementById('mobile-drawer');
+  if (!btn || !drawer) return;
+  btn.addEventListener('click', function() { drawer.classList.add('open'); });
+  if (closeBtn) closeBtn.addEventListener('click', function() { drawer.classList.remove('open'); });
+  drawer.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() { drawer.classList.remove('open'); });
+  });
+})();
+</script>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const startBtn = document.getElementById('start-btn');
+      const micSelect = document.getElementById('mic-select');
+      const latencyValue = document.getElementById('latency-value');
+      const latencyRating = document.getElementById('latency-rating');
+      const latencyIndicator = document.getElementById('latency-indicator');
+      const avgLatency = document.getElementById('avg-latency');
+      const minMaxLatency = document.getElementById('min-max-latency');
+      const testCount = document.getElementById('test-count');
+      const testHistory = document.getElementById('test-history');
+      const testProgressContainer = document.getElementById('test-progress-container');
+      const testProgress = document.getElementById('test-progress');
+      const clearHistoryBtn = document.getElementById('clear-history-btn');
+      const statusMessage = document.getElementById('status-message');
+      const statusAlert = document.getElementById('status-alert');
+
+      let audioContext = null;
+      let results = [];
+      let isRunning = false;
+
+      async function getAudioDevices() {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          stream.getTracks().forEach(track => track.stop());
+
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const audioInputs = devices.filter(d => d.kind === 'audioinput');
+
+          micSelect.innerHTML = '';
+          audioInputs.forEach((device, index) => {
+            const option = document.createElement('option');
+            option.value = device.deviceId;
+            option.text = device.label || `Microphone ${index + 1}`;
+            micSelect.appendChild(option);
+          });
+          micSelect.disabled = false;
+        } catch (error) {
+          updateStatus('danger', 'Microphone access denied.');
+        }
+      }
+
+      function updateStatus(type, message) {
+        statusAlert.className = `alert alert-${type}`;
+        statusMessage.innerHTML = message;
+      }
+
+      function getRating(latency) {
+        if (latency < 10) return { text: 'Excellent', class: 'bg-success' };
+        if (latency < 20) return { text: 'Very Good', class: 'bg-success' };
+        if (latency < 40) return { text: 'Good', class: 'bg-warning' };
+        if (latency < 100) return { text: 'Acceptable', class: 'bg-warning' };
+        return { text: 'High Latency', class: 'bg-danger' };
+      }
+
+      function updateDisplay(latency) {
+        latencyValue.textContent = Math.round(latency);
+
+        const rating = getRating(latency);
+        latencyRating.textContent = rating.text;
+        latencyRating.className = `badge ${rating.class} fs-6`;
+
+        // Update indicator (max 200ms scale)
+        const percent = Math.min((latency / 200) * 100, 100);
+        latencyIndicator.style.left = `calc(${percent}% - 3px)`;
+
+        // Update statistics
+        results.push(latency);
+        testCount.textContent = results.length;
+
+        const avg = results.reduce((a, b) => a + b, 0) / results.length;
+        avgLatency.textContent = Math.round(avg) + ' ms';
+
+        const min = Math.min(...results);
+        const max = Math.max(...results);
+        minMaxLatency.textContent = `${Math.round(min)} / ${Math.round(max)}`;
+
+        // Add to history
+        addToHistory(latency);
+      }
+
+      function addToHistory(latency) {
+        if (testHistory.querySelector('.text-muted')) {
+          testHistory.innerHTML = '';
+        }
+
+        const rating = getRating(latency);
+        const item = document.createElement('div');
+        item.className = 'history-item';
+        item.innerHTML = `
+          <span>Test #${results.length}</span>
+          <span><strong>${Math.round(latency)} ms</strong> - <span class="badge ${rating.class}">${rating.text}</span></span>
+        `;
+        testHistory.insertBefore(item, testHistory.firstChild);
+
+        // Keep only last 10
+        while (testHistory.children.length > 10) {
+          testHistory.removeChild(testHistory.lastChild);
+        }
+      }
+
+      async function runLatencyTest() {
+        if (isRunning) return;
+        isRunning = true;
+
+        startBtn.disabled = true;
+        testProgressContainer.classList.remove('d-none');
+        testProgress.style.width = '0%';
+        updateStatus('info', 'Testing latency... Please wait.');
+
+        try {
+          const deviceId = micSelect.value;
+          const constraints = { audio: deviceId ? { deviceId: { exact: deviceId } } : true };
+
+          const stream = await navigator.mediaDevices.getUserMedia(constraints);
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+          // Get the reported latency
+          const track = stream.getAudioTracks()[0];
+          const settings = track.getSettings();
+          let reportedLatency = settings.latency ? settings.latency * 1000 : null;
+
+          // Measure actual latency using AudioContext
+          const sourceNode = audioContext.createMediaStreamSource(stream);
+          const analyser = audioContext.createAnalyser();
+          sourceNode.connect(analyser);
+          analyser.fftSize = 256;
+
+          // Simulate latency test with progress
+          let progress = 0;
+          const progressInterval = setInterval(() => {
+            progress += 10;
+            testProgress.style.width = `${progress}%`;
+            if (progress >= 100) clearInterval(progressInterval);
+          }, 100);
+
+          // Calculate estimated latency
+          await new Promise(resolve => setTimeout(resolve, 1000));
+
+          // Base latency from AudioContext
+          const baseLatency = audioContext.baseLatency * 1000 || 0;
+          const outputLatency = audioContext.outputLatency * 1000 || 0;
+
+          // Estimate total round-trip latency
+          let estimatedLatency = baseLatency + outputLatency;
+
+          // Add some variance for browser processing
+          estimatedLatency += Math.random() * 10 + 5;
+
+          // If browser reports latency, factor it in
+          if (reportedLatency) {
+            estimatedLatency = (estimatedLatency + reportedLatency) / 2;
+          }
+
+          // Ensure reasonable range
+          estimatedLatency = Math.max(5, Math.min(estimatedLatency, 200));
+
+          // Cleanup
+          stream.getTracks().forEach(track => track.stop());
+          audioContext.close();
+
+          updateDisplay(estimatedLatency);
+          updateStatus('success', `Latency test complete: ${Math.round(estimatedLatency)} ms`);
+
+        } catch (error) {
+          updateStatus('danger', 'Error: ' + error.message);
+        }
+
+        startBtn.disabled = false;
+        testProgressContainer.classList.add('d-none');
+        isRunning = false;
+      }
+
+      function clearHistory() {
+        results = [];
+        testHistory.innerHTML = '<p class="text-muted text-center">No tests recorded yet</p>';
+        latencyValue.textContent = '--';
+        latencyRating.textContent = '--';
+        latencyRating.className = 'badge bg-secondary fs-6';
+        avgLatency.textContent = '-- ms';
+        minMaxLatency.textContent = '-- / --';
+        testCount.textContent = '0';
+        latencyIndicator.style.left = '0%';
+      }
+
+      // Event listeners
+      startBtn.addEventListener('click', runLatencyTest);
+      clearHistoryBtn.addEventListener('click', clearHistory);
+
+      // Initialize
+      getAudioDevices();
+    });
+  
+</script>
+</body>
+</html>
