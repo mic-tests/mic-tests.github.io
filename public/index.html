@@ -450,12 +450,9 @@
         </div>
       </div>
 
-      <div class="grid lg:grid-cols-[1fr_320px] gap-8 items-start">
+      <div class="min-w-0">
 
-        <!-- LEFT: tool + content -->
-        <div class="min-w-0">
-
-          <form aria-label="Mic Test Online — Free Microphone Checker for Any Device" onsubmit="return false">
+        <form aria-label="Mic Test Online — Free Microphone Checker for Any Device" onsubmit="return false">
           <div class="panel mb-6">
             <div class="panel-hdr"><span class="flex items-center gap-2"><span class="led"></span>Microphone Visualizer</span></div>
             <div class="panel-body">
@@ -510,21 +507,67 @@
 
             </div>
           </div>
-          </form>
 
-          <!-- Ad (mid) -->
-          <div class="ad-panel">
-            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
-            <div class="ad-panel-body">
-              <ins class="adsbygoogle"
-                   data-ad-client="ca-pub-5426315045205785"
-                   data-ad-format="auto"
-                   data-ad-slot="7669795756"
-                   data-full-width-responsive="true"
-                   style="display:block"></ins>
-              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+<div class="panel mb-5">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-info-circle-fill"></i>Microphone Information</span></div>
+            <div class="panel-body">
+              <div class="info-row">
+                <span class="info-label">Quality Rating</span>
+                <span class="quality-indicator quality-unknown" id="quality-rating">&mdash;</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Microphone Name</span>
+                <span class="info-val" id="mic-name">Not selected</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Auto Gain Control</span>
+                <span class="info-val" id="gain-control">&mdash;</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Audio Channels</span>
+                <span class="info-val" id="channels">&mdash;</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Echo Cancellation</span>
+                <span class="info-val" id="echo-cancellation">&mdash;</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Est. Latency</span>
+                <span class="info-val" id="latency">&mdash;</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Noise Suppression</span>
+                <span class="info-val" id="noise-suppression">&mdash;</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Sample Rate</span>
+                <span class="info-val" id="sample-rate">&mdash;</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Sample Size</span>
+                <span class="info-val" id="sample-size">&mdash;</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Volume</span>
+                <span class="info-val" id="volume">&mdash;</span>
+              </div>
             </div>
           </div>
+        </form>
+
+        <!-- Ad (mid) -->
+        <div class="ad-panel">
+          <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+          <div class="ad-panel-body">
+            <ins class="adsbygoogle"
+                 data-ad-client="ca-pub-5426315045205785"
+                 data-ad-format="auto"
+                 data-ad-slot="7669795756"
+                 data-full-width-responsive="true"
+                 style="display:block"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          </div>
+        </div>
 
       <div class="content-panel prose max-w-none">
             <h2>How the Microphone Test Online Works in Your Browser</h2>
@@ -744,58 +787,6 @@
         </details>
       </div>
 
-        </div>
-
-        <!-- RIGHT: sidebar -->
-        <div>
-
-          <div class="panel mb-5">
-            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-info-circle-fill"></i>Microphone Information</span></div>
-            <div class="panel-body">
-              <div class="info-row">
-                <span class="info-label">Quality Rating</span>
-                <span class="quality-indicator quality-unknown" id="quality-rating">&mdash;</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">Microphone Name</span>
-                <span class="info-val" id="mic-name">Not selected</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">Auto Gain Control</span>
-                <span class="info-val" id="gain-control">&mdash;</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">Audio Channels</span>
-                <span class="info-val" id="channels">&mdash;</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">Echo Cancellation</span>
-                <span class="info-val" id="echo-cancellation">&mdash;</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">Est. Latency</span>
-                <span class="info-val" id="latency">&mdash;</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">Noise Suppression</span>
-                <span class="info-val" id="noise-suppression">&mdash;</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">Sample Rate</span>
-                <span class="info-val" id="sample-rate">&mdash;</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">Sample Size</span>
-                <span class="info-val" id="sample-size">&mdash;</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">Volume</span>
-                <span class="info-val" id="volume">&mdash;</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
       </div>
 
     </div>

@@ -143,12 +143,11 @@ def render_page(tool, site, template):
         main_sections_parts.append(faq_block)
     main_sections = "\n\n".join(p for p in main_sections_parts if p)
 
-    sidebar_parts = [tool.get("sidebar_top_html", ""), tool.get("sidebar_bottom_html", "")]
-    sidebar_html = "\n\n".join(p for p in sidebar_parts if p)
-
-    # The "sidebar" ad slot now sits in the hero (replacing the old "Unit
+    # The "sidebar" ad slot sits in the hero (replacing the old "Unit
     # Nameplate" decorative panel, which had no legacy equivalent and no ad
-    # of its own) instead of the tool-content sidebar column below it.
+    # of its own). The tool-content sidebar column itself is gone — its
+    # functional panels moved into tool_card_html, its decorative/nav
+    # panels were dropped as redundant with the footer.
     hero_ad_slot = ads.get("sidebar")
     hero_ad_html = render_ad_panel(hero_ad_slot, adsense_client, fixed_size=(250, 250)) if hero_ad_slot else ""
 
@@ -172,7 +171,6 @@ def render_page(tool, site, template):
         "AD_SLOT_MID": ads.get("mid", ""),
         "ADSENSE_CLIENT": adsense_client,
         "MAIN_SECTIONS": main_sections,
-        "SIDEBAR_HTML": sidebar_html,
         "TOOL_SCRIPT": tool["script"],
     }
     return apply_tokens(template, tokens)

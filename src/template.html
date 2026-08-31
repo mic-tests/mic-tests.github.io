@@ -332,39 +332,28 @@
         </div>
       </div>
 
-      <div class="grid lg:grid-cols-[1fr_320px] gap-8 items-start">
+      <div class="min-w-0">
 
-        <!-- LEFT: tool + content -->
-        <div class="min-w-0">
-
-          <form aria-label="{{H1_ATTR}}" onsubmit="return false">
+        <form aria-label="{{H1_ATTR}}" onsubmit="return false">
 {{TOOL_CARD_HTML}}
-          </form>
+        </form>
 
-          <!-- Ad (mid) -->
-          <div class="ad-panel">
-            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
-            <div class="ad-panel-body">
-              <ins class="adsbygoogle"
-                   data-ad-client="{{ADSENSE_CLIENT}}"
-                   data-ad-format="auto"
-                   data-ad-slot="{{AD_SLOT_MID}}"
-                   data-full-width-responsive="true"
-                   style="display:block"></ins>
-              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-            </div>
+        <!-- Ad (mid) -->
+        <div class="ad-panel">
+          <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+          <div class="ad-panel-body">
+            <ins class="adsbygoogle"
+                 data-ad-client="{{ADSENSE_CLIENT}}"
+                 data-ad-format="auto"
+                 data-ad-slot="{{AD_SLOT_MID}}"
+                 data-full-width-responsive="true"
+                 style="display:block"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
           </div>
+        </div>
 
 {{MAIN_SECTIONS}}
 
-        </div>
-
-        <!-- RIGHT: sidebar -->
-        <div>
-
-{{SIDEBAR_HTML}}
-
-        </div>
       </div>
 
     </div>

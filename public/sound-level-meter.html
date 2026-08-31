@@ -433,12 +433,9 @@
         </div>
       </div>
 
-      <div class="grid lg:grid-cols-[1fr_320px] gap-8 items-start">
+      <div class="min-w-0">
 
-        <!-- LEFT: tool + content -->
-        <div class="min-w-0">
-
-          <form aria-label="Sound Level Meter Online — Measure Decibels (dB) in Real Time" onsubmit="return false">
+        <form aria-label="Sound Level Meter Online — Measure Decibels (dB) in Real Time" onsubmit="return false">
           <div class="panel mb-6">
             <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-speedometer2"></i>Real-Time Sound Level</span></div>
             <div class="panel-body">
@@ -513,21 +510,21 @@
               </button>
             </div>
           </div>
-          </form>
+        </form>
 
-          <!-- Ad (mid) -->
-          <div class="ad-panel">
-            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
-            <div class="ad-panel-body">
-              <ins class="adsbygoogle"
-                   data-ad-client="ca-pub-5426315045205785"
-                   data-ad-format="auto"
-                   data-ad-slot="9146528954"
-                   data-full-width-responsive="true"
-                   style="display:block"></ins>
-              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-            </div>
+        <!-- Ad (mid) -->
+        <div class="ad-panel">
+          <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+          <div class="ad-panel-body">
+            <ins class="adsbygoogle"
+                 data-ad-client="ca-pub-5426315045205785"
+                 data-ad-format="auto"
+                 data-ad-slot="9146528954"
+                 data-full-width-responsive="true"
+                 style="display:block"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
           </div>
+        </div>
 
       <div class="content-panel prose max-w-none">
             <h2 class="flex items-center gap-2"><i class="bi bi-book"></i>Decibel Reference Guide</h2>
@@ -708,46 +705,6 @@
         </details>
       </div>
 
-        </div>
-
-        <!-- RIGHT: sidebar -->
-        <div>
-
-          <div class="panel mb-5">
-            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-tools"></i>Related Tools</span></div>
-            <div class="panel-body" style="padding:0">
-              <nav class="flex flex-col">
-                <a href="/" class="rail-link" title="Microphone Test"><i class="bi bi-mic"></i>Microphone Test</a>
-                <a href="/mic-recorder" class="rail-link" title="Record Audio"><i class="bi bi-record-circle"></i>Record Audio</a>
-                <a href="/background-noise-analyzer" class="rail-link" title="Noise Analyzer"><i class="bi bi-soundwave"></i>Background Noise Analyzer</a>
-                <a href="/voice-frequency-analyzer" class="rail-link" title="Frequency Analyzer"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a>
-                <a href="/show-mic" class="rail-link" title="View Mic Details"><i class="bi bi-info-circle"></i>View Mic Details</a>
-                <a href="/speaker-volume-test" class="rail-link" title="Speaker Volume Test"><i class="bi bi-volume-up"></i>Speaker Volume Test</a>
-              </nav>
-            </div>
-          </div>
-
-          <div class="panel mb-5">
-            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-lightbulb-fill"></i>Tips</span></div>
-            <div class="panel-body">
-              <ul class="mb-0" style="font-size:12.5px;color:var(--ink-2)">
-                <li>For accurate readings, calibrate against a known sound source</li>
-                <li>Browser dB readings are relative, not absolute measurements</li>
-                <li>Use <a href="/background-noise-analyzer" title="Noise Analyzer">noise analyzer</a> for detailed analysis</li>
-                <li>Check <a href="/troubleshooting" title="Troubleshooting">troubleshooting</a> if levels seem wrong</li>
-                <li>Prolonged exposure to 85+ dB can damage hearing — test your hearing</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="panel">
-            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-shield-check"></i>Privacy</span></div>
-            <div class="panel-body">
-              <p class="mb-0" style="font-size:12.5px;color:var(--ink-2)">Sound level analysis is performed locally in your browser. No audio is recorded or transmitted.</p>
-            </div>
-          </div>
-
-        </div>
       </div>
 
     </div>

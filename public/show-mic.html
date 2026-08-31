@@ -417,12 +417,9 @@
         </div>
       </div>
 
-      <div class="grid lg:grid-cols-[1fr_320px] gap-8 items-start">
+      <div class="min-w-0">
 
-        <!-- LEFT: tool + content -->
-        <div class="min-w-0">
-
-          <form aria-label="Show My Mic — See Your Microphone Name, Specs &amp; Settings" onsubmit="return false">
+        <form aria-label="Show My Mic — See Your Microphone Name, Specs &amp; Settings" onsubmit="return false">
 <div class="status-message alert-info mb-4" id="browser-alert">
   <div class="status-step" id="browser-message">
     <span class="status-icon"><i class="bi bi-info-circle-fill"></i></span>
@@ -538,21 +535,28 @@
     </div>
   </div>
 </div>
-          </form>
 
-          <!-- Ad (mid) -->
-          <div class="ad-panel">
-            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
-            <div class="ad-panel-body">
-              <ins class="adsbygoogle"
-                   data-ad-client="ca-pub-5426315045205785"
-                   data-ad-format="auto"
-                   data-ad-slot="6193062550"
-                   data-full-width-responsive="true"
-                   style="display:block"></ins>
-              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+<div class="panel">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-shield-check"></i>Privacy Note</span></div>
+            <div class="panel-body">
+              <p class="mb-0" style="font-size:12.5px;color:var(--ink-2)">This tool reads your microphone&#8217;s name and specs locally in your browser via the Web Audio API. Nothing is uploaded or sent to any server &mdash; the device list never leaves your device.</p>
             </div>
           </div>
+        </form>
+
+        <!-- Ad (mid) -->
+        <div class="ad-panel">
+          <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+          <div class="ad-panel-body">
+            <ins class="adsbygoogle"
+                 data-ad-client="ca-pub-5426315045205785"
+                 data-ad-format="auto"
+                 data-ad-slot="6193062550"
+                 data-full-width-responsive="true"
+                 style="display:block"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          </div>
+        </div>
 
       <div class="content-panel prose max-w-none">
 <h2>Why Check Your Microphone Details?</h2>
@@ -643,33 +647,6 @@
         </details>
       </div>
 
-        </div>
-
-        <!-- RIGHT: sidebar -->
-        <div>
-
-          <div class="panel mb-5">
-            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-tools"></i>Related Tools</span></div>
-            <div class="panel-body" style="padding:0">
-              <nav class="flex flex-col">
-                <a href="/" class="rail-link" title="Online Microphone Test"><i class="bi bi-mic"></i>Test Your Microphone</a>
-                <a href="/mic-recorder" class="rail-link" title="Mic Recorder"><i class="bi bi-record-circle"></i>Record Your Voice</a>
-                <a href="/sound-level-meter" class="rail-link" title="Sound Level Meter"><i class="bi bi-speedometer2"></i>Sound Level Meter</a>
-                <a href="/voice-frequency-analyzer" class="rail-link" title="Voice Analyzer"><i class="bi bi-graph-up"></i>Voice Frequency Analyzer</a>
-                <a href="/echo-test" class="rail-link" title="Echo Test"><i class="bi bi-arrow-repeat"></i>Echo Test</a>
-                <a href="/troubleshooting" class="rail-link" title="Troubleshooting"><i class="bi bi-question-circle"></i>Troubleshooting Guide</a>
-              </nav>
-            </div>
-          </div>
-
-          <div class="panel">
-            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-shield-check"></i>Privacy Note</span></div>
-            <div class="panel-body">
-              <p class="mb-0" style="font-size:12.5px;color:var(--ink-2)">This tool reads your microphone&#8217;s name and specs locally in your browser via the Web Audio API. Nothing is uploaded or sent to any server &mdash; the device list never leaves your device.</p>
-            </div>
-          </div>
-
-        </div>
       </div>
 
     </div>

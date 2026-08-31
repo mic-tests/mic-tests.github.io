@@ -436,12 +436,9 @@
         </div>
       </div>
 
-      <div class="grid lg:grid-cols-[1fr_320px] gap-8 items-start">
+      <div class="min-w-0">
 
-        <!-- LEFT: tool + content -->
-        <div class="min-w-0">
-
-          <form aria-label="Stereo Test — Check Left &amp; Right Audio Channels Online" onsubmit="return false">
+        <form aria-label="Stereo Test — Check Left &amp; Right Audio Channels Online" onsubmit="return false">
 <div class="panel mb-6">
           <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-speaker"></i>Channel Test</span></div>
           <div class="panel-body">
@@ -523,21 +520,42 @@
             </button>
           </div>
         </div>
-          </form>
 
-          <!-- Ad (mid) -->
-          <div class="ad-panel">
-            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
-            <div class="ad-panel-body">
-              <ins class="adsbygoogle"
-                   data-ad-client="ca-pub-5426315045205785"
-                   data-ad-format="auto"
-                   data-ad-slot="9146528954"
-                   data-full-width-responsive="true"
-                   style="display:block"></ins>
-              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+<div class="panel mb-5">
+          <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-gear"></i>Test Settings</span></div>
+          <div class="panel-body">
+            <div class="mb-3">
+              <label class="form-label" for="frequency-select">Test Frequency</label>
+              <select class="form-select" id="frequency-select">
+                <option value="440">440 Hz (A4 - Standard)</option>
+                <option value="261">261 Hz (C4)</option>
+                <option value="1000">1000 Hz (Test Tone)</option>
+                <option value="100">100 Hz (Bass)</option>
+                <option value="4000">4000 Hz (Treble)</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" for="volume-slider">Volume</label>
+              <input type="range" id="volume-slider" min="0" max="100" value="30">
+              <div class="text-center mono" style="font-size:12.5px;color:var(--ink)"><span id="volume-display">30%</span></div>
             </div>
           </div>
+        </div>
+        </form>
+
+        <!-- Ad (mid) -->
+        <div class="ad-panel">
+          <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+          <div class="ad-panel-body">
+            <ins class="adsbygoogle"
+                 data-ad-client="ca-pub-5426315045205785"
+                 data-ad-format="auto"
+                 data-ad-slot="9146528954"
+                 data-full-width-responsive="true"
+                 style="display:block"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          </div>
+        </div>
 
       <div class="content-panel prose max-w-none">
             <h2><i class="bi bi-wrench me-2"></i>Stereo Issues?</h2>
@@ -668,67 +686,6 @@
         </details>
       </div>
 
-        </div>
-
-        <!-- RIGHT: sidebar -->
-        <div>
-
-<div class="panel mb-5">
-          <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-gear"></i>Test Settings</span></div>
-          <div class="panel-body">
-            <div class="mb-3">
-              <label class="form-label" for="frequency-select">Test Frequency</label>
-              <select class="form-select" id="frequency-select">
-                <option value="440">440 Hz (A4 - Standard)</option>
-                <option value="261">261 Hz (C4)</option>
-                <option value="1000">1000 Hz (Test Tone)</option>
-                <option value="100">100 Hz (Bass)</option>
-                <option value="4000">4000 Hz (Treble)</option>
-              </select>
-            </div>
-            <div>
-              <label class="form-label" for="volume-slider">Volume</label>
-              <input type="range" id="volume-slider" min="0" max="100" value="30">
-              <div class="text-center mono" style="font-size:12.5px;color:var(--ink)"><span id="volume-display">30%</span></div>
-            </div>
-          </div>
-        </div>
-
-<div class="panel mb-5">
-          <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-tools"></i>Related Tools</span></div>
-          <div class="panel-body">
-            <a href="/" class="flex items-center gap-2" style="padding:.5rem 0;border-bottom:1px solid var(--border-lt);color:var(--ink-2);font-size:13px;" title="Microphone Test">
-              <i class="bi bi-mic"></i>Microphone Test
-            </a>
-            <a href="/tone-generator" class="flex items-center gap-2" style="padding:.5rem 0;border-bottom:1px solid var(--border-lt);color:var(--ink-2);font-size:13px;" title="Tone Generator">
-              <i class="bi bi-activity"></i>Tone Generator
-            </a>
-            <a href="/bass-test" class="flex items-center gap-2" style="padding:.5rem 0;border-bottom:1px solid var(--border-lt);color:var(--ink-2);font-size:13px;" title="Bass Test">
-              <i class="bi bi-disc"></i>Bass Test
-            </a>
-            <a href="/headphone-test" class="flex items-center gap-2" style="padding:.5rem 0;border-bottom:1px solid var(--border-lt);color:var(--ink-2);font-size:13px;" title="Headphone Test">
-              <i class="bi bi-headphones"></i>Headphone Test
-            </a>
-            <a href="/speaker-volume-test" class="flex items-center gap-2" style="padding:.5rem 0;border-bottom:1px solid var(--border-lt);color:var(--ink-2);font-size:13px;" title="Volume Test">
-              <i class="bi bi-volume-up"></i>Speaker Volume Test
-            </a>
-            <a href="/show-speakers" class="flex items-center gap-2" style="padding:.5rem 0;border-bottom:1px solid var(--border-lt);color:var(--ink-2);font-size:13px;" title="Speaker Details">
-              <i class="bi bi-speaker"></i>View Speaker Details
-            </a>
-            <a href="/hearing-test" class="flex items-center gap-2" style="padding:.5rem 0;color:var(--ink-2);font-size:13px;" title="Hearing Test">
-              <i class="bi bi-ear"></i>Hearing Test
-            </a>
-          </div>
-        </div>
-
-<div class="panel">
-          <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-lightbulb" style="color:var(--amber)"></i>Tip</span></div>
-          <div class="panel-body">
-            <p class="mb-0" style="font-size:12.5px;color:var(--ink-2);">For best results, use headphones to clearly distinguish between left and right channels without room acoustics affecting the test. You can also check your hearing range to ensure you can perceive all test frequencies.</p>
-          </div>
-        </div>
-
-        </div>
       </div>
 
     </div>

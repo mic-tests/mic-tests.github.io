@@ -423,12 +423,9 @@
         </div>
       </div>
 
-      <div class="grid lg:grid-cols-[1fr_320px] gap-8 items-start">
+      <div class="min-w-0">
 
-        <!-- LEFT: tool + content -->
-        <div class="min-w-0">
-
-          <form aria-label="Headphone Test — Check Left &amp; Right Ear Channels Separately" onsubmit="return false">
+        <form aria-label="Headphone Test — Check Left &amp; Right Ear Channels Separately" onsubmit="return false">
           <div class="panel mb-6">
             <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-headphones"></i>Left/Right Channel Test</span></div>
             <div class="panel-body">
@@ -498,21 +495,40 @@
             <i class="bi bi-info-circle-fill me-2"></i>Put on your headphones and click the test buttons to verify each ear is working correctly.
           </div>
 
-          </form>
-
-          <!-- Ad (mid) -->
-          <div class="ad-panel">
-            <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
-            <div class="ad-panel-body">
-              <ins class="adsbygoogle"
-                   data-ad-client="ca-pub-5426315045205785"
-                   data-ad-format="auto"
-                   data-ad-slot="9146528954"
-                   data-full-width-responsive="true"
-                   style="display:block"></ins>
-              <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+<div class="panel mb-5">
+            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-sliders"></i>Test Settings</span></div>
+            <div class="panel-body">
+              <div class="mb-3">
+                <label class="form-label" for="freq-select">Test Frequency</label>
+                <select class="form-select" id="freq-select">
+                  <option value="440">440 Hz (Standard)</option>
+                  <option value="1000">1000 Hz</option>
+                  <option value="250">250 Hz (Low)</option>
+                  <option value="4000">4000 Hz (High)</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label" for="volume">Volume</label>
+                <input type="range" id="volume" min="0" max="100" value="30">
+                <div class="mono text-center text-xs mt-1" id="vol-display" style="color:var(--ink-2)">30%</div>
+              </div>
             </div>
           </div>
+        </form>
+
+        <!-- Ad (mid) -->
+        <div class="ad-panel">
+          <div class="ad-panel-hdr"><i class="bi bi-megaphone me-2"></i>Advertisement</div>
+          <div class="ad-panel-body">
+            <ins class="adsbygoogle"
+                 data-ad-client="ca-pub-5426315045205785"
+                 data-ad-format="auto"
+                 data-ad-slot="9146528954"
+                 data-full-width-responsive="true"
+                 style="display:block"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+          </div>
+        </div>
 
       <div class="content-panel prose max-w-none">
         <h2><i class="bi bi-check-circle me-2"></i>What to Check</h2>
@@ -599,53 +615,6 @@
         </details>
       </div>
 
-        </div>
-
-        <!-- RIGHT: sidebar -->
-        <div>
-
-          <div class="panel mb-5">
-            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-sliders"></i>Test Settings</span></div>
-            <div class="panel-body">
-              <div class="mb-3">
-                <label class="form-label" for="freq-select">Test Frequency</label>
-                <select class="form-select" id="freq-select">
-                  <option value="440">440 Hz (Standard)</option>
-                  <option value="1000">1000 Hz</option>
-                  <option value="250">250 Hz (Low)</option>
-                  <option value="4000">4000 Hz (High)</option>
-                </select>
-              </div>
-              <div>
-                <label class="form-label" for="volume">Volume</label>
-                <input type="range" id="volume" min="0" max="100" value="30">
-                <div class="mono text-center text-xs mt-1" id="vol-display" style="color:var(--ink-2)">30%</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="panel mb-5">
-            <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-link-45deg"></i>Related Tools</span></div>
-            <div class="panel-body" style="padding:.5rem">
-              <nav class="flex flex-col">
-                <a href="/stereo-test" class="rail-link"><i class="bi bi-badge-hd"></i>Stereo Test</a>
-                <a href="/bass-test" class="rail-link"><i class="bi bi-disc"></i>Bass Test</a>
-                <a href="/hearing-test" class="rail-link"><i class="bi bi-ear"></i>Hearing Test</a>
-                <a href="/tone-generator" class="rail-link"><i class="bi bi-activity"></i>Tone Generator</a>
-                <a href="/echo-test" class="rail-link"><i class="bi bi-arrow-repeat"></i>Echo Test</a>
-                <a href="/" class="rail-link"><i class="bi bi-mic"></i>Microphone Test</a>
-              </nav>
-            </div>
-          </div>
-
-          <div class="panel">
-            <div class="panel-body">
-              <h3 class="flex items-center gap-2 mb-2"><i class="bi bi-wrench" style="color:var(--amber)"></i>Issues?</h3>
-              <p class="text-sm mb-0" style="color:var(--ink-2)">If one side isn't working, check your cable connection. For wireless, check battery and pairing. See <a href="/troubleshooting">troubleshooting</a> for more help.</p>
-            </div>
-          </div>
-
-        </div>
       </div>
 
     </div>
