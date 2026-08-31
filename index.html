@@ -42,7 +42,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
   <script async crossorigin="anonymous"
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5426315045205785"></script>
   <meta name="google-adsense-account" content="ca-pub-5426315045205785">
@@ -82,8 +82,33 @@
     h2{font-weight:700;font-size:1.5rem;line-height:1.25;margin:0 0 .9rem;}
     h3{font-weight:600;font-size:1.1rem;line-height:1.3;margin:1.75rem 0 .5rem;}
     p{margin:0 0 1rem;}
-    strong{color:var(--ink);font-weight:700;}
+    strong,b{color:var(--ink);font-weight:700;}
+    em,i{font-style:italic;}
     code{background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;font-size:.87em;color:var(--ink);font-family:'JetBrains Mono',monospace;}
+
+    /* ── Long-form content (how-it-works / how-to / troubleshooting / FAQ) is raw semantic HTML
+       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility
+       instead of fighting Tailwind's preflight reset with custom element CSS + !important.
+       Its rules live behind :where() (zero specificity), so our theme tokens below win cleanly. ── */
+    /* !important: the typography plugin's own .prose rule also *sets* these same custom
+       properties (its light-mode defaults), at equal specificity and later in the cascade
+       (Tailwind CDN injects its stylesheet after this one) — so ours needs to win outright. */
+    .prose{
+      --tw-prose-body: var(--ink-2) !important; --tw-prose-headings: var(--ink) !important; --tw-prose-lead: var(--ink-2) !important;
+      --tw-prose-links: var(--amber) !important; --tw-prose-bold: var(--ink) !important; --tw-prose-counters: var(--ink-3) !important;
+      --tw-prose-bullets: var(--amber) !important; --tw-prose-hr: var(--border) !important; --tw-prose-quotes: var(--ink) !important;
+      --tw-prose-quote-borders: var(--amber) !important; --tw-prose-captions: var(--ink-3) !important;
+      --tw-prose-code: var(--ink) !important; --tw-prose-pre-code: var(--ink) !important; --tw-prose-pre-bg: var(--panel-2) !important;
+      --tw-prose-th-borders: var(--border) !important; --tw-prose-td-borders: var(--border-lt) !important;
+      color:var(--tw-prose-body);
+    }
+    .prose :where(h2,h3,h4,h5,h6){font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;}
+    .prose :where(code)::before,.prose :where(code)::after{content:none !important;}
+    .prose :where(code){background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;}
+    .prose :where(a){text-decoration:none;}
+    audio,video{max-width:100%;}
+    dl:not(.mic-stats) dt{font-weight:600;color:var(--ink);}
+    dl:not(.mic-stats) dd{margin:0 0 .6rem;color:var(--ink-2);}
 
     .led{width:6px;height:6px;border-radius:999px;background:var(--amber);box-shadow:0 0 6px var(--amber);flex-shrink:0;}
     .hairline{border-color:var(--border)}
@@ -101,8 +126,6 @@
     .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
     .panel-body{padding:1.1rem;}
     .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
-    .content-panel ol,.content-panel ul{padding-left:1.3rem;}
-    .content-panel li{margin-bottom:.5rem;line-height:1.65;}
     .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
     .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
     .ad-panel-body{padding:1rem;text-align:center;}
@@ -425,7 +448,7 @@
           </div>
 
           <!-- How it works -->
-          <div class="content-panel">
+          <div class="content-panel prose prose-sm max-w-none">
             <h2>How the Microphone Test Online Works in Your Browser</h2>
             <p>This tool operates entirely inside your browser &mdash; no download, no plug-in, no Adobe Flash or Microsoft Silverlight required. It uses the modern Web Audio API and the <code>getUserMedia</code> interface to <strong>detect multimedia devices</strong> connected to your system, request access, and begin capturing audio input in real time. Your <strong>privacy is safe</strong>: all processing happens locally on your device, audio is never transmitted to any server, and recorded clips are deleted from memory the moment you close the page &mdash; unless you choose to save them yourself.</p>
 
@@ -550,7 +573,7 @@
       </div>
 
       <!-- How to run -->
-      <div class="content-panel" id="how-to">
+      <div class="content-panel prose prose-sm max-w-none" id="how-to">
         <h2>Run Your Microphone Test Online: Stats, Steps, and Platform Notes</h2>
         <p>Ready to <strong>test your microphone online</strong>? The process takes under sixty seconds on any modern device. Click the <em>Test my mic</em> button, grant browser permission when prompted, then speak or make noise. Watch the waveform respond &mdash; if it moves, your microphone is live. Once the test completes, the <strong>microphone information table</strong> populates with a full set of <strong>audio quality</strong> metrics that tell you far more than a simple pass/fail.</p>
 
@@ -621,7 +644,7 @@
       </div>
 
       <!-- Common problems -->
-      <div class="content-panel">
+      <div class="content-panel prose prose-sm max-w-none">
         <h2>Why Your Microphone Isn&#8217;t Working &#8212; Online Mic Test Troubleshooting Guide</h2>
         <p>If the waveform stays flat after you start the <strong>online mic test</strong>, one of a handful of common issues is almost always responsible. The good news: most are fixable in under two minutes with the right steps. This <strong>microphone troubleshooting</strong> guide covers every layer &mdash; from browser permissions to OS-level settings &mdash; so you can <strong>check if microphone is working properly</strong> without installing anything extra.</p>
 
@@ -718,7 +741,7 @@
       </div>
 
       <!-- FAQ -->
-      <div class="content-panel" id="faq">
+      <div class="content-panel prose prose-sm max-w-none" id="faq">
         <h2>Frequently Asked Questions About the Microphone Tester and How to Test Your Microphone</h2>
         <details class="panel" open>
           <summary><strong>Is this mic test tool free and does it require any installation?</strong></summary>
