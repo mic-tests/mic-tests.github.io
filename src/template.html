@@ -46,7 +46,7 @@
     body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;}
     .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
     .display{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.02em;}
-    a{color:var(--amber);text-decoration:none}
+    body a{color:var(--amber);text-decoration:none}
     a:hover{opacity:.8}
     ::selection{background:var(--amber);color:var(--bg)}
     h1,h2,h3,h4{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;word-spacing:-0.15em;color:var(--ink);}
@@ -58,9 +58,12 @@
     code{background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;font-size:.87em;color:var(--ink);font-family:'JetBrains Mono',monospace;}
 
     /* ── Long-form content (how-it-works / how-to / troubleshooting / FAQ) is raw semantic HTML
-       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility
-       instead of fighting Tailwind's preflight reset with custom element CSS + !important.
-       Its rules live behind :where() (zero specificity), so our theme tokens below win cleanly. ── */
+       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility.
+       Its rules live behind :where() (zero specificity) — but so do the handful of ours that
+       target the same elements (h2-h6 font, code, a text-decoration below), which makes those
+       a true 0-0 tie the plugin's later-loaded stylesheet wins by source order alone unless we
+       mark ours !important. Only the --tw-prose-* custom properties on .prose itself (real,
+       non-:where() specificity) reliably win on specificity without needing that. ── */
     /* !important: the typography plugin's own .prose rule also *sets* these same custom
        properties (its light-mode defaults), at equal specificity and later in the cascade
        (Tailwind CDN injects its stylesheet after this one) — so ours needs to win outright. */
@@ -76,7 +79,11 @@
     .prose :where(h2,h3,h4,h5,h6){font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;word-spacing:-0.15em;}
     .prose :where(code)::before,.prose :where(code)::after{content:none !important;}
     .prose :where(code){background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;}
-    .prose :where(a){text-decoration:none;}
+    /* !important: the typography plugin's own .prose a rule is *also*
+       wrapped in :where(), so this is a true 0-specificity tie decided by
+       source order — Tailwind's later-loaded stylesheet would otherwise
+       win and force underlines back on. */
+    .prose :where(a){text-decoration:none !important;}
     audio,video{max-width:100%;}
     dl:not(.mic-stats) dt{font-weight:600;color:var(--ink);}
     dl:not(.mic-stats) dd{margin:0 0 .6rem;color:var(--ink-2);}

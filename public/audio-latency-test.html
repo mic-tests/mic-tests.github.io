@@ -116,7 +116,7 @@
     body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;}
     .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
     .display{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.02em;}
-    a{color:var(--amber);text-decoration:none}
+    body a{color:var(--amber);text-decoration:none}
     a:hover{opacity:.8}
     ::selection{background:var(--amber);color:var(--bg)}
     h1,h2,h3,h4{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;word-spacing:-0.15em;color:var(--ink);}
@@ -128,9 +128,12 @@
     code{background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;font-size:.87em;color:var(--ink);font-family:'JetBrains Mono',monospace;}
 
     /* ── Long-form content (how-it-works / how-to / troubleshooting / FAQ) is raw semantic HTML
-       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility
-       instead of fighting Tailwind's preflight reset with custom element CSS + !important.
-       Its rules live behind :where() (zero specificity), so our theme tokens below win cleanly. ── */
+       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility.
+       Its rules live behind :where() (zero specificity) — but so do the handful of ours that
+       target the same elements (h2-h6 font, code, a text-decoration below), which makes those
+       a true 0-0 tie the plugin's later-loaded stylesheet wins by source order alone unless we
+       mark ours !important. Only the --tw-prose-* custom properties on .prose itself (real,
+       non-:where() specificity) reliably win on specificity without needing that. ── */
     /* !important: the typography plugin's own .prose rule also *sets* these same custom
        properties (its light-mode defaults), at equal specificity and later in the cascade
        (Tailwind CDN injects its stylesheet after this one) — so ours needs to win outright. */
@@ -146,7 +149,11 @@
     .prose :where(h2,h3,h4,h5,h6){font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;word-spacing:-0.15em;}
     .prose :where(code)::before,.prose :where(code)::after{content:none !important;}
     .prose :where(code){background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;}
-    .prose :where(a){text-decoration:none;}
+    /* !important: the typography plugin's own .prose a rule is *also*
+       wrapped in :where(), so this is a true 0-specificity tie decided by
+       source order — Tailwind's later-loaded stylesheet would otherwise
+       win and force underlines back on. */
+    .prose :where(a){text-decoration:none !important;}
     audio,video{max-width:100%;}
     dl:not(.mic-stats) dt{font-weight:600;color:var(--ink);}
     dl:not(.mic-stats) dd{margin:0 0 .6rem;color:var(--ink-2);}
@@ -418,7 +425,7 @@
       <!-- HERO -->
       <header class="mb-10">
         <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Audio Latency Test — Measure Microphone Delay in Milliseconds</h1>
-          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>Audio Latency Test</strong> measures the round-trip delay between your system playing a sound and your microphone capturing it — your result appears as a <strong>latency reading in milliseconds</strong>. Plug in headphones to prevent the test tone feeding back through your mic, click <strong>Start Test</strong>, and the tool plays a short click then times how long your mic takes to detect it. Your <strong>latency result</strong> tells you how much delay to expect on video calls, live recordings, or any setup where mic-to-output timing matters. Record your latency readings in a free notepad at <a href="https://notepadly.online/" rel="noopener">notepadly.online</a>. <!-- SILO_START:slot_a -->The <a href="/">free microphone test</a> works with any browser-accessible microphone and runs entirely locally.<!-- SILO_END:slot_a --></p>
+          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>Audio Latency Test</strong> measures the round-trip delay between your system playing a sound and your microphone capturing it — your result appears as a <strong>latency reading in milliseconds</strong>. Plug in headphones to prevent the test tone feeding back through your mic, click <strong>Start Test</strong>, and the tool plays a short click then times how long your mic takes to detect it. Your <strong>latency result</strong> tells you how much delay to expect on video calls, live recordings, or any setup where mic-to-output timing matters. Record your latency readings in a free notepad at <a href="https://notepadly.online/" rel="noopener">notepadly.online</a>. <!-- SILO_START:slot_a -->Before any recording session, a <a href="/">mic test online</a> confirms your audio input is clean.<!-- SILO_END:slot_a --></p>
       </header>
 
           <div class="ad-panel ad-panel-header">
@@ -624,7 +631,7 @@
 
       <div class="content-panel prose max-w-none">
             <h2>What Is Audio Latency? Understanding Sound Delay in Your System</h2>
-            <p>Audio latency is the total time between a sound event (a key pressed, a voice spoken, a signal triggered) and when it is audible through speakers or headphones. Every device in your signal chain adds a small delay: the driver, the audio engine, the digital-to-analogue converter, and the amplifier all contribute. The sum of all these delays is your system's <strong>total audio latency</strong>, measured in milliseconds. <!-- SILO_START:slot_b --><!-- SILO_END:slot_b --></p>
+            <p>Audio latency is the total time between a sound event (a key pressed, a voice spoken, a signal triggered) and when it is audible through speakers or headphones. Every device in your signal chain adds a small delay: the driver, the audio engine, the digital-to-analogue converter, and the amplifier all contribute. The sum of all these delays is your system's <strong>total audio latency</strong>, measured in milliseconds. <!-- SILO_START:slot_b -->Check your full audible range with a <a href="/hearing-test">hearing test online</a> — from 20Hz bass to 20kHz treble.<!-- SILO_END:slot_b --></p>
 
             <h3>Base Latency vs Output Latency vs Round-Trip Latency</h3>
             <p><strong>Base latency</strong> is the minimum processing delay of the audio engine — the time from when software sends a signal to when the hardware begins outputting it. <strong>Output latency</strong> is the delay introduced by the output device's buffer. <strong>Round-trip latency</strong> is what this test measures: the full loop from output to microphone capture — which includes both output and input delays simultaneously. For real-time recording and live monitoring, round-trip latency is the most relevant measurement.</p>
@@ -636,7 +643,7 @@
 
       <div class="content-panel prose max-w-none">
             <h2>Audio Latency by Use Case — What Is an Acceptable Sound Delay?</h2>
-            <p>The right latency threshold depends entirely on what you are doing with the audio. A video call tolerates delays that would be completely unacceptable in a live recording session. <!-- SILO_START:slot_c -->Use the <a href="/tone-generator">tone generator</a> to sweep through frequencies and check your speaker response.<!-- SILO_END:slot_c --></p>
+            <p>The right latency threshold depends entirely on what you are doing with the audio. A video call tolerates delays that would be completely unacceptable in a live recording session. <!-- SILO_START:slot_c --><!-- SILO_END:slot_c --></p>
 
             <h3>Music Production and Live Monitoring: Minimum Input Latency Required</h3>
             <p>When recording instruments or vocals, musicians monitor their own performance through headphones in real time. Any latency above 10ms is perceivable as a slight "doubling" effect — the direct sound from the instrument arrives slightly before the monitored sound through the headphones. Professional recordings target under 5ms total round-trip latency. If your audio latency test returns 10–20ms, it is workable for most home recording; above 30ms, you will notice the delay while singing or playing.</p>

@@ -100,7 +100,7 @@
     body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;}
     .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
     .display{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.02em;}
-    a{color:var(--amber);text-decoration:none}
+    body a{color:var(--amber);text-decoration:none}
     a:hover{opacity:.8}
     ::selection{background:var(--amber);color:var(--bg)}
     h1,h2,h3,h4{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;word-spacing:-0.15em;color:var(--ink);}
@@ -112,9 +112,12 @@
     code{background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;font-size:.87em;color:var(--ink);font-family:'JetBrains Mono',monospace;}
 
     /* ── Long-form content (how-it-works / how-to / troubleshooting / FAQ) is raw semantic HTML
-       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility
-       instead of fighting Tailwind's preflight reset with custom element CSS + !important.
-       Its rules live behind :where() (zero specificity), so our theme tokens below win cleanly. ── */
+       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility.
+       Its rules live behind :where() (zero specificity) — but so do the handful of ours that
+       target the same elements (h2-h6 font, code, a text-decoration below), which makes those
+       a true 0-0 tie the plugin's later-loaded stylesheet wins by source order alone unless we
+       mark ours !important. Only the --tw-prose-* custom properties on .prose itself (real,
+       non-:where() specificity) reliably win on specificity without needing that. ── */
     /* !important: the typography plugin's own .prose rule also *sets* these same custom
        properties (its light-mode defaults), at equal specificity and later in the cascade
        (Tailwind CDN injects its stylesheet after this one) — so ours needs to win outright. */
@@ -130,7 +133,11 @@
     .prose :where(h2,h3,h4,h5,h6){font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;word-spacing:-0.15em;}
     .prose :where(code)::before,.prose :where(code)::after{content:none !important;}
     .prose :where(code){background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;}
-    .prose :where(a){text-decoration:none;}
+    /* !important: the typography plugin's own .prose a rule is *also*
+       wrapped in :where(), so this is a true 0-specificity tie decided by
+       source order — Tailwind's later-loaded stylesheet would otherwise
+       win and force underlines back on. */
+    .prose :where(a){text-decoration:none !important;}
     audio,video{max-width:100%;}
     dl:not(.mic-stats) dt{font-weight:600;color:var(--ink);}
     dl:not(.mic-stats) dd{margin:0 0 .6rem;color:var(--ink-2);}
@@ -397,7 +404,7 @@
       <!-- HERO -->
       <header class="mb-10">
         <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Background Noise Analyzer — Measure Ambient Sound Levels Online</h1>
-          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>Background Noise Analyzer</strong> measures what your microphone picks up when you're not talking — fan hum, HVAC noise, street sounds, and other ambient audio your mic captures constantly. Click <strong>Start Analysis</strong>, stay quiet, and you'll see a live <strong>ambient dB level</strong>, a <strong>noise rating</strong> from very quiet to loud, and the <strong>dominant frequency range</strong> in your environment. Your <strong>noise quality score</strong> tells you whether your background noise will interfere with calls, recordings, or voice recognition software. <!-- SILO_START:slot_a -->Find your personal hearing limit with a <a href="/hearing-test">hearing test online</a> — no audiologist appointment needed.<!-- SILO_END:slot_a --></p>
+          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>Background Noise Analyzer</strong> measures what your microphone picks up when you're not talking — fan hum, HVAC noise, street sounds, and other ambient audio your mic captures constantly. Click <strong>Start Analysis</strong>, stay quiet, and you'll see a live <strong>ambient dB level</strong>, a <strong>noise rating</strong> from very quiet to loud, and the <strong>dominant frequency range</strong> in your environment. Your <strong>noise quality score</strong> tells you whether your background noise will interfere with calls, recordings, or voice recognition software. <!-- SILO_START:slot_a -->A <a href="/hearing-test">hearing test online</a> plays tones across the spectrum to show exactly where your hearing drops off.<!-- SILO_END:slot_a --></p>
       </header>
 
           <div class="ad-panel ad-panel-header">
@@ -576,7 +583,7 @@
             <h2>Identifying and Fixing Background Noise Sources</h2>
 
             <h3>Low-Frequency Noise: HVAC, Traffic, and Electrical Hum</h3>
-            <p>HVAC and traffic produce broadband low-frequency rumble that is difficult to eliminate without physical isolation. Short-term solutions: close all windows and doors, turn off the AC unit during recording sessions, and move the microphone away from the room's main ventilation duct. Electrical hum (the characteristic 60 Hz tone in North America) is fixed by addressing the ground loop: use a balanced XLR microphone instead of unbalanced 3.5 mm, replace cheap USB cables, and avoid running microphone cables parallel to power cables. <!-- SILO_START:slot_c -->A <a href="/headphone-test">headphone test</a> reveals reversed channels, silent drivers, or uneven volume between ears.<!-- SILO_END:slot_c --></p>
+            <p>HVAC and traffic produce broadband low-frequency rumble that is difficult to eliminate without physical isolation. Short-term solutions: close all windows and doors, turn off the AC unit during recording sessions, and move the microphone away from the room's main ventilation duct. Electrical hum (the characteristic 60 Hz tone in North America) is fixed by addressing the ground loop: use a balanced XLR microphone instead of unbalanced 3.5 mm, replace cheap USB cables, and avoid running microphone cables parallel to power cables. <!-- SILO_START:slot_c -->A <a href="/stereo-test">stereo test</a> confirms your speakers are delivering true stereo rather than summed mono.<!-- SILO_END:slot_c --></p>
 
             <h3>Mid-Frequency Noise: Fans, Appliances, and Mechanical Sources</h3>
             <p>Computer fan noise is often the largest contributor to mid-frequency background noise in a home studio. Solutions: use a directional (cardioid) microphone positioned away from the computer, place the computer behind a physical barrier, or record with the computer at a greater distance. Refrigerators and appliances: unplug nearby appliances during recording sessions, or move to a different room. For permanent solutions, acoustic panels on walls and heavy door seals significantly reduce mid-frequency transmission from adjacent spaces.</p>

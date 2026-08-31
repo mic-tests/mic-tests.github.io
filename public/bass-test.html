@@ -116,7 +116,7 @@
     body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;}
     .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
     .display{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.02em;}
-    a{color:var(--amber);text-decoration:none}
+    body a{color:var(--amber);text-decoration:none}
     a:hover{opacity:.8}
     ::selection{background:var(--amber);color:var(--bg)}
     h1,h2,h3,h4{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;word-spacing:-0.15em;color:var(--ink);}
@@ -128,9 +128,12 @@
     code{background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;font-size:.87em;color:var(--ink);font-family:'JetBrains Mono',monospace;}
 
     /* ── Long-form content (how-it-works / how-to / troubleshooting / FAQ) is raw semantic HTML
-       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility
-       instead of fighting Tailwind's preflight reset with custom element CSS + !important.
-       Its rules live behind :where() (zero specificity), so our theme tokens below win cleanly. ── */
+       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility.
+       Its rules live behind :where() (zero specificity) — but so do the handful of ours that
+       target the same elements (h2-h6 font, code, a text-decoration below), which makes those
+       a true 0-0 tie the plugin's later-loaded stylesheet wins by source order alone unless we
+       mark ours !important. Only the --tw-prose-* custom properties on .prose itself (real,
+       non-:where() specificity) reliably win on specificity without needing that. ── */
     /* !important: the typography plugin's own .prose rule also *sets* these same custom
        properties (its light-mode defaults), at equal specificity and later in the cascade
        (Tailwind CDN injects its stylesheet after this one) — so ours needs to win outright. */
@@ -146,7 +149,11 @@
     .prose :where(h2,h3,h4,h5,h6){font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;word-spacing:-0.15em;}
     .prose :where(code)::before,.prose :where(code)::after{content:none !important;}
     .prose :where(code){background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;}
-    .prose :where(a){text-decoration:none;}
+    /* !important: the typography plugin's own .prose a rule is *also*
+       wrapped in :where(), so this is a true 0-specificity tie decided by
+       source order — Tailwind's later-loaded stylesheet would otherwise
+       win and force underlines back on. */
+    .prose :where(a){text-decoration:none !important;}
     audio,video{max-width:100%;}
     dl:not(.mic-stats) dt{font-weight:600;color:var(--ink);}
     dl:not(.mic-stats) dd{margin:0 0 .6rem;color:var(--ink-2);}
@@ -532,7 +539,7 @@
 
       <div class="content-panel prose max-w-none">
             <h2>Understanding Bass Frequency Ranges</h2>
-            <p>The bass test covers 20 Hz to 200 Hz — the entire low-frequency band. Different parts of this range have distinct sonic characters, and not all speakers or headphones can reproduce every sub-range. <!-- SILO_START:slot_b -->The free <a href="/stereo-test">stereo test</a> detects reversed channels, mono collapse, and uneven output in seconds.<!-- SILO_END:slot_b --></p>
+            <p>The bass test covers 20 Hz to 200 Hz — the entire low-frequency band. Different parts of this range have distinct sonic characters, and not all speakers or headphones can reproduce every sub-range. <!-- SILO_START:slot_b -->Use the <a href="/speaker-volume-test">speaker test online</a> to confirm your speakers respond correctly from low to maximum volume.<!-- SILO_END:slot_b --></p>
 
             <h3>Sub-Bass: 20–60 Hz</h3>
             <p>Sub-bass is felt more than heard — it's the rumble in cinema explosions, the vibration in EDM drops, and the fundamental pitch of a bass guitar's lowest notes. Reproducing these frequencies requires a subwoofer or large, high-excursion drivers. Laptop speakers and most desktop monitors roll off entirely below 60 Hz.</p>
@@ -583,7 +590,7 @@
             <h2>Common Bass Problems and Solutions</h2>
 
             <h3>No Bass Response at Low Frequencies</h3>
-            <p>If you can't hear anything below 80 Hz, first rule out hardware limits (most laptops genuinely can't produce sub-bass). If the device should be capable, check: equaliser settings cutting the bass, Bluetooth connection using a narrow-band codec, or a subwoofer crossover set too low. Also check if the subwoofer power switch is on — a surprisingly common miss. <!-- SILO_START:slot_c -->The free <a href="/headphone-test">headphone test</a> takes under a minute and works with any wired or Bluetooth headphones.<!-- SILO_END:slot_c --></p>
+            <p>If you can't hear anything below 80 Hz, first rule out hardware limits (most laptops genuinely can't produce sub-bass). If the device should be capable, check: equaliser settings cutting the bass, Bluetooth connection using a narrow-band codec, or a subwoofer crossover set too low. Also check if the subwoofer power switch is on — a surprisingly common miss. <!-- SILO_START:slot_c --><!-- SILO_END:slot_c --></p>
 
             <h3>Distorted or Muddy Bass During the Test</h3>
             <p>Distortion during the bass test is the clearest sign your speakers are being pushed beyond their limits. Reduce volume first. If distortion persists at moderate levels at a specific frequency, the driver cone may be damaged or the enclosure is resonating. A port duct vibrating against the cabinet body is another common source of bass distortion.</p>

@@ -100,7 +100,7 @@
     body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;}
     .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
     .display{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.02em;}
-    a{color:var(--amber);text-decoration:none}
+    body a{color:var(--amber);text-decoration:none}
     a:hover{opacity:.8}
     ::selection{background:var(--amber);color:var(--bg)}
     h1,h2,h3,h4{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;word-spacing:-0.15em;color:var(--ink);}
@@ -112,9 +112,12 @@
     code{background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;font-size:.87em;color:var(--ink);font-family:'JetBrains Mono',monospace;}
 
     /* ── Long-form content (how-it-works / how-to / troubleshooting / FAQ) is raw semantic HTML
-       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility
-       instead of fighting Tailwind's preflight reset with custom element CSS + !important.
-       Its rules live behind :where() (zero specificity), so our theme tokens below win cleanly. ── */
+       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility.
+       Its rules live behind :where() (zero specificity) — but so do the handful of ours that
+       target the same elements (h2-h6 font, code, a text-decoration below), which makes those
+       a true 0-0 tie the plugin's later-loaded stylesheet wins by source order alone unless we
+       mark ours !important. Only the --tw-prose-* custom properties on .prose itself (real,
+       non-:where() specificity) reliably win on specificity without needing that. ── */
     /* !important: the typography plugin's own .prose rule also *sets* these same custom
        properties (its light-mode defaults), at equal specificity and later in the cascade
        (Tailwind CDN injects its stylesheet after this one) — so ours needs to win outright. */
@@ -130,7 +133,11 @@
     .prose :where(h2,h3,h4,h5,h6){font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;word-spacing:-0.15em;}
     .prose :where(code)::before,.prose :where(code)::after{content:none !important;}
     .prose :where(code){background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;}
-    .prose :where(a){text-decoration:none;}
+    /* !important: the typography plugin's own .prose a rule is *also*
+       wrapped in :where(), so this is a true 0-specificity tie decided by
+       source order — Tailwind's later-loaded stylesheet would otherwise
+       win and force underlines back on. */
+    .prose :where(a){text-decoration:none !important;}
     audio,video{max-width:100%;}
     dl:not(.mic-stats) dt{font-weight:600;color:var(--ink);}
     dl:not(.mic-stats) dd{margin:0 0 .6rem;color:var(--ink-2);}
@@ -416,7 +423,7 @@
       <!-- HERO -->
       <header class="mb-10">
         <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Show My Speakers — See Your Audio Output Devices & Specs</h1>
-          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75"><strong>Show My Speakers</strong> reads your browser's audio output API and lists every speaker and audio device your system has available. Your <strong>device list</strong> loads automatically — for each output you'll see the <strong>device name</strong>, <strong>sample rate</strong>, <strong>channel configuration</strong>, and <strong>device ID</strong> pulled directly from your system. If you're troubleshooting why audio is routing to the wrong output, or you want to confirm what your browser sees before a call or recording session, your full <strong>output device inventory</strong> is here. <!-- SILO_START:slot_a -->Run a <a href="/tone-generator">tone generator</a> to expose frequency roll-off, driver distortion, or dead speaker channels.<!-- SILO_END:slot_a --></p>
+          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75"><strong>Show My Speakers</strong> reads your browser's audio output API and lists every speaker and audio device your system has available. Your <strong>device list</strong> loads automatically — for each output you'll see the <strong>device name</strong>, <strong>sample rate</strong>, <strong>channel configuration</strong>, and <strong>device ID</strong> pulled directly from your system. If you're troubleshooting why audio is routing to the wrong output, or you want to confirm what your browser sees before a call or recording session, your full <strong>output device inventory</strong> is here. <!-- SILO_START:slot_a -->For speaker calibration or tinnitus matching, the <a href="/tone-generator">tone generator</a> gives you precise frequency control.<!-- SILO_END:slot_a --></p>
       </header>
 
           <div class="ad-panel ad-panel-header">
@@ -606,7 +613,7 @@
 
       <div class="content-panel prose max-w-none">
           <h2>How to Find Out What Speakers You Have</h2>
-          <p>This tool reads your system's audio output devices using the browser's Web Audio API and <code>MediaDevices.enumerateDevices()</code> method. Unlike checking your OS control panel, it shows you exactly what your <em>browser</em> sees — which matters when you're troubleshooting audio in a web app or video call that behaves differently from your desktop applications. The tool lists every audio output endpoint your system exposes: built-in speakers, connected headphones, HDMI outputs, USB audio devices, and Bluetooth speakers. <!-- SILO_START:slot_b -->The free <a href="/speaker-volume-test">speaker test online</a> works with any speakers or audio output device connected to your browser.<!-- SILO_END:slot_b --></p>
+          <p>This tool reads your system's audio output devices using the browser's Web Audio API and <code>MediaDevices.enumerateDevices()</code> method. Unlike checking your OS control panel, it shows you exactly what your <em>browser</em> sees — which matters when you're troubleshooting audio in a web app or video call that behaves differently from your desktop applications. The tool lists every audio output endpoint your system exposes: built-in speakers, connected headphones, HDMI outputs, USB audio devices, and Bluetooth speakers. <!-- SILO_START:slot_b -->Use the <a href="/headphone-test">headphone test</a> to confirm both ear channels are balanced and undamaged.<!-- SILO_END:slot_b --></p>
           <p>Click any device card to expand its full technical specifications — device ID, group ID, sample rate, channel count, and latency. Use the built-in speaker test controls to confirm the device actually produces sound before deciding whether it's the one you want as your default.</p>
       </div>
 
@@ -625,7 +632,7 @@
           <h2>Understanding Your Audio Output Device Specifications</h2>
 
           <h3>Device Name and Group ID — What They Tell You</h3>
-          <p>The device name is what your OS and browser expose to web applications — it may be a generic label ("Speakers") or a specific model name ("Realtek Audio Output"). The group ID links audio input and output devices that share the same physical hardware: for example, a headset's microphone and headphone driver will share a group ID, confirming they are part of the same device. This is useful when troubleshooting mixed-device setups where audio goes to the wrong endpoint. <!-- SILO_START:slot_c --><!-- SILO_END:slot_c --></p>
+          <p>The device name is what your OS and browser expose to web applications — it may be a generic label ("Speakers") or a specific model name ("Realtek Audio Output"). The group ID links audio input and output devices that share the same physical hardware: for example, a headset's microphone and headphone driver will share a group ID, confirming they are part of the same device. This is useful when troubleshooting mixed-device setups where audio goes to the wrong endpoint. <!-- SILO_START:slot_c -->A <a href="/stereo-test">stereo test</a> confirms your speakers are delivering true stereo rather than summed mono.<!-- SILO_END:slot_c --></p>
 
           <h3>Sample Rate — What 44.1 kHz and 48 kHz Mean for Your Speaker</h3>
           <p>The sample rate shown is the rate at which your audio hardware processes digital audio samples per second. 44.1 kHz (44,100 samples/second) is the CD standard and the most common setting for consumer audio. 48 kHz is the professional audio and video standard used in film, TV, and video production. Most modern systems default to 48 kHz. If your sample rate differs from your audio software's setting, the OS resamples the audio — this is harmless but can introduce very subtle quality changes in critical listening environments.</p>

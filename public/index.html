@@ -155,7 +155,7 @@
     body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;}
     .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
     .display{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.02em;}
-    a{color:var(--amber);text-decoration:none}
+    body a{color:var(--amber);text-decoration:none}
     a:hover{opacity:.8}
     ::selection{background:var(--amber);color:var(--bg)}
     h1,h2,h3,h4{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;word-spacing:-0.15em;color:var(--ink);}
@@ -167,9 +167,12 @@
     code{background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;font-size:.87em;color:var(--ink);font-family:'JetBrains Mono',monospace;}
 
     /* ── Long-form content (how-it-works / how-to / troubleshooting / FAQ) is raw semantic HTML
-       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility
-       instead of fighting Tailwind's preflight reset with custom element CSS + !important.
-       Its rules live behind :where() (zero specificity), so our theme tokens below win cleanly. ── */
+       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility.
+       Its rules live behind :where() (zero specificity) — but so do the handful of ours that
+       target the same elements (h2-h6 font, code, a text-decoration below), which makes those
+       a true 0-0 tie the plugin's later-loaded stylesheet wins by source order alone unless we
+       mark ours !important. Only the --tw-prose-* custom properties on .prose itself (real,
+       non-:where() specificity) reliably win on specificity without needing that. ── */
     /* !important: the typography plugin's own .prose rule also *sets* these same custom
        properties (its light-mode defaults), at equal specificity and later in the cascade
        (Tailwind CDN injects its stylesheet after this one) — so ours needs to win outright. */
@@ -185,7 +188,11 @@
     .prose :where(h2,h3,h4,h5,h6){font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;word-spacing:-0.15em;}
     .prose :where(code)::before,.prose :where(code)::after{content:none !important;}
     .prose :where(code){background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;}
-    .prose :where(a){text-decoration:none;}
+    /* !important: the typography plugin's own .prose a rule is *also*
+       wrapped in :where(), so this is a true 0-specificity tie decided by
+       source order — Tailwind's later-loaded stylesheet would otherwise
+       win and force underlines back on. */
+    .prose :where(a){text-decoration:none !important;}
     audio,video{max-width:100%;}
     dl:not(.mic-stats) dt{font-weight:600;color:var(--ink);}
     dl:not(.mic-stats) dd{margin:0 0 .6rem;color:var(--ink-2);}
@@ -438,7 +445,7 @@
       <!-- HERO -->
       <header class="mb-10">
         <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Mic Test Online — Free Microphone Checker for Any Device</h1>
-          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">This <strong>mic test online</strong> checks whether your microphone is capturing audio — select your input device from the <strong>mic selector</strong>, click <strong>Test my mic</strong>, speak a few words, and the <strong>audio waveform</strong> lights up in real time to confirm your mic is picking up sound. Your <strong>input volume level</strong> shows whether you're coming in too quiet or peaking too loud, while the <strong>quality rating</strong> and <strong>mic info panel</strong> surface live readings for sample rate, channels, noise suppression, and echo cancellation pulled directly from your device. If the waveform moves when you talk, your microphone is working; if it stays flat, the <strong>status message</strong> tells you exactly what's blocking your mic access so you can fix it. For other wave and frequency physics calculators, see <a href="https://joteo.net/">Joteo</a>. <!-- SILO_START:slot_a -->Use the <a href="/audio-latency-test">audio latency test</a> to pinpoint driver or buffer issues causing delay in your recordings.<!-- SILO_END:slot_a --></p>
+          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">This <strong>mic test online</strong> checks whether your microphone is capturing audio — select your input device from the <strong>mic selector</strong>, click <strong>Test my mic</strong>, speak a few words, and the <strong>audio waveform</strong> lights up in real time to confirm your mic is picking up sound. Your <strong>input volume level</strong> shows whether you're coming in too quiet or peaking too loud, while the <strong>quality rating</strong> and <strong>mic info panel</strong> surface live readings for sample rate, channels, noise suppression, and echo cancellation pulled directly from your device. If the waveform moves when you talk, your microphone is working; if it stays flat, the <strong>status message</strong> tells you exactly what's blocking your mic access so you can fix it. For other wave and frequency physics calculators, see <a href="https://joteo.net/">Joteo</a>. <!-- SILO_START:slot_a -->The free <a href="/tone-generator">tone generator</a> is the fastest way to check if your speakers reproduce bass and treble accurately.<!-- SILO_END:slot_a --></p>
       </header>
 
           <div class="ad-panel ad-panel-header">

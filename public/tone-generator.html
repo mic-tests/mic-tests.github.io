@@ -124,7 +124,7 @@
     body{background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.65;}
     .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
     .display{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.02em;}
-    a{color:var(--amber);text-decoration:none}
+    body a{color:var(--amber);text-decoration:none}
     a:hover{opacity:.8}
     ::selection{background:var(--amber);color:var(--bg)}
     h1,h2,h3,h4{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;word-spacing:-0.15em;color:var(--ink);}
@@ -136,9 +136,12 @@
     code{background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;font-size:.87em;color:var(--ink);font-family:'JetBrains Mono',monospace;}
 
     /* ── Long-form content (how-it-works / how-to / troubleshooting / FAQ) is raw semantic HTML
-       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility
-       instead of fighting Tailwind's preflight reset with custom element CSS + !important.
-       Its rules live behind :where() (zero specificity), so our theme tokens below win cleanly. ── */
+       we don't hand-decorate — handled by the Tailwind Typography plugin's `.prose` utility.
+       Its rules live behind :where() (zero specificity) — but so do the handful of ours that
+       target the same elements (h2-h6 font, code, a text-decoration below), which makes those
+       a true 0-0 tie the plugin's later-loaded stylesheet wins by source order alone unless we
+       mark ours !important. Only the --tw-prose-* custom properties on .prose itself (real,
+       non-:where() specificity) reliably win on specificity without needing that. ── */
     /* !important: the typography plugin's own .prose rule also *sets* these same custom
        properties (its light-mode defaults), at equal specificity and later in the cascade
        (Tailwind CDN injects its stylesheet after this one) — so ours needs to win outright. */
@@ -154,7 +157,11 @@
     .prose :where(h2,h3,h4,h5,h6){font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:-0.01em;word-spacing:-0.15em;}
     .prose :where(code)::before,.prose :where(code)::after{content:none !important;}
     .prose :where(code){background:var(--panel-2);border:1px solid var(--border);padding:.15em .4em;border-radius:4px;}
-    .prose :where(a){text-decoration:none;}
+    /* !important: the typography plugin's own .prose a rule is *also*
+       wrapped in :where(), so this is a true 0-specificity tie decided by
+       source order — Tailwind's later-loaded stylesheet would otherwise
+       win and force underlines back on. */
+    .prose :where(a){text-decoration:none !important;}
     audio,video{max-width:100%;}
     dl:not(.mic-stats) dt{font-weight:600;color:var(--ink);}
     dl:not(.mic-stats) dd{margin:0 0 .6rem;color:var(--ink-2);}
@@ -594,7 +601,7 @@
 
       <div class="content-panel prose max-w-none">
             <h2>What Is a Tone Generator?</h2>
-            <p>A <strong>tone generator</strong> is a tool that produces a continuous audio signal at a precise frequency. Frequency determines pitch — lower numbers produce bass, higher numbers produce treble. The unit of measurement is the <strong>hertz (Hz)</strong>, where 1 Hz equals one complete sound cycle per second. <!-- SILO_START:slot_b -->An <a href="/audio-latency-test">audio latency test</a> shows whether your setup introduces noticeable lag for recording or live use.<!-- SILO_END:slot_b --></p>
+            <p>A <strong>tone generator</strong> is a tool that produces a continuous audio signal at a precise frequency. Frequency determines pitch — lower numbers produce bass, higher numbers produce treble. The unit of measurement is the <strong>hertz (Hz)</strong>, where 1 Hz equals one complete sound cycle per second. <!-- SILO_START:slot_b --><!-- SILO_END:slot_b --></p>
             <p>This online tone generator uses the <strong>Web Audio API</strong> built into modern browsers to synthesise a mathematically exact audio signal — no recordings, no samples. The result is a stable, locked frequency ideal for any task requiring precision: speaker testing, instrument tuning, tinnitus assessment, or acoustic experiments.</p>
             <p>Traditional hardware <strong>signal generators</strong> and function generators serve the same purpose in studio and lab settings. This free online frequency generator delivers equivalent accuracy in your browser with no downloads or installation required.</p>
           
@@ -642,10 +649,10 @@
             <p>Use the preset musical notes to generate a stable reference pitch. Play <strong>A4 at 440 Hz</strong> — the international tuning standard — and tune your guitar, violin, or wind instrument to match. A pure sine wave from a tone generator is easier to tune against than a physical tuning fork because it sustains indefinitely with no decay.</p>
 
             <h3>Hearing Range Assessment</h3>
-            <p>Test your personal frequency hearing limit. Start at 1,000 Hz and slowly increase. Most adults can hear up to 15,000–18,000 Hz; the upper range declines with age. If you want per-ear results and a systematic frequency threshold assessment, use the dedicated hearing test online — it steps through frequencies and records your exact hearing range. <!-- SILO_START:slot_c -->The free <a href="/hearing-test">hearing test online</a> takes under two minutes and runs entirely in your browser.<!-- SILO_END:slot_c --></p>
+            <p>Test your personal frequency hearing limit. Start at 1,000 Hz and slowly increase. Most adults can hear up to 15,000–18,000 Hz; the upper range declines with age. If you want per-ear results and a systematic frequency threshold assessment, use the dedicated hearing test online — it steps through frequencies and records your exact hearing range. <!-- SILO_START:slot_c -->A <a href="/hearing-test">hearing test online</a> reveals high-frequency loss before it becomes noticeable in conversation.<!-- SILO_END:slot_c --></p>
 
             <h3>Tinnitus Frequency Matching</h3>
-            <p>If you have ringing in the ears (tinnitus), you can adjust the tone generator frequency until the generated tone matches your tinnitus sound. This technique — called <strong>tinnitus pitch matching</strong> — helps audiologists recommend targeted masking sounds and notched audio therapy. Start around 4,000–8,000 Hz, the most common tinnitus range, and fine-tune from there using a sine wave. <!-- SILO_START:slot_d -->To see <a href="/show-speakers">what speakers do i have</a>, the browser's MediaDevices API identifies every output endpoint in seconds.<!-- SILO_END:slot_d --></p>
+            <p>If you have ringing in the ears (tinnitus), you can adjust the tone generator frequency until the generated tone matches your tinnitus sound. This technique — called <strong>tinnitus pitch matching</strong> — helps audiologists recommend targeted masking sounds and notched audio therapy. Start around 4,000–8,000 Hz, the most common tinnitus range, and fine-tune from there using a sine wave. <!-- SILO_START:slot_d -->A <a href="/bass-test">bass test</a> exposes port resonance, driver rattle, or missing low end in any speaker setup.<!-- SILO_END:slot_d --></p>
 
             <h3>Science and Educational Demonstrations</h3>
             <p>Demonstrate resonance, standing waves, and acoustic physics without lab equipment. Show how different frequencies affect a speaker cone, compare waveforms on an oscilloscope app, or illustrate the relationship between Hz and musical pitch. The instant, no-install nature of this audio frequency generator makes it practical for classroom and home experiments.</p>
