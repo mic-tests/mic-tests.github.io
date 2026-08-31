@@ -159,13 +159,6 @@
     .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
     .panel-body{padding:1.1rem;}
     .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
-    /* Long-form prose (how-it-works/FAQ/etc.) caps at a comfortable reading
-       width even though the surrounding tool card/ad panels use the full
-       column — .max-w-none (Tailwind utility on the element itself, kept
-       for the content-db exporter's benefit) would otherwise stretch text
-       to ~150+ characters per line; this two-class selector outranks that
-       single-class one so it wins without !important. */
-    .content-panel.prose{max-width:800px;}
     .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
     .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
     .ad-panel-body{padding:1rem;text-align:center;}
