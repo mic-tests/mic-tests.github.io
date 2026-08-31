@@ -83,7 +83,21 @@
       }
     ],
     "ads": {
-      "mid": "9146528954"
+      "inline": [
+        {
+          "after_block": 0,
+          "slot": "9146528954"
+        },
+        {
+          "after_block": 1,
+          "slot": "7669795756"
+        },
+        {
+          "after_block": 2,
+          "slot": "6193062550",
+          "min_height": 360
+        }
+      ]
     }
   },
   {

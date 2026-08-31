@@ -170,9 +170,28 @@ def render_page(tool, site, template):
 def render_info_page(page, site, template_page):
     canonical = "https://%s/%s" % (site["domain"], page["slug"])
     adsense_client = "ca-pub-%s" % site["adsense_publisher_id"]
+    ads = page.get("ads", {})
 
-    parts = [render_content_blocks(page.get("content_blocks", []))]
-    ad_slot = page.get("ads", {}).get("mid")
+    # Most info pages take a single ad, appended after all content blocks
+    # (ads.mid). troubleshooting.html's legacy design had a genuine sidebar
+    # with its own ad column that the single-column info-page template
+    # doesn't have room for — its 3 ad units are instead interspersed
+    # between content_blocks at their original relative positions via
+    # ads.inline: [{"after_block": <0-indexed content_blocks index>,
+    # "slot": "...", "min_height": <optional int>}, ...].
+    content_blocks = page.get("content_blocks", [])
+    parts = []
+    inline_ads = {a["after_block"]: a for a in ads.get("inline", [])}
+    if -1 in inline_ads:
+        a = inline_ads[-1]
+        parts.append(render_ad_panel(a["slot"], adsense_client, min_height=a.get("min_height")))
+    for i, block in enumerate(content_blocks):
+        parts.append(render_content_blocks([block]))
+        if i in inline_ads:
+            a = inline_ads[i]
+            parts.append(render_ad_panel(a["slot"], adsense_client, min_height=a.get("min_height")))
+
+    ad_slot = ads.get("mid")
     if ad_slot:
         parts.append(render_ad_panel(ad_slot, adsense_client))
     faq_block = render_faq_block(page.get("faq_heading", "Frequently Asked Questions"), page.get("faq", []))
