@@ -1344,6 +1344,7 @@
     function finishRecording() {
       if (audioChunks.length === 0) {
         updateStatusMessage('warning', 'No audio was recorded. Please try again and make sure your microphone is working.');
+        stopRecordingButton.classList.add('d-none');
         return;
       }
 
@@ -1372,6 +1373,7 @@
 
         playButton.disabled = false;
         restartButton.classList.remove('d-none');
+        stopRecordingButton.classList.add('d-none');
 
         currentState = 'complete';
         updateStatusMessage('success', 'Recording complete! Your microphone is working properly. You can now play back your recording or test again.');
@@ -1560,6 +1562,7 @@
         currentState = 'recording';
         updateStatusMessage('recording', '<strong>Recording in progress: </strong> Testing your microphone and recording your voice.');
         restartButton.classList.add('d-none');
+        stopRecordingButton.classList.remove('d-none');
       }
     });
 
