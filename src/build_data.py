@@ -25,6 +25,7 @@ SITE_NAME = "MicTest"
 DOMAIN = "mictest.dev"
 HOME_SLUG = "index"
 ADSENSE_PUBLISHER_ID = "5426315045205785"
+GA_MEASUREMENT_ID = "G-1WX3LQQQH3"
 
 # Order here has no effect on the rail nav (that's static in template.html) —
 # it only controls sitemap.xml ordering.
@@ -88,6 +89,7 @@ def build_site():
         "domain": DOMAIN,
         "home_slug": HOME_SLUG,
         "adsense_publisher_id": ADSENSE_PUBLISHER_ID,
+        "ga_measurement_id": GA_MEASUREMENT_ID,
     }
 
 

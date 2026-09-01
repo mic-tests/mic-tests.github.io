@@ -173,6 +173,23 @@ def _strip_tags(s):
     return re.sub(r"<[^>]+>", "", s)
 
 
+def render_ga_snippet(site):
+    """Google tag (gtag.js) — on every page (tool, info, 404), unlike ads
+    which are per-page/per-slot opt-in via each page's own "ads" config."""
+    ga_id = site["ga_measurement_id"]
+    return (
+        "  <!-- Google tag (gtag.js) -->\n"
+        '  <script async src="https://www.googletagmanager.com/gtag/js?id=%s"></script>\n'
+        "  <script>\n"
+        "    window.dataLayer = window.dataLayer || [];\n"
+        "    function gtag(){dataLayer.push(arguments);}\n"
+        "    gtag('js', new Date());\n\n"
+        "    gtag('config', '%s');\n"
+        "  </script>"
+        % (ga_id, ga_id)
+    )
+
+
 def render_page(tool, site, template):
     canonical = "https://%s/" % site["domain"] if tool["slug"] == site["home_slug"] else "https://%s/%s" % (site["domain"], tool["slug"])
     ads = tool.get("ads", {})
@@ -224,6 +241,7 @@ def render_page(tool, site, template):
         "PAGE_STYLE": tool.get("extra_style", ""),
         "MID_AD_HTML": mid_ad_html,
         "ADSENSE_CLIENT": adsense_client,
+        "GA_SNIPPET": render_ga_snippet(site),
         "MAIN_SECTIONS": main_sections,
         "TOOL_SCRIPT": tool["script"],
     }
@@ -276,6 +294,7 @@ def render_info_page(page, site, template_page):
         "SUBTITLE_HTML": "      " + page["subtitle_html"],
         "PAGE_CONTENT": page_content,
         "ADSENSE_CLIENT": adsense_client,
+        "GA_SNIPPET": render_ga_snippet(site),
     }
     return apply_tokens(template_page, tokens)
 
@@ -318,6 +337,7 @@ def render_404(site, template_page):
         "SUBTITLE_HTML": '<p style="color:var(--ink-2)">Let&#x27;s get you back to testing.</p>',
         "PAGE_CONTENT": page_content,
         "ADSENSE_CLIENT": "ca-pub-%s" % site["adsense_publisher_id"],
+        "GA_SNIPPET": render_ga_snippet(site),
     }
     out = apply_tokens(template_page, tokens)
     out = out.replace(
