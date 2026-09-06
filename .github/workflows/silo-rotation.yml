@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: write
 
     steps:
       - uses: actions/checkout@v4
@@ -32,6 +33,7 @@ jobs:
           python3 utilities/silo_linking/generate_silo_rotation.py $DATE_ARG
 
       - name: Commit and push if changed
+        id: commit
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -39,8 +41,21 @@ jobs:
           if [ -z "$LABEL" ]; then LABEL="$(python3 -c "import datetime; t=datetime.date.today(); print(f'{t.year}-M{t.month:02d}')")"; fi
           if git diff --quiet; then
             echo "No changes — already up to date."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git add public/*.html
             git commit -m "chore: rotate silo links $LABEL"
             git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+
+      # A push made with the default GITHUB_TOKEN never fires other
+      # workflows' `on: push` triggers (GitHub's anti-loop safeguard), so
+      # the commit above alone would never redeploy the live site. Dispatch
+      # deploy.yml explicitly instead -- an API-triggered workflow_dispatch
+      # is exempt from that restriction.
+      - name: Trigger Pages deploy
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref main
