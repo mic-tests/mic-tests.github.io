@@ -6,6 +6,12 @@ on:
     paths:
       - 'src/**'
       - 'utilities/silo_linking/**'
+      # silo-rotation.yml's monthly cron commits only touch public/*.html
+      # (never src/) -- without this, that commit wouldn't trigger a
+      # redeploy and the live site could go a full month serving a stale
+      # rotation. This job rebuilds from src/ regardless, so it just
+      # reproduces the same rotation the cron job already computed.
+      - 'public/**'
       - '.github/workflows/deploy.yml'
   workflow_dispatch:
 
