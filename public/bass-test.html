@@ -218,6 +218,16 @@
     .form-select,.form-control{width:100%;padding:.6rem .75rem;border:1px solid var(--border);border-radius:4px;background:var(--panel-2);color:var(--ink);font-size:13px;font-family:'IBM Plex Sans';}
     .form-select:focus,.form-control:focus{outline:none;border-color:var(--amber);}
 
+    /* ── Range slider — canonical, shared (was previously re-authored per
+       tool in extra_style with 3 different visual results: a fully custom
+       flat track on 5 tools, a bare native slider on 2, and a third native
+       variant with just a taller native track on 1 — consolidated to one
+       consistent look everywhere a <input type="range"> appears). ── */
+    input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:99px;background:var(--border);outline:none;cursor:pointer;margin:.4rem 0;accent-color:var(--amber);}
+    input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:var(--amber);border:2px solid var(--bg);box-shadow:0 0 0 1px var(--amber);cursor:pointer;}
+    input[type=range]::-moz-range-track{background:var(--border);height:4px;border-radius:99px;}
+    input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--amber);border:2px solid var(--bg);box-shadow:0 0 0 1px var(--amber);cursor:pointer;}
+
     /* ── Alerts / status ── */
     .status-message{padding:.6rem .85rem;margin-bottom:.85rem;border-radius:4px;font-size:13px;border:1px solid var(--border);}
     .status-step{display:flex;align-items:center;}
@@ -254,6 +264,23 @@
 
     .text-muted{color:var(--ink-3);font-size:11px;}
     .mb-0{margin-bottom:0 !important;}
+
+    /* ── Legacy Bootstrap-style utility classes carried over verbatim in some
+       content_blocks (mostly the info pages) — defined here once so they
+       don't silently render unstyled; Tailwind's CDN build only covers its
+       own utility names, not Bootstrap's. ── */
+    .d-flex{display:flex;}
+    .align-items-center{align-items:center;}
+    .fs-4{font-size:1.5rem;}
+    .fs-5{font-size:1.25rem;}
+    .fst-italic{font-style:italic;}
+    .small{font-size:.875em;}
+    .text-primary{color:var(--amber);}
+    .text-secondary{color:var(--ink-2);}
+    .text-success{color:var(--success);}
+    .text-warning{color:var(--amber);}
+    .text-danger{color:var(--red);}
+    .text-info{color:var(--ink-2);}
 
     /* ── Pro tip ── */
     aside.pro-tip{display:flex;gap:.7rem;align-items:flex-start;background:var(--amber-dim);border-left:3px solid var(--amber);border-radius:0 4px 4px 0;padding:.85rem 1rem;margin-top:1.25rem;font-size:13.5px;color:var(--ink);}
@@ -300,12 +327,75 @@
     #mobile-drawer{position:fixed;inset:0;z-index:40;background:var(--bg);transform:translateX(-100%);transition:transform .2s ease;overflow-y:auto;padding-top:64px;}
     #mobile-drawer.open{transform:translateX(0);}
 
+
+    /* ── Utility classes migrated from inline style="" attributes in
+       content JSON (font-size/color/spacing atoms + .lead-text, the
+       20x-repeated intro-paragraph style) ── */
+    .bd-1px-solid-var-border{border:1px solid var(--border);}
+    .bd-none{border:none;}
+    .bg-panel2{background:var(--panel-2);}
+    .bg-red{background:var(--red);}
+    .br-4px{border-radius:4px;}
+    .bt-1px-solid-var-border{border-top:1px solid var(--border);}
+    .c-amber{color:var(--amber);}
+    .c-ink{color:var(--ink);}
+    .c-ink2{color:var(--ink-2);}
+    .c-ink3{color:var(--ink-3);}
+    .c-red{color:var(--red);}
+    .c-success{color:var(--success);}
+    .flex-1{flex:1;}
+    .fs-1-05rem{font-size:1.05rem;}
+    .fs-1-15rem{font-size:1.15rem;}
+    .fs-1-1rem{font-size:1.1rem;}
+    .fs-1-3rem{font-size:1.3rem;}
+    .fs-1-4rem{font-size:1.4rem;}
+    .fs-1-5rem{font-size:1.5rem;}
+    .fs-1-8rem{font-size:1.8rem;}
+    .fs-10-5px{font-size:10.5px;}
+    .fs-10px{font-size:10px;}
+    .fs-11px{font-size:11px;}
+    .fs-12-5px{font-size:12.5px;}
+    .fs-12px{font-size:12px;}
+    .fs-13px{font-size:13px;}
+    .fs-14px{font-size:14px;}
+    .fs-1rem{font-size:1rem;}
+    .fw-600{font-weight:600;}
+    .fw-700{font-weight:700;}
+    .fw-wrap-wrap{flex-wrap:wrap;}
+    .h-100{height:100%;}
+    .h-20{height:20%;}
+    .h-30{height:30%;}
+    .h-50{height:50%;}
+    .h-70{height:70%;}
+    .h-90{height:90%;}
+    .jc-center{justify-content:center;}
+    .jc-space-between{justify-content:space-between;}
+    .lead-text{color:var(--ink-2);font-size:15.5px;line-height:1.75;}
+    .left-0{left:0%;}
+    .left-100{left:100%;}
+    .left-25{left:25%;}
+    .left-5{left:5%;}
+    .left-50{left:50%;}
+    .left-75{left:75%;}
+    .ls-04em{letter-spacing:.04em;}
+    .ls-06em{letter-spacing:.06em;}
+    .m-1rem-0{margin:1rem 0;}
+    .m-75rem-0-0{margin:.75rem 0 0;}
+    .mb-6rem{margin-bottom:.6rem;}
+    .minw-36px{min-width:36px;}
+    .mt-1-25rem{margin-top:1.25rem;}
+    .pad-1rem{padding:1rem;}
+    .pad-75rem-2-5rem{padding:.75rem 2.5rem;}
+    .right-5{right:5%;}
+    .ta-right{text-align:right;}
+    .tt-uppercase{text-transform:uppercase;}
+    .w-0{width:0%;}
+
     /* ── Page-specific (this tool's own extra CSS, if any — must use the theme tokens above, e.g. var(--amber)/var(--panel), never hardcoded colors, so it stays correct in both light and dark) ── */
 .bass-display{font-size:3.25rem;font-weight:700;font-family:'JetBrains Mono',ui-monospace,monospace;color:var(--amber);line-height:1.1;}
 .freq-badge{display:inline-block;padding:.3rem .8rem;border-radius:999px;background:var(--amber-dim);color:var(--amber);font-size:12px;font-weight:600;font-family:'JetBrains Mono',ui-monospace,monospace;}
 .bass-visualizer{height:200px;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;display:flex;align-items:flex-end;justify-content:center;gap:4px;padding:1.25rem;}
 .bass-bar{width:20px;background:linear-gradient(to top, var(--amber), transparent);border-radius:4px 4px 0 0;transition:height .1s ease;}
-.form-range{width:100%;accent-color:var(--amber);height:1.4rem;cursor:pointer;}
 .btn-success{background:var(--success);color:#fff;}
 .freq-btn{font-size:1.05rem;}
   </style>
@@ -428,7 +518,7 @@
       <!-- HERO -->
       <header class="mb-6">
         <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Bass Test — Check Your Speaker &amp; Subwoofer Low Frequency Response</h1>
-          <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">The <strong>Bass Test</strong> plays low-frequency tones between 20Hz and 200Hz so you can find out how deep your speakers or subwoofer actually reach. Drag the <strong>frequency slider</strong> to a target frequency, click <strong>Play</strong>, and listen — if you hear the tone clearly, your speakers reproduce that frequency; if you get nothing or just a faint vibration, your speakers roll off before that point. The <strong>current frequency display</strong> updates in real time as you move through the range, making it easy to find your speaker's low-end limit. <!-- SILO_START:slot_a -->A <a href="/tone-generator">tone generator</a> lets you play any frequency from 20Hz to 20kHz directly in your browser.<!-- SILO_END:slot_a --></p>
+          <p class="lead-text">The <strong>Bass Test</strong> plays low-frequency tones between 20Hz and 200Hz so you can find out how deep your speakers or subwoofer actually reach. Drag the <strong>frequency slider</strong> to a target frequency, click <strong>Play</strong>, and listen — if you hear the tone clearly, your speakers reproduce that frequency; if you get nothing or just a faint vibration, your speakers roll off before that point. The <strong>current frequency display</strong> updates in real time as you move through the range, making it easy to find your speaker's low-end limit. <!-- SILO_START:slot_a -->A <a href="/tone-generator">tone generator</a> lets you play any frequency from 20Hz to 20kHz directly in your browser.<!-- SILO_END:slot_a --></p>
       </header>
 
 
@@ -442,22 +532,22 @@
 
             <div class="text-center mb-4">
               <div class="bass-display" id="freq-display">--</div>
-              <div class="mono" style="color:var(--ink-2);font-size:1.05rem">Hz</div>
+              <div class="mono c-ink2 fs-1-05rem">Hz</div>
               <span class="freq-badge" id="freq-label">Select a frequency</span>
             </div>
 
             <div class="bass-visualizer mb-4" id="visualizer">
-              <div class="bass-bar" style="height: 20%;"></div>
-              <div class="bass-bar" style="height: 30%;"></div>
-              <div class="bass-bar" style="height: 50%;"></div>
-              <div class="bass-bar" style="height: 70%;"></div>
-              <div class="bass-bar" style="height: 90%;"></div>
-              <div class="bass-bar" style="height: 100%;"></div>
-              <div class="bass-bar" style="height: 90%;"></div>
-              <div class="bass-bar" style="height: 70%;"></div>
-              <div class="bass-bar" style="height: 50%;"></div>
-              <div class="bass-bar" style="height: 30%;"></div>
-              <div class="bass-bar" style="height: 20%;"></div>
+              <div class="bass-bar h-20"></div>
+              <div class="bass-bar h-30"></div>
+              <div class="bass-bar h-50"></div>
+              <div class="bass-bar h-70"></div>
+              <div class="bass-bar h-90"></div>
+              <div class="bass-bar h-100"></div>
+              <div class="bass-bar h-90"></div>
+              <div class="bass-bar h-70"></div>
+              <div class="bass-bar h-50"></div>
+              <div class="bass-bar h-30"></div>
+              <div class="bass-bar h-20"></div>
             </div>
 
             <div class="mb-4">
@@ -468,7 +558,7 @@
             <div class="mb-4">
               <label class="form-label" for="volume-slider">Volume</label>
               <input type="range" class="form-range" id="volume-slider" min="0" max="100" value="20">
-              <div class="text-center mono" style="font-size:12.5px;color:var(--ink-2)"><span id="volume-display">20%</span></div>
+              <div class="text-center mono fs-12-5px c-ink2"><span id="volume-display">20%</span></div>
             </div>
 
             <div class="text-center">
@@ -483,7 +573,7 @@
         <div class="panel mb-6">
           <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-grid-3x3-gap-fill"></i>Quick Test Frequencies</span></div>
           <div class="panel-body text-center">
-            <div class="btn-toolbar" style="justify-content:center">
+            <div class="btn-toolbar jc-center">
               <button type="button" class="btn btn-outline freq-btn" data-freq="20">20 Hz</button>
               <button type="button" class="btn btn-outline freq-btn" data-freq="30">30 Hz</button>
               <button type="button" class="btn btn-outline freq-btn" data-freq="40">40 Hz</button>
@@ -501,7 +591,7 @@
           <div class="panel-body">
             <p>Sweep through all bass frequencies to test your speaker's full range.</p>
             <div class="progress mb-3 d-none" id="sweep-progress-container">
-              <div class="progress-bar" id="sweep-progress" style="width: 0%"></div>
+              <div class="progress-bar w-0" id="sweep-progress"></div>
             </div>
             <button type="button" class="btn btn-primary w-100" id="sweep-btn">
               <i class="bi bi-play-fill me-2"></i>Start 10s Bass Sweep (20-200 Hz)

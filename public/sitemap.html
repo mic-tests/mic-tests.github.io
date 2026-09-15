@@ -138,6 +138,14 @@
     .form-select,.form-control{width:100%;padding:.6rem .75rem;border:1px solid var(--border);border-radius:4px;background:var(--panel-2);color:var(--ink);font-size:13px;font-family:'IBM Plex Sans';}
     .form-select:focus,.form-control:focus{outline:none;border-color:var(--amber);}
 
+    /* ── Range slider — canonical, shared (see template.html for the full
+       rationale: consolidates what used to be 3 visually different
+       per-tool implementations into one). ── */
+    input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:99px;background:var(--border);outline:none;cursor:pointer;margin:.4rem 0;accent-color:var(--amber);}
+    input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:var(--amber);border:2px solid var(--bg);box-shadow:0 0 0 1px var(--amber);cursor:pointer;}
+    input[type=range]::-moz-range-track{background:var(--border);height:4px;border-radius:99px;}
+    input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--amber);border:2px solid var(--bg);box-shadow:0 0 0 1px var(--amber);cursor:pointer;}
+
     /* ── Alerts / status ── */
     .status-message{padding:.6rem .85rem;margin-bottom:.85rem;border-radius:4px;font-size:13px;border:1px solid var(--border);}
     .status-step{display:flex;align-items:center;}
@@ -174,6 +182,23 @@
 
     .text-muted{color:var(--ink-3);font-size:11px;}
     .mb-0{margin-bottom:0 !important;}
+
+    /* ── Legacy Bootstrap-style utility classes carried over verbatim in some
+       content_blocks (mostly the info pages) — defined here once so they
+       don't silently render unstyled; Tailwind's CDN build only covers its
+       own utility names, not Bootstrap's. ── */
+    .d-flex{display:flex;}
+    .align-items-center{align-items:center;}
+    .fs-4{font-size:1.5rem;}
+    .fs-5{font-size:1.25rem;}
+    .fst-italic{font-style:italic;}
+    .small{font-size:.875em;}
+    .text-primary{color:var(--amber);}
+    .text-secondary{color:var(--ink-2);}
+    .text-success{color:var(--success);}
+    .text-warning{color:var(--amber);}
+    .text-danger{color:var(--red);}
+    .text-info{color:var(--ink-2);}
 
     /* ── Pro tip ── */
     aside.pro-tip{display:flex;gap:.7rem;align-items:flex-start;background:var(--amber-dim);border-left:3px solid var(--amber);border-radius:0 4px 4px 0;padding:.85rem 1rem;margin-top:1.25rem;font-size:13.5px;color:var(--ink);}
@@ -215,6 +240,70 @@
 
     #mobile-drawer{position:fixed;inset:0;z-index:40;background:var(--bg);transform:translateX(-100%);transition:transform .2s ease;overflow-y:auto;padding-top:64px;}
     #mobile-drawer.open{transform:translateX(0);}
+
+    /* ── Utility classes migrated from inline style="" attributes in
+       content JSON (font-size/color/spacing atoms + .lead-text, the
+       20x-repeated intro-paragraph style) ── */
+    .bd-1px-solid-var-border{border:1px solid var(--border);}
+    .bd-none{border:none;}
+    .bg-panel2{background:var(--panel-2);}
+    .bg-red{background:var(--red);}
+    .br-4px{border-radius:4px;}
+    .bt-1px-solid-var-border{border-top:1px solid var(--border);}
+    .c-amber{color:var(--amber);}
+    .c-ink{color:var(--ink);}
+    .c-ink2{color:var(--ink-2);}
+    .c-ink3{color:var(--ink-3);}
+    .c-red{color:var(--red);}
+    .c-success{color:var(--success);}
+    .flex-1{flex:1;}
+    .fs-1-05rem{font-size:1.05rem;}
+    .fs-1-15rem{font-size:1.15rem;}
+    .fs-1-1rem{font-size:1.1rem;}
+    .fs-1-3rem{font-size:1.3rem;}
+    .fs-1-4rem{font-size:1.4rem;}
+    .fs-1-5rem{font-size:1.5rem;}
+    .fs-1-8rem{font-size:1.8rem;}
+    .fs-10-5px{font-size:10.5px;}
+    .fs-10px{font-size:10px;}
+    .fs-11px{font-size:11px;}
+    .fs-12-5px{font-size:12.5px;}
+    .fs-12px{font-size:12px;}
+    .fs-13px{font-size:13px;}
+    .fs-14px{font-size:14px;}
+    .fs-1rem{font-size:1rem;}
+    .fw-600{font-weight:600;}
+    .fw-700{font-weight:700;}
+    .fw-wrap-wrap{flex-wrap:wrap;}
+    .h-100{height:100%;}
+    .h-20{height:20%;}
+    .h-30{height:30%;}
+    .h-50{height:50%;}
+    .h-70{height:70%;}
+    .h-90{height:90%;}
+    .jc-center{justify-content:center;}
+    .jc-space-between{justify-content:space-between;}
+    .lead-text{color:var(--ink-2);font-size:15.5px;line-height:1.75;}
+    .left-0{left:0%;}
+    .left-100{left:100%;}
+    .left-25{left:25%;}
+    .left-5{left:5%;}
+    .left-50{left:50%;}
+    .left-75{left:75%;}
+    .ls-04em{letter-spacing:.04em;}
+    .ls-06em{letter-spacing:.06em;}
+    .m-1rem-0{margin:1rem 0;}
+    .m-75rem-0-0{margin:.75rem 0 0;}
+    .mb-6rem{margin-bottom:.6rem;}
+    .minw-36px{min-width:36px;}
+    .mt-1-25rem{margin-top:1.25rem;}
+    .pad-1rem{padding:1rem;}
+    .pad-75rem-2-5rem{padding:.75rem 2.5rem;}
+    .right-5{right:5%;}
+    .ta-right{text-align:right;}
+    .tt-uppercase{text-transform:uppercase;}
+    .w-0{width:0%;}
+
   </style>
 </head>
 <body>
@@ -334,7 +423,7 @@
 
       <header>
         <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(26px,3.2vw,36px)">Sitemap</h1>
-      <p style="color:var(--ink-2);font-size:15.5px;line-height:1.75">All MicTest tools and pages, organised by category.</p>
+      <p class="lead-text">All MicTest tools and pages, organised by category.</p>
       </header>
 
       <div class="content-panel prose max-w-none">

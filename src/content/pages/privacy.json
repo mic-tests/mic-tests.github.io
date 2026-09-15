@@ -1,7 +1,7 @@
 {
   "slug": "privacy",
   "meta_title": "Privacy Policy - MicTest | How We Handle Your Data",
-  "meta_description": "MicTest's privacy policy: your microphone audio is processed entirely in your browser and never uploaded, what cookies we use, and how Google AdSense advertising works on this site.",
+  "meta_description": "MicTest's privacy policy: your microphone audio stays in your browser and is never uploaded, plus what cookies we use and how AdSense works here.",
   "json_ld": {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -15,7 +15,7 @@
     }
   },
   "h1": "Privacy Policy",
-  "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">Last updated August 31, 2026. MicTest is built around one core promise: your microphone audio never leaves your browser.</p>",
+  "subtitle_html": "<p class=\"lead-text\">Last updated August 31, 2026. MicTest is built around one core promise: your microphone audio never leaves your browser.</p>",
   "content_blocks": [
     {
       "id": null,

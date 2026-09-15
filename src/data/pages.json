@@ -66,7 +66,7 @@
       }
     },
     "h1": "Fix Audio Issues — Microphone & Speaker Troubleshooting Guide",
-    "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">This <strong>audio troubleshooting guide</strong> walks you through fixes for the most common microphone and speaker problems — mic not detected, no audio input, browser permission errors, distorted sound, and more. Pick the <strong>issue category</strong> that matches your problem and work through the <strong>step-by-step checklist</strong>; each section tells you exactly what to check and what to change on your device. If you've already run the <strong>mic test online</strong> and confirmed your hardware is working, start here to pinpoint whether the issue is in your browser settings, OS permissions, or audio drivers.</p>",
+    "subtitle_html": "<p class=\"lead-text\">This <strong>audio troubleshooting guide</strong> walks you through fixes for the most common microphone and speaker problems — mic not detected, no audio input, browser permission errors, distorted sound, and more. Pick the <strong>issue category</strong> that matches your problem and work through the <strong>step-by-step checklist</strong>; each section tells you exactly what to check and what to change on your device. If you've already run the <strong>mic test online</strong> and confirmed your hardware is working, start here to pinpoint whether the issue is in your browser settings, OS permissions, or audio drivers.</p>",
     "content_blocks": [
       {
         "id": null,
@@ -116,7 +116,7 @@
       }
     },
     "h1": "About MicTest",
-    "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">Hey, I'm Vinitha — designer, developer, and the person behind MicTest.</p>",
+    "subtitle_html": "<p class=\"lead-text\">Hey, I'm Vinitha — designer, developer, and the person behind MicTest.</p>",
     "content_blocks": [
       {
         "id": null,
@@ -160,7 +160,7 @@
       }
     },
     "h1": "Contact MicTest",
-    "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">Have a question, found a bug, or just want to say hello? Drop me an email — I read every message.</p>",
+    "subtitle_html": "<p class=\"lead-text\">Have a question, found a bug, or just want to say hello? Drop me an email — I read every message.</p>",
     "content_blocks": [
       {
         "id": null,
@@ -182,7 +182,7 @@
   {
     "slug": "privacy",
     "meta_title": "Privacy Policy - MicTest | How We Handle Your Data",
-    "meta_description": "MicTest's privacy policy: your microphone audio is processed entirely in your browser and never uploaded, what cookies we use, and how Google AdSense advertising works on this site.",
+    "meta_description": "MicTest's privacy policy: your microphone audio stays in your browser and is never uploaded, plus what cookies we use and how AdSense works here.",
     "json_ld": {
       "@context": "https://schema.org",
       "@type": "WebPage",
@@ -196,7 +196,7 @@
       }
     },
     "h1": "Privacy Policy",
-    "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">Last updated August 31, 2026. MicTest is built around one core promise: your microphone audio never leaves your browser.</p>",
+    "subtitle_html": "<p class=\"lead-text\">Last updated August 31, 2026. MicTest is built around one core promise: your microphone audio never leaves your browser.</p>",
     "content_blocks": [
       {
         "id": null,
@@ -257,7 +257,7 @@
       }
     },
     "h1": "Sitemap",
-    "subtitle_html": "<p style=\"color:var(--ink-2);font-size:15.5px;line-height:1.75\">All MicTest tools and pages, organised by category.</p>",
+    "subtitle_html": "<p class=\"lead-text\">All MicTest tools and pages, organised by category.</p>",
     "content_blocks": [
       {
         "id": null,
