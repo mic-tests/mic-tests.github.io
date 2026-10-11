@@ -170,6 +170,22 @@
     .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
     .panel-body{padding:1.1rem;}
     .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    /* ── Table of Contents (render_toc() in generate.py) — its own card between the tool and the article ── */
+    .toc-block{margin-top:1.5rem;}
+    .toc-card{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.25rem 1.5rem;}
+    .toc-title{display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .toc-title svg{width:1rem;height:1rem;flex:none;color:var(--amber);}
+    .toc-list{list-style:decimal outside;padding-left:1.5rem;margin:0;font-size:14px;}
+    .toc-list>li{margin:0 0 .375rem;line-height:1.5;}
+    .toc-list>li:last-child{margin-bottom:0;}
+    .toc-list>li::marker{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;color:var(--amber);}
+    .toc-list a{font-weight:500;color:var(--ink);}
+    .toc-sublist{list-style:decimal outside;margin:.375rem 0 .25rem .25rem;padding-left:1.5rem;font-size:13px;}
+    .toc-sublist>li{margin:0 0 .25rem;line-height:1.5;}
+    .toc-sublist>li::marker{color:var(--ink-3);}
+    .toc-sublist a{padding:0;font-weight:400;color:var(--ink-2);}
+    .toc-list a:hover{color:var(--amber);text-decoration:underline;text-underline-offset:2px;opacity:1;}
+    @media (max-width:640px){.toc-card{padding:1.1rem 1.1rem;}}
     .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
     .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
     .ad-panel-body{padding:1rem;text-align:center;}
@@ -610,12 +626,14 @@
 
 
 
-      <div class="content-panel prose max-w-none">
+      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents"><div class="toc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span id="table-of-contents">Table of Contents</span></div><ol class="toc-list"><li><a href="#reducing-background-noise">Reducing Background Noise</a><ol class="toc-sublist"><li><a href="#common-noise-sources">Common Noise Sources</a></li><li><a href="#noise-reduction-tips">Noise Reduction Tips</a></li></ol></li><li><a href="#reading-the-background-noise-frequency-spectrum">Reading the Background Noise Frequency Spectrum</a><ol class="toc-sublist"><li><a href="#what-causes-noise-in-each-frequency-band">What Causes Noise in Each Frequency Band</a></li><li><a href="#what-good-background-noise-analysis-results-look-like">What Good Background Noise Analysis Results Look Like</a></li></ol></li><li><a href="#identifying-and-fixing-background-noise-sources">Identifying and Fixing Background Noise Sources</a><ol class="toc-sublist"><li><a href="#low-frequency-noise-hvac-traffic-and-electrical-hum">Low-Frequency Noise: HVAC, Traffic, and Electrical Hum</a></li><li><a href="#mid-frequency-noise-fans-appliances-and-mechanical-sources">Mid-Frequency Noise: Fans, Appliances, and Mechanical Sources</a></li><li><a href="#high-frequency-noise-microphone-hiss-and-electronic">High-Frequency Noise: Microphone Hiss and Electronic Interference</a></li></ol></li><li><a href="#faq">Background Noise Analyzer — Frequently Asked Questions</a></li></ol></nav></section>
+
+      <section class="content-panel prose max-w-none block" id="reducing-background-noise" aria-labelledby="reducing-background-noise-heading">
             <p class="lead-text">The <strong>Background Noise Analyzer</strong> measures what your microphone picks up when you're not talking — fan hum, HVAC noise, street sounds, and other ambient audio your mic captures constantly. Click <strong>Start Analysis</strong>, stay quiet, and you'll see a live <strong>ambient dB level</strong>, a <strong>noise rating</strong> from very quiet to loud, and the <strong>dominant frequency range</strong> in your environment. Your <strong>noise quality score</strong> tells you whether your background noise will interfere with calls, recordings, or voice recognition software.</p>
-            <h2><i class="bi bi-info-circle me-2"></i>Reducing Background Noise</h2>
+            <h2 id="reducing-background-noise-heading"><i class="bi bi-info-circle me-2"></i>Reducing Background Noise</h2>
             <div class="grid sm:grid-cols-2 gap-6">
               <div>
-                <h3>Common Noise Sources</h3>
+                <h3 id="common-noise-sources">Common Noise Sources</h3>
                 <ul>
                   <li>Air conditioning / HVAC systems</li>
                   <li>Computer fans and hard drives</li>
@@ -625,7 +643,7 @@
                 </ul>
               </div>
               <div>
-                <h3>Noise Reduction Tips</h3>
+                <h3 id="noise-reduction-tips">Noise Reduction Tips</h3>
                 <ul>
                   <li>Use a directional microphone</li>
                   <li>Enable noise suppression in mic settings</li>
@@ -636,12 +654,12 @@
               </div>
             </div>
             <p class="mb-0">For echo issues, try our echo test tool. Check troubleshooting guide for more help.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>Reading the Background Noise Frequency Spectrum</h2>
+      <section class="content-panel prose max-w-none block alt" id="reading-the-background-noise-frequency-spectrum" aria-labelledby="reading-the-background-noise-frequency-spectrum-heading">
+            <h2 id="reading-the-background-noise-frequency-spectrum-heading">Reading the Background Noise Frequency Spectrum</h2>
 
-            <h3>What Causes Noise in Each Frequency Band</h3>
+            <h3 id="what-causes-noise-in-each-frequency-band">What Causes Noise in Each Frequency Band</h3>
             <p>The frequency spectrum display reveals the <em>character</em> of background noise — not just how loud it is, but what is causing it. Different noise sources have distinctive frequency signatures: <!-- SILO_START:slot_b -->Measure your room's ambient noise in real time with a <a href="/sound-level-meter">sound level meter online</a>.<!-- SILO_END:slot_b --></p>
             <ul>
               <li><strong>Low (20–250 Hz):</strong> HVAC rumble, traffic passing outside, building vibration, and electrical mains hum (50 Hz in Europe/Asia, 60 Hz in North America). A sharp spike at exactly 50 or 60 Hz almost always indicates electrical interference — a ground loop, poor cable shielding, or a power supply near the microphone.</li>
@@ -650,25 +668,25 @@
               <li><strong>High (2 kHz–20 kHz):</strong> Microphone self-noise (the hiss inherent to all microphones), electronic interference from cheap USB cables and power supplies, fluorescent light ballast noise, and high-frequency computer fan whine. This band contributes to the "noise floor" that software noise reduction targets.</li>
             </ul>
 
-            <h3>What Good Background Noise Analysis Results Look Like</h3>
+            <h3 id="what-good-background-noise-analysis-results-look-like">What Good Background Noise Analysis Results Look Like</h3>
             <p>An ideal recording environment shows: average dB below 35, a flat or gently declining spectrum with no sharp peaks, low-band and mid-band levels significantly below high-band, and no visible spikes at 50 or 60 Hz. A good room for voice recording looks like a ski slope on the spectrum display — energy declining smoothly from left to right with no jagged peaks.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>Identifying and Fixing Background Noise Sources</h2>
+      <section class="content-panel prose max-w-none block" id="identifying-and-fixing-background-noise-sources" aria-labelledby="identifying-and-fixing-background-noise-sources-heading">
+            <h2 id="identifying-and-fixing-background-noise-sources-heading">Identifying and Fixing Background Noise Sources</h2>
 
-            <h3>Low-Frequency Noise: HVAC, Traffic, and Electrical Hum</h3>
+            <h3 id="low-frequency-noise-hvac-traffic-and-electrical-hum">Low-Frequency Noise: HVAC, Traffic, and Electrical Hum</h3>
             <p>HVAC and traffic produce broadband low-frequency rumble that is difficult to eliminate without physical isolation. Short-term solutions: close all windows and doors, turn off the AC unit during recording sessions, and move the microphone away from the room's main ventilation duct. Electrical hum (the characteristic 60 Hz tone in North America) is fixed by addressing the ground loop: use a balanced XLR microphone instead of unbalanced 3.5 mm, replace cheap USB cables, and avoid running microphone cables parallel to power cables. <!-- SILO_START:slot_c -->For a detailed look at your voice's spectral character, the <a href="/voice-frequency-analyzer">voice frequency analyzer</a> updates live as you speak.<!-- SILO_END:slot_c --></p>
 
-            <h3>Mid-Frequency Noise: Fans, Appliances, and Mechanical Sources</h3>
+            <h3 id="mid-frequency-noise-fans-appliances-and-mechanical-sources">Mid-Frequency Noise: Fans, Appliances, and Mechanical Sources</h3>
             <p>Computer fan noise is often the largest contributor to mid-frequency background noise in a home studio. Solutions: use a directional (cardioid) microphone positioned away from the computer, place the computer behind a physical barrier, or record with the computer at a greater distance. Refrigerators and appliances: unplug nearby appliances during recording sessions, or move to a different room. For permanent solutions, acoustic panels on walls and heavy door seals significantly reduce mid-frequency transmission from adjacent spaces.</p>
 
-            <h3>High-Frequency Noise: Microphone Hiss and Electronic Interference</h3>
+            <h3 id="high-frequency-noise-microphone-hiss-and-electronic">High-Frequency Noise: Microphone Hiss and Electronic Interference</h3>
             <p>High-frequency noise is usually microphone self-noise (measurable as dB(A) in the microphone's specification sheet) or USB/power supply interference. To reduce it: use a microphone with a lower self-noise rating (under 20 dB(A) for studio work), use a quality audio interface instead of a direct USB connection, and keep the microphone cable away from power supplies and screens. Software noise reduction (Nvidia RTX Voice, Krisp, or a noise reduction plugin in your DAW) can reduce residual high-frequency hiss that physical measures cannot eliminate.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none" id="faq">
-        <h2>Background Noise Analyzer — Frequently Asked Questions</h2>
+      <section class="content-panel prose max-w-none block alt" id="faq" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Background Noise Analyzer — Frequently Asked Questions</h2>
         <details class="panel" open>
           <summary><strong>What is a good ambient noise level for recording?</strong></summary>
           <p>Below 40 dB average is the target for podcast and voiceover recording — this equates to a quiet room with no HVAC running. Professional recording studios typically measure 20–25 dB. A typical home office with a running computer measures 40–55 dB, which is workable if the microphone is positioned close enough to achieve a strong signal-to-noise ratio. Check your room with this background noise analyzer before investing time in a recording session.</p>
@@ -685,7 +703,7 @@
           <summary><strong>How is this different from the sound level meter?</strong></summary>
           <p>The <a href="/sound-level-meter">sound level meter online</a> gives you a single dB reading that represents the overall volume of everything — voice, noise, and silence combined. The background noise analyzer is specifically designed to measure what the microphone picks up when you are <em>not</em> speaking, and it adds the frequency spectrum display that lets you identify the character and sources of that noise. For a quick volume check, use the sound level meter. For diagnosing recording environment problems, use the background noise analyzer.</p>
         </details>
-      </div>
+      </section>
 
       </div>
 

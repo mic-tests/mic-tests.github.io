@@ -23,6 +23,7 @@ sequence above.
 import html
 import json
 import os
+import re
 import shutil
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -127,15 +128,123 @@ def render_ad_panel_header(slot_id, adsense_client):
     ) % (adsense_client, slot_id)
 
 
-def render_content_blocks(blocks):
-    parts = []
+# ---------------------------------------------------------------------------
+# Section names + Table of Contents (ported from screen-resolution-checker /
+# webcam-test.github.io). Each content_blocks entry is already its own panel
+# opening one <h2> section, so the existing .content-panel wrapper becomes
+# that section (tag <section>, plus the classes block / block alt — existing
+# classes kept, so the look is unchanged). The section id is built from its
+# own visible <h2> text (lowercase, apostrophes dropped, other punctuation ->
+# '-', max 60 chars, de-duplicated); the <h2> is <id>-heading and labels the
+# section. Every <h3>/<h4> is named the same way. A block that already has an
+# "id" in its JSON keeps it as the section id. The table of contents adds no
+# <h2> or <p>, so the silo script's positional targets are unchanged.
+# ---------------------------------------------------------------------------
+
+H2_TAG_RE = re.compile(r"<h2\b([^>]*)>(.*?)</h2>", re.IGNORECASE | re.DOTALL)
+ID_ATTR_RE = re.compile(r'\bid="([^"]+)"')
+SUB_HEADING_RE = re.compile(r"<(h[34])\b([^>]*)>(.*?)</\1>", re.IGNORECASE | re.DOTALL)
+RESERVED_SECTION_IDS = {"faq", "comments", "about-the-author", "tool", "main-content", "page-title", "table-of-contents"}
+TOC_ICON = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+            'aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg>')
+
+
+def section_slug(heading_html, taken):
+    text = html.unescape(re.sub(r"<[^>]+>", "", heading_html)).lower().replace("&", " and ")
+    text = text.replace("'", "").replace("\u2019", "")
+    slug = re.sub(r"[^a-z0-9]+", "-", text).strip("-")
+    if len(slug) > 60:
+        slug = slug[:60].rsplit("-", 1)[0]
+    slug = slug or "section"
+    base, n = slug, 2
+    while slug in taken:
+        slug, n = "%s-%d" % (base, n), n + 1
+    taken.add(slug)
+    return slug
+
+
+def name_sub_headings(chunk, taken):
+    """Give every <h3>/<h4> an id from its own text (existing ids kept) and
+    return the chunk plus a nested [(id, text, [...])] list (h4s under h3)."""
+    out, pos, tree = [], 0, []
+    for m in SUB_HEADING_RE.finditer(chunk):
+        tag, attrs, inner = m.group(1).lower(), m.group(2), m.group(3)
+        existing = ID_ATTR_RE.search(attrs)
+        hid = existing.group(1) if existing else section_slug(inner, taken)
+        out.append(chunk[pos:m.start()])
+        out.append(m.group(0) if existing else '<%s id="%s"%s>%s</%s>' % (tag, hid, attrs, inner, tag))
+        pos = m.end()
+        node = (hid, inner, [])
+        if tag == "h4" and tree:
+            tree[-1][2].append(node)
+        else:
+            tree.append(node)
+    out.append(chunk[pos:])
+    return "".join(out), tree
+
+
+def render_toc_list(nodes, top=True):
+    items = "".join(
+        '<li><a href="#%s">%s</a>%s</li>' % (nid, html.escape(html.unescape(re.sub(r"<[^>]+>", "", text)).strip()),
+                                             render_toc_list(children, top=False) if children else "")
+        for nid, text, children in nodes)
+    return '<ol class="%s">%s</ol>' % ("toc-list" if top else "toc-sublist", items)
+
+
+def render_toc(tree):
+    """Table of contents card between the tool and the article: one numbered
+    list, h3 (h4) nested under their h2, FAQ last. Only with 3+ sections."""
+    if len(tree) < 3:
+        return ""
+    return ('      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents">'
+            '<div class="toc-title">%s<span id="table-of-contents">Table of Contents</span></div>%s</nav></section>'
+            % (TOC_ICON, render_toc_list(tree)))
+
+
+def name_sections(blocks, taken):
+    """Name every content block's section and headings. Returns
+    [(block_html, section_id_or_None)] and the TOC tree."""
+    named, tree = [], []
     for block in blocks:
-        id_attr = ' id="%s"' % block["id"] if block.get("id") else ""
-        parts.append('      <div class="content-panel prose max-w-none"%s>\n%s\n      </div>' % (id_attr, block["html"]))
+        chunk = block["html"]
+        m = H2_TAG_RE.search(chunk)
+        sid = block.get("id")
+        if sid:
+            taken.add(sid)
+        if m:
+            h2_id = ID_ATTR_RE.search(m.group(1))
+            if not sid:
+                sid = h2_id.group(1) if h2_id else section_slug(m.group(2), taken)
+            if not h2_id:
+                chunk = chunk[:m.start()] + '<h2 id="%s-heading"%s>%s</h2>' % (sid, m.group(1), m.group(2)) + chunk[m.end():]
+                h2_id_val = "%s-heading" % sid
+            else:
+                h2_id_val = h2_id.group(1)
+            chunk, sub_tree = name_sub_headings(chunk, taken)
+            tree.append((sid, m.group(2), sub_tree))
+            named.append((chunk, sid, h2_id_val))
+        else:
+            named.append((chunk, sid, None))
+    return named, tree
+
+
+def render_content_blocks(named, start_index=0):
+    """named: [(html, section_id, heading_id)]. Blocks with an <h2> become
+    <section> elements labelled by their heading; the alternating block /
+    block alt classes count every panel from start_index."""
+    parts = []
+    for i, (chunk, sid, hid) in enumerate(named):
+        cls = "block alt" if (start_index + i) % 2 == 1 else "block"
+        if hid:
+            parts.append('      <section class="content-panel prose max-w-none %s" id="%s" aria-labelledby="%s">\n%s\n      </section>'
+                         % (cls, sid, hid, chunk))
+        else:
+            id_attr = ' id="%s"' % sid if sid else ""
+            parts.append('      <div class="content-panel prose max-w-none %s"%s>\n%s\n      </div>' % (cls, id_attr, chunk))
     return "\n\n".join(parts)
 
 
-def render_faq_block(faq_heading, faq_items, block_id="faq"):
+def render_faq_block(faq_heading, faq_items, block_id="faq", alt=False):
     if not faq_items:
         return ""
     items = []
@@ -147,10 +256,10 @@ def render_faq_block(faq_heading, faq_items, block_id="faq"):
             '        </details>' % (html.escape(item["q"]), item["a"])
         )
     return (
-        '      <div class="content-panel prose max-w-none" id="%s">\n'
-        '        <h2>%s</h2>\n%s\n'
-        '      </div>'
-    ) % (block_id, html.escape(faq_heading), "\n".join(items))
+        '      <section class="content-panel prose max-w-none block%s" id="%s" aria-labelledby="%s-heading">\n'
+        '        <h2 id="%s-heading">%s</h2>\n%s\n'
+        '      </section>'
+    ) % (" alt" if alt else "", block_id, block_id, block_id, html.escape(faq_heading), "\n".join(items))
 
 
 def render_faq_jsonld(faq_items):
@@ -201,17 +310,25 @@ def render_page(tool, site, template):
     # position (before FAQ/Comments) for the (currently none) pages with
     # fewer than 3 content_blocks.
     content_blocks = tool.get("content_blocks", [])
+    # Ids already used on the page (template, tool card, intro, script) must not be reused.
+    taken = set(RESERVED_SECTION_IDS) | set(ID_ATTR_RE.findall(
+        template + tool["tool_card_html"] + tool["intro_html"] + tool["script"] + tool.get("extra_style", "")))
+    named, toc_tree = name_sections(content_blocks, taken)
+    if tool.get("faq"):
+        toc_tree.append(("faq", tool.get("faq_heading", "Frequently Asked Questions"), []))
     footer_ad_slot = ads.get("footer")
     footer_ad_html = render_ad_panel_fixed(footer_ad_slot, adsense_client, 300, 250) if (ADS_ENABLED and footer_ad_slot) else ""
-    if footer_ad_html and len(content_blocks) >= 3:
-        main_sections_parts = [
-            render_content_blocks(content_blocks[:2]),
+    main_sections_parts = [render_toc(toc_tree)]
+    if footer_ad_html and len(named) >= 3:
+        main_sections_parts += [
+            render_content_blocks(named[:2]),
             footer_ad_html,
-            render_content_blocks(content_blocks[2:]),
+            render_content_blocks(named[2:], start_index=2),
         ]
     else:
-        main_sections_parts = [render_content_blocks(content_blocks), footer_ad_html]
-    faq_block = render_faq_block(tool.get("faq_heading", "Frequently Asked Questions"), tool.get("faq", []))
+        main_sections_parts += [render_content_blocks(named), footer_ad_html]
+    faq_block = render_faq_block(tool.get("faq_heading", "Frequently Asked Questions"), tool.get("faq", []),
+                                 alt=len(named) % 2 == 1)
     if faq_block:
         main_sections_parts.append(faq_block)
     main_sections = "\n\n".join(p for p in main_sections_parts if p)
@@ -261,13 +378,17 @@ def render_info_page(page, site, template_page):
     # ads.inline: [{"after_block": <0-indexed content_blocks index>,
     # "slot": "...", "min_height": <optional int>}, ...].
     content_blocks = page.get("content_blocks", [])
-    parts = []
+    taken = set(RESERVED_SECTION_IDS) | set(ID_ATTR_RE.findall(template_page + page.get("subtitle_html", "")))
+    named, toc_tree = name_sections(content_blocks, taken)
+    if page.get("faq"):
+        toc_tree.append(("faq", page.get("faq_heading", "Frequently Asked Questions"), []))
+    parts = [render_toc(toc_tree)]
     inline_ads = {a["after_block"]: a for a in ads.get("inline", [])} if ADS_ENABLED else {}
     if -1 in inline_ads:
         a = inline_ads[-1]
         parts.append(render_ad_panel(a["slot"], adsense_client, min_height=a.get("min_height")))
-    for i, block in enumerate(content_blocks):
-        parts.append(render_content_blocks([block]))
+    for i, item in enumerate(named):
+        parts.append(render_content_blocks([item], start_index=i))
         if i in inline_ads:
             a = inline_ads[i]
             parts.append(render_ad_panel(a["slot"], adsense_client, min_height=a.get("min_height")))
@@ -275,7 +396,8 @@ def render_info_page(page, site, template_page):
     ad_slot = ads.get("mid") if ADS_ENABLED else None
     if ad_slot:
         parts.append(render_ad_panel(ad_slot, adsense_client))
-    faq_block = render_faq_block(page.get("faq_heading", "Frequently Asked Questions"), page.get("faq", []))
+    faq_block = render_faq_block(page.get("faq_heading", "Frequently Asked Questions"), page.get("faq", []),
+                                 alt=len(named) % 2 == 1)
     if faq_block:
         parts.append(faq_block)
     page_content = "\n\n".join(p for p in parts if p)

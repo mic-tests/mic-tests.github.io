@@ -113,6 +113,22 @@
     .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
     .panel-body{padding:1.1rem;}
     .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    /* ── Table of Contents (render_toc() in generate.py) — its own card between the tool and the article ── */
+    .toc-block{margin-top:1.5rem;}
+    .toc-card{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.25rem 1.5rem;}
+    .toc-title{display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .toc-title svg{width:1rem;height:1rem;flex:none;color:var(--amber);}
+    .toc-list{list-style:decimal outside;padding-left:1.5rem;margin:0;font-size:14px;}
+    .toc-list>li{margin:0 0 .375rem;line-height:1.5;}
+    .toc-list>li:last-child{margin-bottom:0;}
+    .toc-list>li::marker{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;color:var(--amber);}
+    .toc-list a{font-weight:500;color:var(--ink);}
+    .toc-sublist{list-style:decimal outside;margin:.375rem 0 .25rem .25rem;padding-left:1.5rem;font-size:13px;}
+    .toc-sublist>li{margin:0 0 .25rem;line-height:1.5;}
+    .toc-sublist>li::marker{color:var(--ink-3);}
+    .toc-sublist a{padding:0;font-weight:400;color:var(--ink-2);}
+    .toc-list a:hover{color:var(--amber);text-decoration:underline;text-underline-offset:2px;opacity:1;}
+    @media (max-width:640px){.toc-card{padding:1.1rem 1.1rem;}}
     .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
     .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
     .ad-panel-body{padding:1rem;text-align:center;}
@@ -426,34 +442,36 @@
       <p class="lead-text">Hey, I'm Vinitha — designer, developer, and the person behind MicTest.</p>
       </header>
 
-      <div class="content-panel prose max-w-none">
-<h2><i class="bi bi-person-fill me-2 text-primary"></i>A Little About Me</h2>
+      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents"><div class="toc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span id="table-of-contents">Table of Contents</span></div><ol class="toc-list"><li><a href="#a-little-about-me">A Little About Me</a></li><li><a href="#why-i-built-mictest">Why I Built MicTest</a></li><li><a href="#privacy-first">Privacy First</a></li><li><a href="#whats-on-mictest">What&#x27;s on MicTest</a></li><li><a href="#my-philosophy">My Philosophy</a></li></ol></nav></section>
+
+      <section class="content-panel prose max-w-none block" id="a-little-about-me" aria-labelledby="a-little-about-me-heading">
+<h2 id="a-little-about-me-heading"><i class="bi bi-person-fill me-2 text-primary"></i>A Little About Me</h2>
 <p>I'm a designer and developer from Palakkad, Kerala, India. My background spans textile and apparel design into digital design and web development. I've always believed that building things for the web is just as creative as designing — maybe even more so.</p>
 <p>I focus on creating free tools that solve real problems — ones I've personally run into and couldn't find a good solution for.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-<h2><i class="bi bi-lightbulb-fill me-2 text-warning"></i>Why I Built MicTest</h2>
+      <section class="content-panel prose max-w-none block alt" id="why-i-built-mictest" aria-labelledby="why-i-built-mictest-heading">
+<h2 id="why-i-built-mictest-heading"><i class="bi bi-lightbulb-fill me-2 text-warning"></i>Why I Built MicTest</h2>
 <p>The frustration started when I needed a quick way to check if a microphone was working properly before a call or recording session. Most tools either required a download, asked for sign-ups, or were buried under layers of ads and popups.</p>
 <p>MicTest was built as a straightforward alternative — open your browser, test your mic, done. No account, no download, no nonsense. The same idea extends to every tool on the platform: speakers, headphones, tone generation, hearing range — all free, all instant.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-<h2><i class="bi bi-shield-check me-2 text-success"></i>Privacy First</h2>
+      <section class="content-panel prose max-w-none block" id="privacy-first" aria-labelledby="privacy-first-heading">
+<h2 id="privacy-first-heading"><i class="bi bi-shield-check me-2 text-success"></i>Privacy First</h2>
 <p>All audio processing happens locally in your browser. Nothing is recorded, uploaded, or stored on any server. Your microphone input never leaves your device — the Web Audio API handles everything right there in your tab.</p>
 <p>This isn't a compromise — it's how it was designed from the start.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-<h2><i class="bi bi-tools me-2 text-primary"></i>What's on MicTest</h2>
+      <section class="content-panel prose max-w-none block alt" id="whats-on-mictest" aria-labelledby="whats-on-mictest-heading">
+<h2 id="whats-on-mictest-heading"><i class="bi bi-tools me-2 text-primary"></i>What's on MicTest</h2>
 <p>MicTest offers 18 free browser-based audio tools covering microphone testing, voice recording, speaker output, stereo channels, bass response, frequency analysis, hearing range, latency measurement, and more.</p>
 <p>Every tool works across Windows, macOS, Linux, iOS, and Android — on Chrome, Firefox, Safari, and Edge.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-<h2><i class="bi bi-quote me-2 text-secondary"></i>My Philosophy</h2>
+      <section class="content-panel prose max-w-none block" id="my-philosophy" aria-labelledby="my-philosophy-heading">
+<h2 id="my-philosophy-heading"><i class="bi bi-quote me-2 text-secondary"></i>My Philosophy</h2>
 <p class="mb-0 fst-italic">"Tools should just work. They should be simple, fast, and respect your time."</p>
-      </div>
+      </section>
 
     </div>
 

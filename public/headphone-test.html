@@ -186,6 +186,22 @@
     .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
     .panel-body{padding:1.1rem;}
     .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    /* ── Table of Contents (render_toc() in generate.py) — its own card between the tool and the article ── */
+    .toc-block{margin-top:1.5rem;}
+    .toc-card{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.25rem 1.5rem;}
+    .toc-title{display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .toc-title svg{width:1rem;height:1rem;flex:none;color:var(--amber);}
+    .toc-list{list-style:decimal outside;padding-left:1.5rem;margin:0;font-size:14px;}
+    .toc-list>li{margin:0 0 .375rem;line-height:1.5;}
+    .toc-list>li:last-child{margin-bottom:0;}
+    .toc-list>li::marker{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;color:var(--amber);}
+    .toc-list a{font-weight:500;color:var(--ink);}
+    .toc-sublist{list-style:decimal outside;margin:.375rem 0 .25rem .25rem;padding-left:1.5rem;font-size:13px;}
+    .toc-sublist>li{margin:0 0 .25rem;line-height:1.5;}
+    .toc-sublist>li::marker{color:var(--ink-3);}
+    .toc-sublist a{padding:0;font-weight:400;color:var(--ink-2);}
+    .toc-list a:hover{color:var(--amber);text-decoration:underline;text-underline-offset:2px;opacity:1;}
+    @media (max-width:640px){.toc-card{padding:1.1rem 1.1rem;}}
     .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
     .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
     .ad-panel-body{padding:1rem;text-align:center;}
@@ -622,9 +638,11 @@
 
 
 
-      <div class="content-panel prose max-w-none">
+      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents"><div class="toc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span id="table-of-contents">Table of Contents</span></div><ol class="toc-list"><li><a href="#what-to-check">What to Check</a></li><li><a href="#what-does-the-headphone-test-check">What Does the Headphone Test Check?</a><ol class="toc-sublist"><li><a href="#left-right-channel-separation">Left/Right Channel Separation</a></li><li><a href="#bass-response">Bass Response</a></li><li><a href="#treble-and-high-frequency-response">Treble and High-Frequency Response</a></li><li><a href="#audio-quality-and-distortion">Audio Quality and Distortion</a></li></ol></li><li><a href="#common-headphone-problems-and-their-causes">Common Headphone Problems and Their Causes</a><ol class="toc-sublist"><li><a href="#sound-coming-from-the-wrong-ear">Sound Coming from the Wrong Ear</a></li><li><a href="#one-side-is-silent-or-much-quieter">One Side Is Silent or Much Quieter</a></li><li><a href="#crackling-or-distortion">Crackling or Distortion</a></li><li><a href="#weak-or-muddy-bass">Weak or Muddy Bass</a></li></ol></li><li><a href="#faq">Frequently Asked Questions</a></li></ol></nav></section>
+
+      <section class="content-panel prose max-w-none block" id="what-to-check" aria-labelledby="what-to-check-heading">
         <p class="lead-text">The <strong>Headphone Test</strong> plays tones through each ear independently so you can confirm both channels on your headphones are working correctly. Put on your headphones, click <strong>Play Left</strong> and the tone should come only from your left ear — then click <strong>Play Right</strong> and it should shift entirely to your right ear. If both ears play at once or one side stays silent, the <strong>channel result</strong> display tells you whether you're dealing with swapped channels, a wiring fault, or a driver issue on your device.</p>
-        <h2><i class="bi bi-check-circle me-2"></i>What to Check</h2>
+        <h2 id="what-to-check-heading"><i class="bi bi-check-circle me-2"></i>What to Check</h2>
         <ul>
           <li><strong>Both ears work:</strong> Sound should be clear in both left and right</li>
           <li><strong>Correct channels:</strong> Left plays in left ear, right in right ear</li>
@@ -632,43 +650,43 @@
           <li><strong>No distortion:</strong> Sound should be clean without crackling</li>
           <li><strong>Good bass:</strong> Check with a bass test</li>
         </ul>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-        <h2>What Does the Headphone Test Check?</h2>
+      <section class="content-panel prose max-w-none block alt" id="what-does-the-headphone-test-check" aria-labelledby="what-does-the-headphone-test-check-heading">
+        <h2 id="what-does-the-headphone-test-check-heading">What Does the Headphone Test Check?</h2>
         <p>A proper <strong>headphone test</strong> covers several distinct properties that affect audio quality and usability. This tool tests all of them in one place: <!-- SILO_START:slot_b -->A <a href="/stereo-test">stereo test</a> confirms your speakers are delivering true stereo rather than summed mono.<!-- SILO_END:slot_b --></p>
 
-        <h3>Left/Right Channel Separation</h3>
+        <h3 id="left-right-channel-separation">Left/Right Channel Separation</h3>
         <p>The most fundamental headphone test. Click <strong>Play Left</strong> — sound should come from your left ear only. Click <strong>Play Right</strong> — sound should come from your right ear only. If the channels are swapped, your headphone cable is connected in reverse, or your audio output device has its channels crossed. Use the stereo test to verify your computer's audio output channel mapping.</p>
 
-        <h3>Bass Response</h3>
+        <h3 id="bass-response">Bass Response</h3>
         <p>The bass test plays a low-frequency tone (around 60–80 Hz) to check whether your headphone drivers can reproduce deep bass. Over-ear headphones with large drivers typically perform well here; small earbuds and in-ear monitors may roll off bass below 60–80 Hz depending on their driver size and ear seal.</p>
 
-        <h3>Treble and High-Frequency Response</h3>
+        <h3 id="treble-and-high-frequency-response">Treble and High-Frequency Response</h3>
         <p>The treble test plays high-frequency tones (above 8,000 Hz) to check whether your headphones reproduce the high end of the audible spectrum. Thin or tinny treble suggests a weaker tweeter element, while complete silence at high frequencies may indicate driver damage. For a full frequency sweep, the Full Range test gradually steps from 20 Hz to 20,000 Hz.</p>
 
-        <h3>Audio Quality and Distortion</h3>
+        <h3 id="audio-quality-and-distortion">Audio Quality and Distortion</h3>
         <p>Listen for crackling, buzzing, or rattling during playback. Clean tones should sound smooth without any mechanical or electronic interference. Persistent crackling often indicates a loose driver connection or a worn cable. Buzzing at specific frequencies may point to a resonance defect in the headphone housing.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-        <h2>Common Headphone Problems and Their Causes</h2>
+      <section class="content-panel prose max-w-none block" id="common-headphone-problems-and-their-causes" aria-labelledby="common-headphone-problems-and-their-causes-heading">
+        <h2 id="common-headphone-problems-and-their-causes-heading">Common Headphone Problems and Their Causes</h2>
 
-        <h3>Sound Coming from the Wrong Ear</h3>
+        <h3 id="sound-coming-from-the-wrong-ear">Sound Coming from the Wrong Ear</h3>
         <p>If Play Left produces sound in your right ear, your channels are swapped. The most common causes are: a 3.5mm cable plugged in partially, left/right cups physically swapped on the headband (some over-ear headphones allow this), or an audio output setting in Windows or macOS that has swapped channels. Check your system audio balance settings first — on Windows: System → Sound → Output → Mono audio or Channel Balance; on Mac: System Settings → Sound → Output → Balance. <!-- SILO_START:slot_c -->The free <a href="/bass-test">bass test</a> plays every bass frequency so you can hear exactly where your system drops out.<!-- SILO_END:slot_c --></p>
 
-        <h3>One Side Is Silent or Much Quieter</h3>
+        <h3 id="one-side-is-silent-or-much-quieter">One Side Is Silent or Much Quieter</h3>
         <p>A completely silent ear typically means a broken driver or a severed wire inside the cable — usually at the plug or where the cable enters the ear cup, where bending stress is highest. Unplug and replug the cable first. If the problem persists, try a different audio source to rule out a port fault. A side that is consistently quieter (but not silent) during the channel test usually points to a damaged driver or an unbalanced audio setting.</p>
 
-        <h3>Crackling or Distortion</h3>
+        <h3 id="crackling-or-distortion">Crackling or Distortion</h3>
         <p>Intermittent crackling during playback is almost always a cable or connection problem — the signal path is breaking contact as the cable moves. Try holding the cable still during playback to confirm. Constant distortion at certain frequencies can indicate a blown driver (exceeding power limits) or a loose dust cover on the driver. Wired crackling that only appears at high volume usually means the amplifier is clipping.</p>
 
-        <h3>Weak or Muddy Bass</h3>
+        <h3 id="weak-or-muddy-bass">Weak or Muddy Bass</h3>
         <p>Poor bass from in-ear monitors is most often caused by an improper ear seal — try different ear tip sizes until the seal is airtight. For over-ear headphones, weak bass can result from worn-out ear cushions that no longer form a complete seal around your ear. Replacing the cushions often restores the original bass response. If the bass test produces normal results but music sounds bass-light, the issue may be equalisation settings on your device rather than the headphones themselves.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none" id="faq">
-        <h2>Frequently Asked Questions</h2>
+      <section class="content-panel prose max-w-none block alt" id="faq" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Frequently Asked Questions</h2>
         <details class="panel" open>
           <summary><strong>Can I test earbuds with this?</strong></summary>
           <p>Yes — this test works for all stereo audio output devices: over-ear headphones, on-ear headphones, in-ear monitors (IEMs), and standard earbuds. The channel test, bass test, and sweep are all hardware-independent. For single-driver earbuds, the bass test at 20–40 Hz may show no output simply because small drivers cannot reproduce those frequencies physically.</p>
@@ -693,7 +711,7 @@
           <summary><strong>What is stereo headphone imaging?</strong></summary>
           <p>Stereo imaging is a headphone's ability to position sounds convincingly in the left-right and front-back space — a property that matters for gaming, music production, and critical listening. Good stereo imaging means an orchestra recording sounds like the instruments are spread across a wide soundstage. The channel separation test checks the most basic aspect of imaging: that left-channel content reaches only the left ear and vice versa.</p>
         </details>
-      </div>
+      </section>
 
       </div>
 

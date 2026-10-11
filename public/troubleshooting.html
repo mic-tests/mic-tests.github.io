@@ -163,6 +163,22 @@
     .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
     .panel-body{padding:1.1rem;}
     .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    /* ── Table of Contents (render_toc() in generate.py) — its own card between the tool and the article ── */
+    .toc-block{margin-top:1.5rem;}
+    .toc-card{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.25rem 1.5rem;}
+    .toc-title{display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .toc-title svg{width:1rem;height:1rem;flex:none;color:var(--amber);}
+    .toc-list{list-style:decimal outside;padding-left:1.5rem;margin:0;font-size:14px;}
+    .toc-list>li{margin:0 0 .375rem;line-height:1.5;}
+    .toc-list>li:last-child{margin-bottom:0;}
+    .toc-list>li::marker{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;color:var(--amber);}
+    .toc-list a{font-weight:500;color:var(--ink);}
+    .toc-sublist{list-style:decimal outside;margin:.375rem 0 .25rem .25rem;padding-left:1.5rem;font-size:13px;}
+    .toc-sublist>li{margin:0 0 .25rem;line-height:1.5;}
+    .toc-sublist>li::marker{color:var(--ink-3);}
+    .toc-sublist a{padding:0;font-weight:400;color:var(--ink-2);}
+    .toc-list a:hover{color:var(--amber);text-decoration:underline;text-underline-offset:2px;opacity:1;}
+    @media (max-width:640px){.toc-card{padding:1.1rem 1.1rem;}}
     .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
     .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
     .ad-panel-body{padding:1rem;text-align:center;}
@@ -476,21 +492,23 @@
       <p class="lead-text">This <strong>audio troubleshooting guide</strong> walks you through fixes for the most common microphone and speaker problems — mic not detected, no audio input, browser permission errors, distorted sound, and more. Pick the <strong>issue category</strong> that matches your problem and work through the <strong>step-by-step checklist</strong>; each section tells you exactly what to check and what to change on your device. If you've already run the <strong>mic test online</strong> and confirmed your hardware is working, start here to pinpoint whether the issue is in your browser settings, OS permissions, or audio drivers.</p>
       </header>
 
-      <div class="content-panel prose max-w-none">
-<h2><i class="bi bi-lightning me-2"></i>Quick Diagnostic</h2>
+      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents"><div class="toc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span id="table-of-contents">Table of Contents</span></div><ol class="toc-list"><li><a href="#quick-diagnostic">Quick Diagnostic</a></li><li><a href="#select-your-issue">Select Your Issue</a><ol class="toc-sublist"><li><a href="#microphone-not-working-solutions">Microphone Not Working - Solutions</a></li><li><a href="#no-sound-from-speakers-solutions">No Sound from Speakers - Solutions</a></li><li><a href="#browser-permission-denied-solutions">Browser Permission Denied - Solutions</a></li><li><a href="#echo-or-feedback-solutions">Echo or Feedback - Solutions</a></li><li><a href="#low-volume-solutions">Low Volume - Solutions</a></li><li><a href="#distorted-sound-solutions">Distorted Sound - Solutions</a></li><li><a href="#wrong-device-selected-solutions">Wrong Device Selected - Solutions</a></li><li><a href="#bluetooth-audio-issues-solutions">Bluetooth Audio Issues - Solutions</a></li></ol></li><li><a href="#still-need-help">Still Need Help?</a></li></ol></nav></section>
+
+      <section class="content-panel prose max-w-none block" id="quick-diagnostic" aria-labelledby="quick-diagnostic-heading">
+<h2 id="quick-diagnostic-heading"><i class="bi bi-lightning me-2"></i>Quick Diagnostic</h2>
 <ul>
   <li><a href="/"><i class="bi bi-mic me-1"></i>Test Microphone</a></li>
   <li><a href="/speaker-volume-test"><i class="bi bi-volume-up me-1"></i>Test Speakers</a></li>
   <li><a href="/show-mic"><i class="bi bi-info-circle me-1"></i>View Mic Info</a></li>
   <li><a href="/echo-test"><i class="bi bi-arrow-repeat me-1"></i>Echo Test</a></li>
 </ul>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-<h2><i class="bi bi-wrench me-2"></i>Select Your Issue</h2>
+      <section class="content-panel prose max-w-none block alt" id="select-your-issue" aria-labelledby="select-your-issue-heading">
+<h2 id="select-your-issue-heading"><i class="bi bi-wrench me-2"></i>Select Your Issue</h2>
 <details class="panel" open>
   <summary><i class="bi bi-mic-mute me-2 text-danger"></i><strong>Microphone Not Working</strong></summary>
-  <h3>Microphone Not Working - Solutions</h3>
+  <h3 id="microphone-not-working-solutions">Microphone Not Working - Solutions</h3>
   <ol>
     <li><strong>Check Physical Connection</strong> — Ensure your microphone is properly plugged in. For USB mics, try a different port. For wireless, check battery.</li>
     <li><strong>Check Browser Permissions</strong> — Click the lock icon in your browser's address bar → Site Settings → Allow Microphone access.</li>
@@ -501,7 +519,7 @@
 </details>
 <details class="panel">
   <summary><i class="bi bi-volume-mute me-2 text-danger"></i><strong>No Sound from Speakers</strong></summary>
-  <h3>No Sound from Speakers - Solutions</h3>
+  <h3 id="no-sound-from-speakers-solutions">No Sound from Speakers - Solutions</h3>
   <ol>
     <li><strong>Check Volume Levels</strong> — Check system volume, browser volume, and physical speaker/headphone volume controls.</li>
     <li><strong>Check Output Device</strong> — Ensure correct output device is selected. <a href="/show-speakers">Check speaker details</a>.</li>
@@ -511,7 +529,7 @@
 </details>
 <details class="panel">
   <summary><i class="bi bi-shield-x me-2 text-warning"></i><strong>Browser Permission Denied</strong></summary>
-  <h3>Browser Permission Denied - Solutions</h3>
+  <h3 id="browser-permission-denied-solutions">Browser Permission Denied - Solutions</h3>
   <ol>
     <li><strong>Reset Site Permissions</strong> — Click the lock/info icon in your address bar → Reset permissions → Reload the page.</li>
     <li><strong>Chrome Settings</strong> — Go to chrome://settings/content/microphone → Remove this site from blocked list → Reload.</li>
@@ -520,7 +538,7 @@
 </details>
 <details class="panel">
   <summary><i class="bi bi-arrow-repeat me-2 text-warning"></i><strong>Echo or Feedback</strong></summary>
-  <h3>Echo or Feedback - Solutions</h3>
+  <h3 id="echo-or-feedback-solutions">Echo or Feedback - Solutions</h3>
   <ol>
     <li><strong>Use Headphones</strong> — The most effective solution. Prevents speaker audio from being picked up by the mic. <a href="/headphone-test">Test your headphones</a>.</li>
     <li><strong>Lower Speaker Volume</strong> — Reduce volume to minimize audio reaching the microphone.</li>
@@ -530,7 +548,7 @@
 </details>
 <details class="panel">
   <summary><i class="bi bi-volume-down me-2 text-warning"></i><strong>Low Volume / Quiet Audio</strong></summary>
-  <h3>Low Volume - Solutions</h3>
+  <h3 id="low-volume-solutions">Low Volume - Solutions</h3>
   <ol>
     <li><strong>Check All Volume Controls</strong> — System volume, app volume, browser volume, and physical device volume.</li>
     <li><strong>Boost Microphone Levels</strong> — <strong>Windows:</strong> Sound settings → Recording → Properties → Levels → Increase Microphone Boost<br><strong>Mac:</strong> System Preferences → Sound → Input → Increase input volume</li>
@@ -539,7 +557,7 @@
 </details>
 <details class="panel">
   <summary><i class="bi bi-soundwave me-2 text-warning"></i><strong>Distorted or Crackling Sound</strong></summary>
-  <h3>Distorted Sound - Solutions</h3>
+  <h3 id="distorted-sound-solutions">Distorted Sound - Solutions</h3>
   <ol>
     <li><strong>Lower Input Gain</strong> — Audio clipping causes distortion. Reduce microphone gain/boost in system settings.</li>
     <li><strong>Check Cable Connections</strong> — Loose or damaged cables cause crackling. Try different cables.</li>
@@ -548,7 +566,7 @@
 </details>
 <details class="panel">
   <summary><i class="bi bi-usb-drive me-2 text-info"></i><strong>Wrong Device Selected</strong></summary>
-  <h3>Wrong Device Selected - Solutions</h3>
+  <h3 id="wrong-device-selected-solutions">Wrong Device Selected - Solutions</h3>
   <ol>
     <li><strong>Check System Sound Settings</strong> — Open system sound settings and verify the correct input/output device is selected as default.</li>
     <li><strong>Use Device Selector</strong> — Many of our tools have device selectors. <a href="/show-mic">View your microphones</a> or <a href="/show-speakers">view your speakers</a>.</li>
@@ -556,7 +574,7 @@
 </details>
 <details class="panel">
   <summary><i class="bi bi-bluetooth me-2 text-info"></i><strong>Bluetooth Audio Issues</strong></summary>
-  <h3>Bluetooth Audio Issues - Solutions</h3>
+  <h3 id="bluetooth-audio-issues-solutions">Bluetooth Audio Issues - Solutions</h3>
   <ol>
     <li><strong>Re-pair Device</strong> — Remove the Bluetooth device and pair it again.</li>
     <li><strong>Check Battery</strong> — Low battery can cause audio issues. Charge your device.</li>
@@ -564,13 +582,13 @@
     <li><strong>Check Audio Codec</strong> — Some Bluetooth profiles have poor microphone quality. Try using "Hands-Free" profile for calls. <a href="/audio-latency-test">Test latency</a>.</li>
   </ol>
 </details>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-<h2><i class="bi bi-question-circle me-2"></i>Still Need Help?</h2>
+      <section class="content-panel prose max-w-none block" id="still-need-help" aria-labelledby="still-need-help-heading">
+<h2 id="still-need-help-heading"><i class="bi bi-question-circle me-2"></i>Still Need Help?</h2>
 <p><a href="/contact">Contact us</a> with details about your problem and we'll try to help.</p>
 <p>Learn more about our audio testing tools on our <a href="/about">about page</a>.</p>
-      </div>
+      </section>
 
     </div>
 

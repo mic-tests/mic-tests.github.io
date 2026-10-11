@@ -194,6 +194,22 @@
     .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
     .panel-body{padding:1.1rem;}
     .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    /* ── Table of Contents (render_toc() in generate.py) — its own card between the tool and the article ── */
+    .toc-block{margin-top:1.5rem;}
+    .toc-card{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.25rem 1.5rem;}
+    .toc-title{display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .toc-title svg{width:1rem;height:1rem;flex:none;color:var(--amber);}
+    .toc-list{list-style:decimal outside;padding-left:1.5rem;margin:0;font-size:14px;}
+    .toc-list>li{margin:0 0 .375rem;line-height:1.5;}
+    .toc-list>li:last-child{margin-bottom:0;}
+    .toc-list>li::marker{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;color:var(--amber);}
+    .toc-list a{font-weight:500;color:var(--ink);}
+    .toc-sublist{list-style:decimal outside;margin:.375rem 0 .25rem .25rem;padding-left:1.5rem;font-size:13px;}
+    .toc-sublist>li{margin:0 0 .25rem;line-height:1.5;}
+    .toc-sublist>li::marker{color:var(--ink-3);}
+    .toc-sublist a{padding:0;font-weight:400;color:var(--ink-2);}
+    .toc-list a:hover{color:var(--amber);text-decoration:underline;text-underline-offset:2px;opacity:1;}
+    @media (max-width:640px){.toc-card{padding:1.1rem 1.1rem;}}
     .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
     .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
     .ad-panel-body{padding:1rem;text-align:center;}
@@ -668,9 +684,11 @@
 
 
 
-      <div class="content-panel prose max-w-none">
+      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents"><div class="toc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span id="table-of-contents">Table of Contents</span></div><ol class="toc-list"><li><a href="#how-to-use-this-tone-generator">How to Use This Tone Generator</a></li><li><a href="#what-is-a-tone-generator">What Is a Tone Generator?</a></li><li><a href="#waveform-types-explained">Waveform Types Explained</a><ol class="toc-sublist"><li><a href="#sine-wave">Sine Wave</a></li><li><a href="#square-wave">Square Wave</a></li><li><a href="#sawtooth-wave">Sawtooth Wave</a></li><li><a href="#triangle-wave">Triangle Wave</a></li><li><a href="#white-noise-vs-pink-noise">White Noise vs Pink Noise</a></li></ol></li><li><a href="#common-uses-for-a-tone-generator">Common Uses for a Tone Generator</a><ol class="toc-sublist"><li><a href="#speaker-and-audio-equipment-testing">Speaker and Audio Equipment Testing</a></li><li><a href="#instrument-tuning">Instrument Tuning</a></li><li><a href="#hearing-range-assessment">Hearing Range Assessment</a></li><li><a href="#tinnitus-frequency-matching">Tinnitus Frequency Matching</a></li><li><a href="#science-and-educational-demonstrations">Science and Educational Demonstrations</a></li></ol></li><li><a href="#faq">Frequently Asked Questions</a></li></ol></nav></section>
+
+      <section class="content-panel prose max-w-none block" id="how-to-use-this-tone-generator" aria-labelledby="how-to-use-this-tone-generator-heading">
             <p class="lead-text">The <strong>Tone Generator</strong> plays a pure audio tone through your speakers or headphones at whatever frequency you choose. Drag the <strong>frequency slider</strong> between 20Hz and 20,000Hz — or type a value directly — pick a <strong>waveform type</strong> (sine, square, triangle, or sawtooth), set your <strong>volume</strong>, and click <strong>Play</strong>; the tone runs continuously until you click <strong>Stop</strong>. You can also use <strong>sweep mode</strong> to glide automatically through a frequency range, which makes it easy to hear how your speakers respond across the full spectrum.</p>
-            <h2>How to Use This Tone Generator</h2>
+            <h2 id="how-to-use-this-tone-generator-heading">How to Use This Tone Generator</h2>
             <p>Using the tone generator takes a few seconds. Follow these steps to play a precise audio frequency directly in your browser:</p>
             <ol>
               <li><strong>Set the frequency</strong> — Drag the slider or type a value into the Hz input. The range runs from 20 Hz (deep sub-bass) to 20,000 Hz (upper limit of human hearing).</li>
@@ -680,59 +698,59 @@
             </ol>
             <p>Use the <strong>Preset Frequencies</strong> section to jump instantly to standard musical notes (A4 = 440 Hz) or common test tones like 1 kHz and 10 kHz.</p>
           
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>What Is a Tone Generator?</h2>
+      <section class="content-panel prose max-w-none block alt" id="what-is-a-tone-generator" aria-labelledby="what-is-a-tone-generator-heading">
+            <h2 id="what-is-a-tone-generator-heading">What Is a Tone Generator?</h2>
             <p>A <strong>tone generator</strong> is a tool that produces a continuous audio signal at a precise frequency. Frequency determines pitch — lower numbers produce bass, higher numbers produce treble. The unit of measurement is the <strong>hertz (Hz)</strong>, where 1 Hz equals one complete sound cycle per second. <!-- SILO_START:slot_b -->The free <a href="/hearing-test">hearing test online</a> takes under two minutes and runs entirely in your browser.<!-- SILO_END:slot_b --></p>
             <p>This online tone generator uses the <strong>Web Audio API</strong> built into modern browsers to synthesise a mathematically exact audio signal — no recordings, no samples. The result is a stable, locked frequency ideal for any task requiring precision: speaker testing, instrument tuning, tinnitus assessment, or acoustic experiments.</p>
             <p>Traditional hardware <strong>signal generators</strong> and function generators serve the same purpose in studio and lab settings. This free online frequency generator delivers equivalent accuracy in your browser with no downloads or installation required.</p>
           
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>Waveform Types Explained</h2>
+      <section class="content-panel prose max-w-none block" id="waveform-types-explained" aria-labelledby="waveform-types-explained-heading">
+            <h2 id="waveform-types-explained-heading">Waveform Types Explained</h2>
             <p>Each waveform produces a different sound character at the same frequency. Understanding the differences helps you pick the right signal for your test.</p>
 
-            <h3>Sine Wave</h3>
+            <h3 id="sine-wave">Sine Wave</h3>
             <p>The <strong>sine wave</strong> is the purest audio tone — a single frequency with zero harmonics or overtones. It sounds smooth and clear, like a tuning fork or a flute. Use it for precision speaker testing, tinnitus pitch matching, and any task requiring an exact single-frequency signal. Sine is the default waveform in most professional tone generators.</p>
 
-            <h3>Square Wave</h3>
+            <h3 id="square-wave">Square Wave</h3>
             <p>The <strong>square wave</strong> contains the fundamental frequency plus all odd harmonics, giving it a harsh, buzzy, electronic character similar to classic 8-bit game audio. It is useful for testing how a speaker handles complex harmonic content and for diagnosing audio equipment response.</p>
 
-            <h3>Sawtooth Wave</h3>
+            <h3 id="sawtooth-wave">Sawtooth Wave</h3>
             <p>The <strong>sawtooth wave</strong> contains both odd and even harmonics, producing a bright, raspy sound similar to a bowed string instrument. It carries the richest harmonic content of the four standard waveforms and is commonly used for synthesiser-style audio tests and speaker stress testing.</p>
 
-            <h3>Triangle Wave</h3>
+            <h3 id="triangle-wave">Triangle Wave</h3>
             <p>The <strong>triangle wave</strong> sits between sine and square: it has odd harmonics like the square wave but they decay much faster, resulting in a softer, mellower tone. It is a good choice when you need some harmonic content without the harshness of a square or sawtooth signal.</p>
 
-            <h3>White Noise vs Pink Noise</h3>
+            <h3 id="white-noise-vs-pink-noise">White Noise vs Pink Noise</h3>
             <p><strong>White noise</strong> plays all audible frequencies simultaneously at equal energy — it sounds bright and hissy, like radio static. <strong>Pink noise</strong> also covers the full audible spectrum but rolls off at higher frequencies to match how human hearing perceives loudness, making it the industry-standard signal for speaker calibration, room acoustics measurement, and audio system equalisation.</p>
           
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>Common Uses for a Tone Generator</h2>
+      <section class="content-panel prose max-w-none block alt" id="common-uses-for-a-tone-generator" aria-labelledby="common-uses-for-a-tone-generator-heading">
+            <h2 id="common-uses-for-a-tone-generator-heading">Common Uses for a Tone Generator</h2>
 
-            <h3>Speaker and Audio Equipment Testing</h3>
+            <h3 id="speaker-and-audio-equipment-testing">Speaker and Audio Equipment Testing</h3>
             <p>Sweep through frequencies to expose weaknesses in your speaker or subwoofer. Play a 60 Hz sine wave to check bass extension, 1 kHz for midrange clarity, and 10–16 kHz for high-frequency response. If the tone distorts, rattles, or disappears at a specific frequency, your speaker has a measurable problem at that range. This is the most common professional application for an <strong>online frequency generator</strong>.</p>
 
-            <h3>Instrument Tuning</h3>
+            <h3 id="instrument-tuning">Instrument Tuning</h3>
             <p>Use the preset musical notes to generate a stable reference pitch. Play <strong>A4 at 440 Hz</strong> — the international tuning standard — and tune your guitar, violin, or wind instrument to match. A pure sine wave from a tone generator is easier to tune against than a physical tuning fork because it sustains indefinitely with no decay.</p>
 
-            <h3>Hearing Range Assessment</h3>
+            <h3 id="hearing-range-assessment">Hearing Range Assessment</h3>
             <p>Test your personal frequency hearing limit. Start at 1,000 Hz and slowly increase. Most adults can hear up to 15,000–18,000 Hz; the upper range declines with age. If you want per-ear results and a systematic frequency threshold assessment, use the dedicated hearing test online — it steps through frequencies and records your exact hearing range. <!-- SILO_START:slot_c -->Run an <a href="/audio-latency-test">audio latency test</a> to confirm your audio chain meets latency requirements for live performance.<!-- SILO_END:slot_c --></p>
 
-            <h3>Tinnitus Frequency Matching</h3>
+            <h3 id="tinnitus-frequency-matching">Tinnitus Frequency Matching</h3>
             <p>If you have ringing in the ears (tinnitus), you can adjust the tone generator frequency until the generated tone matches your tinnitus sound. This technique — called <strong>tinnitus pitch matching</strong> — helps audiologists recommend targeted masking sounds and notched audio therapy. Start around 4,000–8,000 Hz, the most common tinnitus range, and fine-tune from there using a sine wave. <!-- SILO_START:slot_d -->The free <a href="/stereo-test">stereo test</a> detects reversed channels, mono collapse, and uneven output in seconds.<!-- SILO_END:slot_d --></p>
 
-            <h3>Science and Educational Demonstrations</h3>
+            <h3 id="science-and-educational-demonstrations">Science and Educational Demonstrations</h3>
             <p>Demonstrate resonance, standing waves, and acoustic physics without lab equipment. Show how different frequencies affect a speaker cone, compare waveforms on an oscilloscope app, or illustrate the relationship between Hz and musical pitch. The instant, no-install nature of this audio frequency generator makes it practical for classroom and home experiments.</p>
           
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none" id="faq">
-        <h2>Frequently Asked Questions</h2>
+      <section class="content-panel prose max-w-none block" id="faq" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Frequently Asked Questions</h2>
         <details class="panel" open>
           <summary><strong>What frequency should I use to test my speakers?</strong></summary>
           <p>Run through several key frequencies for a complete speaker test: <strong>40–80 Hz</strong> for subwoofer/bass response, <strong>200–500 Hz</strong> for lower midrange, <strong>1–4 kHz</strong> for vocal presence, and <strong>8–16 kHz</strong> for high-frequency extension. Distortion, rattling, or silence at a particular frequency indicates a weakness in that range.</p>
@@ -761,7 +779,7 @@
           <summary><strong>Is it safe to use at high volume?</strong></summary>
           <p>No — always start at a low volume and raise gradually. High-frequency tones at high volume concentrate energy at a single Hz and can cause <strong>permanent hearing damage</strong> faster than broadband audio. Bass tones at high volume can physically over-excite speakers and subwoofers. Keep sessions short and never exceed a comfortable listening level.</p>
         </details>
-      </div>
+      </section>
 
       </div>
 

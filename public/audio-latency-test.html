@@ -186,6 +186,22 @@
     .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
     .panel-body{padding:1.1rem;}
     .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    /* ── Table of Contents (render_toc() in generate.py) — its own card between the tool and the article ── */
+    .toc-block{margin-top:1.5rem;}
+    .toc-card{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.25rem 1.5rem;}
+    .toc-title{display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .toc-title svg{width:1rem;height:1rem;flex:none;color:var(--amber);}
+    .toc-list{list-style:decimal outside;padding-left:1.5rem;margin:0;font-size:14px;}
+    .toc-list>li{margin:0 0 .375rem;line-height:1.5;}
+    .toc-list>li:last-child{margin-bottom:0;}
+    .toc-list>li::marker{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;color:var(--amber);}
+    .toc-list a{font-weight:500;color:var(--ink);}
+    .toc-sublist{list-style:decimal outside;margin:.375rem 0 .25rem .25rem;padding-left:1.5rem;font-size:13px;}
+    .toc-sublist>li{margin:0 0 .25rem;line-height:1.5;}
+    .toc-sublist>li::marker{color:var(--ink-3);}
+    .toc-sublist a{padding:0;font-weight:400;color:var(--ink-2);}
+    .toc-list a:hover{color:var(--amber);text-decoration:underline;text-underline-offset:2px;opacity:1;}
+    @media (max-width:640px){.toc-card{padding:1.1rem 1.1rem;}}
     .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
     .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
     .ad-panel-body{padding:1rem;text-align:center;}
@@ -621,9 +637,11 @@
 
 
 
-      <div class="content-panel prose max-w-none">
+      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents"><div class="toc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span id="table-of-contents">Table of Contents</span></div><ol class="toc-list"><li><a href="#understanding-audio-latency">Understanding Audio Latency</a></li><li><a href="#reducing-audio-latency">Reducing Audio Latency</a><ol class="toc-sublist"><li><a href="#hardware-tips">Hardware Tips</a></li><li><a href="#software-tips">Software Tips</a></li></ol></li><li><a href="#how-to-take-the-audio-latency-test">How to Take the Audio Latency Test</a></li><li><a href="#what-is-audio-latency-understanding-sound-delay-in-your">What Is Audio Latency? Understanding Sound Delay in Your System</a><ol class="toc-sublist"><li><a href="#base-latency-vs-output-latency-vs-round-trip-latency">Base Latency vs Output Latency vs Round-Trip Latency</a></li><li><a href="#browser-audio-latency-vs-daw-input-latency">Browser Audio Latency vs DAW Input Latency</a></li></ol></li><li><a href="#audio-latency-by-use-case-what-is-an-acceptable-sound-delay">Audio Latency by Use Case — What Is an Acceptable Sound Delay?</a><ol class="toc-sublist"><li><a href="#music-production-and-live-monitoring-minimum-input-latency">Music Production and Live Monitoring: Minimum Input Latency Required</a></li><li><a href="#gaming-and-live-streaming-audio-delay-and-sync-issues">Gaming and Live Streaming — Audio Delay and Sync Issues</a></li><li><a href="#video-calls-and-online-meetings">Video Calls and Online Meetings</a></li></ol></li><li><a href="#how-to-reduce-audio-latency-and-minimise-sound-delay">How to Reduce Audio Latency and Minimise Sound Delay</a><ol class="toc-sublist"><li><a href="#asio-drivers-for-low-latency-audio-on-windows">ASIO Drivers for Low-Latency Audio on Windows</a></li><li><a href="#reducing-buffer-size-to-lower-microphone-latency">Reducing Buffer Size to Lower Microphone Latency</a></li><li><a href="#wired-vs-bluetooth-which-has-lower-audio-delay">Wired vs Bluetooth: Which Has Lower Audio Delay?</a></li></ol></li><li><a href="#faq">Audio Latency Test — Frequently Asked Questions</a></li></ol></nav></section>
+
+      <section class="content-panel prose max-w-none block" id="understanding-audio-latency" aria-labelledby="understanding-audio-latency-heading">
             <p class="lead-text">The <strong>Audio Latency Test</strong> measures the round-trip delay between your system playing a sound and your microphone capturing it — your result appears as a <strong>latency reading in milliseconds</strong>. Plug in headphones to prevent the test tone feeding back through your mic, click <strong>Start Test</strong>, and the tool plays a short click then times how long your mic takes to detect it. Your <strong>latency result</strong> tells you how much delay to expect on video calls, live recordings, or any setup where mic-to-output timing matters. Record your latency readings in a free notepad at <a href="https://notepadly.online/" rel="noopener">notepadly.online</a>.</p>
-            <h2><i class="bi bi-book me-2"></i>Understanding Audio Latency</h2>
+            <h2 id="understanding-audio-latency-heading"><i class="bi bi-book me-2"></i>Understanding Audio Latency</h2>
             <div class="table-responsive">
             <table class="table">
               <thead>
@@ -663,13 +681,13 @@
             </table>
             </div>
           
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2><i class="bi bi-lightbulb me-2"></i>Reducing Audio Latency</h2>
+      <section class="content-panel prose max-w-none block alt" id="reducing-audio-latency" aria-labelledby="reducing-audio-latency-heading">
+            <h2 id="reducing-audio-latency-heading"><i class="bi bi-lightbulb me-2"></i>Reducing Audio Latency</h2>
             <div class="grid md:grid-cols-2 gap-6">
               <div>
-                <h3>Hardware Tips</h3>
+                <h3 id="hardware-tips">Hardware Tips</h3>
                 <ul>
                   <li>Use a dedicated audio interface</li>
                   <li>Connect via USB 3.0 or Thunderbolt</li>
@@ -678,7 +696,7 @@
                 </ul>
               </div>
               <div>
-                <h3>Software Tips</h3>
+                <h3 id="software-tips">Software Tips</h3>
                 <ul>
                   <li>Use ASIO drivers on Windows</li>
                   <li>Reduce audio buffer size</li>
@@ -689,10 +707,10 @@
             </div>
             <p class="mb-0">Having issues? Check our troubleshooting guide for more solutions.</p>
           
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>How to Take the Audio Latency Test</h2>
+      <section class="content-panel prose max-w-none block" id="how-to-take-the-audio-latency-test" aria-labelledby="how-to-take-the-audio-latency-test-heading">
+            <h2 id="how-to-take-the-audio-latency-test-heading">How to Take the Audio Latency Test</h2>
             <ol>
               <li><strong>Put on headphones</strong> — open-air speakers cause acoustic feedback that corrupts the measurement. Wired headphones give the most accurate round-trip latency reading.</li>
               <li>Click <strong>Allow</strong> when the browser asks for microphone access. The test needs your mic to capture the reference tone it plays.</li>
@@ -702,51 +720,51 @@
               <li>Compare your result to the latency rating table: under 20ms is excellent for music and calls; above 100ms indicates a problem worth addressing.</li>
             </ol>
           
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>What Is Audio Latency? Understanding Sound Delay in Your System</h2>
+      <section class="content-panel prose max-w-none block alt" id="what-is-audio-latency-understanding-sound-delay-in-your" aria-labelledby="what-is-audio-latency-understanding-sound-delay-in-your-heading">
+            <h2 id="what-is-audio-latency-understanding-sound-delay-in-your-heading">What Is Audio Latency? Understanding Sound Delay in Your System</h2>
             <p>Audio latency is the total time between a sound event (a key pressed, a voice spoken, a signal triggered) and when it is audible through speakers or headphones. Every device in your signal chain adds a small delay: the driver, the audio engine, the digital-to-analogue converter, and the amplifier all contribute. The sum of all these delays is your system's <strong>total audio latency</strong>, measured in milliseconds. <!-- SILO_START:slot_b -->The free <a href="/tone-generator">tone generator</a> is the fastest way to check if your speakers reproduce bass and treble accurately.<!-- SILO_END:slot_b --></p>
 
-            <h3>Base Latency vs Output Latency vs Round-Trip Latency</h3>
+            <h3 id="base-latency-vs-output-latency-vs-round-trip-latency">Base Latency vs Output Latency vs Round-Trip Latency</h3>
             <p><strong>Base latency</strong> is the minimum processing delay of the audio engine — the time from when software sends a signal to when the hardware begins outputting it. <strong>Output latency</strong> is the delay introduced by the output device's buffer. <strong>Round-trip latency</strong> is what this test measures: the full loop from output to microphone capture — which includes both output and input delays simultaneously. For real-time recording and live monitoring, round-trip latency is the most relevant measurement.</p>
 
-            <h3>Browser Audio Latency vs DAW Input Latency</h3>
+            <h3 id="browser-audio-latency-vs-daw-input-latency">Browser Audio Latency vs DAW Input Latency</h3>
             <p>Browser-based audio latency tests give a useful estimate but cannot match the precision of dedicated DAW buffer analysis. Browsers add an inherent processing overhead — typically 20–40ms even on fast hardware — because the Web Audio API runs through a non-realtime scheduler. A DAW using ASIO drivers on Windows or Core Audio on macOS bypasses this overhead and can achieve sub-5ms round-trip latency. Use this online audio latency test to diagnose general system performance; use your DAW's built-in latency report for music production calibration.</p>
           
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>Audio Latency by Use Case — What Is an Acceptable Sound Delay?</h2>
+      <section class="content-panel prose max-w-none block" id="audio-latency-by-use-case-what-is-an-acceptable-sound-delay" aria-labelledby="audio-latency-by-use-case-what-is-an-acceptable-sound-delay-heading">
+            <h2 id="audio-latency-by-use-case-what-is-an-acceptable-sound-delay-heading">Audio Latency by Use Case — What Is an Acceptable Sound Delay?</h2>
             <p>The right latency threshold depends entirely on what you are doing with the audio. A video call tolerates delays that would be completely unacceptable in a live recording session. <!-- SILO_START:slot_c --><!-- SILO_END:slot_c --></p>
 
-            <h3>Music Production and Live Monitoring: Minimum Input Latency Required</h3>
+            <h3 id="music-production-and-live-monitoring-minimum-input-latency">Music Production and Live Monitoring: Minimum Input Latency Required</h3>
             <p>When recording instruments or vocals, musicians monitor their own performance through headphones in real time. Any latency above 10ms is perceivable as a slight "doubling" effect — the direct sound from the instrument arrives slightly before the monitored sound through the headphones. Professional recordings target under 5ms total round-trip latency. If your audio latency test returns 10–20ms, it is workable for most home recording; above 30ms, you will notice the delay while singing or playing.</p>
 
-            <h3>Gaming and Live Streaming — Audio Delay and Sync Issues</h3>
+            <h3 id="gaming-and-live-streaming-audio-delay-and-sync-issues">Gaming and Live Streaming — Audio Delay and Sync Issues</h3>
             <p>Gaming audio latency above 100ms makes it difficult to use audio cues to react to in-game events (gunshots, footsteps). For streamers, audio delay causes the voice commentary to fall out of sync with on-screen action. Most streaming software lets you add a video delay offset to compensate, but reducing the underlying audio latency in the first place is always preferable. A result of 20–50ms is acceptable for casual gaming; competitive play benefits from anything below 20ms.</p>
 
-            <h3>Video Calls and Online Meetings</h3>
+            <h3 id="video-calls-and-online-meetings">Video Calls and Online Meetings</h3>
             <p>Conference call software (Zoom, Teams, Meet) buffers and resamples audio, adding 40–150ms of its own delay on top of your system latency. For this use case, your microphone latency reading from this test is less critical — the app's own processing dominates. That said, a high system latency above 100ms can compound the app's delay and make you sound consistently late in conversations. Under 50ms system latency is ideal for smooth call audio.</p>
           
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>How to Reduce Audio Latency and Minimise Sound Delay</h2>
+      <section class="content-panel prose max-w-none block alt" id="how-to-reduce-audio-latency-and-minimise-sound-delay" aria-labelledby="how-to-reduce-audio-latency-and-minimise-sound-delay-heading">
+            <h2 id="how-to-reduce-audio-latency-and-minimise-sound-delay-heading">How to Reduce Audio Latency and Minimise Sound Delay</h2>
 
-            <h3>ASIO Drivers for Low-Latency Audio on Windows</h3>
+            <h3 id="asio-drivers-for-low-latency-audio-on-windows">ASIO Drivers for Low-Latency Audio on Windows</h3>
             <p>ASIO (Audio Stream Input/Output) is a driver protocol developed by Steinberg that bypasses Windows' standard audio engine, dramatically cutting latency. If you use a USB audio interface, install its ASIO driver from the manufacturer's website. If no dedicated driver is available, ASIO4ALL is a free wrapper that gives most Windows machines access to low-latency ASIO routing. Most DAWs let you switch between WASAPI and ASIO — always choose ASIO for recording work. On macOS, Core Audio already provides near-ASIO performance natively. <!-- SILO_START:slot_d -->The tool tells you <a href="/show-mic">what microphone do i have</a> — including device name, sample rate, and audio processing settings.<!-- SILO_END:slot_d --></p>
 
-            <h3>Reducing Buffer Size to Lower Microphone Latency</h3>
+            <h3 id="reducing-buffer-size-to-lower-microphone-latency">Reducing Buffer Size to Lower Microphone Latency</h3>
             <p>The audio buffer is a short memory queue that holds samples before they are processed. A smaller buffer reduces latency but increases CPU load — if the CPU cannot fill the buffer in time, you get audio dropouts and glitches. For recording, set the buffer to 64–256 samples. For mixing or playback only, 512–1024 samples is fine. If you get crackling at low buffer sizes, close all background applications and check that no other software is claiming exclusive audio access to your device.</p>
 
-            <h3>Wired vs Bluetooth: Which Has Lower Audio Delay?</h3>
+            <h3 id="wired-vs-bluetooth-which-has-lower-audio-delay">Wired vs Bluetooth: Which Has Lower Audio Delay?</h3>
             <p>Bluetooth audio introduces 100–300ms of codec-dependent latency. Aptx Low Latency (aptX LL) reduces this to 40ms; Bluetooth LE Audio (LC3) targets 20–30ms. Even the best Bluetooth codecs cannot match a wired USB or 3.5 mm connection, which typically adds under 5ms at the hardware level. If your audio latency test returns values above 100ms and you are on Bluetooth, switching to a wired connection is the single most effective change you can make.</p>
           
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none" id="faq">
-        <h2>Audio Latency Test — Frequently Asked Questions</h2>
+      <section class="content-panel prose max-w-none block" id="faq" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Audio Latency Test — Frequently Asked Questions</h2>
         <details class="panel" open>
           <summary><strong>What causes high audio latency in a browser?</strong></summary>
           <p>Browsers process audio through the Web Audio API, which runs on a non-realtime scheduler. This adds inherent overhead of 20–40ms regardless of your hardware. Additional causes include: a large audio buffer set in your OS driver settings, background applications competing for CPU, Bluetooth audio routing, or an outdated audio driver. For the browser-based audio latency test to show a low reading, all these factors need to be minimised simultaneously.</p>
@@ -771,7 +789,7 @@
           <summary><strong>Can I use this test to calibrate latency for my DAW recording setup?</strong></summary>
           <p>Use it as a starting point for diagnosing whether your audio interface is performing as expected. For precise DAW calibration, use your DAW's built-in round-trip latency measurement or a dedicated hardware latency tester. The online mic recorder is also useful for checking whether your recorded audio drifts out of sync over time, which indicates a clock rate mismatch rather than a latency issue.</p>
         </details>
-      </div>
+      </section>
 
       </div>
 

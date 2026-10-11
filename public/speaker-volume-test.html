@@ -186,6 +186,22 @@
     .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
     .panel-body{padding:1.1rem;}
     .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    /* ── Table of Contents (render_toc() in generate.py) — its own card between the tool and the article ── */
+    .toc-block{margin-top:1.5rem;}
+    .toc-card{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.25rem 1.5rem;}
+    .toc-title{display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .toc-title svg{width:1rem;height:1rem;flex:none;color:var(--amber);}
+    .toc-list{list-style:decimal outside;padding-left:1.5rem;margin:0;font-size:14px;}
+    .toc-list>li{margin:0 0 .375rem;line-height:1.5;}
+    .toc-list>li:last-child{margin-bottom:0;}
+    .toc-list>li::marker{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;color:var(--amber);}
+    .toc-list a{font-weight:500;color:var(--ink);}
+    .toc-sublist{list-style:decimal outside;margin:.375rem 0 .25rem .25rem;padding-left:1.5rem;font-size:13px;}
+    .toc-sublist>li{margin:0 0 .25rem;line-height:1.5;}
+    .toc-sublist>li::marker{color:var(--ink-3);}
+    .toc-sublist a{padding:0;font-weight:400;color:var(--ink-2);}
+    .toc-list a:hover{color:var(--amber);text-decoration:underline;text-underline-offset:2px;opacity:1;}
+    @media (max-width:640px){.toc-card{padding:1.1rem 1.1rem;}}
     .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
     .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
     .ad-panel-body{padding:1rem;text-align:center;}
@@ -586,9 +602,11 @@
 
 
 
-      <div class="content-panel prose max-w-none">
+      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents"><div class="toc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span id="table-of-contents">Table of Contents</span></div><ol class="toc-list"><li><a href="#no-sound">No Sound?</a></li><li><a href="#how-to-run-the-speaker-test-online">How to Run the Speaker Test Online</a></li><li><a href="#what-does-the-online-speaker-test-check">What Does the Online Speaker Test Check?</a><ol class="toc-sublist"><li><a href="#speaker-channel-test-left-right-and-both">Speaker Channel Test — Left, Right, and Both</a></li><li><a href="#frequency-sweep-speaker-test">Frequency Sweep Speaker Test</a></li><li><a href="#noise-based-speaker-sound-test">Noise-Based Speaker Sound Test</a></li></ol></li><li><a href="#speaker-test-results-by-volume-level">Speaker Test Results by Volume Level</a><ol class="toc-sublist"><li><a href="#low-volume-speaker-test-25">Low Volume Speaker Test (25%)</a></li><li><a href="#medium-volume-audio-output-test-50">Medium Volume Audio Output Test (50%)</a></li><li><a href="#high-volume-check-75-100">High Volume Check (75–100%)</a></li></ol></li><li><a href="#speaker-test-troubleshooting-no-sound-or-poor-audio-output">Speaker Test Troubleshooting — No Sound or Poor Audio Output</a><ol class="toc-sublist"><li><a href="#speaker-test-shows-no-audio-output">Speaker Test Shows No Audio Output</a></li><li><a href="#one-speaker-channel-is-silent-during-the-test">One Speaker Channel Is Silent During the Test</a></li><li><a href="#audio-output-sounds-distorted-at-any-volume">Audio Output Sounds Distorted at Any Volume</a></li><li><a href="#speaker-test-passes-but-overall-sound-quality-is-poor">Speaker Test Passes But Overall Sound Quality Is Poor</a></li></ol></li><li><a href="#faq">Frequently Asked Questions About the Speaker Test Online</a></li></ol></nav></section>
+
+      <section class="content-panel prose max-w-none block" id="no-sound" aria-labelledby="no-sound-heading">
         <p class="lead-text">The <strong>Speaker Volume Test</strong> plays a test tone at preset volume levels so you can verify your speakers respond correctly from quiet to loud. Click any <strong>volume level button</strong> — 25%, 50%, 75%, or 100% — and a tone plays through your speakers at that output; the <strong>volume indicator</strong> shows the active level while audio plays. If one level sounds wrong or your speakers don't respond at certain settings, cross-check what you hear against your device's <strong>system volume</strong> to isolate whether the fault is in software or hardware.</p>
-        <h2><i class="bi bi-wrench me-2"></i>No Sound?</h2>
+        <h2 id="no-sound-heading"><i class="bi bi-wrench me-2"></i>No Sound?</h2>
         <ul>
           <li>Check system volume is not muted</li>
           <li>Verify correct output device in audio settings</li>
@@ -596,10 +614,10 @@
           <li>Try a different browser</li>
           <li>See troubleshooting guide</li>
         </ul>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-        <h2>How to Run the Speaker Test Online</h2>
+      <section class="content-panel prose max-w-none block alt" id="how-to-run-the-speaker-test-online" aria-labelledby="how-to-run-the-speaker-test-online-heading">
+        <h2 id="how-to-run-the-speaker-test-online-heading">How to Run the Speaker Test Online</h2>
         <ol>
           <li><strong>Set system volume to 50%</strong> before starting — use your OS volume control, not just this tool's slider, to avoid sudden loud output.</li>
           <li>Select a <strong>Test Sound</strong> from the dropdown: start with 1 kHz Tone for a clean reference signal.</li>
@@ -608,52 +626,52 @@
           <li>Switch to <strong>Frequency Sweep</strong> to scan from 200 Hz to 2000 Hz — listen for any frequencies that sound distorted or absent.</li>
           <li>Try <strong>White Noise</strong> to check speaker response across the full audio spectrum simultaneously.</li>
         </ol>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-        <h2>What Does the Online Speaker Test Check?</h2>
+      <section class="content-panel prose max-w-none block" id="what-does-the-online-speaker-test-check" aria-labelledby="what-does-the-online-speaker-test-check-heading">
+        <h2 id="what-does-the-online-speaker-test-check-heading">What Does the Online Speaker Test Check?</h2>
 
-        <h3>Speaker Channel Test — Left, Right, and Both</h3>
+        <h3 id="speaker-channel-test-left-right-and-both">Speaker Channel Test — Left, Right, and Both</h3>
         <p>The speaker test confirms that audio output reaches both channels at the correct volume. If one speaker plays noticeably louder, the audio output is unbalanced — check the balance slider in your OS sound settings. Run a <a href="/stereo-test">stereo test</a> if you need to verify that left and right channels are not swapped. <!-- SILO_START:slot_b -->Uncertain about <a href="/show-speakers">what speakers do i have</a>? The tool reads your system's audio output devices directly from the browser.<!-- SILO_END:slot_b --></p>
 
-        <h3>Frequency Sweep Speaker Test</h3>
+        <h3 id="frequency-sweep-speaker-test">Frequency Sweep Speaker Test</h3>
         <p>The sweep option ramps from 200 Hz to 2000 Hz over three seconds. A healthy speaker plays every point in the sweep at consistent volume. If you notice a sudden drop, a resonance buzz, or complete silence at a specific frequency, that region of the speaker's response is problematic — it may indicate a damaged driver or port resonance.</p>
 
-        <h3>Noise-Based Speaker Sound Test</h3>
+        <h3 id="noise-based-speaker-sound-test">Noise-Based Speaker Sound Test</h3>
         <p>White noise contains all frequencies at equal energy, making it ideal for identifying colouration or gaps in your speaker's audio output. Pink noise reduces high-frequency energy to better match how the ear perceives loudness — audiophiles use it for level-matching multiple speakers. If one speaker sounds brighter or duller than the other during a noise test, the two units are not matched.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-        <h2>Speaker Test Results by Volume Level</h2>
+      <section class="content-panel prose max-w-none block alt" id="speaker-test-results-by-volume-level" aria-labelledby="speaker-test-results-by-volume-level-heading">
+        <h2 id="speaker-test-results-by-volume-level-heading">Speaker Test Results by Volume Level</h2>
 
-        <h3>Low Volume Speaker Test (25%)</h3>
+        <h3 id="low-volume-speaker-test-25">Low Volume Speaker Test (25%)</h3>
         <p>At 25% volume, you're testing that your audio output chain functions at minimum levels — essential for quiet listening environments and background audio. If you can't hear anything at 25% with system volume at 50%, your speaker's sensitivity rating may be low, or a hardware volume control (physical knob on a monitor or amplifier) is set too low. <!-- SILO_START:slot_c -->Use a <a href="/sound-level-meter">sound level meter online</a> to check whether your recording environment is quiet enough for clean audio.<!-- SILO_END:slot_c --></p>
 
-        <h3>Medium Volume Audio Output Test (50%)</h3>
+        <h3 id="medium-volume-audio-output-test-50">Medium Volume Audio Output Test (50%)</h3>
         <p>50% is the standard reference level for most speaker tests. A well-functioning speaker should play cleanly, with no distortion, at this level. If you hear rattling, buzzing, or crackling at 50% volume, something is wrong — driver damage, a loose enclosure component, or excessive bass boost in your EQ settings are the most common causes.</p>
 
-        <h3>High Volume Check (75–100%)</h3>
+        <h3 id="high-volume-check-75-100">High Volume Check (75–100%)</h3>
         <p>Testing at high volume reveals how much headroom your speakers have before they clip or distort. Distortion at 75–100% is normal for budget speakers operating at their limit. If distortion appears at 50% or below, the driver is likely damaged or the amplifier is underpowered for the speaker load. Never sustain 100% volume for extended periods — it accelerates driver wear.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-        <h2>Speaker Test Troubleshooting — No Sound or Poor Audio Output</h2>
+      <section class="content-panel prose max-w-none block" id="speaker-test-troubleshooting-no-sound-or-poor-audio-output" aria-labelledby="speaker-test-troubleshooting-no-sound-or-poor-audio-output-heading">
+        <h2 id="speaker-test-troubleshooting-no-sound-or-poor-audio-output-heading">Speaker Test Troubleshooting — No Sound or Poor Audio Output</h2>
 
-        <h3>Speaker Test Shows No Audio Output</h3>
+        <h3 id="speaker-test-shows-no-audio-output">Speaker Test Shows No Audio Output</h3>
         <p>If the speaker test plays but you hear nothing: check that the correct output device is selected in your OS sound settings — if you recently plugged in headphones or an HDMI monitor, the OS may have switched the default output. Also verify system volume is not muted at the OS level. On laptops, a function key (Fn+F8 or similar) may be muting audio independently.</p>
 
-        <h3>One Speaker Channel Is Silent During the Test</h3>
+        <h3 id="one-speaker-channel-is-silent-during-the-test">One Speaker Channel Is Silent During the Test</h3>
         <p>A silent channel points to a physical connection issue, a damaged driver, or an OS balance setting pushed fully to one side. Check your OS sound settings and confirm the balance is centred. Try different cables or ports to isolate the fault. If the silent channel works in a different audio app, the issue may be browser-specific — try a different browser for the online speaker test.</p>
 
-        <h3>Audio Output Sounds Distorted at Any Volume</h3>
+        <h3 id="audio-output-sounds-distorted-at-any-volume">Audio Output Sounds Distorted at Any Volume</h3>
         <p>Consistent distortion at all volume levels usually means a damaged voice coil or blown driver. Distortion that appears only at high volumes is more likely an overloaded amplifier or EQ-boosted bass exceeding the speaker's limits. Remove any bass boost or loudness enhancement in your audio driver software and retest.</p>
 
-        <h3>Speaker Test Passes But Overall Sound Quality Is Poor</h3>
+        <h3 id="speaker-test-passes-but-overall-sound-quality-is-poor">Speaker Test Passes But Overall Sound Quality Is Poor</h3>
         <p>A passing speaker test means the hardware is functional — but sound quality issues often come from software: equaliser settings, audio enhancement software (spatial sound, room correction), or a low-quality audio driver. Disable enhancements in your OS audio settings and test again. Outdated or generic audio drivers can also degrade quality — install the manufacturer's driver from their website.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none" id="faq">
-        <h2>Frequently Asked Questions About the Speaker Test Online</h2>
+      <section class="content-panel prose max-w-none block alt" id="faq" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Frequently Asked Questions About the Speaker Test Online</h2>
         <details class="panel" open>
           <summary><strong>Is the online speaker test safe for my speakers?</strong></summary>
           <p>Yes, as long as you start at a moderate volume and avoid sustained maximum-volume playback. The test tones are standard sine waves and noise signals — the same types used in professional audio calibration. Start at 25–50% volume and only increase if needed. If you hear distortion at any level, stop immediately and reduce volume.</p>
@@ -678,7 +696,7 @@
           <summary><strong>What is white noise and why is it used in speaker testing?</strong></summary>
           <p>White noise is a random signal that contains all audible frequencies simultaneously at equal power. It's used in speaker testing because it exercises the full frequency range of the driver in a single pass. If a speaker has a weak tweeter, the white noise will sound muffled. If the woofer is damaged, the noise will have a hollow, thin quality.</p>
         </details>
-      </div>
+      </section>
 
       </div>
 

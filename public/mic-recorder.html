@@ -186,6 +186,22 @@
     .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
     .panel-body{padding:1.1rem;}
     .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    /* ── Table of Contents (render_toc() in generate.py) — its own card between the tool and the article ── */
+    .toc-block{margin-top:1.5rem;}
+    .toc-card{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.25rem 1.5rem;}
+    .toc-title{display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .toc-title svg{width:1rem;height:1rem;flex:none;color:var(--amber);}
+    .toc-list{list-style:decimal outside;padding-left:1.5rem;margin:0;font-size:14px;}
+    .toc-list>li{margin:0 0 .375rem;line-height:1.5;}
+    .toc-list>li:last-child{margin-bottom:0;}
+    .toc-list>li::marker{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;color:var(--amber);}
+    .toc-list a{font-weight:500;color:var(--ink);}
+    .toc-sublist{list-style:decimal outside;margin:.375rem 0 .25rem .25rem;padding-left:1.5rem;font-size:13px;}
+    .toc-sublist>li{margin:0 0 .25rem;line-height:1.5;}
+    .toc-sublist>li::marker{color:var(--ink-3);}
+    .toc-sublist a{padding:0;font-weight:400;color:var(--ink-2);}
+    .toc-list a:hover{color:var(--amber);text-decoration:underline;text-underline-offset:2px;opacity:1;}
+    @media (max-width:640px){.toc-card{padding:1.1rem 1.1rem;}}
     .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
     .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
     .ad-panel-body{padding:1rem;text-align:center;}
@@ -616,9 +632,11 @@
 
 
 
-      <div class="content-panel prose max-w-none">
+      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents"><div class="toc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span id="table-of-contents">Table of Contents</span></div><ol class="toc-list"><li><a href="#how-to-use-the-recorder">How to Use the Recorder</a></li><li><a href="#recording-tips">Recording Tips</a></li><li><a href="#what-is-an-online-mic-recorder-and-how-does-it-work">What Is an Online Mic Recorder and How Does It Work?</a></li><li><a href="#common-uses-for-the-online-voice-recorder">Common Uses for the Online Voice Recorder</a><ol class="toc-sublist"><li><a href="#voice-memos-and-quick-audio-notes">Voice Memos and Quick Audio Notes</a></li><li><a href="#podcast-and-voiceover-recording-online">Podcast and Voiceover Recording Online</a></li><li><a href="#interview-and-meeting-audio-recording">Interview and Meeting Audio Recording</a></li><li><a href="#testing-microphone-quality-before-a-call-or-recording">Testing Microphone Quality Before a Call or Recording Session</a></li></ol></li><li><a href="#audio-quality-settings-for-your-mic-recording">Audio Quality Settings for Your Mic Recording</a><ol class="toc-sublist"><li><a href="#mp3-vs-wav-which-download-format-to-choose">MP3 vs WAV — Which Download Format to Choose?</a></li><li><a href="#sample-rate-44-1-khz-vs-48-khz">Sample Rate: 44.1 kHz vs 48 kHz</a></li><li><a href="#bitrate-settings-for-voice-recording-online">Bitrate Settings for Voice Recording Online</a></li></ol></li><li><a href="#tips-for-better-browser-microphone-recordings">Tips for Better Browser Microphone Recordings</a><ol class="toc-sublist"><li><a href="#set-up-a-good-recording-environment">Set Up a Good Recording Environment</a></li><li><a href="#microphone-positioning-for-clearest-voice-recording">Microphone Positioning for Clearest Voice Recording</a></li><li><a href="#reducing-echo-and-background-noise-before-you-record">Reducing Echo and Background Noise Before You Record</a></li></ol></li><li><a href="#online-mic-recorder-privacy-no-upload-no-storage">Online Mic Recorder Privacy — No Upload, No Storage</a></li><li><a href="#faq">Online Mic Recorder — Frequently Asked Questions</a></li></ol></nav></section>
+
+      <section class="content-panel prose max-w-none block" id="how-to-use-the-recorder" aria-labelledby="how-to-use-the-recorder-heading">
             <p class="lead-text">The <strong>online mic recorder</strong> captures audio directly from your microphone and saves it as a downloadable file. Click <strong>Record</strong>, allow microphone access when your browser asks, speak or play whatever you want to capture, then click <strong>Stop</strong> — your recording appears in the <strong>audio player</strong> ready to play back or save as <strong>MP3 or WAV</strong>. You can also hit <strong>Pause</strong> mid-recording and pick back up without starting over, and the <strong>recording timer</strong> tracks your clip length as you go.</p>
-            <h2><i class="bi bi-info-circle me-2"></i>How to Use the Recorder</h2>
+            <h2 id="how-to-use-the-recorder-heading"><i class="bi bi-info-circle me-2"></i>How to Use the Recorder</h2>
             <ol>
               <li>Click the <strong>red record button</strong> to start recording</li>
               <li>Allow microphone access when prompted by your browser</li>
@@ -629,10 +647,10 @@
             <p class="mb-0">
               <strong>Tip:</strong> For best quality, use a quiet environment. Check your background noise levels and use our sound level meter to monitor input levels.
             </p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2 class="flex items-center gap-2"><i class="bi bi-lightbulb"></i>Recording Tips</h2>
+      <section class="content-panel prose max-w-none block alt" id="recording-tips" aria-labelledby="recording-tips-heading">
+            <h2 id="recording-tips-heading" class="flex items-center gap-2"><i class="bi bi-lightbulb"></i>Recording Tips</h2>
             <div class="grid sm:grid-cols-2 gap-6">
               <ul class="mb-0">
                 <li>Position mic 6-12 inches from your mouth</li>
@@ -645,62 +663,62 @@
                 <li>Check mic settings for optimal quality</li>
               </ul>
             </div>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>What Is an Online Mic Recorder and How Does It Work?</h2>
+      <section class="content-panel prose max-w-none block" id="what-is-an-online-mic-recorder-and-how-does-it-work" aria-labelledby="what-is-an-online-mic-recorder-and-how-does-it-work-heading">
+            <h2 id="what-is-an-online-mic-recorder-and-how-does-it-work-heading">What Is an Online Mic Recorder and How Does It Work?</h2>
             <p>An online mic recorder captures audio directly through your browser using the Web Audio API and the MediaRecorder interface — no plugin, no app, no server upload involved. When you click Record, the browser requests microphone access, opens an audio stream, and writes the incoming audio data into memory chunks. When you click Stop, those chunks are assembled into an audio file (WAV or MP3) that can be played back and downloaded directly from the page. The entire process happens locally on your device: no audio is ever sent to a remote server, making it one of the most private ways to capture voice recordings. <!-- SILO_START:slot_b -->The tool tells you <a href="/show-mic">what microphone do i have</a> — including device name, sample rate, and audio processing settings.<!-- SILO_END:slot_b --></p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>Common Uses for the Online Voice Recorder</h2>
+      <section class="content-panel prose max-w-none block alt" id="common-uses-for-the-online-voice-recorder" aria-labelledby="common-uses-for-the-online-voice-recorder-heading">
+            <h2 id="common-uses-for-the-online-voice-recorder-heading">Common Uses for the Online Voice Recorder</h2>
 
-            <h3>Voice Memos and Quick Audio Notes</h3>
+            <h3 id="voice-memos-and-quick-audio-notes">Voice Memos and Quick Audio Notes</h3>
             <p>The online mic recorder is ideal for capturing ideas, reminders, or observations faster than typing. Open the page, hit Record, speak your thought, and download the file in seconds. Unlike phone voice memo apps, the browser recorder produces a standard MP3 or WAV file that is immediately transferable to any device or application without proprietary formats or cloud sync requirements.</p>
 
-            <h3>Podcast and Voiceover Recording Online</h3>
+            <h3 id="podcast-and-voiceover-recording-online">Podcast and Voiceover Recording Online</h3>
             <p>For first drafts, test reads, or short podcast segments, an online voice recorder eliminates the setup overhead of a DAW. Record a segment, listen back, and determine whether you need to adjust microphone position, delivery pace, or room acoustics before investing in a full production session. The waveform visualization in this tool lets you see breath sounds, plosives, and silence gaps before you download the file.</p>
 
-            <h3>Interview and Meeting Audio Recording</h3>
+            <h3 id="interview-and-meeting-audio-recording">Interview and Meeting Audio Recording</h3>
             <p>When you need to capture a spoken interview, briefing, or meeting audio for transcription, the online mic recorder provides a simple one-click solution. Record the session, download the WAV file, and upload it to a transcription service. For best results in an interview context, position the microphone equidistant between you and your subject, or use a directional microphone pointed at the primary speaker.</p>
 
-            <h3>Testing Microphone Quality Before a Call or Recording Session</h3>
+            <h3 id="testing-microphone-quality-before-a-call-or-recording">Testing Microphone Quality Before a Call or Recording Session</h3>
             <p>Before a video call, podcast, or recording session, make a 30-second test recording and listen back critically: Are there hiss or hum artefacts? Is the voice clear and present? Does the room echo? Addressing these issues before going live saves embarrassment and post-production effort. Pair the recorder with the audio latency test to confirm your monitoring delay is acceptable.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>Audio Quality Settings for Your Mic Recording</h2>
+      <section class="content-panel prose max-w-none block" id="audio-quality-settings-for-your-mic-recording" aria-labelledby="audio-quality-settings-for-your-mic-recording-heading">
+            <h2 id="audio-quality-settings-for-your-mic-recording-heading">Audio Quality Settings for Your Mic Recording</h2>
 
-            <h3>MP3 vs WAV — Which Download Format to Choose?</h3>
+            <h3 id="mp3-vs-wav-which-download-format-to-choose">MP3 vs WAV — Which Download Format to Choose?</h3>
             <p><strong>WAV</strong> is an uncompressed audio format. Every sample is stored at full resolution, which means the file is large but perfectly preserves the original quality of your recording — ideal for further editing, transcription, or archiving. <strong>MP3</strong> applies lossy compression that reduces file size significantly (roughly 10:1 at 192 kbps) at the cost of some very high-frequency detail that is largely inaudible to most listeners. For voice recordings, 192 kbps MP3 is indistinguishable from WAV to most ears. Choose WAV if you plan to edit the file in a DAW; choose MP3 for sharing, emailing, or uploading.</p>
 
-            <h3>Sample Rate: 44.1 kHz vs 48 kHz</h3>
+            <h3 id="sample-rate-44-1-khz-vs-48-khz">Sample Rate: 44.1 kHz vs 48 kHz</h3>
             <p>44.1 kHz is the CD standard — it captures all frequencies up to 22.05 kHz, well above the human hearing limit of 20 kHz. 48 kHz is the professional audio and video standard used in film, TV, and video production. For voice-only recordings destined for podcasting or general use, 44.1 kHz is perfectly adequate. If your recording will be mixed with video footage or used in a video production, choose 48 kHz to avoid resampling artefacts.</p>
 
-            <h3>Bitrate Settings for Voice Recording Online</h3>
+            <h3 id="bitrate-settings-for-voice-recording-online">Bitrate Settings for Voice Recording Online</h3>
             <p>Bitrate controls how much data is used per second of MP3 audio. For voice recordings, 128 kbps is more than sufficient — voice frequencies sit between 80 Hz and 8 kHz, well within 128 kbps's reproduction capability. The 192 kbps setting (selected by default) provides extra headroom for any music, ambient sound, or high-frequency sibilants (s, sh, t sounds) in the recording. 320 kbps is overkill for voice-only content and produces unnecessarily large files.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>Tips for Better Browser Microphone Recordings</h2>
+      <section class="content-panel prose max-w-none block alt" id="tips-for-better-browser-microphone-recordings" aria-labelledby="tips-for-better-browser-microphone-recordings-heading">
+            <h2 id="tips-for-better-browser-microphone-recordings-heading">Tips for Better Browser Microphone Recordings</h2>
 
-            <h3>Set Up a Good Recording Environment</h3>
+            <h3 id="set-up-a-good-recording-environment">Set Up a Good Recording Environment</h3>
             <p>The room you record in is as important as the microphone you use. Hard, parallel walls create flutter echo; soft furnishings, curtains, and bookshelves absorb reflections. Before recording, check your ambient noise floor with the <a href="/sound-level-meter">sound level meter online</a> — aim for below 40 dB. Close doors and windows, turn off HVAC systems and fans, and avoid recording near a running refrigerator or desktop fan. A quiet room transforms a mediocre microphone into an adequate one.</p>
 
-            <h3>Microphone Positioning for Clearest Voice Recording</h3>
+            <h3 id="microphone-positioning-for-clearest-voice-recording">Microphone Positioning for Clearest Voice Recording</h3>
             <p>Position the microphone 15–30 cm (6–12 inches) from your mouth and slightly off-axis (angled 15–30° away from direct mouth position) to reduce plosive sounds ("p" and "b" bursts). Too close and plosives will overload the capsule; too far and room reverb becomes audible. Using a pop filter (or improvising with a piece of nylon stretched over a hoop) eliminates most plosive issues. Avoid pointing the microphone directly at a hard wall behind you — the reflection will add a slight comb-filtering colouration.</p>
 
-            <h3>Reducing Echo and Background Noise Before You Record</h3>
+            <h3 id="reducing-echo-and-background-noise-before-you-record">Reducing Echo and Background Noise Before You Record</h3>
             <p>If you hear echo on playback, there are two possible causes: acoustic room echo (reverb from hard surfaces) or digital echo (feedback loop from monitor speakers). For room echo, add soft furnishings or record in a walk-in wardrobe surrounded by clothing. For digital echo, use headphones instead of speakers while recording — this prevents the played-back audio from being re-captured by the microphone. Use the echo test to confirm there is no feedback loop before starting a recording session.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>Online Mic Recorder Privacy — No Upload, No Storage</h2>
+      <section class="content-panel prose max-w-none block" id="online-mic-recorder-privacy-no-upload-no-storage" aria-labelledby="online-mic-recorder-privacy-no-upload-no-storage-heading">
+            <h2 id="online-mic-recorder-privacy-no-upload-no-storage-heading">Online Mic Recorder Privacy — No Upload, No Storage</h2>
             <p>Every step of the recording process in this tool runs locally in your browser. When you click Record, the MediaRecorder API writes audio data to a Blob object in your browser's memory. When you download the file, it is transferred directly from memory to your local filesystem. No audio data is sent to any server at any point — there is no account, no cloud storage, no analytics that capture audio content. The recording exists only in your browser session; when you close the tab, it is gone unless you downloaded it first. <!-- SILO_START:slot_c -->Use the <a href="/echo-test">echo test</a> to diagnose acoustic echo, electronic loopback, or network-introduced delay.<!-- SILO_END:slot_c --></p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none" id="faq">
-        <h2>Online Mic Recorder — Frequently Asked Questions</h2>
+      <section class="content-panel prose max-w-none block alt" id="faq" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Online Mic Recorder — Frequently Asked Questions</h2>
         <details class="panel" open>
           <summary><strong>Does the online mic recorder work on mobile phones?</strong></summary>
           <p>Yes — the tool works on iOS Safari (version 14.3+) and Android Chrome. On iOS, you must use Safari; Chrome for iOS does not support the MediaRecorder API. On Android, Chrome, Firefox, and Edge all support browser-based recording. Note that mobile microphones typically have higher noise floors and more aggressive noise cancellation than desktop microphones, which may affect recording quality.</p>
@@ -725,7 +743,7 @@
           <summary><strong>What browsers support the online voice recorder?</strong></summary>
           <p>The tool works in any browser that supports the MediaRecorder API: Chrome 49+, Firefox 25+, Safari 14.3+, and Edge 79+. Internet Explorer is not supported. For the best audio quality and most consistent behaviour, use the latest version of Chrome or Firefox on a desktop or laptop. If the record button is unresponsive, update your browser — older versions may lack the required Web Audio API features.</p>
         </details>
-      </div>
+      </section>
 
       </div>
 

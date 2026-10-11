@@ -170,6 +170,22 @@
     .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
     .panel-body{padding:1.1rem;}
     .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    /* ── Table of Contents (render_toc() in generate.py) — its own card between the tool and the article ── */
+    .toc-block{margin-top:1.5rem;}
+    .toc-card{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.25rem 1.5rem;}
+    .toc-title{display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .toc-title svg{width:1rem;height:1rem;flex:none;color:var(--amber);}
+    .toc-list{list-style:decimal outside;padding-left:1.5rem;margin:0;font-size:14px;}
+    .toc-list>li{margin:0 0 .375rem;line-height:1.5;}
+    .toc-list>li:last-child{margin-bottom:0;}
+    .toc-list>li::marker{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;color:var(--amber);}
+    .toc-list a{font-weight:500;color:var(--ink);}
+    .toc-sublist{list-style:decimal outside;margin:.375rem 0 .25rem .25rem;padding-left:1.5rem;font-size:13px;}
+    .toc-sublist>li{margin:0 0 .25rem;line-height:1.5;}
+    .toc-sublist>li::marker{color:var(--ink-3);}
+    .toc-sublist a{padding:0;font-weight:400;color:var(--ink-2);}
+    .toc-list a:hover{color:var(--amber);text-decoration:underline;text-underline-offset:2px;opacity:1;}
+    @media (max-width:640px){.toc-card{padding:1.1rem 1.1rem;}}
     .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
     .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
     .ad-panel-body{padding:1rem;text-align:center;}
@@ -682,9 +698,11 @@
 
 
 
-      <div class="content-panel prose max-w-none">
+      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents"><div class="toc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span id="table-of-contents">Table of Contents</span></div><ol class="toc-list"><li><a href="#why-check-your-speaker-details">Why Check Your Speaker Details?</a></li><li><a href="#how-to-find-out-what-speakers-you-have">How to Find Out What Speakers You Have</a></li><li><a href="#understanding-your-audio-output-device-specifications">Understanding Your Audio Output Device Specifications</a><ol class="toc-sublist"><li><a href="#device-name-and-group-id-what-they-tell-you">Device Name and Group ID — What They Tell You</a></li><li><a href="#sample-rate-what-44-1-khz-and-48-khz-mean-for-your-speaker">Sample Rate — What 44.1 kHz and 48 kHz Mean for Your Speaker</a></li><li><a href="#channel-count-stereo-vs-surround-audio-output">Channel Count — Stereo vs Surround Audio Output</a></li></ol></li><li><a href="#common-audio-output-device-types-and-what-speakers-you">Common Audio Output Device Types and What Speakers You Might Have</a><ol class="toc-sublist"><li><a href="#built-in-laptop-and-desktop-speakers">Built-In Laptop and Desktop Speakers</a></li><li><a href="#usb-and-external-speakers">USB and External Speakers</a></li><li><a href="#hdmi-and-displayport-audio-output">HDMI and DisplayPort Audio Output</a></li><li><a href="#bluetooth-speakers">Bluetooth Speakers</a></li></ol></li><li><a href="#faq">Speaker Details FAQ — Frequently Asked Questions</a></li></ol></nav></section>
+
+      <section class="content-panel prose max-w-none block" id="why-check-your-speaker-details" aria-labelledby="why-check-your-speaker-details-heading">
 <p class="lead-text"><strong>Show My Speakers</strong> reads your browser's audio output API and lists every speaker and audio device your system has available. Your <strong>device list</strong> loads automatically — for each output you'll see the <strong>device name</strong>, <strong>sample rate</strong>, <strong>channel configuration</strong>, and <strong>device ID</strong> pulled directly from your system. If you're troubleshooting why audio is routing to the wrong output, or you want to confirm what your browser sees before a call or recording session, your full <strong>output device inventory</strong> is here.</p>
-<h2>Why Check Your Speaker Details?</h2>
+<h2 id="why-check-your-speaker-details-heading">Why Check Your Speaker Details?</h2>
           <dl class="mic-stats">
             <dt><i class="bi bi-music-note-beamed"></i> Audio Quality Verification</dt>
             <dd>Ensure your speakers meet the requirements for high-quality audio playback, music production, or gaming experience.</dd>
@@ -693,45 +711,45 @@
             <dt><i class="bi bi-tools"></i> Troubleshooting</dt>
             <dd>Identify potential issues with your audio output devices that might be affecting sound quality or performance.</dd>
           </dl>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-          <h2>How to Find Out What Speakers You Have</h2>
+      <section class="content-panel prose max-w-none block alt" id="how-to-find-out-what-speakers-you-have" aria-labelledby="how-to-find-out-what-speakers-you-have-heading">
+          <h2 id="how-to-find-out-what-speakers-you-have-heading">How to Find Out What Speakers You Have</h2>
           <p>This tool reads your system's audio output devices using the browser's Web Audio API and <code>MediaDevices.enumerateDevices()</code> method. Unlike checking your OS control panel, it shows you exactly what your <em>browser</em> sees — which matters when you're troubleshooting audio in a web app or video call that behaves differently from your desktop applications. The tool lists every audio output endpoint your system exposes: built-in speakers, connected headphones, HDMI outputs, USB audio devices, and Bluetooth speakers. <!-- SILO_START:slot_b -->Use the <a href="/bass-test">bass test</a> to find out how deep your speakers can reproduce low frequencies.<!-- SILO_END:slot_b --></p>
           <p>Click any device card to expand its full technical specifications — device ID, group ID, sample rate, channel count, and latency. Use the built-in speaker test controls to confirm the device actually produces sound before deciding whether it's the one you want as your default.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-          <h2>Understanding Your Audio Output Device Specifications</h2>
+      <section class="content-panel prose max-w-none block" id="understanding-your-audio-output-device-specifications" aria-labelledby="understanding-your-audio-output-device-specifications-heading">
+          <h2 id="understanding-your-audio-output-device-specifications-heading">Understanding Your Audio Output Device Specifications</h2>
 
-          <h3>Device Name and Group ID — What They Tell You</h3>
+          <h3 id="device-name-and-group-id-what-they-tell-you">Device Name and Group ID — What They Tell You</h3>
           <p>The device name is what your OS and browser expose to web applications — it may be a generic label ("Speakers") or a specific model name ("Realtek Audio Output"). The group ID links audio input and output devices that share the same physical hardware: for example, a headset's microphone and headphone driver will share a group ID, confirming they are part of the same device. This is useful when troubleshooting mixed-device setups where audio goes to the wrong endpoint. <!-- SILO_START:slot_c -->A <a href="/speaker-volume-test">speaker test online</a> detects clipping, distortion, or silent channels at different playback levels.<!-- SILO_END:slot_c --></p>
 
-          <h3>Sample Rate — What 44.1 kHz and 48 kHz Mean for Your Speaker</h3>
+          <h3 id="sample-rate-what-44-1-khz-and-48-khz-mean-for-your-speaker">Sample Rate — What 44.1 kHz and 48 kHz Mean for Your Speaker</h3>
           <p>The sample rate shown is the rate at which your audio hardware processes digital audio samples per second. 44.1 kHz (44,100 samples/second) is the CD standard and the most common setting for consumer audio. 48 kHz is the professional audio and video standard used in film, TV, and video production. Most modern systems default to 48 kHz. If your sample rate differs from your audio software's setting, the OS resamples the audio — this is harmless but can introduce very subtle quality changes in critical listening environments.</p>
 
-          <h3>Channel Count — Stereo vs Surround Audio Output</h3>
+          <h3 id="channel-count-stereo-vs-surround-audio-output">Channel Count — Stereo vs Surround Audio Output</h3>
           <p>The channel count indicates how many independent audio streams your output device supports. Channel count 2 is stereo (left and right). Channel count 6 indicates 5.1 surround (front-left, front-right, centre, rear-left, rear-right, subwoofer). Channel count 8 indicates 7.1 surround. Most browsers and web applications output stereo (2-channel) audio regardless of your hardware's capability — hardware surround is typically handled by your audio driver and receiver, not the browser.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-          <h2>Common Audio Output Device Types and What Speakers You Might Have</h2>
+      <section class="content-panel prose max-w-none block alt" id="common-audio-output-device-types-and-what-speakers-you" aria-labelledby="common-audio-output-device-types-and-what-speakers-you-heading">
+          <h2 id="common-audio-output-device-types-and-what-speakers-you-heading">Common Audio Output Device Types and What Speakers You Might Have</h2>
 
-          <h3>Built-In Laptop and Desktop Speakers</h3>
+          <h3 id="built-in-laptop-and-desktop-speakers">Built-In Laptop and Desktop Speakers</h3>
           <p>Built-in speakers appear in the device list as entries like "Speakers (Realtek Audio)" or "Internal Speakers". These are driven directly by the motherboard's integrated audio chipset. They are the most common default output device and the first place to check if you hear no audio — if the built-in speaker is listed but produces no sound, the driver may need updating or the physical speaker connection may be loose.</p>
 
-          <h3>USB and External Speakers</h3>
+          <h3 id="usb-and-external-speakers">USB and External Speakers</h3>
           <p>USB speakers and audio interfaces appear as separate devices with names that match their manufacturer labels (e.g., "Focusrite USB Audio" or "Logitech Z506 Audio"). They register as independent audio endpoints and typically show 48 kHz sample rate. If a USB speaker doesn't appear in the list, it may need to be reconnected, or the USB audio driver may not be installed. Try unplugging and replugging the device, then clicking Refresh.</p>
 
-          <h3>HDMI and DisplayPort Audio Output</h3>
+          <h3 id="hdmi-and-displayport-audio-output">HDMI and DisplayPort Audio Output</h3>
           <p>When a monitor, TV, or projector is connected via HDMI or DisplayPort, it registers as an audio output device (e.g., "HDMI Audio Output" or "LG ULTRAGEAR HDMI"). If audio is unexpectedly coming from a TV or monitor speaker, it is because the system has set this HDMI endpoint as the default output. Select it in the device list to confirm it is active, then change your default output in OS sound settings if needed.</p>
 
-          <h3>Bluetooth Speakers</h3>
+          <h3 id="bluetooth-speakers">Bluetooth Speakers</h3>
           <p>Bluetooth speakers appear in the list only while they are paired and connected. They typically show reduced capabilities compared to wired devices — 48 kHz sample rate and stereo channel count. The device name usually matches the Bluetooth device's name as configured in its companion app. If a Bluetooth speaker has disconnected and you hear no audio, check that it's still the system default output; the OS does not automatically fall back to the built-in speaker in all cases.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none" id="faq">
-        <h2>Speaker Details FAQ — Frequently Asked Questions</h2>
+      <section class="content-panel prose max-w-none block" id="faq" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Speaker Details FAQ — Frequently Asked Questions</h2>
         <details class="panel" open>
           <summary><strong>Why can&#x27;t I see all my connected speakers in the list?</strong></summary>
           <p>Browser audio device enumeration requires microphone permission — the browser uses mic permission as a gate to prevent fingerprinting via device enumeration. If you denied microphone access previously, the device list may be incomplete or show only the default output. Grant microphone access when prompted (even if you have no microphone) and refresh the page. Also, some audio devices register only as input devices and will not appear in the speaker output list.</p>
@@ -748,7 +766,7 @@
           <summary><strong>Can I see the model name and specifications of my speakers through the browser?</strong></summary>
           <p>The browser can only access what the OS audio driver exposes — typically the device name, device ID, group ID, sample rate, and channel count. Detailed hardware specifications like driver size, power rating, or frequency response are not available through any browser API. For full hardware details on a specific speaker model, check the manufacturer's product page using the model name shown in the device list.</p>
         </details>
-      </div>
+      </section>
 
       </div>
 

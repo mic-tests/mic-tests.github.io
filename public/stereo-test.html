@@ -194,6 +194,22 @@
     .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
     .panel-body{padding:1.1rem;}
     .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    /* ── Table of Contents (render_toc() in generate.py) — its own card between the tool and the article ── */
+    .toc-block{margin-top:1.5rem;}
+    .toc-card{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.25rem 1.5rem;}
+    .toc-title{display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .toc-title svg{width:1rem;height:1rem;flex:none;color:var(--amber);}
+    .toc-list{list-style:decimal outside;padding-left:1.5rem;margin:0;font-size:14px;}
+    .toc-list>li{margin:0 0 .375rem;line-height:1.5;}
+    .toc-list>li:last-child{margin-bottom:0;}
+    .toc-list>li::marker{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;color:var(--amber);}
+    .toc-list a{font-weight:500;color:var(--ink);}
+    .toc-sublist{list-style:decimal outside;margin:.375rem 0 .25rem .25rem;padding-left:1.5rem;font-size:13px;}
+    .toc-sublist>li{margin:0 0 .25rem;line-height:1.5;}
+    .toc-sublist>li::marker{color:var(--ink-3);}
+    .toc-sublist a{padding:0;font-weight:400;color:var(--ink-2);}
+    .toc-list a:hover{color:var(--amber);text-decoration:underline;text-underline-offset:2px;opacity:1;}
+    @media (max-width:640px){.toc-card{padding:1.1rem 1.1rem;}}
     .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
     .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
     .ad-panel-body{padding:1rem;text-align:center;}
@@ -649,12 +665,14 @@
 
 
 
-      <div class="content-panel prose max-w-none">
+      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents"><div class="toc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span id="table-of-contents">Table of Contents</span></div><ol class="toc-list"><li><a href="#stereo-issues">Stereo Issues?</a><ol class="toc-sublist"><li><a href="#common-problems">Common Problems</a></li><li><a href="#solutions">Solutions</a></li></ol></li><li><a href="#how-to-run-the-stereo-test">How to Run the Stereo Test</a></li><li><a href="#what-is-stereo-sound">What Is Stereo Sound?</a><ol class="toc-sublist"><li><a href="#left-and-right-channels-explained">Left and Right Channels Explained</a></li><li><a href="#2-0-2-1-and-surround-sound">2.0, 2.1, and Surround Sound</a></li></ol></li><li><a href="#what-the-stereo-test-detects">What the Stereo Test Detects</a><ol class="toc-sublist"><li><a href="#reversed-channels-left-right-swapped">Reversed Channels (Left/Right Swapped)</a></li><li><a href="#dead-or-silent-channel">Dead or Silent Channel</a></li><li><a href="#unbalanced-volume-between-channels">Unbalanced Volume Between Channels</a></li><li><a href="#mono-audio-instead-of-stereo">Mono Audio Instead of Stereo</a></li></ol></li><li><a href="#stereo-test-by-device-type">Stereo Test by Device Type</a><ol class="toc-sublist"><li><a href="#wired-headphones">Wired Headphones</a></li><li><a href="#bluetooth-earbuds">Bluetooth Earbuds</a></li><li><a href="#gaming-headsets">Gaming Headsets</a></li><li><a href="#desktop-speakers">Desktop Speakers</a></li></ol></li><li><a href="#faq">Frequently Asked Questions</a></li></ol></nav></section>
+
+      <section class="content-panel prose max-w-none block" id="stereo-issues" aria-labelledby="stereo-issues-heading">
             <p class="lead-text">The <strong>Stereo Test</strong> plays a tone through your left channel, right channel, or both so you can confirm your headphones or speakers are wired and balanced correctly. Put on your headphones or sit in front of your speakers, then click <strong>Play Left</strong>, <strong>Play Right</strong>, or <strong>Play Both</strong> — the tone should come only from whichever side you selected. If the wrong ear hears the tone or one side stays silent, the <strong>channel status display</strong> helps you pinpoint whether you're dealing with swapped channels, a wiring fault, or a driver issue on your device.</p>
-            <h2><i class="bi bi-wrench me-2"></i>Stereo Issues?</h2>
+            <h2 id="stereo-issues-heading"><i class="bi bi-wrench me-2"></i>Stereo Issues?</h2>
             <div class="grid md:grid-cols-2 gap-6">
               <div>
-                <h3>Common Problems</h3>
+                <h3 id="common-problems">Common Problems</h3>
                 <ul>
                   <li>One channel not working</li>
                   <li>Channels reversed (left/right swapped)</li>
@@ -663,7 +681,7 @@
                 </ul>
               </div>
               <div>
-                <h3>Solutions</h3>
+                <h3 id="solutions">Solutions</h3>
                 <ul>
                   <li>Check cable connections</li>
                   <li>Verify audio output settings</li>
@@ -673,10 +691,10 @@
               </div>
             </div>
           
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>How to Run the Stereo Test</h2>
+      <section class="content-panel prose max-w-none block alt" id="how-to-run-the-stereo-test" aria-labelledby="how-to-run-the-stereo-test-heading">
+            <h2 id="how-to-run-the-stereo-test-heading">How to Run the Stereo Test</h2>
             <ol>
               <li><strong>Put on headphones</strong> or sit centred in front of your speakers so each driver is equidistant from your ears.</li>
               <li><strong>Lower your volume</strong> to about 30–50% before starting — you can raise it once you know the channels are working.</li>
@@ -686,56 +704,56 @@
               <li>Run the <strong>Automatic Test Sequence</strong> for a continuous sweep — useful for spotting dropouts or intermittent faults.</li>
             </ol>
           
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>What Is Stereo Sound?</h2>
+      <section class="content-panel prose max-w-none block" id="what-is-stereo-sound" aria-labelledby="what-is-stereo-sound-heading">
+            <h2 id="what-is-stereo-sound-heading">What Is Stereo Sound?</h2>
             <p>Stereo audio uses two independent channels — left and right — to recreate the sense of sound coming from different directions. Your brain uses the tiny differences in timing and volume between the two channels to place sounds in three-dimensional space. A mono signal plays the same audio through both channels simultaneously, which flattens that spatial effect. <!-- SILO_START:slot_b -->Before a long listening session, a quick <a href="/headphone-test">headphone test</a> confirms both channels are performing correctly.<!-- SILO_END:slot_b --></p>
 
-            <h3>Left and Right Channels Explained</h3>
+            <h3 id="left-and-right-channels-explained">Left and Right Channels Explained</h3>
             <p>Every stereo audio signal consists of two tracks recorded or mixed separately. The left channel carries audio intended for your left ear; the right channel carries audio for your right ear. When the channels are properly aligned, music, films, and games sound as the creator intended — instruments pan left to right, dialogue stays centred, and sound effects emerge from the correct direction.</p>
 
-            <h3>2.0, 2.1, and Surround Sound</h3>
+            <h3 id="2-0-2-1-and-surround-sound">2.0, 2.1, and Surround Sound</h3>
             <p>A <strong>2.0 setup</strong> is two speakers with no subwoofer — pure stereo. A <strong>2.1 setup</strong> adds a subwoofer for dedicated low-frequency reproduction. Surround systems (5.1, 7.1) add rear and side channels. This stereo test covers left/right channel balance for 2.0 and 2.1 systems; surround channel mapping requires dedicated surround test tones.</p>
           
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>What the Stereo Test Detects</h2>
+      <section class="content-panel prose max-w-none block alt" id="what-the-stereo-test-detects" aria-labelledby="what-the-stereo-test-detects-heading">
+            <h2 id="what-the-stereo-test-detects-heading">What the Stereo Test Detects</h2>
 
-            <h3>Reversed Channels (Left/Right Swapped)</h3>
+            <h3 id="reversed-channels-left-right-swapped">Reversed Channels (Left/Right Swapped)</h3>
             <p>If you click Play Left and hear sound in your right ear, the left and right channels are reversed somewhere in the signal chain. Common culprits: headphones worn back-to-front, a cable with reversed soldering, or an audio driver setting. Check your system's sound settings and look for a "swap channels" option, or physically flip the headphone cable. <!-- SILO_START:slot_c --><!-- SILO_END:slot_c --></p>
 
-            <h3>Dead or Silent Channel</h3>
+            <h3 id="dead-or-silent-channel">Dead or Silent Channel</h3>
             <p>No sound at all from one side usually indicates a broken driver, a faulty cable connection, a bent headphone jack, or a damaged port. Try a different device to isolate whether the fault is in the headphones, cable, or audio output. A loose 3.5 mm jack can also cause intermittent channel loss.</p>
 
-            <h3>Unbalanced Volume Between Channels</h3>
+            <h3 id="unbalanced-volume-between-channels">Unbalanced Volume Between Channels</h3>
             <p>If one channel sounds noticeably louder than the other, check your operating system's balance setting first — it's easy to accidentally nudge the slider. If balance is centred but the imbalance persists, a partially damaged driver, a worn potentiometer on an amplifier, or a kinked cable could be reducing output on one side.</p>
 
-            <h3>Mono Audio Instead of Stereo</h3>
+            <h3 id="mono-audio-instead-of-stereo">Mono Audio Instead of Stereo</h3>
             <p>When the same audio plays equally from both channels even while testing left or right independently, your device may be outputting mono. This is common with Bluetooth connections using hands-free (HFP) profile instead of stereo (A2DP), certain HDMI receivers in compatibility mode, or when a system-level "Mono audio" accessibility setting is enabled.</p>
           
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>Stereo Test by Device Type</h2>
+      <section class="content-panel prose max-w-none block" id="stereo-test-by-device-type" aria-labelledby="stereo-test-by-device-type-heading">
+            <h2 id="stereo-test-by-device-type-heading">Stereo Test by Device Type</h2>
 
-            <h3>Wired Headphones</h3>
+            <h3 id="wired-headphones">Wired Headphones</h3>
             <p>Insert the headphone plug fully — a 3.5 mm jack needs a firm click into the port. If audio cuts in and out during the test, try wiggling the cable near the plug to locate a worn section. Check that L/R markers on the ear cups match your ears before assuming the channels are reversed.</p>
 
-            <h3>Bluetooth Earbuds</h3>
+            <h3 id="bluetooth-earbuds">Bluetooth Earbuds</h3>
             <p>Bluetooth earbuds can fail the stereo test for two reasons: the device is connected in mono mode (often the handsfree/call profile), or the earbuds themselves default to mono when battery is low. Disconnect and reconnect, selecting the stereo or A2DP profile if your OS lets you choose. Ensure both earbuds are paired — some earbuds only activate the second unit once the first is in the ear.</p>
 
-            <h3>Gaming Headsets</h3>
+            <h3 id="gaming-headsets">Gaming Headsets</h3>
             <p>Gaming headsets with virtual surround (7.1 simulated) may behave unexpectedly during a two-channel stereo test. Disable virtual surround in the companion software before testing, then re-enable it afterward. USB gaming headsets also bypass the system audio driver — check both your OS mixer and the headset's own software for balance settings.</p>
 
-            <h3>Desktop Speakers</h3>
+            <h3 id="desktop-speakers">Desktop Speakers</h3>
             <p>Sit equidistant from both speakers before clicking Play Left or Play Right. If you hear the wrong channel from a speaker, check the cables at the back of the amplifier — left/right outputs are sometimes labelled L and R on a small tag. For 2.1 setups, the subwoofer receives a summed mono signal and will always play during both channel tests — that's normal.</p>
           
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none" id="faq">
-        <h2>Frequently Asked Questions</h2>
+      <section class="content-panel prose max-w-none block alt" id="faq" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Frequently Asked Questions</h2>
         <details class="panel" open>
           <summary><strong>Why do I hear sound in both ears when I click Play Left?</strong></summary>
           <p>A few causes: your device is set to mono output, Bluetooth is using a hands-free profile, or room acoustics are reflecting the sound from your speakers. With headphones, if both ears still play during a single-channel test, check the Mono Audio accessibility setting in your OS and disable it.</p>
@@ -764,7 +782,7 @@
           <summary><strong>Can I use this test to calibrate audio balance for mixing music?</strong></summary>
           <p>Yes. Use the Balance slider to sweep between channels and listen for consistency in volume and tone on both sides. For music production, also run a pink noise reference through both channels and compare perceived loudness. Combine this with the tone generator to sweep specific frequencies and verify flat frequency response on both sides.</p>
         </details>
-      </div>
+      </section>
 
       </div>
 

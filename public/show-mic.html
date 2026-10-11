@@ -170,6 +170,22 @@
     .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
     .panel-body{padding:1.1rem;}
     .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    /* ── Table of Contents (render_toc() in generate.py) — its own card between the tool and the article ── */
+    .toc-block{margin-top:1.5rem;}
+    .toc-card{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.25rem 1.5rem;}
+    .toc-title{display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .toc-title svg{width:1rem;height:1rem;flex:none;color:var(--amber);}
+    .toc-list{list-style:decimal outside;padding-left:1.5rem;margin:0;font-size:14px;}
+    .toc-list>li{margin:0 0 .375rem;line-height:1.5;}
+    .toc-list>li:last-child{margin-bottom:0;}
+    .toc-list>li::marker{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;color:var(--amber);}
+    .toc-list a{font-weight:500;color:var(--ink);}
+    .toc-sublist{list-style:decimal outside;margin:.375rem 0 .25rem .25rem;padding-left:1.5rem;font-size:13px;}
+    .toc-sublist>li{margin:0 0 .25rem;line-height:1.5;}
+    .toc-sublist>li::marker{color:var(--ink-3);}
+    .toc-sublist a{padding:0;font-weight:400;color:var(--ink-2);}
+    .toc-list a:hover{color:var(--amber);text-decoration:underline;text-underline-offset:2px;opacity:1;}
+    @media (max-width:640px){.toc-card{padding:1.1rem 1.1rem;}}
     .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
     .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
     .ad-panel-body{padding:1rem;text-align:center;}
@@ -662,9 +678,11 @@
 
 
 
-      <div class="content-panel prose max-w-none">
+      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents"><div class="toc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span id="table-of-contents">Table of Contents</span></div><ol class="toc-list"><li><a href="#why-check-your-microphone-details">Why Check Your Microphone Details?</a></li><li><a href="#how-to-find-out-what-microphone-you-have">How to Find Out What Microphone You Have</a></li><li><a href="#understanding-your-microphone-details-and-audio-input">Understanding Your Microphone Details and Audio Input Specifications</a><ol class="toc-sublist"><li><a href="#device-name-what-microphone-do-i-have">Device Name — What Microphone Do I Have?</a></li><li><a href="#sample-rate-44-1-khz-vs-48-khz-for-audio-input">Sample Rate — 44.1 kHz vs 48 kHz for Audio Input</a></li><li><a href="#channel-count-mono-vs-stereo-microphone-input">Channel Count — Mono vs Stereo Microphone Input</a></li></ol></li><li><a href="#audio-processing-features-echo-cancellation-noise">Audio Processing Features — Echo Cancellation, Noise Suppression, and Auto Gain</a><ol class="toc-sublist"><li><a href="#echo-cancellation-what-it-does-and-when-to-disable-it">Echo Cancellation — What It Does and When to Disable It</a></li><li><a href="#noise-suppression-automatic-vs-manual-control">Noise Suppression — Automatic vs Manual Control</a></li><li><a href="#auto-gain-control-microphone-level-management">Auto Gain Control — Microphone Level Management</a></li></ol></li><li><a href="#common-audio-input-device-types-what-microphone-might-you">Common Audio Input Device Types — What Microphone Might You Have?</a><ol class="toc-sublist"><li><a href="#built-in-laptop-and-desktop-microphones">Built-In Laptop and Desktop Microphones</a></li><li><a href="#usb-microphones-plug-and-play-audio-input-devices">USB Microphones — Plug-and-Play Audio Input Devices</a></li><li><a href="#headset-and-3-5mm-microphones">Headset and 3.5mm Microphones</a></li><li><a href="#xlr-microphones-via-audio-interface">XLR Microphones via Audio Interface</a></li></ol></li><li><a href="#faq">Show My Microphone — Frequently Asked Questions</a></li></ol></nav></section>
+
+      <section class="content-panel prose max-w-none block" id="why-check-your-microphone-details" aria-labelledby="why-check-your-microphone-details-heading">
 <p class="lead-text"><strong>Show My Mic</strong> reads your browser's audio API and displays every microphone your system has available — your <strong>device list</strong> loads the moment the page opens, no button needed. For each mic you'll see the <strong>device name</strong>, <strong>sample rate</strong>, <strong>channel count</strong>, <strong>latency</strong>, and whether <strong>echo cancellation</strong> and <strong>noise suppression</strong> are active on that input. If you're wondering what microphone your computer is using right now, or why your mic settings look different across apps, this page pulls the raw specs straight from your browser's audio device API.</p>
-<h2>Why Check Your Microphone Details?</h2>
+<h2 id="why-check-your-microphone-details-heading">Why Check Your Microphone Details?</h2>
           <dl class="mic-stats">
             <dt><i class="bi bi-headset"></i> Compatibility Check</dt>
             <dd>Ensure your microphone meets the requirements for your conferencing software, recording setup, or gaming needs.</dd>
@@ -673,10 +691,10 @@
             <dt><i class="bi bi-tools"></i> Troubleshooting</dt>
             <dd>Identify potential issues with your microphone settings that might be affecting your audio quality or performance.</dd>
           </dl>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-          <h2>How to Find Out What Microphone You Have</h2>
+      <section class="content-panel prose max-w-none block alt" id="how-to-find-out-what-microphone-you-have" aria-labelledby="how-to-find-out-what-microphone-you-have-heading">
+          <h2 id="how-to-find-out-what-microphone-you-have-heading">How to Find Out What Microphone You Have</h2>
           <p>Not sure what microphone do I have connected right now? This tool reads your browser's audio device list and shows you every input device your system has registered — all without any software to install. <!-- SILO_START:slot_b -->The <a href="/mic-recorder">online mic recorder</a> captures audio from your microphone with no upload and no account required.<!-- SILO_END:slot_b --></p>
           <ol>
             <li><strong>Click "Allow"</strong> when your browser asks for microphone permission. This is required for the tool to read device names and specs — no audio is recorded.</li>
@@ -686,14 +704,14 @@
             <li><strong>Click Refresh</strong> if you've just plugged in a new microphone and it hasn't appeared yet.</li>
           </ol>
           <p>If the device name shows as "Default" or a generic label, you may be on a browser or OS that restricts full device enumeration. Granting full permission (Allow, not Block) gives the most complete results. For latency measurements, run the audio latency test after identifying your microphone here.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-          <h2>Understanding Your Microphone Details and Audio Input Specifications</h2>
-          <h3>Device Name — What Microphone Do I Have?</h3>
+      <section class="content-panel prose max-w-none block" id="understanding-your-microphone-details-and-audio-input" aria-labelledby="understanding-your-microphone-details-and-audio-input-heading">
+          <h2 id="understanding-your-microphone-details-and-audio-input-heading">Understanding Your Microphone Details and Audio Input Specifications</h2>
+          <h3 id="device-name-what-microphone-do-i-have">Device Name — What Microphone Do I Have?</h3>
           <p>The device name is the most direct answer to the question: <em>what microphone do I have?</em> It's typically pulled from the device driver and reflects the model name your operating system registered when you connected the microphone. Built-in laptop mics often appear as "Built-in Microphone" or "Internal Mic". USB microphones usually show their product name (e.g. "Blue Yeti USB Microphone"). Headset mics connected via a combined audio jack may display the headset brand, or sometimes just "Headset Microphone". If the name is blank or shows only a device ID string, your browser hasn't yet been granted full permission — click Allow to get full details. <!-- SILO_START:slot_c -->See the live frequency spectrum of your voice with a <a href="/voice-frequency-analyzer">voice frequency analyzer</a>.<!-- SILO_END:slot_c --></p>
 
-          <h3>Sample Rate — 44.1 kHz vs 48 kHz for Audio Input</h3>
+          <h3 id="sample-rate-44-1-khz-vs-48-khz-for-audio-input">Sample Rate — 44.1 kHz vs 48 kHz for Audio Input</h3>
           <p>The sample rate tells you how many audio samples per second your microphone captures. The two most common values are:</p>
           <ul>
             <li><strong>44,100 Hz (44.1 kHz)</strong> — the CD-quality standard, used most often for music recording and consumer audio devices.</li>
@@ -701,39 +719,39 @@
           </ul>
           <p>Higher is generally better, but for voice calls, podcasting, and video conferencing, 48 kHz is more than sufficient. If your microphone is reporting a lower rate (e.g. 8 kHz or 16 kHz), it may be a low-quality built-in device or a telephony-mode mic that's been configured for voice-only capture.</p>
 
-          <h3>Channel Count — Mono vs Stereo Microphone Input</h3>
+          <h3 id="channel-count-mono-vs-stereo-microphone-input">Channel Count — Mono vs Stereo Microphone Input</h3>
           <p>Most microphones are mono (1 channel) — they capture a single audio stream regardless of whether your headphones are stereo. A channel count of 2 means the audio input device is reporting a stereo signal, which is less common but does occur with some USB audio interfaces and conference microphones. For recording purposes, mono is standard for vocals and podcasting; stereo input is more relevant to room microphones or binaural recording setups. If you need to verify your speaker output channels separately, use the echo test to check for audio loopback issues.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-          <h2>Audio Processing Features — Echo Cancellation, Noise Suppression, and Auto Gain</h2>
-          <h3>Echo Cancellation — What It Does and When to Disable It</h3>
+      <section class="content-panel prose max-w-none block alt" id="audio-processing-features-echo-cancellation-noise" aria-labelledby="audio-processing-features-echo-cancellation-noise-heading">
+          <h2 id="audio-processing-features-echo-cancellation-noise-heading">Audio Processing Features — Echo Cancellation, Noise Suppression, and Auto Gain</h2>
+          <h3 id="echo-cancellation-what-it-does-and-when-to-disable-it">Echo Cancellation — What It Does and When to Disable It</h3>
           <p>Echo cancellation is a browser-level audio processing feature that removes the sound of your speakers from the microphone signal. It's useful for video calls where the other person's voice would otherwise be picked up by your mic and sent back to them as an echo. Most modern browsers enable it by default. However, if you're recording music, voiceovers, or any audio where you want to capture the full sound of your room, echo cancellation can alter the frequency response and should be turned off. The status shown here reflects the current browser constraint setting — changing it requires code-level control, not the OS settings panel.</p>
 
-          <h3>Noise Suppression — Automatic vs Manual Control</h3>
+          <h3 id="noise-suppression-automatic-vs-manual-control">Noise Suppression — Automatic vs Manual Control</h3>
           <p>Noise suppression (sometimes listed as noise reduction) applies a real-time filter to attenuate background noise — fans, air conditioning, keyboard clicks — from the microphone signal. Like echo cancellation, it's helpful for calls but counterproductive for music recording. Browser-based noise suppression is less aggressive than dedicated apps (such as Krisp or NVIDIA RTX Voice) but is built into Chrome, Edge, and Firefox at the WebRTC layer. If you're testing a mic for a specific recording application, check whether suppression is on and compare results with it toggled via browser flags.</p>
 
-          <h3>Auto Gain Control — Microphone Level Management</h3>
+          <h3 id="auto-gain-control-microphone-level-management">Auto Gain Control — Microphone Level Management</h3>
           <p>Auto gain control (AGC) automatically adjusts microphone input sensitivity to keep the recorded volume consistent regardless of how loud or quiet you speak. While convenient for casual use, it can cause problems for singers and podcasters — it may boost background noise during pauses or compress dynamic range during louder passages. Professional recording setups typically disable AGC and set input levels manually. The AGC status displayed here is browser-reported and may not always match the OS-level audio setting.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-          <h2>Common Audio Input Device Types — What Microphone Might You Have?</h2>
-          <h3>Built-In Laptop and Desktop Microphones</h3>
+      <section class="content-panel prose max-w-none block" id="common-audio-input-device-types-what-microphone-might-you" aria-labelledby="common-audio-input-device-types-what-microphone-might-you-heading">
+          <h2 id="common-audio-input-device-types-what-microphone-might-you-heading">Common Audio Input Device Types — What Microphone Might You Have?</h2>
+          <h3 id="built-in-laptop-and-desktop-microphones">Built-In Laptop and Desktop Microphones</h3>
           <p>The most common result when asking "what microphone do I have?" is a built-in device. Laptop internal mics are typically compact electret condenser elements with limited frequency range — adequate for calls but not ideal for recording. They usually operate at 44.1 kHz or 48 kHz, mono, with echo cancellation and noise suppression enabled by default. Desktop PCs rarely have built-in microphones unless it's an all-in-one model.</p>
 
-          <h3>USB Microphones — Plug-and-Play Audio Input Devices</h3>
+          <h3 id="usb-microphones-plug-and-play-audio-input-devices">USB Microphones — Plug-and-Play Audio Input Devices</h3>
           <p>USB microphones appear by their product name in the device list and are among the easiest audio input devices to identify. Models like the Blue Yeti, Audio-Technica AT2020 USB, and Rode NT-USB typically report 48 kHz sample rate, 16-bit or 24-bit sample size, and appear as a dedicated audio interface. USB mics bypass the computer's built-in sound card, which is why they often produce cleaner microphone details in this tool than integrated audio hardware.</p>
 
-          <h3>Headset and 3.5mm Microphones</h3>
+          <h3 id="headset-and-3-5mm-microphones">Headset and 3.5mm Microphones</h3>
           <p>Gaming headsets and 3.5mm combo audio jacks (TRRS plug) are detected as audio input devices but may show a shared device name with the headphone output. If your headset mic is connected via USB, it will appear as its own device. If via 3.5mm, it shares the sound card with the speakers and may show as "Realtek Audio" or similar chipset name rather than the headset brand. These typically support 44.1 kHz, mono, with variable quality depending on the headset.</p>
 
-          <h3>XLR Microphones via Audio Interface</h3>
+          <h3 id="xlr-microphones-via-audio-interface">XLR Microphones via Audio Interface</h3>
           <p>If you're using an XLR condenser or dynamic microphone connected via an audio interface (e.g. Focusrite Scarlett, Audient iD4), the device name displayed will be the audio interface, not the microphone itself. For example, you'd see "Scarlett Solo USB" rather than "Shure SM7B". The audio input specifications shown (sample rate, channel count) reflect the interface's capabilities, which are typically 44.1–192 kHz and may offer stereo input if the interface has two inputs.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none" id="faq">
-        <h2>Show My Microphone — Frequently Asked Questions</h2>
+      <section class="content-panel prose max-w-none block alt" id="faq" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Show My Microphone — Frequently Asked Questions</h2>
         <details class="panel" open>
           <summary><strong>Why does my browser show the wrong microphone?</strong></summary>
           <p>Browsers default to the system's "Default Input Device" setting, not necessarily the last microphone you plugged in. To check which one the browser is using, open your OS sound settings (Windows: Sound → Input; macOS: System Settings → Sound → Input) and confirm which device is set as the default. After changing it, refresh this page — the device list will update to reflect the new default at the top of the selection order.</p>
@@ -750,7 +768,7 @@
           <summary><strong>My microphone has a &quot;Fair&quot; or &quot;Basic&quot; quality rating — what should I check?</strong></summary>
           <p>The quality rating is calculated from five factors: sample rate, sample size, channel count, latency, and whether audio processing features are active. A low rating most often means your sample rate is below 44.1 kHz, your sample size is 8-bit, or your mic is operating in a degraded mode (e.g. via a heavily compressed Bluetooth connection). Check your OS audio settings to ensure the device isn't forced into a telephony mode (8 kHz or 16 kHz). For Bluetooth mics, switching the device out of "hands-free" mode into a higher-quality audio profile can significantly improve the rating.</p>
         </details>
-      </div>
+      </section>
 
       </div>
 

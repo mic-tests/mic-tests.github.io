@@ -162,6 +162,22 @@
     .panel-hdr{display:flex;align-items:center;justify-content:between;padding:.75rem 1.1rem;border-bottom:1px solid var(--border);font-family:'JetBrains Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
     .panel-body{padding:1.1rem;}
     .content-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.75rem;margin-top:1.5rem;}
+    /* ── Table of Contents (render_toc() in generate.py) — its own card between the tool and the article ── */
+    .toc-block{margin-top:1.5rem;}
+    .toc-card{border:1px solid var(--border);border-radius:4px;background:var(--panel);padding:1.25rem 1.5rem;}
+    .toc-title{display:flex;align-items:center;gap:.5rem;margin-bottom:.9rem;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
+    .toc-title svg{width:1rem;height:1rem;flex:none;color:var(--amber);}
+    .toc-list{list-style:decimal outside;padding-left:1.5rem;margin:0;font-size:14px;}
+    .toc-list>li{margin:0 0 .375rem;line-height:1.5;}
+    .toc-list>li:last-child{margin-bottom:0;}
+    .toc-list>li::marker{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;font-weight:600;color:var(--amber);}
+    .toc-list a{font-weight:500;color:var(--ink);}
+    .toc-sublist{list-style:decimal outside;margin:.375rem 0 .25rem .25rem;padding-left:1.5rem;font-size:13px;}
+    .toc-sublist>li{margin:0 0 .25rem;line-height:1.5;}
+    .toc-sublist>li::marker{color:var(--ink-3);}
+    .toc-sublist a{padding:0;font-weight:400;color:var(--ink-2);}
+    .toc-list a:hover{color:var(--amber);text-decoration:underline;text-underline-offset:2px;opacity:1;}
+    @media (max-width:640px){.toc-card{padding:1.1rem 1.1rem;}}
     .ad-panel{border:1px solid var(--border);border-radius:4px;background:var(--panel);margin:1.25rem 0;overflow:hidden;}
     .ad-panel-hdr{background:var(--panel-2);border-bottom:1px solid var(--border);padding:.55rem 1rem;font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono';}
     .ad-panel-body{padding:1rem;text-align:center;}
@@ -565,9 +581,11 @@
 
 
 
-      <div class="content-panel prose max-w-none">
+      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents"><div class="toc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span id="table-of-contents">Table of Contents</span></div><ol class="toc-list"><li><a href="#live-monitor-test">Live Monitor Test</a></li><li><a href="#fixing-echo-issues">Fixing Echo Issues</a><ol class="toc-sublist"><li><a href="#common-causes">Common Causes</a></li><li><a href="#solutions">Solutions</a></li></ol></li><li><a href="#understanding-audio-echo">Understanding Audio Echo</a><ol class="toc-sublist"><li><a href="#types-of-echo">Types of Echo:</a></li></ol></li><li><a href="#how-to-use-the-echo-test">How to Use the Echo Test</a></li><li><a href="#what-causes-audio-echo-three-types-explained">What Causes Audio Echo — Three Types Explained</a><ol class="toc-sublist"><li><a href="#acoustic-echo-room-reflections-and-speaker-to-mic-feedback">Acoustic Echo — Room Reflections and Speaker-to-Mic Feedback</a></li><li><a href="#electronic-echo-loopback-and-monitoring-feedback">Electronic Echo — Loopback and Monitoring Feedback</a></li><li><a href="#network-echo-voip-delay-in-calls">Network Echo — VoIP Delay in Calls</a></li></ol></li><li><a href="#how-to-stop-echo-microphone-echo-cancellation-settings">How to Stop Echo — Microphone Echo Cancellation Settings</a><ol class="toc-sublist"><li><a href="#enable-echo-cancellation-in-your-browser-or-os">Enable Echo Cancellation in Your Browser or OS</a></li><li><a href="#using-headphones-to-stop-the-audio-feedback-loop">Using Headphones to Stop the Audio Feedback Loop</a></li></ol></li><li><a href="#faq">Echo Test — Frequently Asked Questions</a></li></ol></nav></section>
+
+      <section class="content-panel prose max-w-none block" id="live-monitor-test" aria-labelledby="live-monitor-test-heading">
             <p class="lead-text">The <strong>Echo Test</strong> routes your microphone input back through your speakers with a short delay so you can hear exactly what your listeners hear when you talk. Select a <strong>test mode</strong> below — echo, feedback, or delay — click <strong>Start Test</strong>, and speak into your mic; your voice plays back through the <strong>output monitor</strong> so you can catch reverb, looping feedback, or timing issues in your audio setup. If you hear your voice cleanly without distortion, your setup is fine; if you hear overlapping or garbled audio, the <strong>status indicator</strong> flags what type of problem is present.</p>
-            <h2 class="flex items-center gap-2"><i class="bi bi-headphones"></i>Live Monitor Test</h2>
+            <h2 id="live-monitor-test-heading" class="flex items-center gap-2"><i class="bi bi-headphones"></i>Live Monitor Test</h2>
             <p>Enable live monitoring to hear your microphone input in real-time through your speakers/headphones. <strong>Warning:</strong> Use headphones to avoid feedback loop!</p>
 
             <div class="status-message alert-warning">
@@ -591,15 +609,15 @@
                 </button>
               </div>
             </div>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2 class="flex items-center gap-2"><i class="bi bi-wrench"></i>Fixing Echo Issues</h2>
+      <section class="content-panel prose max-w-none block alt" id="fixing-echo-issues" aria-labelledby="fixing-echo-issues-heading">
+            <h2 id="fixing-echo-issues-heading" class="flex items-center gap-2"><i class="bi bi-wrench"></i>Fixing Echo Issues</h2>
             <p>If you're experiencing echo during calls or recordings, try these solutions:</p>
 
             <div class="grid sm:grid-cols-2 gap-6">
               <div>
-                <h3>Common Causes</h3>
+                <h3 id="common-causes">Common Causes</h3>
                 <ul>
                   <li>Speakers too close to microphone</li>
                   <li>High speaker volume</li>
@@ -609,7 +627,7 @@
                 </ul>
               </div>
               <div>
-                <h3>Solutions</h3>
+                <h3 id="solutions">Solutions</h3>
                 <ul>
                   <li>Use headphones instead of speakers</li>
                   <li>Lower speaker/playback volume</li>
@@ -620,22 +638,22 @@
               </div>
             </div>
             <p class="mb-0">Still having issues? Check our troubleshooting guide for more solutions.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2><i class="bi bi-book me-2"></i>Understanding Audio Echo</h2>
+      <section class="content-panel prose max-w-none block" id="understanding-audio-echo" aria-labelledby="understanding-audio-echo-heading">
+            <h2 id="understanding-audio-echo-heading"><i class="bi bi-book me-2"></i>Understanding Audio Echo</h2>
             <p>Audio echo occurs when sound from your speakers is picked up by your microphone and retransmitted. This creates a feedback loop that can range from a slight delay to a loud screeching sound. <!-- SILO_START:slot_b -->The free <a href="/mic-recorder">online mic recorder</a> supports both MP3 and WAV output and works with any browser-accessible microphone.<!-- SILO_END:slot_b --></p>
 
-            <h3>Types of Echo:</h3>
+            <h3 id="types-of-echo">Types of Echo:</h3>
             <ul>
               <li><strong>Acoustic Echo:</strong> Sound bouncing off walls and surfaces</li>
               <li><strong>Electronic Echo:</strong> Audio looping through your system</li>
               <li><strong>Network Echo:</strong> Delay in VoIP/video call systems</li>
             </ul>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>How to Use the Echo Test</h2>
+      <section class="content-panel prose max-w-none block alt" id="how-to-use-the-echo-test" aria-labelledby="how-to-use-the-echo-test-heading">
+            <h2 id="how-to-use-the-echo-test-heading">How to Use the Echo Test</h2>
             <ol>
               <li><strong>Put on headphones</strong> before starting — if you use open speakers, the playback will be picked up by your microphone and create a real feedback loop during the test.</li>
               <li>Set the <strong>Playback Delay</strong> slider to 500ms for an initial test. This introduces a deliberate half-second offset between your speech and the playback, making it easy to hear the echo effect clearly.</li>
@@ -643,33 +661,33 @@
               <li>For a real-time echo check, use <strong>Live Monitor Test</strong> with headphones. This routes your microphone input directly to your headphones in real time so you can hear exactly what others on a call would hear from you.</li>
               <li>Adjust the Monitor Delay slider to simulate specific latency scenarios — 0ms for direct monitoring, 100–200ms to approximate typical VoIP call latency.</li>
             </ol>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>What Causes Audio Echo — Three Types Explained</h2>
+      <section class="content-panel prose max-w-none block" id="what-causes-audio-echo-three-types-explained" aria-labelledby="what-causes-audio-echo-three-types-explained-heading">
+            <h2 id="what-causes-audio-echo-three-types-explained-heading">What Causes Audio Echo — Three Types Explained</h2>
 
-            <h3>Acoustic Echo — Room Reflections and Speaker-to-Mic Feedback</h3>
+            <h3 id="acoustic-echo-room-reflections-and-speaker-to-mic-feedback">Acoustic Echo — Room Reflections and Speaker-to-Mic Feedback</h3>
             <p>Acoustic echo occurs when your speakers play audio that bounces off room surfaces (walls, desk, monitor) and reaches your microphone. The microphone captures the direct sound of your voice and the reflected speaker audio simultaneously. This manifests as a double voice to call participants — they hear you once directly and again after a room-reflection delay. The fix is physical: use headphones, reduce speaker volume, or position the microphone further from the speakers. Adding soft furnishings to the room reduces reflective surfaces that carry speaker sound back to the mic. <!-- SILO_START:slot_c --><!-- SILO_END:slot_c --></p>
 
-            <h3>Electronic Echo — Loopback and Monitoring Feedback</h3>
+            <h3 id="electronic-echo-loopback-and-monitoring-feedback">Electronic Echo — Loopback and Monitoring Feedback</h3>
             <p>Electronic echo happens when audio is routed in a software loop: your microphone input is passed through a monitoring or recording application that sends it back to your speakers, which the microphone then picks up again. This creates a rapidly escalating feedback loop — the characteristic loud screech in recording software. Common triggers: Stereo Mix or "What U Hear" enabled in Windows sound settings, recording software set to monitor microphone through speakers rather than headphones, or video call applications with monitoring enabled. Disable all monitoring-through-speakers settings and use headphone monitoring exclusively.</p>
 
-            <h3>Network Echo — VoIP Delay in Calls</h3>
+            <h3 id="network-echo-voip-delay-in-calls">Network Echo — VoIP Delay in Calls</h3>
             <p>Network echo in video calls (Zoom, Teams, Meet) is actually your own voice being delayed by the network and returned to your ears by the far-end participant's speaker and microphone. Most modern video call platforms include Acoustic Echo Cancellation (AEC) that automatically suppresses this — but AEC fails when the far-end participant has speakers set too loud or sits in a reverberant room. If you hear yourself echoed back during calls, the echo cancellation is failing on the other participant's side, not yours. Ask them to lower their speaker volume or switch to headphones.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none">
-            <h2>How to Stop Echo — Microphone Echo Cancellation Settings</h2>
+      <section class="content-panel prose max-w-none block alt" id="how-to-stop-echo-microphone-echo-cancellation-settings" aria-labelledby="how-to-stop-echo-microphone-echo-cancellation-settings-heading">
+            <h2 id="how-to-stop-echo-microphone-echo-cancellation-settings-heading">How to Stop Echo — Microphone Echo Cancellation Settings</h2>
 
-            <h3>Enable Echo Cancellation in Your Browser or OS</h3>
+            <h3 id="enable-echo-cancellation-in-your-browser-or-os">Enable Echo Cancellation in Your Browser or OS</h3>
             <p>Most modern browsers apply echo cancellation by default when a website uses microphone access through getUserMedia. This is a software AEC filter that processes the microphone signal to subtract known speaker output from the captured audio. It works well for standard video calls but can degrade recording quality by adding artifacts. To verify it is enabled: in Chrome, open chrome://settings/content/microphone and confirm the site has microphone access. On Windows, check Sound → Recording → Properties → Enhancements and confirm "Acoustic echo cancellation" is ticked.</p>
 
-            <h3>Using Headphones to Stop the Audio Feedback Loop</h3>
+            <h3 id="using-headphones-to-stop-the-audio-feedback-loop">Using Headphones to Stop the Audio Feedback Loop</h3>
             <p>Headphones are the most reliable way to prevent acoustic echo. Over-ear and in-ear headphones physically isolate the speaker output from the microphone — sound from the headphone driver cannot travel through air to reach the microphone capsule. If you must use open speakers, reduce their volume until the noise floor contribution is below the microphone's noise reduction threshold. The echo test's live monitor mode with headphones lets you verify there is no remaining feedback before joining an important call.</p>
-      </div>
+      </section>
 
-      <div class="content-panel prose max-w-none" id="faq">
-        <h2>Echo Test — Frequently Asked Questions</h2>
+      <section class="content-panel prose max-w-none block" id="faq" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Echo Test — Frequently Asked Questions</h2>
         <details class="panel" open>
           <summary><strong>Why do I hear myself echoed back on video calls?</strong></summary>
           <p>If you hear your own voice echoed back during a video call, the problem is almost always on the other participant's side — their speaker audio is being picked up by their microphone and sent back to you. Ask them to lower their speaker volume, switch to headphones, or check their echo cancellation settings. If the echo appears even in a 1-on-1 call with yourself (browser tab), it means your own monitoring setup has a feedback loop — check that no monitoring-through-speakers setting is active.</p>
@@ -682,7 +700,7 @@
           <summary><strong>Can I use the echo test to simulate how I sound on calls?</strong></summary>
           <p>Yes — enable Live Monitor Test with headphones and speak normally. You will hear exactly what your microphone is capturing in real time, which closely approximates what call participants hear from you. This is the fastest way to check whether your voice sounds clear, whether background noise is audible, and whether any processing (noise cancellation, echo suppression) is working correctly before a call. For a complete pre-call audio check, also run the <a href="/background-noise-analyzer">background noise analyzer</a> to confirm your room's noise floor is acceptable.</p>
         </details>
-      </div>
+      </section>
 
       </div>
 

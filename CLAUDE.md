@@ -403,3 +403,9 @@ https://validator.w3.org/nu/?doc=https://mictest.dev/<page-path>
 Example: `https://validator.w3.org/nu/?doc=https://mictest.dev/`
 
 No pages have been validated yet. Once Pages is serving the new pipeline's output (see Deployment), re-run the validator on changed pages after each deploy to catch any new issues.
+
+## Named content sections and Table of Contents (2026-10-11)
+
+Built by `src/generate.py` on every build (not stored in `src/content/*.json`): each article `<h2>` section is a named `<section>` with `block` / `block alt` (alternating) added to its existing classes, `id` = slug of its h2 text, `aria-labelledby` = its h2's id; every article h3/h4 gets an id; ids never reuse one already on the page. A Table of Contents (`section.block.toc-block > nav.toc-card`, `#table-of-contents`, h3/h4 nested under their h2, FAQ last) sits before the first article section on pages with 3+ sections, styled in this site's own tokens; it adds no `<h2>`/`<p>`, so silo targets are unaffected. Same system as screen-resolution-checker / webcam-test.github.io. Verified: no duplicate ids, every label and TOC link resolves, silo dry-run 0 failures, pages otherwise identical to before at 1280 and 390px.
+
+Each existing panel (one h2 each) is now the `<section>` (was `div`), with `block`/`block alt` added; existing ids kept (e.g. index `#how-to`). TOC styles live in `src/template.html` / `src/template-page.html` (JetBrains Mono title, dark and light mode). hearing-test's medical-disclaimer panel has no h2 and stays an unnamed div.
