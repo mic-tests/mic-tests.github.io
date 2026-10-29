@@ -222,7 +222,6 @@
     .table thead th{background:var(--panel-2);font-family:'JetBrains Mono';font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2);}
     .table-striped tbody tr:nth-child(odd){background:var(--panel-2);}
 
-    .comments-panel{border-top:1px solid var(--border);background:var(--panel);padding:2.5rem 0;margin-top:2rem;}
     footer.site-footer{background:var(--panel);border-top:1px solid var(--border);padding:2.75rem 0 0;}
     .footer-brand{font-family:'JetBrains Mono';font-weight:700;font-size:15px;color:var(--ink);display:flex;align-items:center;gap:8px;margin-bottom:.75rem;}
     .footer-desc{font-size:12.5px;color:var(--ink-3);line-height:1.65;max-width:320px;}
@@ -424,31 +423,6 @@
 {{PAGE_CONTENT}}
 
     </div>
-
-    <!-- COMMENTS_START -->
-    <!-- Comments -->
-    <section class="comments-panel">
-      <div class="max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12">
-        <div class="max-w-[760px] mx-auto">
-          <h3 class="flex items-center gap-2 mb-4"><i class="bi bi-chat-dots" style="color:var(--amber)"></i>Comments &amp; Feedback</h3>
-          <script defer src="https://comments.tickspike.com/comentario.js"></script>
-          <comentario-comments theme="light"></comentario-comments>
-        </div>
-      </div>
-    </section>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(function() {
-        var comentarioEl = document.querySelector('comentario-comments');
-        if (!comentarioEl) return;
-        comentarioEl.addEventListener('keydown', function(e) { e.stopPropagation(); }, true);
-        comentarioEl.addEventListener('keyup', function(e) { e.stopPropagation(); }, true);
-        comentarioEl.addEventListener('keypress', function(e) { e.stopPropagation(); }, true);
-      }, 2000);
-    });
-    </script>
-    <!-- COMMENTS_END -->
 
     <!-- Footer -->
     <footer class="site-footer">

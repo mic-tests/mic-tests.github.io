@@ -419,7 +419,7 @@ def render_info_page(page, site, template_page):
         "GA_SNIPPET": render_ga_snippet(site),
     }
     out = apply_tokens(template_page, tokens)
-    return re.sub(r"[ \t]*<!-- COMMENTS_(?:START|END) -->\n", "", out)
+    return out
 
 
 def render_404(site, template_page):
@@ -463,8 +463,6 @@ def render_404(site, template_page):
         "GA_SNIPPET": render_ga_snippet(site),
     }
     out = apply_tokens(template_page, tokens)
-    # No comment thread on the 404 page (it would key to whatever bad URL was typed)
-    out = re.sub(r"[ \t]*<!-- COMMENTS_START -->.*?<!-- COMMENTS_END -->\n", "", out, flags=re.S)
     out = out.replace(
         '<link rel="canonical" href="https://%s/404">' % domain,
         '<link rel="canonical" href="https://%s/404">\n  <meta name="robots" content="noindex, follow">' % domain,
