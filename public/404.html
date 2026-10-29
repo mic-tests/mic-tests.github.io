@@ -458,28 +458,6 @@
 
     </div>
 
-    <!-- Comments -->
-    <section class="comments-panel">
-      <div class="max-w-[1260px] mx-auto px-5 sm:px-8 lg:px-12">
-        <div class="max-w-[760px] mx-auto">
-          <h3 class="flex items-center gap-2 mb-4"><i class="bi bi-chat-dots" style="color:var(--amber)"></i>Comments &amp; Feedback</h3>
-          <script defer src="https://comments.tickspike.com/comentario.js"></script>
-          <comentario-comments theme="light"></comentario-comments>
-        </div>
-      </div>
-    </section>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(function() {
-        var comentarioEl = document.querySelector('comentario-comments');
-        if (!comentarioEl) return;
-        comentarioEl.addEventListener('keydown', function(e) { e.stopPropagation(); }, true);
-        comentarioEl.addEventListener('keyup', function(e) { e.stopPropagation(); }, true);
-        comentarioEl.addEventListener('keypress', function(e) { e.stopPropagation(); }, true);
-      }, 2000);
-    });
-    </script>
 
     <!-- Footer -->
     <footer class="site-footer">
