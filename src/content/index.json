@@ -10,23 +10,23 @@
       {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev",
+        "url": "https://mictest.dev/",
         "description": "Advanced online microphone test tool. Test your mic quality, check audio levels, and verify microphone functionality across all devices."
       },
       {
         "@type": "Organization",
         "name": "MicTest",
-        "url": "https://mictest.dev",
+        "url": "https://mictest.dev/",
         "logo": "https://mictest.dev/icon.png"
       },
       {
         "@type": "WebPage",
         "name": "Mic Test Online – Free Microphone Test Tool",
-        "url": "https://mictest.dev",
+        "url": "https://mictest.dev/",
         "isPartOf": {
           "@type": "WebSite",
           "name": "MicTest",
-          "url": "https://mictest.dev"
+          "url": "https://mictest.dev/"
         }
       }
     ]

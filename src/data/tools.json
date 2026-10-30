@@ -11,23 +11,23 @@
         {
           "@type": "WebSite",
           "name": "MicTest",
-          "url": "https://mictest.dev",
+          "url": "https://mictest.dev/",
           "description": "Advanced online microphone test tool. Test your mic quality, check audio levels, and verify microphone functionality across all devices."
         },
         {
           "@type": "Organization",
           "name": "MicTest",
-          "url": "https://mictest.dev",
+          "url": "https://mictest.dev/",
           "logo": "https://mictest.dev/icon.png"
         },
         {
           "@type": "WebPage",
           "name": "Mic Test Online – Free Microphone Test Tool",
-          "url": "https://mictest.dev",
+          "url": "https://mictest.dev/",
           "isPartOf": {
             "@type": "WebSite",
             "name": "MicTest",
-            "url": "https://mictest.dev"
+            "url": "https://mictest.dev/"
           }
         }
       ]
@@ -110,7 +110,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "Show My Mic — See Your Microphone Name, Specs & Settings",
@@ -180,7 +180,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "Online Mic Recorder — Record Your Voice as MP3 or WAV",
@@ -266,7 +266,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "Sound Level Meter Online — Measure Decibels (dB) in Real Time",
@@ -352,7 +352,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "Voice Frequency Analyzer — See Your Voice Spectrum in Real Time",
@@ -422,7 +422,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "Background Noise Analyzer — Measure Ambient Sound Levels Online",
@@ -484,7 +484,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "Echo Test — Detect Audio Feedback & Delay Issues Online",
@@ -554,7 +554,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "Audio Latency Test — Measure Microphone Delay in Milliseconds",
@@ -636,7 +636,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "Show My Speakers — See Your Audio Output Devices & Specs",
@@ -702,7 +702,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "Tone Generator — Play Any Frequency from 20Hz to 20,000Hz Online",
@@ -780,7 +780,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "Stereo Test — Check Left & Right Audio Channels Online",
@@ -862,7 +862,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "Bass Test — Check Your Speaker & Subwoofer Low Frequency Response",
@@ -936,7 +936,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "Speaker Volume Test — Check Your Audio Output Levels Online",
@@ -1014,7 +1014,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "Headphone Test — Check Left & Right Ear Channels Separately",
@@ -1084,7 +1084,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "Hearing Test Online — Find Your Audible Frequency Range",

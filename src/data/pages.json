@@ -62,7 +62,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "Fix Audio Issues — Microphone & Speaker Troubleshooting Guide",
@@ -112,7 +112,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "About MicTest",
@@ -156,7 +156,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "Contact MicTest",
@@ -192,7 +192,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "Privacy Policy",
@@ -200,7 +200,7 @@
     "content_blocks": [
       {
         "id": null,
-        "html": "<h2><i class=\"bi bi-info-circle-fill me-2 text-primary\"></i>Overview</h2>\n<p>This policy explains what information MicTest (\"we\", \"us\") collects when you use <a href=\"https://mictest.dev\">mictest.dev</a>, and how it's used. MicTest has no user accounts, no sign-up, and no login — you can use every tool on the site anonymously.</p>\n<p class=\"mb-0\">By using MicTest, you agree to the practices described in this policy. If you don't agree, please don't use the site.</p>"
+        "html": "<h2><i class=\"bi bi-info-circle-fill me-2 text-primary\"></i>Overview</h2>\n<p>This policy explains what information MicTest (\"we\", \"us\") collects when you use <a href=\"https://mictest.dev/\">mictest.dev</a>, and how it's used. MicTest has no user accounts, no sign-up, and no login — you can use every tool on the site anonymously.</p>\n<p class=\"mb-0\">By using MicTest, you agree to the practices described in this policy. If you don't agree, please don't use the site.</p>"
       },
       {
         "id": null,
@@ -253,7 +253,7 @@
       "isPartOf": {
         "@type": "WebSite",
         "name": "MicTest",
-        "url": "https://mictest.dev"
+        "url": "https://mictest.dev/"
       }
     },
     "h1": "Sitemap",

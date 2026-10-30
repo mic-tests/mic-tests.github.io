@@ -13,7 +13,7 @@
     "isPartOf": {
       "@type": "WebSite",
       "name": "MicTest",
-      "url": "https://mictest.dev"
+      "url": "https://mictest.dev/"
     }
   },
   "h1": "Tone Generator — Play Any Frequency from 20Hz to 20,000Hz Online",

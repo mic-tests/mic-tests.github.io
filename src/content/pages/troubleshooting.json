@@ -61,7 +61,7 @@
     "isPartOf": {
       "@type": "WebSite",
       "name": "MicTest",
-      "url": "https://mictest.dev"
+      "url": "https://mictest.dev/"
     }
   },
   "h1": "Fix Audio Issues — Microphone & Speaker Troubleshooting Guide",
