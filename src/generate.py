@@ -493,7 +493,8 @@ def write_robots_and_sitemap(site, tools, pages, out_dir):
     with open(os.path.join(out_dir, "CNAME"), "w", encoding="utf-8") as f:
         f.write("%s\n" % domain)
     with open(os.path.join(out_dir, "ads.txt"), "w", encoding="utf-8") as f:
-        f.write("google.com, pub-%s, DIRECT, f08c47fec0942fa0\n" % site["adsense_publisher_id"])
+        # AdSense line removed (Mediavine exclusivity); Mediavine supplies its own ads.txt entries.
+        f.write("")
 
 
 def main():
