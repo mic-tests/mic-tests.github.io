@@ -1,13 +1,13 @@
 {
   "slug": "privacy",
   "meta_title": "Privacy Policy - MicTest | How We Handle Your Data",
-  "meta_description": "MicTest's privacy policy: your microphone audio stays in your browser and is never uploaded, plus what cookies we use and how AdSense works here.",
+  "meta_description": "MicTest's privacy policy: your microphone audio stays in your browser and is never uploaded, plus the cookies, ads (Mediavine) and analytics (Microsoft Clarity) used here.",
   "json_ld": {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "Privacy Policy - MicTest",
     "url": "https://mictest.dev/privacy",
-    "description": "MicTest's privacy policy covering microphone/audio data handling, cookies, local storage, and third-party advertising.",
+    "description": "MicTest's privacy policy covering microphone/audio data handling, cookies, local storage, third-party advertising (Mediavine) and analytics (Microsoft Clarity).",
     "isPartOf": {
       "@type": "WebSite",
       "name": "MicTest",
@@ -15,7 +15,7 @@
     }
   },
   "h1": "Privacy Policy",
-  "subtitle_html": "<p class=\"lead-text\">Last updated August 31, 2026. MicTest is built around one core promise: your microphone audio never leaves your browser.</p>",
+  "subtitle_html": "<p class=\"lead-text\">Last updated October 31, 2026. MicTest is built around one core promise: your microphone audio never leaves your browser.</p>",
   "content_blocks": [
     {
       "id": null,
@@ -27,15 +27,15 @@
     },
     {
       "id": null,
-      "html": "<h2><i class=\"bi bi-hdd-stack-fill me-2 text-primary\"></i>Cookies &amp; Local Storage</h2>\n<p>MicTest itself sets no tracking cookies. We use your browser's <code>localStorage</code> to remember one thing: your light/dark theme preference. That preference stays on your device and is never sent to us or anyone else.</p>\n<p class=\"mb-0\">See the Advertising section below for cookies set by Google when ads are shown.</p>"
+      "html": "<h2><i class=\"bi bi-hdd-stack-fill me-2 text-primary\"></i>Cookies &amp; Local Storage</h2>\n<p>MicTest itself sets no tracking cookies. We use your browser's <code>localStorage</code> to remember one thing: your light/dark theme preference. That preference stays on your device and is never sent to us or anyone else.</p>\n<p class=\"mb-0\">Our advertising partner (Mediavine) and our analytics provider (Microsoft Clarity) may set their own cookies or use similar technologies. See the Advertising and Analytics sections below.</p>"
     },
     {
       "id": null,
-      "html": "<h2><i class=\"bi bi-megaphone-fill me-2 text-primary\"></i>Advertising (Google AdSense)</h2>\n<p>MicTest is supported by Google AdSense. Google, as a third-party vendor, uses cookies to serve ads on this site. Google's use of advertising cookies enables it and its partners to serve ads based on your visits to mictest.dev and other sites on the internet.</p>\n<p>You can opt out of personalized advertising by visiting <a href=\"https://adssettings.google.com\" target=\"_blank\" rel=\"noopener\">Google's Ads Settings</a>, or opt out of a third-party vendor's use of cookies for personalized advertising by visiting <a href=\"https://www.aboutads.info\" target=\"_blank\" rel=\"noopener\">www.aboutads.info</a>. For more detail on how Google handles data, see <a href=\"https://policies.google.com/technologies/partner-sites\" target=\"_blank\" rel=\"noopener\">How Google uses information from sites that use our services</a>.</p>\n<p class=\"mb-0 text-muted\">Ad serving on MicTest is currently paused while our AdSense application is under review — this section describes how advertising works once it's live.</p>"
+      "html": "<h2><i class=\"bi bi-megaphone-fill me-2 text-primary\"></i>Advertising (Mediavine)</h2>\n<p>MicTest is supported by advertising managed by <a href=\"https://www.mediavine.com/\" target=\"_blank\" rel=\"noopener\">Mediavine</a>, a third-party ad management partner. Mediavine and its advertising partners may use cookies, device identifiers, and similar technologies to show ads, measure how they perform, and, where permitted, personalize them based on your visits to this and other sites. This can involve information such as your IP address, browser and device details, and approximate location.</p>\n<p>Depending on where you are, you may be shown a consent banner that lets you accept or decline personalized advertising. You can also opt out of interest-based advertising through <a href=\"https://www.aboutads.info/choices/\" target=\"_blank\" rel=\"noopener\">aboutads.info</a>, the <a href=\"https://optout.networkadvertising.org/\" target=\"_blank\" rel=\"noopener\">Network Advertising Initiative</a>, or, in the EU/UK, <a href=\"https://www.youronlinechoices.com/\" target=\"_blank\" rel=\"noopener\">Your Online Choices</a>. Google's own advertising settings are at <a href=\"https://adssettings.google.com\" target=\"_blank\" rel=\"noopener\">Google's Ads Settings</a>.</p>\n<p class=\"mb-0\">For details on how Mediavine handles data, see the <a href=\"https://www.mediavine.com/privacy-policy/\" target=\"_blank\" rel=\"noopener\">Mediavine Privacy Policy</a>. Your microphone audio is never shared with advertisers — it never leaves your browser (see Microphone &amp; Audio Data above).</p>"
     },
     {
       "id": null,
-      "html": "<h2><i class=\"bi bi-bar-chart-fill me-2 text-primary\"></i>Analytics</h2>\n<p class=\"mb-0\">MicTest does not currently run any third-party analytics or tracking scripts beyond the AdSense cookies described above. If that changes, we'll update this policy first.</p>"
+      "html": "<h2><i class=\"bi bi-bar-chart-fill me-2 text-primary\"></i>Analytics</h2>\n<p>We use <a href=\"https://clarity.microsoft.com/\" target=\"_blank\" rel=\"noopener\">Microsoft Clarity</a>, a free analytics tool, to understand how people use MicTest — for example, which tools get used and where visitors get stuck. Clarity collects usage data such as pages visited, clicks, scrolling, device and browser type, approximate location, and session replays and heatmaps of on-page interactions, and may set its own cookies (such as <code>_clck</code> and <code>_clsk</code>) to do so. This data is shared with Microsoft, which processes it under the <a href=\"https://privacy.microsoft.com/privacystatement\" target=\"_blank\" rel=\"noopener\">Microsoft Privacy Statement</a>.</p>\n<p class=\"mb-0\">Clarity records how you interact with the page, not your microphone: audio from your microphone is processed only in your browser and is never captured or sent to us or to Clarity.</p>"
     },
     {
       "id": null,
@@ -47,11 +47,11 @@
     },
     {
       "id": null,
-      "html": "<h2><i class=\"bi bi-lock-fill me-2 text-primary\"></i>Data Security</h2>\n<p class=\"mb-0\">MicTest is served entirely over HTTPS. We don't collect personal information, don't require accounts, and don't operate a database of user data. Our host (GitHub Pages) may keep standard, aggregate server access logs common to any web host; we don't have a separate logging or analytics layer of our own.</p>"
+      "html": "<h2><i class=\"bi bi-lock-fill me-2 text-primary\"></i>Data Security</h2>\n<p class=\"mb-0\">MicTest is served entirely over HTTPS. We don't ask for personal information, don't require accounts, and don't operate a database of user data. Our host (GitHub Pages) may keep standard server access logs common to any web host, and the third-party advertising and analytics services described above collect data under their own policies.</p>"
     },
     {
       "id": null,
-      "html": "<h2><i class=\"bi bi-arrow-repeat me-2 text-primary\"></i>Changes to This Policy</h2>\n<p class=\"mb-0\">We may update this policy as MicTest changes — for example, once AdSense approval completes and ads go live. Any update will be posted on this page with a revised \"last updated\" date at the top.</p>"
+      "html": "<h2><i class=\"bi bi-arrow-repeat me-2 text-primary\"></i>Changes to This Policy</h2>\n<p class=\"mb-0\">We may update this policy as MicTest changes — for example, if we add or change advertising or analytics partners. Any update will be posted on this page with a revised \"last updated\" date at the top.</p>"
     },
     {
       "id": null,
