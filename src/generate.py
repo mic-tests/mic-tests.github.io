@@ -41,12 +41,13 @@ OUTPUT_DIR = os.path.join(REPO_ROOT, "public")
 ADS_ENABLED = False
 
 # Binary/opaque assets that can't be derived from site.json — copied as-is
-# from src/static/. CNAME and ads.txt are NOT here: they're fully generated
+# from src/static/. CNAME is NOT here: it's fully generated
 # from site.json below (see write_robots_and_sitemap) so the domain and
 # AdSense publisher ID have one source of truth.
 STATIC_FILES = [
     "favicon.ico", "icon.png", "icon.svg",
     "googlecb346f17d96186ee.html",
+    "ads.txt",  # Mediavine-managed; hand-maintained in src/static/, not generated
 ]
 
 
@@ -492,9 +493,6 @@ def write_robots_and_sitemap(site, tools, pages, out_dir):
     # reason to hand-maintain a second copy of the domain / publisher ID.
     with open(os.path.join(out_dir, "CNAME"), "w", encoding="utf-8") as f:
         f.write("%s\n" % domain)
-    with open(os.path.join(out_dir, "ads.txt"), "w", encoding="utf-8") as f:
-        # AdSense line removed (Mediavine exclusivity); Mediavine supplies its own ads.txt entries.
-        f.write("")
 
 
 def main():
