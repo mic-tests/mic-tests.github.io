@@ -63,9 +63,9 @@ Single source of truth, modeled on the passwordhive/hexcalculator pattern:
 - **`src/content/pages/<slug>.json`** — same idea for the 4 simpler info pages (`about`, `contact`, `troubleshooting`, `sitemap`).
 - **`src/template.html`** — shared template for the 15 tool pages (rail nav, mobile drawer, footer, theme toggle, comments widget, and all base/component CSS — edited **once**, not copy-pasted per page).
 - **`src/template-page.html`** — shared template for the 4 info pages + `404.html`. Keep its component CSS (`.btn-*`, `.status-message`, `.alert-*`, forms, etc.) in sync with `src/template.html`'s — it's easy for one to drift ahead of the other since they're two separate `<style>` blocks, not a shared stylesheet.
-- **`src/static/`** — binary/opaque assets that can't be derived from `site.json`: `favicon.ico`, `icon.png`, `icon.svg`, the Google Search Console verification file (`googlecb346f17d96186ee.html` — do not modify). Copied verbatim into `public/` by `generate.py`.
+- **`src/static/`** — binary/opaque assets that can't be derived from `site.json`: `favicon.ico`, `icon.png`, `icon.svg`, the Google Search Console verification file (`googlecb346f17d96186ee.html` — do not modify), and `ads.txt` (Mediavine-managed, hand-maintained — see Mediavine section). Copied verbatim into `public/` by `generate.py`.
 - **`src/build_data.py`** — assembles `src/data/{tools,pages,site}.json` from `src/content/`. Site-wide constants (`SITE_NAME`, `DOMAIN`, `HOME_SLUG`, `ADSENSE_PUBLISHER_ID`) live at the top of this file.
-- **`src/generate.py`** — renders `src/data/*.json` + the two templates into `public/*.html`, plus generates `public/robots.txt`, `public/sitemap.xml`, `public/CNAME`, and `public/ads.txt` (all derived from `site.json`, never hand-edited), plus `public/404.html` (built from a dedicated `render_404()` — there's no `src/content/pages/404.json`, since the 404 page isn't part of the tools/pages content model).
+- **`src/generate.py`** — renders `src/data/*.json` + the two templates into `public/*.html`, plus generates `public/robots.txt`, `public/sitemap.xml`, and `public/CNAME` (all derived from `site.json`, never hand-edited), plus `public/404.html` (built from a dedicated `render_404()` — there's no `src/content/pages/404.json`, since the 404 page isn't part of the tools/pages content model).
 - **`public/`** — generated output, committed. Never hand-edit anything here — edit `src/content/<slug>.json` (or the template/generator) and rerun the build (see Deployment above).
 
 Adding a new tool page means: write `src/content/<new-slug>.json`, add its slug to `TOOL_SLUGS` in `src/build_data.py`, add its nav link to both the desktop rail and mobile drawer `<nav>` blocks in **both** `src/template.html` and (if it should also appear on info pages' nav, which it should) `src/template-page.html`, then run the full build.
@@ -93,16 +93,15 @@ A frozen, read-only snapshot of the pre-migration hand-authored site: the origin
 ### Design exploration (`design-mockups/`)
 Three standalone HTML mockups (`1-waveform-lab.html`, `2-studio-paper.html`, `3-signal.html`) explored while designing the homepage's current "instrument-panel" Tailwind template. Not linked from the build, not part of the pipeline, and not referenced by any generated page — kept at repo root purely as design-decision reference. Don't wire these into the build; the shipped design lives in `src/template.html` / `src/content/index.json`.
 
-### AdSense — temporarily disabled
+### Ads — Mediavine (Journey), AdSense removed
 
-As of 2026-08-31, AdSense is disabled site-wide while the site awaits AdSense approval (application submitted the same day). This was deliberate — displaying ad units on an unapproved account looks unfinished/broken and isn't needed for the approval review itself. `ads.txt` is the one exception and is **not** part of this — it's still generated normally (see below), since it just declares authorized sellers and doesn't require approval to be correct.
+As of 2026-10-31 the site is set up for **Mediavine (Journey)**, and all Google AdSense code has been removed. Mediavine's exclusivity check fails verification if any other programmatic ad code is found on the site, **including commented-out snippets** (its scanner reads the raw HTML), so don't leave AdSense code in the templates, even commented.
 
-What changed, and how to restore once approved:
-- **`src/generate.py`** — added `ADS_ENABLED = False` near the top of the file. All ad-rendering call sites (`render_page()`'s header/mid/footer ad slots, `render_info_page()`'s inline/mid ad slots) are gated on this flag; when `False` they emit nothing (no `<ins>` units, no `.ad-panel` containers — not even empty/reserved-space placeholders). **To restore: flip this one flag back to `True`.** No other Python changes are needed — `render_ad_panel()` / `render_ad_panel_fixed()` / `render_ad_panel_header()` and all the per-page `ads` config in `src/content/*.json` were left completely untouched, so ad placement/sizing/slot IDs pick up exactly where they left off.
-- **`src/template.html` and `src/template-page.html`** — the `<head>` AdSense connection snippet (the `adsbygoogle.js` script tag + `google-adsense-account` meta tag) is commented out, not deleted, right where it was. **To restore: uncomment those lines in both files.**
-- **`ads.txt`** — unaffected; `write_robots_and_sitemap()` still generates it from `site.json`'s `adsense_publisher_id` on every build, regardless of `ADS_ENABLED`.
-
-After flipping `ADS_ENABLED` back to `True` and uncommenting the two template snippets, run the full build order (see Deployment above) as usual — no other steps needed.
+- **Ads script** — `<script ... src="//scripts.scriptwrapper.com/tags/99ccc23f-2054-49b9-b69a-670a712a3b9c.js"></script>` sits just before `</head>` in both `src/template.html` and `src/template-page.html` (so all tool pages, info pages and `404.html`). Mediavine places the ads itself; the site renders no ad units.
+- **`src/generate.py`** — `ADS_ENABLED = False` still gates the old AdSense `<ins>` renderers (`render_ad_panel*()`, the per-page `ads` config in `src/content/*.json`). Leave it `False`; that legacy code is dead and slated for removal. Never set it to `True` while on Mediavine.
+- **`ads.txt`** — now a **static, hand-maintained file** at `src/static/ads.txt` (listed in `STATIC_FILES`, copied verbatim into `public/`). `generate.py` no longer writes it. Edit `src/static/ads.txt` when Mediavine re-issues it; editing `public/ads.txt` alone gets overwritten on the next build/deploy.
+- **Journey ad placement selectors** (set in the Mediavine dashboard, not in this repo): Content Selector `.main-wrap`; Sidebar Selector blank (use `.no-sidebar` if blank isn't accepted); Sidebar Ad Position `beforeend`; Sidebar BTF Stop Selector `.site-footer`; Mobile Header Offset `64` (the fixed mobile header height). The site has no content sidebar — the only `<aside>` is the left nav rail, so never point the sidebar selector at `aside`. If the page structure changes (`.main-wrap`, `.site-footer`, mobile header height), revisit these.
+- **Privacy page** (`src/content/pages/privacy.json`) still has an "Advertising (Google AdSense)" section and an "AdSense approval" line; both should be rewritten for Mediavine.
 
 ## External Dependencies (CDN only)
 
@@ -111,14 +110,14 @@ After flipping `ADS_ENABLED` back to `True` and uncommenting the two template sn
 | Tailwind CSS (Play CDN) | latest, `?plugins=typography` | Utility classes + `.prose` long-form content styling |
 | Bootstrap Icons | 1.11.1 | Icon set |
 | Google Fonts | — | JetBrains Mono + IBM Plex Sans |
-| Google AdSense | — | Monetization (publisher ID set once, in `src/build_data.py`'s `ADSENSE_PUBLISHER_ID` — flows into `site.json` → `{{ADSENSE_CLIENT}}` template token and generated `public/ads.txt`) |
+| Mediavine (Journey) | — | Monetization — `scriptwrapper.com` ads script in each template's `<head>`; `ads.txt` is static in `src/static/` |
 
 Bootstrap (CSS framework, not the icon set) and DM Sans/Syne fonts are only used by the archived `legacy-bootstrap-site/` — not loaded by the current pipeline.
 
 ## Key Files
 
 - `src/data/site.json` — **generated** by `build_data.py` from constants at the top of that file (`SITE_NAME`, `DOMAIN`, `HOME_SLUG`, `ADSENSE_PUBLISHER_ID`). Don't hand-edit `src/data/*.json` — edit the source (`src/build_data.py` constants or `src/content/`) and rerun the build.
-- `public/sitemap.xml`, `public/robots.txt`, `public/CNAME`, `public/ads.txt` — all **generated** by `src/generate.py` from `src/data/site.json` + the tools/pages lists. Never hand-edit; change the source and rebuild.
+- `public/sitemap.xml`, `public/robots.txt`, `public/CNAME` — all **generated** by `src/generate.py` from `src/data/site.json` + the tools/pages lists. Never hand-edit; change the source and rebuild. (`public/ads.txt` is *not* generated — edit `src/static/ads.txt`.)
 - `src/static/googlecb346f17d96186ee.html` — Google Search Console verification (do not modify; copied verbatim into `public/`)
 - `utilities/silo_linking/generate_silo_rotation.py` — monthly rotation script; patches `public/*.html` in place (see Deployment's build-order note)
 - `.github/workflows/silo-rotation.yml` — GitHub Actions workflow (runs 1st–3rd of each month at midnight SGT); commits the rotated `public/*.html` back to `main` so the repo's own `public/` snapshot stays in sync for local preview/history
