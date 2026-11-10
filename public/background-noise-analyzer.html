@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Background Noise Analyzer - Check Ambient Sound Levels</title>
-  <meta name="description" content="Background Noise Analyzer — see what your mic picks up at idle: live ambient dB level, noise rating, and frequency breakdown of the sound in your space.">
+  <title>Background Noise Analyzer: Free Online Noise Level Test</title>
+  <meta name="description" content="Free online tool that measures background noise in your room: check the noise floor in dBFS, see frequency bands and spot hum or hiss from your microphone.">
   <meta name="keywords" content="background noise analyzer, ambient noise test, noise level checker, room noise analysis, audio environment test, recording space analysis">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="canonical" href="https://mictest.dev/background-noise-analyzer">
@@ -12,9 +12,9 @@
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "Background Noise Analyzer",
+  "name": "Background Noise Analyzer: Free Online Noise Level Test",
   "url": "https://mictest.dev/background-noise-analyzer",
-  "description": "Analyze background noise in your environment. Measure ambient sound levels, identify noise sources, and optimize your recording space.",
+  "description": "Free online tool that measures background noise in your room: check the noise floor in dBFS, see frequency bands and spot hum or hiss from your microphone.",
   "isPartOf": {
     "@type": "WebSite",
     "name": "MicTest",
@@ -30,34 +30,58 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is a good ambient noise level for recording?",
+      "name": "What is a good background noise level for recording?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Below 40 dB average is the target for podcast and voiceover recording — this equates to a quiet room with no HVAC running. Professional recording studios typically measure 20–25 dB. A typical home office with a running computer measures 40–55 dB, which is workable if the microphone is positioned close enough to achieve a strong signal-to-noise ratio. Check your room with this background noise analyzer before investing time in a recording session."
+        "text": "Many home recording setups aim for a calibrated room level around 35 dBA or lower and a signal-to-noise ratio of at least 40 dB, so your voice sits well above the floor."
       }
     },
     {
       "@type": "Question",
-      "name": "Why does my analyzer show a spike at exactly 50 or 60 Hz?",
+      "name": "Is this an absolute decibel meter?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A sharp spike at 50 or 60 Hz is almost always electrical mains hum caused by a ground loop or inadequate shielding. Common causes: a cheap 3.5 mm microphone cable near a power cable, a USB microphone drawing power from an electrically noisy port, or multiple devices connected to the same power strip with different ground references. Fix by switching to a balanced XLR microphone, using a USB isolator, or plugging audio equipment into a dedicated power strip with proper earthing."
+        "text": "Not by itself. A browser reads relative digital levels in dBFS. Matching a trusted reference meter gives an offset that converts the reading to an estimated dBA for that microphone, gain and weighting."
       }
     },
     {
       "@type": "Question",
-      "name": "Can I use the background noise analyzer to check noise before a recording or call?",
+      "name": "What is the 10 dB rule for background noise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes — that is one of its most practical uses. Run the analyzer for 30 seconds in the space where you plan to record or make a call. If the average level is above 55 dB, background noise will be audible to your call participants or on your recording. Take the action steps in the recommendations section and re-run the analyzer until the level drops to an acceptable range. For calls specifically, pairing this with an echo test gives you a complete pre-call audio environment check."
+        "text": "For a measurement to be accurate within about 0.5 dB, the background must sit at least 10 dB below the source you measure. This calculator checks that gap from your two levels."
       }
     },
     {
       "@type": "Question",
-      "name": "How is this different from the sound level meter?",
+      "name": "Why does my noise reading change between runs?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The sound level meter online gives you a single dB reading that represents the overall volume of everything — voice, noise, and silence combined. The background noise analyzer is specifically designed to measure what the microphone picks up when you are not speaking, and it adds the frequency spectrum display that lets you identify the character and sources of that noise. For a quick volume check, use the sound level meter. For diagnosing recording environment problems, use the background noise analyzer."
+        "text": "Fans, air conditioning, keyboard clicks, passing traffic and automatic gain control all move the level. Take several samples with one change at a time and compare them."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which sample duration should I choose?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ten seconds suits steady noise; 30 to 60 seconds gives intermittent sounds a chance to appear. A longer run still cannot guarantee a rare event is captured."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the weighting change the result?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The weighting is a property of the reading you enter. A-weighting follows human hearing, C-weighting keeps more bass, and Z is flat. Use the same one for the reference meter and your offset."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my audio recorded or uploaded?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This calculator only uses the numbers you type. A measurement tool running in your browser analyzes microphone audio locally and does not need to store it."
       }
     }
   ]
@@ -539,7 +563,7 @@
 
       <!-- HERO -->
       <header class="mb-6">
-        <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Background Noise Analyzer — Measure Ambient Sound Levels Online</h1>
+        <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Background Noise Analyzer: Free Online Noise Level Test</h1>
           <p class="lead-text">Click <strong>Start Analysis</strong> on this <strong>background noise analyzer</strong> to measure the <strong>ambient dB level</strong> around you. <!-- SILO_START:slot_a -->Check your full audible range with a <a href="/hearing-test">hearing test online</a> — from 20Hz bass to 20kHz treble.<!-- SILO_END:slot_a --></p>
       </header>
 
@@ -547,7 +571,7 @@
 
       <div class="min-w-0">
 
-        <form aria-label="Background Noise Analyzer — Measure Ambient Sound Levels Online" onsubmit="return false">
+        <form aria-label="Background Noise Analyzer: Free Online Noise Level Test" onsubmit="return false">
         <div class="panel mb-6">
           <div class="panel-hdr"><span class="flex items-center gap-2"><span class="led"></span>Frequency Spectrum Analysis</span></div>
           <div class="panel-body">
@@ -639,82 +663,140 @@
 
 
 
-      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents"><div class="toc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span id="table-of-contents">Table of Contents</span></div><ol class="toc-list"><li><a href="#reducing-background-noise">Reducing Background Noise</a><ol class="toc-sublist"><li><a href="#common-noise-sources">Common Noise Sources</a></li><li><a href="#noise-reduction-tips">Noise Reduction Tips</a></li></ol></li><li><a href="#reading-the-background-noise-frequency-spectrum">Reading the Background Noise Frequency Spectrum</a><ol class="toc-sublist"><li><a href="#what-causes-noise-in-each-frequency-band">What Causes Noise in Each Frequency Band</a></li><li><a href="#what-good-background-noise-analysis-results-look-like">What Good Background Noise Analysis Results Look Like</a></li></ol></li><li><a href="#identifying-and-fixing-background-noise-sources">Identifying and Fixing Background Noise Sources</a><ol class="toc-sublist"><li><a href="#low-frequency-noise-hvac-traffic-and-electrical-hum">Low-Frequency Noise: HVAC, Traffic, and Electrical Hum</a></li><li><a href="#mid-frequency-noise-fans-appliances-and-mechanical-sources">Mid-Frequency Noise: Fans, Appliances, and Mechanical Sources</a></li><li><a href="#high-frequency-noise-microphone-hiss-and-electronic">High-Frequency Noise: Microphone Hiss and Electronic Interference</a></li></ol></li><li><a href="#faq">Background Noise Analyzer — Frequently Asked Questions</a></li></ol></nav></section>
+      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents"><div class="toc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span id="table-of-contents">Table of Contents</span></div><ol class="toc-list"><li><a href="#how-to-use-the-background-noise-analyzer">How to Use the Background Noise Analyzer</a><ol class="toc-sublist"><li><a href="#start-the-test-and-allow-microphone-access">Start the Test and Allow Microphone Access</a></li><li><a href="#stay-quiet-during-the-sample">Stay Quiet During the Sample</a></li></ol></li><li><a href="#read-your-ambient-noise-level">Read Your Ambient Noise Level</a><ol class="toc-sublist"><li><a href="#leq-l10-and-l90-explained">Leq, L10 and L90 Explained</a></li><li><a href="#decibel-reference-chart-for-common-sounds">Decibel Reference Chart for Common Sounds</a></li></ol></li><li><a href="#frequency-spectrum-and-room-noise">Frequency Spectrum and Room Noise</a><ol class="toc-sublist"><li><a href="#frequency-bands-low-mid-and-high">Frequency Bands: Low, Mid and High</a></li><li><a href="#electrical-hum-and-low-frequency-rumble">Electrical Hum and Low-Frequency Rumble</a></li><li><a href="#octave-bands-and-a-weighting">Octave Bands and A-Weighting</a></li></ol></li><li><a href="#noise-floor-vs-microphone-noise">Noise Floor vs Microphone Noise</a><ol class="toc-sublist"><li><a href="#common-types-of-background-noise">Common Types of Background Noise</a></li><li><a href="#signal-to-noise-ratio-guidelines">Signal-to-Noise Ratio Guidelines</a></li></ol></li><li><a href="#calibrate-your-background-noise-test">Calibrate Your Background Noise Test</a><ol class="toc-sublist"><li><a href="#the-10-db-rule-explained">The 10 dB Rule Explained</a></li><li><a href="#match-a-reference-meter-and-export-the-data">Match a Reference Meter and Export the Data</a></li></ol></li><li><a href="#spare-room-noise-measurement-window-open-vs-closed">Spare-Room Noise Measurement: Window Open vs Closed</a></li><li><a href="#noise-reduction-fixes-for-ambient-sound">Noise Reduction Fixes for Ambient Sound</a><ol class="toc-sublist"><li><a href="#noise-suppression-and-auto-gain-control">Noise Suppression and Auto Gain Control</a></li><li><a href="#fix-fans-hiss-and-echo">Fix Fans, Hiss and Echo</a></li></ol></li><li><a href="#room-tone-checks-before-calls-and-recordings">Room Tone Checks Before Calls and Recordings</a><ol class="toc-sublist"><li><a href="#is-your-audio-recorded">Is Your Audio Recorded?</a></li></ol></li><li><a href="#faq">Background Noise Analyzer — Frequently Asked Questions</a></li></ol></nav></section>
 
-      <section class="content-panel prose max-w-none block" id="reducing-background-noise" aria-labelledby="reducing-background-noise-heading">
-            <p class="lead-text">The <strong>Background Noise Analyzer</strong> measures what your microphone picks up when you're not talking — fan hum, HVAC noise, street sounds, and other ambient audio your mic captures constantly. Click <strong>Start Analysis</strong>, stay quiet, and you'll see a live <strong>ambient dB level</strong>, a <strong>noise rating</strong> from very quiet to loud, and the <strong>dominant frequency range</strong> in your environment. Your <strong>noise quality score</strong> tells you whether your background noise will interfere with calls, recordings, or voice recognition software.</p>
-            <h2 id="reducing-background-noise-heading"><i class="bi bi-info-circle me-2"></i>Reducing Background Noise</h2>
-            <div class="grid sm:grid-cols-2 gap-6">
-              <div>
-                <h3 id="common-noise-sources">Common Noise Sources</h3>
-                <ul>
-                  <li>Air conditioning / HVAC systems</li>
-                  <li>Computer fans and hard drives</li>
-                  <li>Traffic and outside sounds</li>
-                  <li>Electrical hum (50/60 Hz)</li>
-                  <li>Appliances and refrigerators</li>
-                </ul>
-              </div>
-              <div>
-                <h3 id="noise-reduction-tips">Noise Reduction Tips</h3>
-                <ul>
-                  <li>Use a directional microphone</li>
-                  <li>Enable noise suppression in mic settings</li>
-                  <li>Add soft furnishings to reduce echo</li>
-                  <li>Close windows and doors</li>
-                  <li>Position mic away from noise sources</li>
-                </ul>
-              </div>
-            </div>
-            <p class="mb-0">For echo issues, try our echo test tool. Check troubleshooting guide for more help.</p>
+      <div class="content-panel prose max-w-none block">
+<p class="lead-text">Use this <strong>background noise analyzer</strong> to find out how noisy your space is before you start recording or join a call. The free online noise analyzer listens through your microphone in your browser, needs no registration, and shows your overall <strong>noise level</strong> in dBFS plus how the sound splits across frequency bands, so you get a clear baseline measurement of the audio in your environment.</p>
+      </div>
+
+      <section class="content-panel prose max-w-none block alt" id="how-to-use-the-background-noise-analyzer" aria-labelledby="how-to-use-the-background-noise-analyzer-heading">
+<h2 id="how-to-use-the-background-noise-analyzer-heading">How to Use the Background Noise Analyzer</h2>
+<p>The <strong>online background noise test</strong> runs on the Web Audio API and getUserMedia, so your microphone audio is analyzed on your device only. <!-- SILO_START:slot_b -->The free <a href="/voice-frequency-analyzer">voice frequency analyzer</a> is useful for vocal training, call quality checks, and microphone assessment.<!-- SILO_END:slot_b --></p>
+<ol>
+<li>Pick your microphone and set the <strong>sample duration</strong>.</li>
+<li>Keep speech out of the sample and stay quiet in your usual environment.</li>
+<li>Read the result, change one thing and compare it against your baseline.</li>
+</ol>
+<h3 id="start-the-test-and-allow-microphone-access">Start the Test and Allow Microphone Access</h3>
+<p>Press start, then allow <strong>microphone access</strong> when your browser asks. If nothing happens, close Zoom or any other app holding the mic and retry. The history log keeps each run, and a threshold alert flags a noisy space.</p>
+<h3 id="stay-quiet-during-the-sample">Stay Quiet During the Sample</h3>
+<p>A short run suits steady noise such as a fan; a longer one catches intermittent noise, though it cannot promise a passing truck shows up. Privacy note: nothing is uploaded.</p>
       </section>
 
-      <section class="content-panel prose max-w-none block alt" id="reading-the-background-noise-frequency-spectrum" aria-labelledby="reading-the-background-noise-frequency-spectrum-heading">
-            <h2 id="reading-the-background-noise-frequency-spectrum-heading">Reading the Background Noise Frequency Spectrum</h2>
-
-            <h3 id="what-causes-noise-in-each-frequency-band">What Causes Noise in Each Frequency Band</h3>
-            <p>The frequency spectrum display reveals the <em>character</em> of background noise — not just how loud it is, but what is causing it. Different noise sources have distinctive frequency signatures: <!-- SILO_START:slot_b -->The free <a href="/voice-frequency-analyzer">voice frequency analyzer</a> is useful for vocal training, call quality checks, and microphone assessment.<!-- SILO_END:slot_b --></p>
-            <ul>
-              <li><strong>Low (20–250 Hz):</strong> HVAC rumble, traffic passing outside, building vibration, and electrical mains hum (50 Hz in Europe/Asia, 60 Hz in North America). A sharp spike at exactly 50 or 60 Hz almost always indicates electrical interference — a ground loop, poor cable shielding, or a power supply near the microphone.</li>
-              <li><strong>Mid-Low (250–500 Hz):</strong> Air conditioning fan blades, refrigerator compressors, and mechanical resonances from computer cases. These frequencies often bleed into the vocal body range and can make voices sound hollow or boxy in recordings.</li>
-              <li><strong>Mid-High (500 Hz–2 kHz):</strong> Human speech bleed from other rooms, television or music playing in adjacent spaces, and some HVAC systems with metal ductwork. This band affects speech intelligibility most directly — noise here competes directly with the fundamental vocal range.</li>
-              <li><strong>High (2 kHz–20 kHz):</strong> Microphone self-noise (the hiss inherent to all microphones), electronic interference from cheap USB cables and power supplies, fluorescent light ballast noise, and high-frequency computer fan whine. This band contributes to the "noise floor" that software noise reduction targets.</li>
-            </ul>
-
-            <h3 id="what-good-background-noise-analysis-results-look-like">What Good Background Noise Analysis Results Look Like</h3>
-            <p>An ideal recording environment shows: average dB below 35, a flat or gently declining spectrum with no sharp peaks, low-band and mid-band levels significantly below high-band, and no visible spikes at 50 or 60 Hz. A good room for voice recording looks like a ski slope on the spectrum display — energy declining smoothly from left to right with no jagged peaks.</p>
+      <section class="content-panel prose max-w-none block" id="read-your-ambient-noise-level" aria-labelledby="read-your-ambient-noise-level-heading">
+<h2 id="read-your-ambient-noise-level-heading">Read Your Ambient Noise Level</h2>
+<p>The average summarizes your <strong>ambient noise</strong> over the run, while peak, minimum and maximum show how much the levels moved. Your <strong>background noise level</strong> is only trustworthy next to another run from the same mic, because an uncalibrated meter shows relative digital full-scale values, not sound pressure level.</p>
+<h3 id="leq-l10-and-l90-explained">Leq, L10 and L90 Explained</h3>
+<p>Leq is the energy average of your noise measurement. L10 is the level exceeded 10% of the time (the peaks) and L90 the level exceeded 90% of the time, which approximates the quiet floor. A big gap between them means conditions keep changing.</p>
+<h3 id="decibel-reference-chart-for-common-sounds">Decibel Reference Chart for Common Sounds</h3>
+<p>If you use a calibrated decibel meter or sound meter, dBA and dB SPL readings fall roughly here, which also tells you whether a space is suitable for sleep, a home office or a workshop.</p>
+<table>
+<tr><th>Level (dBA)</th><th>Typical sound</th><th>How it feels</th></tr>
+<tr><td>25</td><td>Rural bedroom at night</td><td>Very quiet</td></tr>
+<tr><td>40</td><td>Quiet library</td><td>Calm</td></tr>
+<tr><td>55</td><td>Busy shared floor</td><td>Noticeable</td></tr>
+<tr><td>75</td><td>Passing traffic</td><td>Loud, tiring for your hearing</td></tr>
+</table>
       </section>
 
-      <section class="content-panel prose max-w-none block" id="identifying-and-fixing-background-noise-sources" aria-labelledby="identifying-and-fixing-background-noise-sources-heading">
-            <h2 id="identifying-and-fixing-background-noise-sources-heading">Identifying and Fixing Background Noise Sources</h2>
+      <section class="content-panel prose max-w-none block alt" id="frequency-spectrum-and-room-noise" aria-labelledby="frequency-spectrum-and-room-noise-heading">
+<h2 id="frequency-spectrum-and-room-noise-heading">Frequency Spectrum and Room Noise</h2>
+<p>The <strong>frequency spectrum</strong> of your audio shows what the <strong>room noise</strong> is made of. The spectrum analyzer view, with a frequency analyzer readout of the dominant frequency in hertz and a spectrogram over time, helps you trace a problem back to its source instead of guessing.</p>
+<h3 id="frequency-bands-low-mid-and-high">Frequency Bands: Low, Mid and High</h3>
+<p>Bass and sub bass sit in the low band, speech in the mid band, and treble in the high band. If one share jumps after you fix something, check the overall level too, since percentages shift when another component drops.</p>
+<h3 id="electrical-hum-and-low-frequency-rumble">Electrical Hum and Low-Frequency Rumble</h3>
+<p>A spike near 50 or 60 Hz suggests mains hum from wiring or a transformer, and its harmonics repeat above it. Rumble from HVAC, air conditioning or traffic piles up in the same low band, while hiss lives in the high band.</p>
+<h3 id="octave-bands-and-a-weighting">Octave Bands and A-Weighting</h3>
+<p>Octave bands group the spectrum in proportional steps; white noise and pink noise are the usual test signals. A-weighting trims bass and treble to mimic your ear, so a weighting choice changes the number you read.</p>
+      </section>
 
-            <h3 id="low-frequency-noise-hvac-traffic-and-electrical-hum">Low-Frequency Noise: HVAC, Traffic, and Electrical Hum</h3>
-            <p>HVAC and traffic produce broadband low-frequency rumble that is difficult to eliminate without physical isolation. Short-term solutions: close all windows and doors, turn off the AC unit during recording sessions, and move the microphone away from the room's main ventilation duct. Electrical hum (the characteristic 60 Hz tone in North America) is fixed by addressing the ground loop: use a balanced XLR microphone instead of unbalanced 3.5 mm, replace cheap USB cables, and avoid running microphone cables parallel to power cables. <!-- SILO_START:slot_c -->The <a href="/mic-recorder">online mic recorder</a> runs locally in your browser — your audio is never sent to any server.<!-- SILO_END:slot_c --></p>
+      <section class="content-panel prose max-w-none block" id="noise-floor-vs-microphone-noise" aria-labelledby="noise-floor-vs-microphone-noise-heading">
+<h2 id="noise-floor-vs-microphone-noise-heading">Noise Floor vs Microphone Noise</h2>
+<p>Your <strong>noise floor</strong> is the quietest level your setup can show. It includes <strong>microphone noise</strong> (self-noise), input gain and mic gain choices, and any clipping, so the lowest reading is not always the space's true acoustic level. Keep gain fixed when you compare. Make a ten-second recording with your usual microphone, then repeat with the gain halved; if the audio floor barely moves, the microphone noise, not your space, sets the limit. A noise floor analyzer works the same way.</p>
+<h3 id="common-types-of-background-noise">Common Types of Background Noise</h3>
+<p>Fans and appliances give a steady noise source that shows as a flat band of energy, mains hum is a narrow spike near 50 or 60 Hz, and hiss lifts the high band. Clicks and interference appear as sudden peaks, and artifacts add acoustic problems that the room tone itself does not explain.</p>
+<h3 id="signal-to-noise-ratio-guidelines">Signal-to-Noise Ratio Guidelines</h3>
+<p>SNR is your talker level minus the floor. For example, a talker at <strong>-18 dB</strong> over a floor of -61 dB gives 43 dB:</p>
+<table>
+<tr><th>Case</th><th>Floor level</th><th>SNR (dB)</th></tr>
+<tr><td>Laptop mic, noisy desk</td><td>-44</td><td>26</td></tr>
+<tr><td>Headset, quiet desk</td><td>-61</td><td>43</td></tr>
+<tr><td>Directional mic, treated booth</td><td>-68</td><td>50</td></tr>
+</table>
+      </section>
 
-            <h3 id="mid-frequency-noise-fans-appliances-and-mechanical-sources">Mid-Frequency Noise: Fans, Appliances, and Mechanical Sources</h3>
-            <p>Computer fan noise is often the largest contributor to mid-frequency background noise in a home studio. Solutions: use a directional (cardioid) microphone positioned away from the computer, place the computer behind a physical barrier, or record with the computer at a greater distance. Refrigerators and appliances: unplug nearby appliances during recording sessions, or move to a different room. For permanent solutions, acoustic panels on walls and heavy door seals significantly reduce mid-frequency transmission from adjacent spaces.</p>
+      <section class="content-panel prose max-w-none block alt" id="calibrate-your-background-noise-test" aria-labelledby="calibrate-your-background-noise-test-heading">
+<h2 id="calibrate-your-background-noise-test-heading">Calibrate Your Background Noise Test</h2>
+<p>Calibration ties dBFS to a real <strong>sound pressure level</strong>. Match a trusted reference meter during steady sound at the same position and weighting, then save the offset for that microphone. Say the reference meter reads 38.0 dBA while the page shows -57.0 on its digital scale: the calibration offset is +95.0 dB for that microphone, weighting and gain. A later reading of -49.0 then corresponds to roughly 46 dBA. Repeat your background noise level test whenever the audio interface, gain or position changes, because that calibration no longer applies; without it, compare runs only against each other.</p>
+<h3 id="the-10-db-rule-explained">The 10 dB Rule Explained</h3>
+<p>The <strong>10 dB rule</strong> says ambient sound should sit at least 10 dB below what you measure. A source at 60 dB needs a room at 50 dB or lower for accuracy within about 0.5 dB.</p>
+<h3 id="match-a-reference-meter-and-export-the-data">Match a Reference Meter and Export the Data</h3>
+<p>Export the CSV after each calibrated run so podcasting or studio sessions stay documented.</p>
+      </section>
 
-            <h3 id="high-frequency-noise-microphone-hiss-and-electronic">High-Frequency Noise: Microphone Hiss and Electronic Interference</h3>
-            <p>High-frequency noise is usually microphone self-noise (measurable as dB(A) in the microphone's specification sheet) or USB/power supply interference. To reduce it: use a microphone with a lower self-noise rating (under 20 dB(A) for studio work), use a quality audio interface instead of a direct USB connection, and keep the microphone cable away from power supplies and screens. Software noise reduction (Nvidia RTX Voice, Krisp, or a noise reduction plugin in your DAW) can reduce residual high-frequency hiss that physical measures cannot eliminate.</p>
+      <section class="content-panel prose max-w-none block" id="spare-room-noise-measurement-window-open-vs-closed" aria-labelledby="spare-room-noise-measurement-window-open-vs-closed-heading">
+<h2 id="spare-room-noise-measurement-window-open-vs-closed-heading">Spare-Room Noise Measurement: Window Open vs Closed</h2>
+<p>Dana opens the analyzer to check whether her spare room, a planned voice-over booth, stays under 35 dBA, the ANSI/ASA S12.60 classroom limit and a fair yardstick for speech work.</p>
+<p>She first calibrates against a handheld meter that reads 36.9 dBA while the page shows -54.4 dBFS, giving an offset of 36.9 + 54.4 = <strong>+91.3 dB</strong> for this microphone, gain and A-weighting. Then she runs the analyzer for two 60-second samples, changing only the window.</p>
+<table>
+<tr><th>Window</th><th>Leq (dBFS)</th><th>Calibrated (dBA)</th><th>SNR for speech at -21.5 dBFS</th></tr>
+<tr><td>Open</td><td>-50.2</td><td>41.1</td><td>28.7 dB</td></tr>
+<tr><td>Closed</td><td>-57.9</td><td>33.4</td><td>36.4 dB</td></tr>
+</table>
+<p>The <strong>closed-window result of 33.4 dBA</strong> clears the 35 dBA target by 1.6 dB, while the open window misses it by 6.1 dB. Closing the window removes <strong>7.7 dB</strong> of street noise, and that is the number to watch: it moves the signal-to-noise ratio from 28.7 dB to 36.4 dB. She cross-checks by hand, adding the offset to each reading, and both match the meter's trend.</p>
+<p>The edge case is the refrigerator in the next room. Its compressor cycles, so a 60-second Leq can land in a quiet stretch and flatter the room. Dana's L10 sits well above her L90, which tells her the floor is not steady, so she repeats the run for five minutes before trusting 33.4. Her offset also only holds at this gain: touching the input level by even 6 dB shifts every calibrated figure, so she tapes the gain knob in place. Her next action is a fresh five-minute closed-window run, then a draught strip for the window frame.</p>
+      </section>
+
+      <section class="content-panel prose max-w-none block alt" id="noise-reduction-fixes-for-ambient-sound" aria-labelledby="noise-reduction-fixes-for-ambient-sound-heading">
+<h2 id="noise-reduction-fixes-for-ambient-sound-heading">Noise Reduction Fixes for Ambient Sound</h2>
+<p>Start with the source of the audio problem, rerun the analyzer after every change to compare against your baseline, then use <strong>noise reduction</strong> software only for what remains. Heavy processing adds artifacts, so a gentle noise gate beats aggressive cleanup. <!-- SILO_START:slot_c -->The <a href="/mic-recorder">online mic recorder</a> runs locally in your browser — your audio is never sent to any server.<!-- SILO_END:slot_c --></p>
+<ul>
+<li>If the low band dominates, switch off the heater, move away from appliances and rerun.</li>
+<li>Put a headset or directional mic close to your voice for better audio.</li>
+<li>Add acoustic treatment to cut reverb in a recording room.</li>
+</ul>
+<h3 id="noise-suppression-and-auto-gain-control">Noise Suppression and Auto Gain Control</h3>
+<p>Noise suppression in meeting apps hides steady background noise, but it answers a different question from measuring the room. Switch off auto gain control and echo cancellation for the test, since they move the numbers.</p>
+<h3 id="fix-fans-hiss-and-echo">Fix Fans, Hiss and Echo</h3>
+<p>A fan shows as a steady low-band level and hiss as high-band energy. Lower the input gain to cut noise at the source, then confirm in the analyzer that the level dropped; soft panels soften reflections.</p>
+      </section>
+
+      <section class="content-panel prose max-w-none block" id="room-tone-checks-before-calls-and-recordings" aria-labelledby="room-tone-checks-before-calls-and-recordings-heading">
+<h2 id="room-tone-checks-before-calls-and-recordings-heading">Room Tone Checks Before Calls and Recordings</h2>
+<p>Run a check before video calls, meetings or a podcast, and again after you change speaker position or move to a quiet room. Audio quality depends on your environment as much as your microphone, so test the same environment you will use for recording, at the hour you will use it.</p>
+<h3 id="is-your-audio-recorded">Is Your Audio Recorded?</h3>
+<p>No. Measurement happens in your browser, so no audio recording is saved or sent, and you can revoke microphone permission at any time.</p>
       </section>
 
       <section class="content-panel prose max-w-none block alt" id="faq" aria-labelledby="faq-heading">
         <h2 id="faq-heading">Background Noise Analyzer — Frequently Asked Questions</h2>
         <details class="panel" open>
-          <summary><strong>What is a good ambient noise level for recording?</strong></summary>
-          <p>Below 40 dB average is the target for podcast and voiceover recording — this equates to a quiet room with no HVAC running. Professional recording studios typically measure 20–25 dB. A typical home office with a running computer measures 40–55 dB, which is workable if the microphone is positioned close enough to achieve a strong signal-to-noise ratio. Check your room with this background noise analyzer before investing time in a recording session.</p>
+          <summary><strong>What is a good background noise level for recording?</strong></summary>
+          <p>Many home recording setups aim for a calibrated room level around 35 dBA or lower and a signal-to-noise ratio of at least 40 dB, so your voice sits well above the floor.</p>
         </details>
         <details class="panel" open>
-          <summary><strong>Why does my analyzer show a spike at exactly 50 or 60 Hz?</strong></summary>
-          <p>A sharp spike at 50 or 60 Hz is almost always electrical mains hum caused by a ground loop or inadequate shielding. Common causes: a cheap 3.5 mm microphone cable near a power cable, a USB microphone drawing power from an electrically noisy port, or multiple devices connected to the same power strip with different ground references. Fix by switching to a balanced XLR microphone, using a USB isolator, or plugging audio equipment into a dedicated power strip with proper earthing.</p>
+          <summary><strong>Is this an absolute decibel meter?</strong></summary>
+          <p>Not by itself. A browser reads relative digital levels in dBFS. Matching a trusted reference meter gives an offset that converts the reading to an estimated dBA for that microphone, gain and weighting.</p>
         </details>
         <details class="panel" open>
-          <summary><strong>Can I use the background noise analyzer to check noise before a recording or call?</strong></summary>
-          <p>Yes — that is one of its most practical uses. Run the analyzer for 30 seconds in the space where you plan to record or make a call. If the average level is above 55 dB, background noise will be audible to your call participants or on your recording. Take the action steps in the recommendations section and re-run the analyzer until the level drops to an acceptable range. For calls specifically, pairing this with an <a href="/echo-test">echo test</a> gives you a complete pre-call audio environment check.</p>
+          <summary><strong>What is the 10 dB rule for background noise?</strong></summary>
+          <p>For a measurement to be accurate within about 0.5 dB, the background must sit at least 10 dB below the source you measure. This calculator checks that gap from your two levels.</p>
         </details>
         <details class="panel" open>
-          <summary><strong>How is this different from the sound level meter?</strong></summary>
-          <p>The <a href="/sound-level-meter">sound level meter online</a> gives you a single dB reading that represents the overall volume of everything — voice, noise, and silence combined. The background noise analyzer is specifically designed to measure what the microphone picks up when you are <em>not</em> speaking, and it adds the frequency spectrum display that lets you identify the character and sources of that noise. For a quick volume check, use the sound level meter. For diagnosing recording environment problems, use the background noise analyzer.</p>
+          <summary><strong>Why does my noise reading change between runs?</strong></summary>
+          <p>Fans, air conditioning, keyboard clicks, passing traffic and automatic gain control all move the level. Take several samples with one change at a time and compare them.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Which sample duration should I choose?</strong></summary>
+          <p>Ten seconds suits steady noise; 30 to 60 seconds gives intermittent sounds a chance to appear. A longer run still cannot guarantee a rare event is captured.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Does the weighting change the result?</strong></summary>
+          <p>The weighting is a property of the reading you enter. A-weighting follows human hearing, C-weighting keeps more bass, and Z is flat. Use the same one for the reference meter and your offset.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Is my audio recorded or uploaded?</strong></summary>
+          <p>This calculator only uses the numbers you type. A measurement tool running in your browser analyzes microphone audio locally and does not need to store it.</p>
         </details>
       </section>
 

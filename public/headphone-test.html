@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Headphone Test - Check Left &amp; Right Audio Channels</title>
-  <meta name="description" content="Headphone test — click Play Left then Play Right to confirm each ear works independently. Catches swapped channels and wiring faults on any headphones.">
+  <title>Headphone Test: Check Left, Right and Bass on Your Headphones</title>
+  <meta name="description" content="Check your headphones with this free online test: play left and right channels, sweep bass to treble and spot driver or wiring faults right in your browser.">
   <meta name="keywords" content="headphone test, earphone test, headphone stereo test, left right headphone test, headphone channel test, audio quality test">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="canonical" href="https://mictest.dev/headphone-test">
@@ -12,9 +12,9 @@
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "Headphone Test",
+  "name": "Headphone Test: Check Left, Right and Bass on Your Headphones",
   "url": "https://mictest.dev/headphone-test",
-  "description": "Test your headphones for stereo balance, audio quality, and channel separation. Verify left and right earphones are working correctly.",
+  "description": "Check your headphones with this free online test: play left and right channels, sweep bass to treble and spot driver or wiring faults right in your browser.",
   "isPartOf": {
     "@type": "WebSite",
     "name": "MicTest",
@@ -30,50 +30,66 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Can I test earbuds with this?",
+      "name": "What does a headphone test check?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes — this test works for all stereo audio output devices: over-ear headphones, on-ear headphones, in-ear monitors (IEMs), and standard earbuds. The channel test, bass test, and sweep are all hardware-independent. For single-driver earbuds, the bass test at 20–40 Hz may show no output simply because small drivers cannot reproduce those frequencies physically."
+        "text": "It plays test tones so you can check the left and right channels, balance, frequency response, sweeps, short bursts, a square wave and phase, all in your browser."
       }
     },
     {
       "@type": "Question",
-      "name": "How do I fix channels that are swapped?",
+      "name": "Why do I hear sound on only one side?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Start with the simplest cause: unplug the 3.5mm jack completely and reinsert firmly. If that doesn't fix it, check Windows: Right-click the speaker icon → Sound settings → Output → Mono/Balance; Mac: System Settings → Sound → Output → Balance slider. If the channels are still reversed in software, swap the headphone cups physically on the headband if the design allows it, or use an audio adapter that reverses channels."
+        "text": "Play the left, right and stereo tones and center the pan control. If one side stays silent or quiet, check the plug, the ear cup fit and your system balance slider before suspecting the driver."
       }
     },
     {
       "@type": "Question",
-      "name": "What should the full frequency sweep sound like?",
+      "name": "How do I set a safe volume?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The 20 Hz–20 kHz sweep should start as a very low rumble you may feel more than hear, rise through a deep bass thump, continue through clear midrange and vocal frequencies, and end in a high-pitched tone you may not be able to hear clearly above 16,000–18,000 Hz (depending on your age and the headphones). Any sudden drop-out, distortion, or rattle at a specific frequency during the sweep identifies a problem at that range."
+        "text": "Set the system volume low, keep the tool at a comfortable level, and raise it slowly. The tool starts at 20%, and wired headphones give the most reliable results."
       }
     },
     {
       "@type": "Question",
-      "name": "Why is one earbud louder than the other?",
+      "name": "What frequency range should good headphones reproduce?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Check your system balance setting first — this is the most common cause. On Windows, search for \"Sound settings\" and check the Output balance. On Mac, check System Settings → Sound → Output. If the balance is centred and one side is still quieter, the driver in that ear may be damaged, or the cable connection inside one cup has partially failed."
+        "text": "Human hearing spans roughly 20 Hz to 20 kHz. Good headphones play that range smoothly; the upper limit falls with age, so a lower treble limit on every pair can point to your hearing."
       }
     },
     {
       "@type": "Question",
-      "name": "Are wireless Bluetooth headphones affected differently?",
+      "name": "What is the pan control for?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Bluetooth headphones add a digital audio codec layer (SBC, AAC, aptX, LDAC) that can affect perceived quality depending on connection strength and codec negotiation. If your headphone test shows inconsistent channel levels or dropouts on wireless headphones, try moving closer to the paired device or switching the codec in your Bluetooth settings. For precision audio testing, wired mode (if available) eliminates Bluetooth codec variability."
+        "text": "Pan shifts the signal between left and right so you can check the balance of your headphones. This calculator shows the resulting channel levels using an equal-power pan."
       }
     },
     {
       "@type": "Question",
-      "name": "What is stereo headphone imaging?",
+      "name": "What do the burst and square wave tests detect?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Stereo imaging is a headphone's ability to position sounds convincingly in the left-right and front-back space — a property that matters for gaming, music production, and critical listening. Good stereo imaging means an orchestra recording sounds like the instruments are spread across a wide soundstage. The channel separation test checks the most basic aspect of imaging: that left-channel content reaches only the left ear and vice versa."
+        "text": "Short bursts reveal distortion or overshoot, and a low square wave exposes rattling parts and enclosure resonances. Reduce the volume if something rattles."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use Bluetooth headphones?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, but Bluetooth can add latency and trim the highest frequencies. Use a cable for precise results."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to install anything?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The test runs in your browser and does not upload any audio."
       }
     }
   ]
@@ -550,7 +566,7 @@
 
       <!-- HERO -->
       <header class="mb-6">
-        <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Headphone Test — Check Left &amp; Right Ear Channels Separately</h1>
+        <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Headphone Test: Check Left, Right and Bass on Your Headphones</h1>
           <p class="lead-text">Click <strong>Play Left</strong>, then <strong>Play Right</strong>, on this <strong>headphone test</strong> to check each ear channel. <!-- SILO_START:slot_a -->A <a href="/tone-generator">tone generator</a> lets you play any frequency from 20Hz to 20kHz directly in your browser.<!-- SILO_END:slot_a --></p>
       </header>
 
@@ -558,7 +574,7 @@
 
       <div class="min-w-0">
 
-        <form aria-label="Headphone Test — Check Left &amp; Right Ear Channels Separately" onsubmit="return false">
+        <form aria-label="Headphone Test: Check Left, Right and Bass on Your Headphones" onsubmit="return false">
           <div class="panel mb-6">
             <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-headphones"></i>Left/Right Channel Test</span></div>
             <div class="panel-body">
@@ -651,78 +667,139 @@
 
 
 
-      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents"><div class="toc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span id="table-of-contents">Table of Contents</span></div><ol class="toc-list"><li><a href="#what-to-check">What to Check</a></li><li><a href="#what-does-the-headphone-test-check">What Does the Headphone Test Check?</a><ol class="toc-sublist"><li><a href="#left-right-channel-separation">Left/Right Channel Separation</a></li><li><a href="#bass-response">Bass Response</a></li><li><a href="#treble-and-high-frequency-response">Treble and High-Frequency Response</a></li><li><a href="#audio-quality-and-distortion">Audio Quality and Distortion</a></li></ol></li><li><a href="#common-headphone-problems-and-their-causes">Common Headphone Problems and Their Causes</a><ol class="toc-sublist"><li><a href="#sound-coming-from-the-wrong-ear">Sound Coming from the Wrong Ear</a></li><li><a href="#one-side-is-silent-or-much-quieter">One Side Is Silent or Much Quieter</a></li><li><a href="#crackling-or-distortion">Crackling or Distortion</a></li><li><a href="#weak-or-muddy-bass">Weak or Muddy Bass</a></li></ol></li><li><a href="#faq">Frequently Asked Questions</a></li></ol></nav></section>
+      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents"><div class="toc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span id="table-of-contents">Table of Contents</span></div><ol class="toc-list"><li><a href="#headphone-test-online-how-to-run-it-in-your-browser">Headphone Test Online: How to Run It in Your Browser</a></li><li><a href="#left-right-test-are-your-earbuds-wired-correctly">Left-Right Test: Are Your Earbuds Wired Correctly?</a><ol class="toc-sublist"><li><a href="#stereo-test-and-channels-check">Stereo Test and Channels Check</a></li></ol></li><li><a href="#frequency-test-your-headphones-from-bass-to-treble">Frequency Test: Your Headphones From Bass to Treble</a><ol class="toc-sublist"><li><a href="#bass-test-sweep-the-full-range">Bass Test: Sweep the Full Range</a></li></ol></li><li><a href="#spectral-flatness-and-earbud-insert-test-for-earphones">Spectral Flatness and Earbud Insert Test for Earphones</a></li><li><a href="#driver-quality-test-driver-matching-on-your-headphones">Driver Quality Test: Driver Matching on Your Headphones</a><ol class="toc-sublist"><li><a href="#polarity-test">Polarity Test</a></li><li><a href="#phase-test">Phase Test</a></li></ol></li><li><a href="#a-left-right-audio-test-on-a-pair-of-used-earbuds">A Left Right Audio Test on a Pair of Used Earbuds</a></li><li><a href="#soundstage-test-and-stereo-imaging-on-a-gaming-headset">Soundstage Test and Stereo Imaging on a Gaming Headset</a></li><li><a href="#dynamic-range-and-isolation-in-closed-headphones">Dynamic Range and Isolation in Closed Headphones</a></li><li><a href="#audio-latency-and-microphone-test-for-wireless-headphones">Audio Latency and Microphone Test for Wireless Headphones</a></li><li><a href="#headphones-not-working-troubleshooting-fixes">Headphones Not Working? Troubleshooting Fixes</a></li><li><a href="#judge-your-headphones-sound-quality-with-music">Judge Your Headphones&#x27; Sound Quality With Music</a></li><li><a href="#faq">Frequently Asked Questions</a></li></ol></nav></section>
 
-      <section class="content-panel prose max-w-none block" id="what-to-check" aria-labelledby="what-to-check-heading">
-        <p class="lead-text">The <strong>Headphone Test</strong> plays tones through each ear independently so you can confirm both channels on your headphones are working correctly. Put on your headphones, click <strong>Play Left</strong> and the tone should come only from your left ear — then click <strong>Play Right</strong> and it should shift entirely to your right ear. If both ears play at once or one side stays silent, the <strong>channel result</strong> display tells you whether you're dealing with swapped channels, a wiring fault, or a driver issue on your device.</p>
-        <h2 id="what-to-check-heading"><i class="bi bi-check-circle me-2"></i>What to Check</h2>
-        <ul>
-          <li><strong>Both ears work:</strong> Sound should be clear in both left and right</li>
-          <li><strong>Correct channels:</strong> Left plays in left ear, right in right ear</li>
-          <li><strong>Equal volume:</strong> Both sides should be equally loud</li>
-          <li><strong>No distortion:</strong> Sound should be clean without crackling</li>
-          <li><strong>Good bass:</strong> Check with a bass test</li>
-        </ul>
+      <div class="content-panel prose max-w-none block">
+<p class="lead-text">Run this <strong>free online headphone test tool</strong> to find out whether your earbuds or over-ear headphones deliver clean audio: <strong>stereo balance</strong>, bass, treble and <strong>driver polarity</strong> all get checked with one click each, and each result shows exactly which side or frequency fails.</p>
+      </div>
+
+      <section class="content-panel prose max-w-none block alt" id="headphone-test-online-how-to-run-it-in-your-browser" aria-labelledby="headphone-test-online-how-to-run-it-in-your-browser-heading">
+<h2 id="headphone-test-online-how-to-run-it-in-your-browser-heading">Headphone Test Online: How to Run It in Your Browser</h2>
+<p>Because it works as a <strong>headphone test in browser</strong>, nothing installs and no sound leaves your device. Treat it as a quick diagnostic for headphones: it catches faults long before a warranty runs out and protects your hearing from harsh, mislabeled headphones. <!-- SILO_START:slot_b -->Uncertain about <a href="/show-speakers">what speakers do i have</a>? The tool reads your system's audio output devices directly from the browser.<!-- SILO_END:slot_b --></p>
+<ol>
+<li>Plug in or pair your headphones, preferably over a <strong>wired connection</strong>.</li>
+<li>Start quietly: set the system and tool <strong>volume</strong> low, then raise it slowly.</li>
+<li>Play each <strong>test tone</strong> and move the <strong>pan</strong> control, the <strong>panorama</strong> slider, from left to right.</li>
+<li>Note anything odd and read the matching section below.</li>
+</ol>
+<p>Any reliable <strong>headphone tool</strong> can reveal wear that you cannot hear in everyday listening, because familiar songs hide small sound faults.</p>
       </section>
 
-      <section class="content-panel prose max-w-none block alt" id="what-does-the-headphone-test-check" aria-labelledby="what-does-the-headphone-test-check-heading">
-        <h2 id="what-does-the-headphone-test-check-heading">What Does the Headphone Test Check?</h2>
-        <p>A proper <strong>headphone test</strong> covers several distinct properties that affect audio quality and usability. This tool tests all of them in one place: <!-- SILO_START:slot_b -->Uncertain about <a href="/show-speakers">what speakers do i have</a>? The tool reads your system's audio output devices directly from the browser.<!-- SILO_END:slot_b --></p>
-
-        <h3 id="left-right-channel-separation">Left/Right Channel Separation</h3>
-        <p>The most fundamental headphone test. Click <strong>Play Left</strong> — sound should come from your left ear only. Click <strong>Play Right</strong> — sound should come from your right ear only. If the channels are swapped, your headphone cable is connected in reverse, or your audio output device has its channels crossed. Use the stereo test to verify your computer's audio output channel mapping.</p>
-
-        <h3 id="bass-response">Bass Response</h3>
-        <p>The bass test plays a low-frequency tone (around 60–80 Hz) to check whether your headphone drivers can reproduce deep bass. Over-ear headphones with large drivers typically perform well here; small earbuds and in-ear monitors may roll off bass below 60–80 Hz depending on their driver size and ear seal.</p>
-
-        <h3 id="treble-and-high-frequency-response">Treble and High-Frequency Response</h3>
-        <p>The treble test plays high-frequency tones (above 8,000 Hz) to check whether your headphones reproduce the high end of the audible spectrum. Thin or tinny treble suggests a weaker tweeter element, while complete silence at high frequencies may indicate driver damage. For a full frequency sweep, the Full Range test gradually steps from 20 Hz to 20,000 Hz.</p>
-
-        <h3 id="audio-quality-and-distortion">Audio Quality and Distortion</h3>
-        <p>Listen for crackling, buzzing, or rattling during playback. Clean tones should sound smooth without any mechanical or electronic interference. Persistent crackling often indicates a loose driver connection or a worn cable. Buzzing at specific frequencies may point to a resonance defect in the headphone housing.</p>
+      <section class="content-panel prose max-w-none block" id="left-right-test-are-your-earbuds-wired-correctly" aria-labelledby="left-right-test-are-your-earbuds-wired-correctly-heading">
+<h2 id="left-right-test-are-your-earbuds-wired-correctly-heading">Left-Right Test: Are Your Earbuds Wired Correctly?</h2>
+<p>Begin with the <strong>left right audio test</strong>, also called a <strong>left right sound test</strong>: play the <strong>left channel</strong>, then the <strong>right channel</strong>, and each should sound only in its own ear. A <strong>left right test headphones</strong> pass means your headphones are wired correctly. If it fails, check these results:</p>
+<ul>
+<li>The <strong>channels are swapped</strong> or the earcups sit the <strong>wrong way round</strong>: sound arrives in the opposite ear.</li>
+<li>Both sides play together: the signal is <strong>mono</strong>, often from a <strong>3-pole plug</strong> in a <strong>4-pole socket</strong> or a cheap adapter.</li>
+<li>One side is quieter: open your <strong>sound settings</strong> and center the <strong>balance slider</strong> before blaming the headphones; check the <strong>wiring</strong> next.</li>
+</ul>
+<p>Run an <strong>earphone test</strong> or a <strong>headphones test</strong> the same way for any model, since the channels logic never changes.</p>
+<h3 id="stereo-test-and-channels-check">Stereo Test and Channels Check</h3>
+<p>The <strong>stereo test</strong> plays both channels of your headphones together, so a centered tone confirms matched output and good stereo balance.</p>
       </section>
 
-      <section class="content-panel prose max-w-none block" id="common-headphone-problems-and-their-causes" aria-labelledby="common-headphone-problems-and-their-causes-heading">
-        <h2 id="common-headphone-problems-and-their-causes-heading">Common Headphone Problems and Their Causes</h2>
-
-        <h3 id="sound-coming-from-the-wrong-ear">Sound Coming from the Wrong Ear</h3>
-        <p>If Play Left produces sound in your right ear, your channels are swapped. The most common causes are: a 3.5mm cable plugged in partially, left/right cups physically swapped on the headband (some over-ear headphones allow this), or an audio output setting in Windows or macOS that has swapped channels. Check your system audio balance settings first — on Windows: System → Sound → Output → Mono audio or Channel Balance; on Mac: System Settings → Sound → Output → Balance. <!-- SILO_START:slot_c -->Before any recording session, a <a href="/sound-level-meter">sound level meter online</a> confirms your ambient noise floor is within acceptable limits.<!-- SILO_END:slot_c --></p>
-
-        <h3 id="one-side-is-silent-or-much-quieter">One Side Is Silent or Much Quieter</h3>
-        <p>A completely silent ear typically means a broken driver or a severed wire inside the cable — usually at the plug or where the cable enters the ear cup, where bending stress is highest. Unplug and replug the cable first. If the problem persists, try a different audio source to rule out a port fault. A side that is consistently quieter (but not silent) during the channel test usually points to a damaged driver or an unbalanced audio setting.</p>
-
-        <h3 id="crackling-or-distortion">Crackling or Distortion</h3>
-        <p>Intermittent crackling during playback is almost always a cable or connection problem — the signal path is breaking contact as the cable moves. Try holding the cable still during playback to confirm. Constant distortion at certain frequencies can indicate a blown driver (exceeding power limits) or a loose dust cover on the driver. Wired crackling that only appears at high volume usually means the amplifier is clipping.</p>
-
-        <h3 id="weak-or-muddy-bass">Weak or Muddy Bass</h3>
-        <p>Poor bass from in-ear monitors is most often caused by an improper ear seal — try different ear tip sizes until the seal is airtight. For over-ear headphones, weak bass can result from worn-out ear cushions that no longer form a complete seal around your ear. Replacing the cushions often restores the original bass response. If the bass test produces normal results but music sounds bass-light, the issue may be equalisation settings on your device rather than the headphones themselves.</p>
+      <section class="content-panel prose max-w-none block alt" id="frequency-test-your-headphones-from-bass-to-treble" aria-labelledby="frequency-test-your-headphones-from-bass-to-treble-heading">
+<h2 id="frequency-test-your-headphones-from-bass-to-treble-heading">Frequency Test: Your Headphones From Bass to Treble</h2>
+<p>The <strong>frequency test</strong> uses a <strong>sine sweep</strong> or a <strong>frequency generator</strong> to cover the <strong>hearing range</strong>, roughly <strong>20 Hz</strong> to <strong>20 kHz</strong>, also written <strong>20,000Hz</strong>. In <strong>hertz</strong>, <strong>bass extension</strong> shows how low the drivers reach and <strong>treble extension</strong> how high; a good <strong>frequency range</strong> in headphones covers both without gaps, as <strong>frequency</strong> is the core of every <strong>musical notes</strong> scale.</p>
+<table>
+<tr><th>Band</th><th>Range</th><th>What to listen for</th></tr>
+<tr><td>Sub-bass</td><td>20-60 Hz</td><td>A felt rumble, not a rattle</td></tr>
+<tr><td>Bass</td><td>60-250 Hz</td><td>Warm, tight thump</td></tr>
+<tr><td>Mid (speech range)</td><td>250 Hz-4 kHz</td><td>Clear, natural voices</td></tr>
+<tr><td>Treble</td><td>4-20 kHz</td><td>Crisp detail without hiss</td></tr>
+</table>
+<figure><img src="/images/headphone-test/headphone-test-frequency-bands.svg" alt="Zone bar splitting the 20 Hz to 20 kHz hearing range into sub-bass, bass, mid and treble bands sized by octave for a headphone frequency test"><figcaption>The four frequency bands a sweep should cover, drawn by octave width.</figcaption></figure>
+<p>If the highest tones vanish, suspect your <strong>hearing loss</strong> from age first, and an odd skipping sweep may point to <strong>aliasing</strong> in your <strong>sound card</strong>.</p>
+<h3 id="bass-test-sweep-the-full-range">Bass Test: Sweep the Full Range</h3>
+<p>A slow <strong>sweep</strong> in a <strong>bass test</strong> shows dips or peaks; the shape of the <strong>frequency response</strong> matters more than any single note.</p>
       </section>
 
-      <section class="content-panel prose max-w-none block alt" id="faq" aria-labelledby="faq-heading">
+      <section class="content-panel prose max-w-none block" id="spectral-flatness-and-earbud-insert-test-for-earphones" aria-labelledby="spectral-flatness-and-earbud-insert-test-for-earphones-heading">
+<h2 id="spectral-flatness-and-earbud-insert-test-for-earphones-heading">Spectral Flatness and Earbud Insert Test for Earphones</h2>
+<p><strong>Spectral flatness</strong> means no frequency sounds louder than another. The <strong>earbud insert test</strong> matters most for any <strong>in-ear</strong> design, because insertion depth reshapes the <strong>frequency response</strong>; a <strong>headphones (and earphones) test</strong> at a very low level reveals the depth that sounds flattest.</p>
+      </section>
+
+      <section class="content-panel prose max-w-none block alt" id="driver-quality-test-driver-matching-on-your-headphones" aria-labelledby="driver-quality-test-driver-matching-on-your-headphones-heading">
+<h2 id="driver-quality-test-driver-matching-on-your-headphones-heading">Driver Quality Test: Driver Matching on Your Headphones</h2>
+<p><strong>Driver quality</strong> depends on tolerances. <strong>Driver matching</strong> means both <strong>drivers</strong> respond equally, so a sweep stays centered; a wandering tone points to <strong>mismatched</strong> units. The <strong>bass shaker</strong> sweep exposes any <strong>rattle</strong> or <strong>rattling</strong> part, and <strong>buzz</strong> or <strong>buzzing</strong> is the other common sign. A <strong>square wave</strong> and short <strong>bursts</strong> uncover <strong>resonances</strong>, <strong>distortion</strong> and <strong>harmonic distortion</strong>; reduce the level when the test tone turns rough.</p>
+<h3 id="polarity-test">Polarity Test</h3>
+<p>A low tone should push both drivers outward together; weak bass suggests reversed <strong>polarity</strong>.</p>
+<h3 id="phase-test">Phase Test</h3>
+<p>An in-<strong>phase</strong> tone sounds centered, while out-of-phase sound feels thin and diffuse.</p>
+      </section>
+
+      <section class="content-panel prose max-w-none block" id="a-left-right-audio-test-on-a-pair-of-used-earbuds" aria-labelledby="a-left-right-audio-test-on-a-pair-of-used-earbuds-heading">
+<h2 id="a-left-right-audio-test-on-a-pair-of-used-earbuds-heading">A Left Right Audio Test on a Pair of Used Earbuds</h2>
+<p>The decision: keep a second-hand pair of earbuds bought for $38.40, or return them within the seller's 14-day window. I plug them into my laptop with the cable, set the tool <strong>volume</strong> to 35% and open the <strong>left right audio test</strong> first.</p>
+<p>Left plays a clear tone. Right plays it too, but a reading of the tone against my ear says it is quieter. That gap is the whole story, so I put a number on it by ear-matching the right side against a reference tone until they sound level: the right earbud needs about <strong>3.5 dB</strong> less attenuation. Using amplitude ratio = 10<sup>(-3.5/20)</sup>, the quieter side is playing at <strong>0.668</strong> of the louder side's amplitude. Roughly 1 dB is the point where most listeners begin to notice a level difference, so 3.5 dB is clearly audible, not imagined.</p>
+<p>Then the sweep: the tone stays steady until it fades out at <strong>15.8 kHz</strong>. Against the 20 kHz ceiling most spec sheets quote, that is log<sub>2</sub>(20/15.8) = <strong>0.34 octave</strong> missing, a minor treble shortfall that many adults share with perfectly healthy earbuds, so I do not count it against them.</p>
+<table>
+<tr><th>Check</th><th>Result</th><th>Verdict</th></tr>
+<tr><td>Left vs right level</td><td>3.5 dB gap (0.668 ratio)</td><td>Fault or source issue</td></tr>
+<tr><td>Treble limit</td><td>15.8 kHz (0.34 octave short)</td><td>Acceptable</td></tr>
+<tr><td>Swap test (earbuds reversed)</td><td>Quiet side stays on the same earbud</td><td>Earbud fault</td></tr>
+</table>
+<p>The sensitivity rerun decides it: I swap the earbuds between ears and repeat. The quiet sound moves with the earbud, so the laptop's balance is innocent and the right driver is the problem. That is my judgement call: the number to watch is the gap, not the treble limit. One caveat: a gap that stays on one <em>side</em> instead points to the source, so a swap test always comes before any return. Next action: message the seller today with the 3.5 dB result and request the refund before day 14.</p>
+      </section>
+
+      <section class="content-panel prose max-w-none block alt" id="soundstage-test-and-stereo-imaging-on-a-gaming-headset" aria-labelledby="soundstage-test-and-stereo-imaging-on-a-gaming-headset-heading">
+<h2 id="soundstage-test-and-stereo-imaging-on-a-gaming-headset-heading">Soundstage Test and Stereo Imaging on a Gaming Headset</h2>
+<p>Gaming depends on the <strong>soundstage</strong> your <strong>gaming headset</strong> creates, and headphones differ widely: good <strong>stereo imaging</strong> places a tone outside your head, and <strong>soundstage imaging</strong> on a grid proves it. The <strong>binaural test</strong> adds depth, which helps with <strong>3D audio</strong> and <strong>spatial audio</strong>. <strong>Over-ear</strong> headphones usually win for <strong>gaming</strong> and <strong>studio</strong> use; <strong>on-ear</strong> headphones trade space for portability, and soft <strong>ear cups</strong> and fresh <strong>ear pads</strong> help the seal.</p>
+      </section>
+
+      <section class="content-panel prose max-w-none block" id="dynamic-range-and-isolation-in-closed-headphones" aria-labelledby="dynamic-range-and-isolation-in-closed-headphones-heading">
+<h2 id="dynamic-range-and-isolation-in-closed-headphones-heading">Dynamic Range and Isolation in Closed Headphones</h2>
+<p>The <strong>dynamic range</strong> step of this <strong>headphone tool</strong> measures <strong>isolation</strong>: play <strong>noise</strong>, then a quiet <strong>voiceover</strong> that steps down in <strong>dBFS</strong>. The lowest level you still catch shows how well your headphones shut out the room. If the quiet steps vanish early, either your <strong>closed</strong> or <strong>open</strong> design leaks sound or the room is loud, and loud <strong>decibels</strong> from <strong>speakers</strong> nearby will skew the result.</p>
+      </section>
+
+      <section class="content-panel prose max-w-none block alt" id="audio-latency-and-microphone-test-for-wireless-headphones" aria-labelledby="audio-latency-and-microphone-test-for-wireless-headphones-heading">
+<h2 id="audio-latency-and-microphone-test-for-wireless-headphones-heading">Audio Latency and Microphone Test for Wireless Headphones</h2>
+<p><strong>Audio latency</strong> is the delay between action and sound. <strong>Wireless</strong> links over <strong>Bluetooth</strong> add <strong>latency</strong>, and dropouts mid-test mean interference. For <strong>podcast</strong> or <strong>recording</strong> work, run the <strong>microphone</strong> check as well.</p>
+      </section>
+
+      <section class="content-panel prose max-w-none block" id="headphones-not-working-troubleshooting-fixes" aria-labelledby="headphones-not-working-troubleshooting-fixes-heading">
+<h2 id="headphones-not-working-troubleshooting-fixes-heading">Headphones Not Working? Troubleshooting Fixes</h2>
+<p>When <strong>headphones not working</strong> is the problem, start <strong>troubleshooting</strong> with a firmly seated <strong>cable</strong> in the <strong>jack</strong> and a clean <strong>plug</strong>; <strong>earwax</strong> on tips quiets one side. Static or <strong>crackling</strong> when you move the cable means the wire is failing, and your <strong>headset</strong> may need repair. Use the <strong>speaker test</strong> to rule out the output device. <!-- SILO_START:slot_c -->Before any recording session, a <a href="/sound-level-meter">sound level meter online</a> confirms your ambient noise floor is within acceptable limits.<!-- SILO_END:slot_c --></p>
+      </section>
+
+      <section class="content-panel prose max-w-none block alt" id="judge-your-headphones-sound-quality-with-music" aria-labelledby="judge-your-headphones-sound-quality-with-music-heading">
+<h2 id="judge-your-headphones-sound-quality-with-music-heading">Judge Your Headphones' Sound Quality With Music</h2>
+<p>After the tones, play familiar <strong>music</strong>. Good <strong>sound quality</strong> shows in clear <strong>vocals</strong>, <strong>clarity</strong> without mud, a <strong>bass thump</strong> that stays tight and <strong>smoothness</strong> across the sweep. <strong>Listening</strong> to a <strong>concert</strong> recording through a proper <strong>amplifier</strong> shows how the <strong>audio quality</strong> holds up, and good <strong>polarity</strong> keeps the stage intact. <strong>Test your headphones</strong> every few months.</p>
+      </section>
+
+      <section class="content-panel prose max-w-none block" id="faq" aria-labelledby="faq-heading">
         <h2 id="faq-heading">Frequently Asked Questions</h2>
         <details class="panel" open>
-          <summary><strong>Can I test earbuds with this?</strong></summary>
-          <p>Yes — this test works for all stereo audio output devices: over-ear headphones, on-ear headphones, in-ear monitors (IEMs), and standard earbuds. The channel test, bass test, and sweep are all hardware-independent. For single-driver earbuds, the bass test at 20–40 Hz may show no output simply because small drivers cannot reproduce those frequencies physically.</p>
+          <summary><strong>What does a headphone test check?</strong></summary>
+          <p>It plays test tones so you can check the left and right channels, balance, frequency response, sweeps, short bursts, a square wave and phase, all in your browser.</p>
         </details>
         <details class="panel" open>
-          <summary><strong>How do I fix channels that are swapped?</strong></summary>
-          <p>Start with the simplest cause: unplug the 3.5mm jack completely and reinsert firmly. If that doesn't fix it, check <strong>Windows:</strong> Right-click the speaker icon → Sound settings → Output → Mono/Balance; <strong>Mac:</strong> System Settings → Sound → Output → Balance slider. If the channels are still reversed in software, swap the headphone cups physically on the headband if the design allows it, or use an audio adapter that reverses channels.</p>
+          <summary><strong>Why do I hear sound on only one side?</strong></summary>
+          <p>Play the left, right and stereo tones and center the pan control. If one side stays silent or quiet, check the plug, the ear cup fit and your system balance slider before suspecting the driver.</p>
         </details>
         <details class="panel" open>
-          <summary><strong>What should the full frequency sweep sound like?</strong></summary>
-          <p>The 20 Hz–20 kHz sweep should start as a very low rumble you may feel more than hear, rise through a deep bass thump, continue through clear midrange and vocal frequencies, and end in a high-pitched tone you may not be able to hear clearly above 16,000–18,000 Hz (depending on your age and the headphones). Any sudden drop-out, distortion, or rattle at a specific frequency during the sweep identifies a problem at that range.</p>
+          <summary><strong>How do I set a safe volume?</strong></summary>
+          <p>Set the system volume low, keep the tool at a comfortable level, and raise it slowly. The tool starts at 20%, and wired headphones give the most reliable results.</p>
         </details>
         <details class="panel" open>
-          <summary><strong>Why is one earbud louder than the other?</strong></summary>
-          <p>Check your system balance setting first — this is the most common cause. On Windows, search for "Sound settings" and check the Output balance. On Mac, check System Settings → Sound → Output. If the balance is centred and one side is still quieter, the driver in that ear may be damaged, or the cable connection inside one cup has partially failed.</p>
+          <summary><strong>What frequency range should good headphones reproduce?</strong></summary>
+          <p>Human hearing spans roughly 20 Hz to 20 kHz. Good headphones play that range smoothly; the upper limit falls with age, so a lower treble limit on every pair can point to your hearing.</p>
         </details>
         <details class="panel" open>
-          <summary><strong>Are wireless Bluetooth headphones affected differently?</strong></summary>
-          <p>Yes. Bluetooth headphones add a digital audio codec layer (SBC, AAC, aptX, LDAC) that can affect perceived quality depending on connection strength and codec negotiation. If your <strong>headphone test</strong> shows inconsistent channel levels or dropouts on wireless headphones, try moving closer to the paired device or switching the codec in your Bluetooth settings. For precision audio testing, wired mode (if available) eliminates Bluetooth codec variability.</p>
+          <summary><strong>What is the pan control for?</strong></summary>
+          <p>Pan shifts the signal between left and right so you can check the balance of your headphones. This calculator shows the resulting channel levels using an equal-power pan.</p>
         </details>
         <details class="panel" open>
-          <summary><strong>What is stereo headphone imaging?</strong></summary>
-          <p>Stereo imaging is a headphone's ability to position sounds convincingly in the left-right and front-back space — a property that matters for gaming, music production, and critical listening. Good stereo imaging means an orchestra recording sounds like the instruments are spread across a wide soundstage. The channel separation test checks the most basic aspect of imaging: that left-channel content reaches only the left ear and vice versa.</p>
+          <summary><strong>What do the burst and square wave tests detect?</strong></summary>
+          <p>Short bursts reveal distortion or overshoot, and a low square wave exposes rattling parts and enclosure resonances. Reduce the volume if something rattles.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Can I use Bluetooth headphones?</strong></summary>
+          <p>Yes, but Bluetooth can add latency and trim the highest frequencies. Use a cable for precise results.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Do I need to install anything?</strong></summary>
+          <p>No. The test runs in your browser and does not upload any audio.</p>
         </details>
       </section>
 

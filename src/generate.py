@@ -532,6 +532,14 @@ def main():
         else:
             print("  ! src/static/%s not found, skipping" % name)
 
+    # Per-page infographic SVGs (src/content_images/<slug>/*.svg -> public/images/<slug>/), written by
+    # utilities/seo_batch/import_seo_output.py. Rebuilt from scratch so renamed/dropped images don't linger.
+    images_src = os.path.join(BASE_DIR, "content_images")
+    images_out = os.path.join(OUTPUT_DIR, "images")
+    shutil.rmtree(images_out, ignore_errors=True)
+    if os.path.isdir(images_src):
+        shutil.copytree(images_src, images_out)
+
     write_robots_and_sitemap(site, tools, pages, OUTPUT_DIR)
 
     print("Built %d tool pages + %d info pages into %s" % (len(tools), len(pages), OUTPUT_DIR))

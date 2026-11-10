@@ -86,15 +86,15 @@ INJECTION_TARGETS = {
     },
     "tone-generator.html": {
         "slot_a": ("h1", None),
-        "slot_b": ("h2", "What Is a Tone Generator?"),        # left hub (or empty)
-        "slot_c": ("h3", "Hearing Range Assessment"),          # right hub (or empty)
-        "slot_d": ("h3", "Tinnitus Frequency Matching"),       # down to first supporter
+        "slot_b": ("h2", "How to Use This Online Tone Generator"),        # left hub (or empty)
+        "slot_c": ("h3", "Hearing Test and Tinnitus Matching"),          # right hub (or empty)
+        "slot_d": ("h3", "Speaker, Subwoofer and Audio Equipment Testing"),       # down to first supporter
     },
     "hearing-test.html": {
         "slot_a": ("h1", None),
-        "slot_b": ("h2", "How to Take the Hearing Test"),      # left hub (or empty)
-        "slot_c": ("h2", "Understanding Your Hearing Test Results"),  # right hub (or empty)
-        "slot_d": ("h2", "Common Causes of High-Frequency Hearing Loss"),  # down to first supporter
+        "slot_b": ("h2", "How the Free Online Hearing Test Works"),      # left hub (or empty)
+        "slot_c": ("h2", "Hearing Test Results by Hearing Loss Level"),  # right hub (or empty)
+        "slot_d": ("h2", "Signs of Hearing Loss a Hearing Screener"),  # down to first supporter
     },
     "audio-latency-test.html": {
         "slot_a": ("h1", None),
@@ -104,58 +104,58 @@ INJECTION_TARGETS = {
     },
     "headphone-test.html": {
         "slot_a": ("h1", None),
-        "slot_b": ("h2", "What Does the Headphone Test Check?"),
-        "slot_c": ("h3", "Sound Coming from the Wrong Ear"),
+        "slot_b": ("h2", "Headphone Test Online: How to Run It"),
+        "slot_c": ("h2", "Troubleshooting Fixes"),
     },
     "stereo-test.html": {
         "slot_a": ("h1", None),
-        "slot_b": ("h2", "What Is Stereo Sound?"),
-        "slot_c": ("h3", "Reversed Channels (Left/Right Swapped)"),
+        "slot_b": ("h2", "How to run a left and right audio test"),
+        "slot_c": ("h2", "Fixing left/right stereo wiring"),
     },
     "bass-test.html": {
         "slot_a": ("h1", None),
-        "slot_b": ("h2", "Understanding Bass Frequency Ranges"),
-        "slot_c": ("h3", "No Bass Response at Low Frequencies"),
+        "slot_b": ("h2", "Free Online Bass Test: How to Run It"),
+        "slot_c": ("h2", "Room Acoustics and Low-Frequency Tones"),
     },
     "speaker-volume-test.html": {
         "slot_a": ("h1", None),
-        "slot_b": ("h3", "Speaker Channel Test"),
-        "slot_c": ("h3", "Low Volume Speaker Test"),
+        "slot_b": ("h2", "What a Speaker Volume Test Checks"),
+        "slot_c": ("h2", "Troubleshooting Results From an Audio Tester"),
     },
     "show-speakers.html": {
         "slot_a": ("h1", None),
-        "slot_b": ("h2", "How to Find Out What Speakers You Have"),
-        "slot_c": ("h3", "Device Name and Group ID"),
+        "slot_b": ("h2", "Show My Speakers: Test the Speakers"),
+        "slot_c": ("h2", "Reading Your Speakers"),
     },
     "sound-level-meter.html": {
         "slot_a": ("h1", None),
-        "slot_b": ("h2", "What Is a Decibel?"),
-        "slot_c": ("h2", "Sound Level Guide"),
+        "slot_b": ("h2", "How to Use This Sound Level Meter Online"),
+        "slot_c": ("h2", "Reference Sound Levels for Your Loudness Meter"),
     },
     "voice-frequency-analyzer.html": {
         "slot_a": ("h1", None),
-        "slot_b": ("h3", "Fundamental Frequency"),
-        "slot_c": ("h3", "Checking Microphone Frequency Response on Calls"),
+        "slot_b": ("h2", "How to Use the Voice Frequency Analyzer"),
+        "slot_c": ("h2", "Limits of a Pitch Detector"),
     },
     "background-noise-analyzer.html": {
         "slot_a": ("h1", None),
-        "slot_b": ("h3", "What Causes Noise in Each Frequency Band"),
-        "slot_c": ("h3", "Low-Frequency Noise: HVAC"),
+        "slot_b": ("h2", "How to Use the Background Noise Analyzer"),
+        "slot_c": ("h2", "Noise Reduction Fixes for Ambient Sound"),
     },
     "mic-recorder.html": {
         "slot_a": ("h1", None),
-        "slot_b": ("h2", "What Is an Online Mic Recorder"),
-        "slot_c": ("h2", "Online Mic Recorder Privacy"),
+        "slot_b": ("h2", "How to Record Your Voice Online"),
+        "slot_c": ("h2", "Fix Online Mic Recorder Problems"),
     },
     "echo-test.html": {
         "slot_a": ("h1", None),
-        "slot_b": ("h2", "Understanding Audio Echo"),
-        "slot_c": ("h3", "Acoustic Echo"),
+        "slot_b": ("h2", "Run a Free Echo Test Online"),
+        "slot_c": ("h2", "Troubleshooting Your Online Mic Tester"),
     },
     "show-mic.html": {
         "slot_a": ("h1", None),
-        "slot_b": ("h2", "How to Find Out What Microphone You Have"),
-        "slot_c": ("h3", "Device Name \u2014 What Microphone Do I Have?"),
+        "slot_b": ("h2", "Show My Mic: Find Out What Microphone You Have"),
+        "slot_c": ("h2", "Find the Right Microphone for Your Needs"),
     },
 }
 

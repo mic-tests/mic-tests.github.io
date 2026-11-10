@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Echo Test - Detect Audio Echo &amp; Feedback Issues</title>
-  <meta name="description" content="Echo test — hear your mic played back with adjustable delay to catch reverb or feedback. Select a mode and confirm your echo cancellation is working.">
+  <title>Free Online Echo Test – Mic Test &amp; Microphone Test</title>
+  <meta name="description" content="Check your microphone online with a free echo test: speak, hear your own delayed voice, and see if your mic picks up echo, feedback or room reverb.">
   <meta name="keywords" content="echo test, audio echo test, microphone echo, feedback test, audio delay test, echo cancellation test, mic echo detection">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="canonical" href="https://mictest.dev/echo-test">
@@ -12,9 +12,9 @@
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "Echo Test - Detect Audio Echo & Feedback",
+  "name": "Free Online Echo Test – Mic Test & Microphone Test",
   "url": "https://mictest.dev/echo-test",
-  "description": "Free online echo test tool. Record and playback audio to detect echo, feedback, and delay issues in your microphone setup.",
+  "description": "Check your microphone online with a free echo test: speak, hear your own delayed voice, and see if your mic picks up echo, feedback or room reverb.",
   "isPartOf": {
     "@type": "WebSite",
     "name": "MicTest",
@@ -30,10 +30,18 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Why do I hear myself echoed back on video calls?",
+      "name": "Is this online echo test free?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "If you hear your own voice echoed back during a video call, the problem is almost always on the other participant's side — their speaker audio is being picked up by their microphone and sent back to you. Ask them to lower their speaker volume, switch to headphones, or check their echo cancellation settings. If the echo appears even in a 1-on-1 call with yourself (browser tab), it means your own monitoring setup has a feedback loop — check that no monitoring-through-speakers setting is active."
+        "text": "Yes. It needs no account, no download and no payment, and it runs in your browser."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do I hear my own voice echoing on a call?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Usually another participant is using speakers without echo cancellation, so your voice plays out of their speakers, re-enters their microphone and returns to you late. Ask them to use headphones or enable echo cancellation."
       }
     },
     {
@@ -41,15 +49,39 @@
       "name": "What is the difference between echo and reverb?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Echo is a distinct delayed repetition of a sound — you hear a clear separate copy of the original sound after a perceptible delay. Reverb is a dense cluster of many tiny reflections arriving so quickly that they blur into a continuous \"wash\" rather than a distinct repeat. A large empty room produces reverb (less than 20ms delay between reflections); a canyon produces echo (several hundred milliseconds of delay between the original sound and the reflection). In recording contexts, room reverb is the more common problem; electronic echo (feedback loop) is what the echo test helps diagnose."
+        "text": "Echo is a distinct repeat that arrives roughly 100 ms or later. Reverb is many short reflections, each under about 50 ms, that blur together as the sound decays."
       }
     },
     {
       "@type": "Question",
-      "name": "Can I use the echo test to simulate how I sound on calls?",
+      "name": "How do I stop audio feedback?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes — enable Live Monitor Test with headphones and speak normally. You will hear exactly what your microphone is capturing in real time, which closely approximates what call participants hear from you. This is the fastest way to check whether your voice sounds clear, whether background noise is audible, and whether any processing (noise cancellation, echo suppression) is working correctly before a call. For a complete pre-call audio check, also run the background noise analyzer to confirm your room's noise floor is acceptable."
+        "text": "Use headphones, lower the speaker volume, move the microphone away from the speakers and mute yourself when you are not talking."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the test record or upload my voice?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. All audio is processed locally in your browser's memory on your own device, so nothing is uploaded or stored."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does the tool say clipping risk?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Input gain above about 220% with typical speech peaks pushes the signal past full scale, which distorts the recording. Lower the gain until the result shows headroom."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need headphones when I use echo playback?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Without headphones, the speakers feed the delayed sound back into the microphone and create real feedback."
       }
     }
   ]
@@ -532,7 +564,7 @@
 
       <!-- HERO -->
       <header class="mb-6">
-        <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Echo Test — Detect Audio Feedback &amp; Delay Issues Online</h1>
+        <h1 class="font-semibold leading-[1.08] mb-4" style="font-size:clamp(28px,3.6vw,42px)">Free Online Echo Test – Mic Test &amp; Microphone Test</h1>
           <p class="lead-text">Click <strong>Record</strong>, then <strong>Play Back</strong>, on this <strong>echo test</strong> to hear what your listeners hear. <!-- SILO_START:slot_a -->Run an <a href="/audio-latency-test">audio latency test</a> to confirm your audio chain meets latency requirements for live performance.<!-- SILO_END:slot_a --></p>
       </header>
 
@@ -540,7 +572,7 @@
 
       <div class="min-w-0">
 
-        <form aria-label="Echo Test — Detect Audio Feedback &amp; Delay Issues Online" onsubmit="return false">
+        <form aria-label="Free Online Echo Test – Mic Test &amp; Microphone Test" onsubmit="return false">
           <div class="panel mb-6">
             <div class="panel-hdr"><span class="flex items-center gap-2"><i class="bi bi-lightning-fill"></i>Quick Echo Test</span></div>
             <div class="panel-body">
@@ -594,124 +626,131 @@
 
 
 
-      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents"><div class="toc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span id="table-of-contents">Table of Contents</span></div><ol class="toc-list"><li><a href="#live-monitor-test">Live Monitor Test</a></li><li><a href="#fixing-echo-issues">Fixing Echo Issues</a><ol class="toc-sublist"><li><a href="#common-causes">Common Causes</a></li><li><a href="#solutions">Solutions</a></li></ol></li><li><a href="#understanding-audio-echo">Understanding Audio Echo</a><ol class="toc-sublist"><li><a href="#types-of-echo">Types of Echo:</a></li></ol></li><li><a href="#how-to-use-the-echo-test">How to Use the Echo Test</a></li><li><a href="#what-causes-audio-echo-three-types-explained">What Causes Audio Echo — Three Types Explained</a><ol class="toc-sublist"><li><a href="#acoustic-echo-room-reflections-and-speaker-to-mic-feedback">Acoustic Echo — Room Reflections and Speaker-to-Mic Feedback</a></li><li><a href="#electronic-echo-loopback-and-monitoring-feedback">Electronic Echo — Loopback and Monitoring Feedback</a></li><li><a href="#network-echo-voip-delay-in-calls">Network Echo — VoIP Delay in Calls</a></li></ol></li><li><a href="#how-to-stop-echo-microphone-echo-cancellation-settings">How to Stop Echo — Microphone Echo Cancellation Settings</a><ol class="toc-sublist"><li><a href="#enable-echo-cancellation-in-your-browser-or-os">Enable Echo Cancellation in Your Browser or OS</a></li><li><a href="#using-headphones-to-stop-the-audio-feedback-loop">Using Headphones to Stop the Audio Feedback Loop</a></li></ol></li><li><a href="#faq">Echo Test — Frequently Asked Questions</a></li></ol></nav></section>
+      <section class="block toc-block"><nav class="toc-card" aria-labelledby="table-of-contents"><div class="toc-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h7"/></svg><span id="table-of-contents">Table of Contents</span></div><ol class="toc-list"><li><a href="#run-a-free-echo-test-online-in-your-browser">Run a Free Echo Test Online in Your Browser</a><ol class="toc-sublist"><li><a href="#allow-microphone-access">Allow Microphone Access</a></li><li><a href="#speak-and-watch-echo-diagnostics">Speak and Watch Echo Diagnostics</a></li><li><a href="#try-echo-playback-with-a-delay-slider">Try Echo Playback With a Delay Slider</a></li></ol></li><li><a href="#what-a-microphone-test-online-detects">What a Microphone Test Online Detects</a><ol class="toc-sublist"><li><a href="#what-is-microphone-echo">What Is Microphone Echo?</a></li><li><a href="#audio-feedback-loop-detection">Audio Feedback Loop Detection</a></li><li><a href="#room-reverb-and-acoustic-reflection">Room Reverb and Acoustic Reflection</a></li></ol></li><li><a href="#read-your-mic-test-results">Read Your Mic Test Results</a><ol class="toc-sublist"><li><a href="#hearing-test-125-hz-to-20-khz">Hearing Test: 125 Hz to 20 kHz</a></li><li><a href="#works-on-every-device-and-browser">Works on Every Device and Browser</a></li></ol></li><li><a href="#echo-detection-at-a-home-desk-timing-a-wall-reflection">Echo Detection at a Home Desk: Timing a Wall Reflection</a></li><li><a href="#how-to-fix-echo-and-feedback-after-an-echo-detector-check">How to Fix Echo and Feedback After an Echo Detector Check</a><ol class="toc-sublist"><li><a href="#use-headphones-and-lower-your-speaker-volume">Use Headphones and Lower Your Speaker Volume</a></li><li><a href="#enable-acoustic-echo-cancellation-in-your-app">Enable Acoustic Echo Cancellation in Your App</a></li><li><a href="#soften-the-room-with-a-directional-microphone">Soften the Room With a Directional Microphone</a></li></ol></li><li><a href="#troubleshooting-your-online-mic-tester">Troubleshooting Your Online Mic Tester</a><ol class="toc-sublist"><li><a href="#browser-permission-drivers-and-other-apps">Browser Permission, Drivers and Other Apps</a></li><li><a href="#private-by-design-nothing-leaves-your-device">Private by Design: Nothing Leaves Your Device</a></li></ol></li><li><a href="#faq">Echo Test — Frequently Asked Questions</a></li></ol></nav></section>
 
-      <section class="content-panel prose max-w-none block" id="live-monitor-test" aria-labelledby="live-monitor-test-heading">
-            <p class="lead-text">The <strong>Echo Test</strong> routes your microphone input back through your speakers with a short delay so you can hear exactly what your listeners hear when you talk. Select a <strong>test mode</strong> below — echo, feedback, or delay — click <strong>Start Test</strong>, and speak into your mic; your voice plays back through the <strong>output monitor</strong> so you can catch reverb, looping feedback, or timing issues in your audio setup. If you hear your voice cleanly without distortion, your setup is fine; if you hear overlapping or garbled audio, the <strong>status indicator</strong> flags what type of problem is present.</p>
-            <h2 id="live-monitor-test-heading" class="flex items-center gap-2"><i class="bi bi-headphones"></i>Live Monitor Test</h2>
-            <p>Enable live monitoring to hear your microphone input in real-time through your speakers/headphones. <strong>Warning:</strong> Use headphones to avoid feedback loop!</p>
+      <div class="content-panel prose max-w-none block">
+<p class="lead-text">Run a <strong>free online echo test</strong> and learn in seconds whether your microphone is sending <strong>microphone echo</strong>, <strong>audio feedback</strong> or <strong>room reverb</strong> back into your calls. This online echo detector works in your browser with real-time meters, so there is no download and no sign-up. You only need a microphone and a pair of headphones.</p>
+      </div>
 
-            <div class="status-message alert-warning">
-              <div class="status-step">
-                <span class="status-icon"><i class="bi bi-exclamation-triangle-fill"></i></span>
-                <span><strong>Important:</strong> Use headphones during live monitoring to prevent audio feedback. If you hear loud screeching, click Stop immediately.</span>
-              </div>
-            </div>
+      <section class="content-panel prose max-w-none block alt" id="run-a-free-echo-test-online-in-your-browser" aria-labelledby="run-a-free-echo-test-online-in-your-browser-heading">
+<h2 id="run-a-free-echo-test-online-in-your-browser-heading">Run a Free Echo Test Online in Your Browser</h2>
+<p>The echo test takes about a minute. It listens to your voice, shows what the microphone hears as it happens, and flags repeated sound, so echo detection is something you can see rather than guess. Use it before a call or a meeting to hear your setup the way other people do. <!-- SILO_START:slot_b -->For the answer to <a href="/show-mic">what microphone do i have</a>, the tool reads your audio input devices without any software.<!-- SILO_END:slot_b --></p>
 
-            <div class="grid sm:grid-cols-2 gap-4 items-center">
-              <div>
-                <label class="form-label" for="monitor-delay">Monitor Delay</label>
-                <div class="flex items-center gap-2">
-                  <input type="range" class="flex-1" id="monitor-delay" min="0" max="1000" value="0">
-                  <span class="mono" id="monitor-delay-value">0ms</span>
-                </div>
-              </div>
-              <div class="text-center">
-                <button type="button" class="btn btn-primary" id="monitor-btn">
-                  <i class="bi bi-broadcast me-2"></i>Start Monitoring
-                </button>
-              </div>
-            </div>
+<h3 id="allow-microphone-access">Allow Microphone Access</h3>
+<p>Press the start button and your browser asks for <strong>microphone permission</strong>. Choose Allow for the input device you want to test. If the prompt never appears, open the site settings for this page and switch the device on. A headset or webcam can be the default input, so pick the right one before you speak.</p>
+
+<h3 id="speak-and-watch-echo-diagnostics">Speak and Watch Echo Diagnostics</h3>
+<p>Talk at a normal volume. The oscilloscope draws your waveform live, while the spectrum analyzer splits the sound into bass, midrange and treble. The <strong>echo diagnostics</strong> panel then scores six things: signal strength, echo loop, feedback risk, reverb tail, signal clarity and noise floor. A clean setup shows a low noise floor and a clarity score that stays high while you speak. Background noise or a noisy fan lowers that score first.</p>
+
+<h3 id="try-echo-playback-with-a-delay-slider">Try Echo Playback With a Delay Slider</h3>
+<p>Switch on <strong>echo playback</strong> to hear your voice returned after a delay. Drag the delay slider from 50 ms up to 3 s: short delays sound like a metallic ring, while anything past 100 ms is a clear repeat. Raise the feedback intensity and the repeat loops. The wet mix sets how loud the echo is against the dry signal. Wear headphones for this step, because open speakers turn the playback into real feedback. Make a short recording, then listen to the playback to judge the result.</p>
       </section>
 
-      <section class="content-panel prose max-w-none block alt" id="fixing-echo-issues" aria-labelledby="fixing-echo-issues-heading">
-            <h2 id="fixing-echo-issues-heading" class="flex items-center gap-2"><i class="bi bi-wrench"></i>Fixing Echo Issues</h2>
-            <p>If you're experiencing echo during calls or recordings, try these solutions:</p>
+      <section class="content-panel prose max-w-none block" id="what-a-microphone-test-online-detects" aria-labelledby="what-a-microphone-test-online-detects-heading">
+<h2 id="what-a-microphone-test-online-detects-heading">What a Microphone Test Online Detects</h2>
+<p>A good microphone test online does more than show a moving bar. It separates three problems that sound alike to the listener: echo, feedback and reverb. Each has a different cause, and each needs a different fix on the speaker, microphone or room side.</p>
 
-            <div class="grid sm:grid-cols-2 gap-6">
-              <div>
-                <h3 id="common-causes">Common Causes</h3>
-                <ul>
-                  <li>Speakers too close to microphone</li>
-                  <li>High speaker volume</li>
-                  <li>Echo cancellation disabled</li>
-                  <li>Multiple audio inputs active</li>
-                  <li>Room acoustics (hard surfaces)</li>
-                </ul>
-              </div>
-              <div>
-                <h3 id="solutions">Solutions</h3>
-                <ul>
-                  <li>Use headphones instead of speakers</li>
-                  <li>Lower speaker/playback volume</li>
-                  <li>Enable echo cancellation in mic settings</li>
-                  <li>Move mic away from speakers</li>
-                  <li>Add soft materials to reduce reflections</li>
-                </ul>
-              </div>
-            </div>
-            <p class="mb-0">Still having issues? Check our troubleshooting guide for more solutions.</p>
+<h3 id="what-is-microphone-echo">What Is Microphone Echo?</h3>
+<p>Echo happens when your voice is captured, played from another person's speakers, picked up by their microphone and returned to you late. Omnidirectional microphones, such as most laptop mics, collect speaker bleed from every side, so they suffer most. Echo in a meeting is usually a delay of 100 ms or more, long enough to hear the repeat as a separate sound.</p>
+
+<h3 id="audio-feedback-loop-detection">Audio Feedback Loop Detection</h3>
+<p>A feedback loop forms when the microphone hears the speakers and the speakers replay what it hears, round and round, until a squeal or howl appears. The correlation graph in this tool spikes while the loop is still too quiet to hear. Turning off input monitoring in your recording software also matters, because that setting routes the microphone straight to the speakers on purpose.</p>
+
+<h3 id="room-reverb-and-acoustic-reflection">Room Reverb and Acoustic Reflection</h3>
+<p>Reverb is the blur left when sound bounces off desks, windows and other hard surfaces and re-enters the microphone a few milliseconds late. Unlike an echo, it does not repeat cleanly; it smears syllables together. The echo correlation graph compares the live signal with a delayed copy of itself using cross-correlation, so reflections show up as bumps while a quiet room stays flat.</p>
       </section>
 
-      <section class="content-panel prose max-w-none block" id="understanding-audio-echo" aria-labelledby="understanding-audio-echo-heading">
-            <h2 id="understanding-audio-echo-heading"><i class="bi bi-book me-2"></i>Understanding Audio Echo</h2>
-            <p>Audio echo occurs when sound from your speakers is picked up by your microphone and retransmitted. This creates a feedback loop that can range from a slight delay to a loud screeching sound. <!-- SILO_START:slot_b -->For the answer to <a href="/show-mic">what microphone do i have</a>, the tool reads your audio input devices without any software.<!-- SILO_END:slot_b --></p>
+      <section class="content-panel prose max-w-none block alt" id="read-your-mic-test-results" aria-labelledby="read-your-mic-test-results-heading">
+<h2 id="read-your-mic-test-results-heading">Read Your Mic Test Results</h2>
+<p>After the test, read the device summary before you trust the sound. Any online mic test should list the same fields, and a mic test online that hides them gives you less to work from.</p>
+<table>
+<thead><tr><th>Field</th><th>What it tells you</th></tr></thead>
+<tbody>
+<tr><td>Echo cancellation</td><td>Whether the browser removes speaker sound from the input</td></tr>
+<tr><td>Noise suppression</td><td>Whether steady background hiss is filtered out</td></tr>
+<tr><td>Automatic gain control</td><td>Whether the volume is levelled for you</td></tr>
+<tr><td>Sample rate</td><td>How many audio samples per second are captured; 48,000 Hz is common</td></tr>
+<tr><td>Audio channels</td><td>One for mono, two for stereo input</td></tr>
+<tr><td>Latency</td><td>The lag between sound and signal; lower is better for output you monitor live</td></tr>
+</tbody>
+</table>
 
-            <h3 id="types-of-echo">Types of Echo:</h3>
-            <ul>
-              <li><strong>Acoustic Echo:</strong> Sound bouncing off walls and surfaces</li>
-              <li><strong>Electronic Echo:</strong> Audio looping through your system</li>
-              <li><strong>Network Echo:</strong> Delay in VoIP/video call systems</li>
-            </ul>
+<h3 id="hearing-test-125-hz-to-20-khz">Hearing Test: 125 Hz to 20 kHz</h3>
+<p>The built-in hearing test plays twelve sine wave tones from 125 Hz to 20 kHz, and it backs up the echo results: a tone that sounds doubled or sustained means the room is reflecting sound that can feed an echo, a sign to treat the space before you record. The highest tone you can still hear also marks your hearing range, which for most adults runs to about 18 kHz. The microphone visualizer beside it shows each tone arriving, so you can confirm that both speaker and microphone handle that frequency. A speaker whose frequency response drops off near 16 kHz will look deaf to the top tones, and the frequency range your microphone captures is worth checking the same way.</p>
+
+<h3 id="works-on-every-device-and-browser">Works on Every Device and Browser</h3>
+<p>The test runs in current versions of Chrome, Edge, Firefox, Safari and Opera on Windows, macOS, Linux, Android and iOS. A built-in laptop mic, a USB headset or a podcast microphone all work, and so does a streaming setup, as long as the browser can see the device. Good audio quality starts with a signal the browser can actually read.</p>
       </section>
 
-      <section class="content-panel prose max-w-none block alt" id="how-to-use-the-echo-test" aria-labelledby="how-to-use-the-echo-test-heading">
-            <h2 id="how-to-use-the-echo-test-heading">How to Use the Echo Test</h2>
-            <ol>
-              <li><strong>Put on headphones</strong> before starting — if you use open speakers, the playback will be picked up by your microphone and create a real feedback loop during the test.</li>
-              <li>Set the <strong>Playback Delay</strong> slider to 500ms for an initial test. This introduces a deliberate half-second offset between your speech and the playback, making it easy to hear the echo effect clearly.</li>
-              <li>Click <strong>Record (3 sec)</strong> and say a short phrase. Click <strong>Play Back</strong> to hear what your microphone captured — if you hear the audio clearly with the delay you set, the microphone and playback path are working correctly.</li>
-              <li>For a real-time echo check, use <strong>Live Monitor Test</strong> with headphones. This routes your microphone input directly to your headphones in real time so you can hear exactly what others on a call would hear from you.</li>
-              <li>Adjust the Monitor Delay slider to simulate specific latency scenarios — 0ms for direct monitoring, 100–200ms to approximate typical VoIP call latency.</li>
-            </ol>
+      <section class="content-panel prose max-w-none block" id="echo-detection-at-a-home-desk-timing-a-wall-reflection" aria-labelledby="echo-detection-at-a-home-desk-timing-a-wall-reflection-heading">
+<h2 id="echo-detection-at-a-home-desk-timing-a-wall-reflection-heading">Echo Detection at a Home Desk: Timing a Wall Reflection</h2>
+<p>I'm recording a voice-over tomorrow in a spare room, and I want to know whether the bare wall behind my screen will show up as echo. I run the test with my USB microphone, headphones on, and clap once. The correlation graph shows a small bump right after the clap, while the clarity score stays high, so something is reflecting.</p>
+<p>To judge it, I measure the room: the microphone sits <strong>1.9 m</strong> from the wall behind it. Sound travels at roughly 343 m/s, and the reflection covers the distance twice, so the delay is t = 2d / c = (2 × 1.9) / 343 ≈ 11.1 ms. That is far below the 50 ms mark where reverb blurs into a distinct repeat, so this is <strong>reverb, not echo</strong>.</p>
+<table>
+<thead><tr><th>Mic to wall</th><th>Reflection delay</th><th>What you hear</th></tr></thead>
+<tbody>
+<tr><td>1.9 m</td><td>11.1 ms</td><td>Reverb, a slightly boxy tone</td></tr>
+<tr><td>3.4 m</td><td>19.8 ms</td><td>Reverb, a longer tail</td></tr>
+<tr><td>17.2 m</td><td>100 ms</td><td>A clear separate echo</td></tr>
+</tbody>
+</table>
+<p>The sensitivity rerun is the useful part: I would need a wall about 17.2 m away for a true 100 ms echo, so no desk setup produces one by reflection alone. If a listener hears a distinct repeat, it comes from the call path, not my room. The number to watch is therefore the clarity score, not the delay. My decision: hang a thick blanket behind the microphone, rerun the test, and aim for a flatter correlation line before I record. One caveat is that this arithmetic only covers the first bounce; a small, hard-walled room adds many reflections, and the simple formula will understate how muddy it sounds.</p>
       </section>
 
-      <section class="content-panel prose max-w-none block" id="what-causes-audio-echo-three-types-explained" aria-labelledby="what-causes-audio-echo-three-types-explained-heading">
-            <h2 id="what-causes-audio-echo-three-types-explained-heading">What Causes Audio Echo — Three Types Explained</h2>
+      <section class="content-panel prose max-w-none block alt" id="how-to-fix-echo-and-feedback-after-an-echo-detector-check" aria-labelledby="how-to-fix-echo-and-feedback-after-an-echo-detector-check-heading">
+<h2 id="how-to-fix-echo-and-feedback-after-an-echo-detector-check-heading">How to Fix Echo and Feedback After an Echo Detector Check</h2>
+<p>Once the check points to a cause, fix that cause instead of lowering every setting. In video calls the conferencing app can only cancel what it can predict, so the physical setup comes first.</p>
 
-            <h3 id="acoustic-echo-room-reflections-and-speaker-to-mic-feedback">Acoustic Echo — Room Reflections and Speaker-to-Mic Feedback</h3>
-            <p>Acoustic echo occurs when your speakers play audio that bounces off room surfaces (walls, desk, monitor) and reaches your microphone. The microphone captures the direct sound of your voice and the reflected speaker audio simultaneously. This manifests as a double voice to call participants — they hear you once directly and again after a room-reflection delay. The fix is physical: use headphones, reduce speaker volume, or position the microphone further from the speakers. Adding soft furnishings to the room reduces reflective surfaces that carry speaker sound back to the mic. <!-- SILO_START:slot_c --><!-- SILO_END:slot_c --></p>
+<h3 id="use-headphones-and-lower-your-speaker-volume">Use Headphones and Lower Your Speaker Volume</h3>
+<p><strong>Use headphones</strong> first: they separate the speakers from the microphone and remove the feedback path completely. If you must use laptop speakers, lower the speaker volume to 50-70% and move the microphone 30-60 cm away from them. In a group call, mute yourself while others talk.</p>
 
-            <h3 id="electronic-echo-loopback-and-monitoring-feedback">Electronic Echo — Loopback and Monitoring Feedback</h3>
-            <p>Electronic echo happens when audio is routed in a software loop: your microphone input is passed through a monitoring or recording application that sends it back to your speakers, which the microphone then picks up again. This creates a rapidly escalating feedback loop — the characteristic loud screech in recording software. Common triggers: Stereo Mix or "What U Hear" enabled in Windows sound settings, recording software set to monitor microphone through speakers rather than headphones, or video call applications with monitoring enabled. Disable all monitoring-through-speakers settings and use headphone monitoring exclusively.</p>
+<h3 id="enable-acoustic-echo-cancellation-in-your-app">Enable Acoustic Echo Cancellation in Your App</h3>
+<p>Zoom, Teams, Google Meet and Discord all include echo cancellation, so turn it on in each app's audio settings and set noise suppression to high where offered. If you also run recording software, disable its input monitoring, and turn off Windows sound effects that add reverb. Then run the echo and feedback detector again. If the echo loop and feedback risk both read clear, the remaining echo is coming from the other side of the call.</p>
 
-            <h3 id="network-echo-voip-delay-in-calls">Network Echo — VoIP Delay in Calls</h3>
-            <p>Network echo in video calls (Zoom, Teams, Meet) is actually your own voice being delayed by the network and returned to your ears by the far-end participant's speaker and microphone. Most modern video call platforms include Acoustic Echo Cancellation (AEC) that automatically suppresses this — but AEC fails when the far-end participant has speakers set too loud or sits in a reverberant room. If you hear yourself echoed back during calls, the echo cancellation is failing on the other participant's side, not yours. Ask them to lower their speaker volume or switch to headphones.</p>
+<h3 id="soften-the-room-with-a-directional-microphone">Soften the Room With a Directional Microphone</h3>
+<p>A cardioid pickup pattern hears mostly what sits in front of it, so a directional microphone rejects speaker sound and room reflections that an omnidirectional laptop mic would collect. Add soft furnishings such as rugs, curtains and bookshelves, or hang a thick blanket or acoustic panels behind the microphone to cut the reverb you saw in the diagnostics.</p>
       </section>
 
-      <section class="content-panel prose max-w-none block alt" id="how-to-stop-echo-microphone-echo-cancellation-settings" aria-labelledby="how-to-stop-echo-microphone-echo-cancellation-settings-heading">
-            <h2 id="how-to-stop-echo-microphone-echo-cancellation-settings-heading">How to Stop Echo — Microphone Echo Cancellation Settings</h2>
+      <section class="content-panel prose max-w-none block" id="troubleshooting-your-online-mic-tester" aria-labelledby="troubleshooting-your-online-mic-tester-heading">
+<h2 id="troubleshooting-your-online-mic-tester-heading">Troubleshooting Your Online Mic Tester</h2>
+<p>If the waveform stays flat, the mic tester is not receiving a signal. Run a quick mic check of the common causes below before you assume the hardware is broken, because a microphone tester can only report what the browser lets it hear. <!-- SILO_START:slot_c --><!-- SILO_END:slot_c --></p>
 
-            <h3 id="enable-echo-cancellation-in-your-browser-or-os">Enable Echo Cancellation in Your Browser or OS</h3>
-            <p>Most modern browsers apply echo cancellation by default when a website uses microphone access through getUserMedia. This is a software AEC filter that processes the microphone signal to subtract known speaker output from the captured audio. It works well for standard video calls but can degrade recording quality by adding artifacts. To verify it is enabled: in Chrome, open chrome://settings/content/microphone and confirm the site has microphone access. On Windows, check Sound → Recording → Properties → Enhancements and confirm "Acoustic echo cancellation" is ticked.</p>
+<h3 id="browser-permission-drivers-and-other-apps">Browser Permission, Drivers and Other Apps</h3>
+<p>Start with browser permission: a blocked site shows no signal at all. Next, close Zoom, Discord or any app that may hold the microphone, confirm the device is enabled in your operating system's privacy settings, update the drivers, and reseat the cable or try another USB port. If another computer picks up the same mic, the hardware is fine and the cause is settings or drivers.</p>
 
-            <h3 id="using-headphones-to-stop-the-audio-feedback-loop">Using Headphones to Stop the Audio Feedback Loop</h3>
-            <p>Headphones are the most reliable way to prevent acoustic echo. Over-ear and in-ear headphones physically isolate the speaker output from the microphone — sound from the headphone driver cannot travel through air to reach the microphone capsule. If you must use open speakers, reduce their volume until the noise floor contribution is below the microphone's noise reduction threshold. The echo test's live monitor mode with headphones lets you verify there is no remaining feedback before joining an important call.</p>
+<h3 id="private-by-design-nothing-leaves-your-device">Private by Design: Nothing Leaves Your Device</h3>
+<p>Every echo analysis on this page runs through the Web Audio API inside your browser, so your voice is processed in memory on your device and never uploaded. It stays private: no account, no stored recording and nothing for a server to keep.</p>
       </section>
 
-      <section class="content-panel prose max-w-none block" id="faq" aria-labelledby="faq-heading">
+      <section class="content-panel prose max-w-none block alt" id="faq" aria-labelledby="faq-heading">
         <h2 id="faq-heading">Echo Test — Frequently Asked Questions</h2>
         <details class="panel" open>
-          <summary><strong>Why do I hear myself echoed back on video calls?</strong></summary>
-          <p>If you hear your own voice echoed back during a video call, the problem is almost always on the other participant's side — their speaker audio is being picked up by their microphone and sent back to you. Ask them to lower their speaker volume, switch to headphones, or check their echo cancellation settings. If the echo appears even in a 1-on-1 call with yourself (browser tab), it means your own monitoring setup has a feedback loop — check that no monitoring-through-speakers setting is active.</p>
+          <summary><strong>Is this online echo test free?</strong></summary>
+          <p>Yes. It needs no account, no download and no payment, and it runs in your browser.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Why do I hear my own voice echoing on a call?</strong></summary>
+          <p>Usually another participant is using speakers without echo cancellation, so your voice plays out of their speakers, re-enters their microphone and returns to you late. Ask them to use headphones or enable echo cancellation.</p>
         </details>
         <details class="panel" open>
           <summary><strong>What is the difference between echo and reverb?</strong></summary>
-          <p>Echo is a distinct delayed repetition of a sound — you hear a clear separate copy of the original sound after a perceptible delay. Reverb is a dense cluster of many tiny reflections arriving so quickly that they blur into a continuous "wash" rather than a distinct repeat. A large empty room produces reverb (less than 20ms delay between reflections); a canyon produces echo (several hundred milliseconds of delay between the original sound and the reflection). In recording contexts, room reverb is the more common problem; electronic echo (feedback loop) is what the echo test helps diagnose.</p>
+          <p>Echo is a distinct repeat that arrives roughly 100 ms or later. Reverb is many short reflections, each under about 50 ms, that blur together as the sound decays.</p>
         </details>
         <details class="panel" open>
-          <summary><strong>Can I use the echo test to simulate how I sound on calls?</strong></summary>
-          <p>Yes — enable Live Monitor Test with headphones and speak normally. You will hear exactly what your microphone is capturing in real time, which closely approximates what call participants hear from you. This is the fastest way to check whether your voice sounds clear, whether background noise is audible, and whether any processing (noise cancellation, echo suppression) is working correctly before a call. For a complete pre-call audio check, also run the <a href="/background-noise-analyzer">background noise analyzer</a> to confirm your room's noise floor is acceptable.</p>
+          <summary><strong>How do I stop audio feedback?</strong></summary>
+          <p>Use headphones, lower the speaker volume, move the microphone away from the speakers and mute yourself when you are not talking.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Does the test record or upload my voice?</strong></summary>
+          <p>No. All audio is processed locally in your browser's memory on your own device, so nothing is uploaded or stored.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Why does the tool say clipping risk?</strong></summary>
+          <p>Input gain above about 220% with typical speech peaks pushes the signal past full scale, which distorts the recording. Lower the gain until the result shows headroom.</p>
+        </details>
+        <details class="panel" open>
+          <summary><strong>Do I need headphones when I use echo playback?</strong></summary>
+          <p>Yes. Without headphones, the speakers feed the delayed sound back into the microphone and create real feedback.</p>
         </details>
       </section>
 
