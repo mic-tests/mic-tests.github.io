@@ -5,3 +5,6 @@
 .DS_Store
 __pycache__/
 *.pyc
+
+# Google Ads API credentials -- never commit
+utilities/google_ads_keyword_research/google-ads.yaml
