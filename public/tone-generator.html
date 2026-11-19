@@ -1032,7 +1032,8 @@
         freqSlider.value = freq;
         freqInput.value = Math.round(freq);
 
-        if (oscillator && isPlaying) {
+        // Noise playback stores a BufferSource here, which has no frequency param.
+        if (oscillator && oscillator.frequency && isPlaying) {
           oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
         }
       }

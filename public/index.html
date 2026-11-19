@@ -1093,6 +1093,7 @@
     }
 
     function populateMicSelect(audioInputDevices) {
+      const previous = micSelect.value;
       micSelect.innerHTML = '';
       audioInputDevices.forEach((device, index) => {
         const option = document.createElement('option');
@@ -1100,6 +1101,16 @@
         option.text = device.label || `Microphone ${index + 1}`;
         micSelect.appendChild(option);
       });
+
+      // Keep the visitor's own choice; otherwise prefer the system default input
+      // rather than whichever device the browser lists first (e.g. a nearby
+      // iPhone via Continuity Camera/Microphone).
+      const values = Array.from(micSelect.options).map(o => o.value);
+      if (previous && values.includes(previous)) {
+        micSelect.value = previous;
+      } else if (values.includes('default')) {
+        micSelect.value = 'default';
+      }
 
       micSelect.disabled = false;
     }

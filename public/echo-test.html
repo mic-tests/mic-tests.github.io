@@ -971,14 +971,14 @@
       }
 
       // Get audio devices
-      async function getAudioDevices() {
+      async function getAudioDevices(isRefresh) {
         try {
-          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          stream.getTracks().forEach(track => track.stop());
-
+          // List devices without prompting for permission; labels appear once the
+          // visitor has granted access (we refresh the list after Start).
           const devices = await navigator.mediaDevices.enumerateDevices();
           const audioInputs = devices.filter(d => d.kind === 'audioinput');
 
+          const previous = micSelect.value;
           micSelect.innerHTML = '';
           audioInputs.forEach((device, index) => {
             const option = document.createElement('option');
@@ -986,9 +986,18 @@
             option.text = device.label || `Microphone ${index + 1}`;
             micSelect.appendChild(option);
           });
-          micSelect.disabled = false;
+
+          const values = Array.from(micSelect.options).map(o => o.value);
+          if (previous && values.includes(previous)) {
+            micSelect.value = previous;
+          } else if (values.includes('default')) {
+            // Prefer the system default input rather than whichever device the
+            // browser happens to list first (e.g. a nearby iPhone via Continuity).
+            micSelect.value = 'default';
+          }
+          if (!isRefresh) micSelect.disabled = false;
         } catch (error) {
-          updateStatus('danger', 'Microphone access denied. Please allow microphone permissions.');
+          updateStatus('danger', 'Could not list microphones: ' + error.message);
         }
       }
 
@@ -1038,6 +1047,8 @@
 
           audioStream = await navigator.mediaDevices.getUserMedia(constraints);
 
+          getAudioDevices(true);
+
           audioContext = new (window.AudioContext || window.webkitAudioContext)();
           analyser = audioContext.createAnalyser();
           const source = audioContext.createMediaStreamSource(audioStream);
@@ -1058,7 +1069,7 @@
 
             if (animationId) cancelAnimationFrame(animationId);
 
-            testResults.innerHTML = `
+            if (testResults) testResults.innerHTML = `
               <div class="text-center">
                 <i class="bi bi-check-circle text-success fs-1"></i>
                 <p class="mt-2">Recording captured successfully.</p>
@@ -1123,6 +1134,8 @@
           };
 
           audioStream = await navigator.mediaDevices.getUserMedia(constraints);
+
+          getAudioDevices(true);
           audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
           monitorSource = audioContext.createMediaStreamSource(audioStream);
@@ -1161,22 +1174,26 @@
         }
 
         isMonitoring = false;
-        monitorBtn.innerHTML = '<i class="bi bi-broadcast me-2"></i>Start Monitoring';
-        monitorBtn.classList.remove('btn-danger');
-        monitorBtn.classList.add('btn-primary');
+        if (monitorBtn) {
+          monitorBtn.innerHTML = '<i class="bi bi-broadcast me-2"></i>Start Monitoring';
+          monitorBtn.classList.remove('btn-danger');
+          monitorBtn.classList.add('btn-primary');
+        }
         updateStatus('info', 'Monitoring stopped.');
       }
 
       // Event listeners
       recordBtn.addEventListener('click', startRecording);
       playBtn.addEventListener('click', playRecording);
-      monitorBtn.addEventListener('click', toggleMonitoring);
+      // The live-monitoring card and results panel are not in the current markup,
+      // so only wire them up if present (a null here used to abort the whole script).
+      if (monitorBtn) monitorBtn.addEventListener('click', toggleMonitoring);
 
       delaySlider.addEventListener('input', () => {
         delayValue.textContent = `${delaySlider.value}ms`;
       });
 
-      monitorDelay.addEventListener('input', () => {
+      if (monitorDelay) monitorDelay.addEventListener('input', () => {
         monitorDelayValue.textContent = `${monitorDelay.value}ms`;
         if (delayNode) {
           delayNode.delayTime.value = parseInt(monitorDelay.value) / 1000;

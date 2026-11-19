@@ -1034,12 +1034,10 @@
 
       async function getAudioDevices() {
         try {
-          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          stream.getTracks().forEach(track => track.stop());
-
           const devices = await navigator.mediaDevices.enumerateDevices();
           const audioInputs = devices.filter(d => d.kind === 'audioinput');
 
+          const previous = micSelect.value;
           micSelect.innerHTML = '';
           audioInputs.forEach((device, index) => {
             const option = document.createElement('option');
@@ -1047,9 +1045,17 @@
             option.text = device.label || `Microphone ${index + 1}`;
             micSelect.appendChild(option);
           });
-          micSelect.disabled = false;
+          const values = Array.from(micSelect.options).map(o => o.value);
+          if (previous && values.includes(previous)) {
+            micSelect.value = previous;
+          } else if (values.includes('default')) {
+            // Prefer the system default input rather than whichever device the
+            // browser happens to list first (e.g. a nearby iPhone via Continuity).
+            micSelect.value = 'default';
+          }
+          micSelect.disabled = isRunning;
         } catch (error) {
-          updateStatus('danger', 'Microphone access denied.');
+          updateStatus('danger', 'Could not list microphones: ' + error.message);
         }
       }
 
@@ -1087,17 +1093,31 @@
       }
 
       function findFundamentalFrequency(dataArray, sampleRate) {
-        let maxIndex = 0;
-        let maxValue = 0;
+        // Use the unclipped dB spectrum (the byte spectrum saturates at 255 and
+        // smears the peak across neighbouring bins), then refine the peak with
+        // parabolic interpolation between adjacent bins.
+        const db = new Float32Array(analyser.frequencyBinCount);
+        analyser.getFloatFrequencyData(db);
 
-        for (let i = 5; i < dataArray.length / 2; i++) {
-          if (dataArray[i] > maxValue) {
-            maxValue = dataArray[i];
+        let maxIndex = 0;
+        let maxValue = -Infinity;
+
+        for (let i = 5; i < db.length / 2; i++) {
+          if (db[i] > maxValue) {
+            maxValue = db[i];
             maxIndex = i;
           }
         }
 
-        return (maxIndex * sampleRate) / (analyser.fftSize * 2);
+        if (maxIndex < 1 || maxValue < analyser.minDecibels + 10) return 0;
+
+        let offset = 0;
+        const left = db[maxIndex - 1];
+        const right = db[maxIndex + 1];
+        const denom = left - 2 * maxValue + right;
+        if (denom !== 0) offset = 0.5 * (left - right) / denom;
+
+        return ((maxIndex + offset) * sampleRate) / analyser.fftSize;
       }
 
       function draw() {
@@ -1179,10 +1199,11 @@
         // Frequency bands
         const calcBand = (start, end) => {
           let sum = 0;
-          const startIdx = Math.floor(start / 22050 * bufferLength);
-          const endIdx = Math.floor(end / 22050 * bufferLength);
+          const nyquist = audioContext.sampleRate / 2;
+          const startIdx = Math.floor(start / nyquist * bufferLength);
+          const endIdx = Math.min(bufferLength, Math.floor(end / nyquist * bufferLength));
           for (let i = startIdx; i < endIdx && i < bufferLength; i++) sum += freqData[i];
-          return Math.round((sum / (endIdx - startIdx)) / 255 * 100);
+          return endIdx > startIdx ? Math.round((sum / (endIdx - startIdx)) / 255 * 100) : 0;
         };
 
         bassLevel.textContent = calcBand(80, 300) + '%';
@@ -1204,6 +1225,7 @@
           const constraints = { audio: deviceId ? { deviceId: { exact: deviceId } } : true };
 
           audioStream = await navigator.mediaDevices.getUserMedia(constraints);
+          getAudioDevices();
           audioContext = new (window.AudioContext || window.webkitAudioContext)();
           analyser = audioContext.createAnalyser();
           const source = audioContext.createMediaStreamSource(audioStream);

@@ -1027,14 +1027,14 @@
       window.addEventListener('resize', resizeCanvas);
 
       // Get audio devices
-      async function getAudioDevices() {
+      async function getAudioDevices(isRefresh) {
         try {
-          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          stream.getTracks().forEach(track => track.stop());
-
+          // List devices without prompting for permission; labels appear once the
+          // visitor has granted access (we refresh the list after Start).
           const devices = await navigator.mediaDevices.enumerateDevices();
           const audioInputs = devices.filter(d => d.kind === 'audioinput');
 
+          const previous = micSelect.value;
           micSelect.innerHTML = '';
           audioInputs.forEach((device, index) => {
             const option = document.createElement('option');
@@ -1042,9 +1042,18 @@
             option.text = device.label || `Microphone ${index + 1}`;
             micSelect.appendChild(option);
           });
-          micSelect.disabled = false;
+
+          const values = Array.from(micSelect.options).map(o => o.value);
+          if (previous && values.includes(previous)) {
+            micSelect.value = previous;
+          } else if (values.includes('default')) {
+            // Prefer the system default input rather than whichever device the
+            // browser happens to list first (e.g. a nearby iPhone via Continuity).
+            micSelect.value = 'default';
+          }
+          if (!isRefresh) micSelect.disabled = false;
         } catch (error) {
-          updateStatus('danger', 'Microphone access denied. Please allow microphone permissions.');
+          updateStatus('danger', 'Could not list microphones: ' + error.message);
         }
       }
 
@@ -1155,6 +1164,8 @@
           };
 
           audioStream = await navigator.mediaDevices.getUserMedia(constraints);
+
+          getAudioDevices(true);
           audioContext = new (window.AudioContext || window.webkitAudioContext)();
           analyser = audioContext.createAnalyser();
           microphone = audioContext.createMediaStreamSource(audioStream);

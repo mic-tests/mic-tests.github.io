@@ -57,7 +57,7 @@
       "name": "My latency reading is 5ms but audio still feels delayed — why?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Browser-based tests estimate latency using AudioContext.baseLatency and AudioContext.outputLatency — values reported by the browser, not directly measured. The browser may report a low hardware latency while adding its own scheduling delay on top. Additionally, if you are experiencing perceived audio delay in a specific application (video call, DAW, game), that application may be adding its own buffering that this test does not account for. Test within the specific application's own latency settings."
+        "text": "This test measures the round trip from your speakers to your microphone: it plays a short chirp, records it, and times how long it takes to arrive. That covers the browser's audio scheduling, your operating system and driver buffers, and the sound travelling through the air (about 3ms per metre between speaker and mic), but it only describes this particular path. If you are experiencing perceived audio delay in a specific application (video call, DAW, game), that application may be adding its own buffering that this test does not account for. Results can also vary a little between runs, so repeat the test a few times and look at the average. Test within the specific application's own latency settings."
       }
     },
     {
@@ -792,7 +792,7 @@
         </details>
         <details class="panel" open>
           <summary><strong>My latency reading is 5ms but audio still feels delayed — why?</strong></summary>
-          <p>Browser-based tests estimate latency using AudioContext.baseLatency and AudioContext.outputLatency — values reported by the browser, not directly measured. The browser may report a low hardware latency while adding its own scheduling delay on top. Additionally, if you are experiencing perceived audio delay in a specific application (video call, DAW, game), that application may be adding its own buffering that this test does not account for. Test within the specific application's own latency settings.</p>
+          <p>This test measures the round trip from your speakers to your microphone: it plays a short chirp, records it, and times how long it takes to arrive. That covers the browser's audio scheduling, your operating system and driver buffers, and the sound travelling through the air (about 3ms per metre between speaker and mic), but it only describes this particular path. If you are experiencing perceived audio delay in a specific application (video call, DAW, game), that application may be adding its own buffering that this test does not account for. Results can also vary a little between runs, so repeat the test a few times and look at the average. Test within the specific application's own latency settings.</p>
         </details>
         <details class="panel" open>
           <summary><strong>What is ASIO and does it reduce audio latency significantly?</strong></summary>
@@ -999,14 +999,14 @@
       let results = [];
       let isRunning = false;
 
-      async function getAudioDevices() {
+      async function getAudioDevices(isRefresh) {
         try {
-          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          stream.getTracks().forEach(track => track.stop());
-
+          // List devices without prompting for permission; labels appear once the
+          // visitor has granted access (we refresh the list after Start).
           const devices = await navigator.mediaDevices.enumerateDevices();
           const audioInputs = devices.filter(d => d.kind === 'audioinput');
 
+          const previous = micSelect.value;
           micSelect.innerHTML = '';
           audioInputs.forEach((device, index) => {
             const option = document.createElement('option');
@@ -1014,9 +1014,18 @@
             option.text = device.label || `Microphone ${index + 1}`;
             micSelect.appendChild(option);
           });
-          micSelect.disabled = false;
+
+          const values = Array.from(micSelect.options).map(o => o.value);
+          if (previous && values.includes(previous)) {
+            micSelect.value = previous;
+          } else if (values.includes('default')) {
+            // Prefer the system default input rather than whichever device the
+            // browser happens to list first (e.g. a nearby iPhone via Continuity).
+            micSelect.value = 'default';
+          }
+          if (!isRefresh) micSelect.disabled = false;
         } catch (error) {
-          updateStatus('danger', 'Microphone access denied.');
+          updateStatus('danger', 'Could not list microphones: ' + error.message);
         }
       }
 
@@ -1079,6 +1088,126 @@
         }
       }
 
+      // ---- Real acoustic loopback measurement ----
+      // Plays a short chirp through the speakers, records it back through the mic and
+      // cross-correlates to find when it arrived. Result = true round-trip latency
+      // (output buffer + speaker-to-mic air path + input buffer). No random numbers.
+      const CHIRP_MS = 25;
+      const CHIRP_F0 = 1500;
+      const CHIRP_F1 = 9000;
+      const TRIALS = 5;
+      const MIN_GOOD_TRIALS = 3;
+      const MIN_PEAK_RATIO = 8;
+
+      const WORKLET_SRC = [
+        'class LoopbackRecorder extends AudioWorkletProcessor {',
+        '  constructor() {',
+        '    super();',
+        '    this.active = false; this.chunks = []; this.got = 0; this.len = 0; this.first = -1;',
+        '    this.port.onmessage = (e) => {',
+        "      if (e.data.cmd === 'arm') { this.chunks = []; this.got = 0; this.len = e.data.len; this.first = -1; this.active = true; }",
+        '    };',
+        '  }',
+        '  process(inputs) {',
+        '    if (this.active) {',
+        '      const ch = inputs[0] && inputs[0][0];',
+        '      if (this.first < 0) this.first = currentFrame;',
+        '      const block = ch ? ch.slice() : new Float32Array(128);',
+        '      this.chunks.push(block);',
+        '      this.got += block.length;',
+        '      if (this.got >= this.len) {',
+        '        this.active = false;',
+        '        const out = new Float32Array(this.got);',
+        '        let o = 0;',
+        '        for (const c of this.chunks) { out.set(c, o); o += c.length; }',
+        '        this.port.postMessage({ first: this.first, samples: out }, [out.buffer]);',
+        '      }',
+        '    }',
+        '    return true;',
+        '  }',
+        '}',
+        "registerProcessor('loopback-recorder', LoopbackRecorder);"
+      ].join('\n');
+
+      function makeChirp(sampleRate) {
+        const n = Math.round(sampleRate * CHIRP_MS / 1000);
+        const dur = n / sampleRate;
+        const k = (CHIRP_F1 - CHIRP_F0) / dur;
+        const out = new Float32Array(n);
+        for (let i = 0; i < n; i++) {
+          const t = i / sampleRate;
+          const w = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (n - 1));
+          out[i] = Math.sin(2 * Math.PI * (CHIRP_F0 * t + 0.5 * k * t * t)) * w;
+        }
+        return out;
+      }
+
+      // Cross-correlate the recording with the chirp. Returns { lag, ratio } where lag is the
+      // sample offset of the chirp's arrival and ratio is peak height over the noise floor.
+      function findChirp(x, chirp, minLag, searchLen, guard) {
+        const L = chirp.length;
+        const maxLag = Math.min(x.length - L, minLag + searchLen);
+        if (maxLag <= minLag) return null;
+        const corr = new Float32Array(maxLag - minLag + 1);
+        let bestVal = 0;
+        let bestIdx = -1;
+        for (let lag = minLag; lag <= maxLag; lag++) {
+          let s = 0;
+          for (let i = 0; i < L; i++) s += x[lag + i] * chirp[i];
+          const a = Math.abs(s);
+          corr[lag - minLag] = a;
+          if (a > bestVal) { bestVal = a; bestIdx = lag - minLag; }
+        }
+        if (bestIdx < 0 || bestVal === 0) return null;
+
+        // Noise floor: rms of the correlation away from the strongest peak.
+        let sum = 0;
+        let cnt = 0;
+        for (let i = 0; i < corr.length; i++) {
+          if (Math.abs(i - bestIdx) > guard) { sum += corr[i] * corr[i]; cnt++; }
+        }
+        const noise = cnt ? Math.sqrt(sum / cnt) : 0;
+        const ratio = noise > 0 ? bestVal / noise : Infinity;
+
+        // Prefer the earliest strong arrival (the direct path) over a later, louder reflection.
+        let idx = bestIdx;
+        for (let i = 0; i < bestIdx; i++) {
+          if (corr[i] >= 0.6 * bestVal) {
+            let j = i;
+            const end = Math.min(corr.length - 1, i + guard);
+            for (let m = i; m <= end; m++) if (corr[m] > corr[j]) j = m;
+            idx = j;
+            break;
+          }
+        }
+        return { lag: minLag + idx, ratio };
+      }
+
+      async function runTrial(ctx, node, chirp) {
+        const sr = ctx.sampleRate;
+        const done = new Promise(resolve => { node.port.onmessage = e => resolve(e.data); });
+        node.port.postMessage({ cmd: 'arm', len: Math.round(sr * 1.0) });
+
+        const t0 = ctx.currentTime + 0.25;
+        const buf = ctx.createBuffer(1, chirp.length, sr);
+        buf.copyToChannel(chirp, 0);
+        const src = ctx.createBufferSource();
+        src.buffer = buf;
+        const gain = ctx.createGain();
+        gain.gain.value = 0.8;
+        src.connect(gain);
+        gain.connect(ctx.destination);
+        src.start(t0);
+
+        const { first, samples } = await done;
+        const startFrame = Math.round(t0 * sr);
+        const minLag = Math.max(0, startFrame - first);
+        const hit = findChirp(samples, chirp, minLag, Math.round(0.6 * sr), Math.round(0.005 * sr));
+        if (!hit || hit.ratio < MIN_PEAK_RATIO) return null;
+        const ms = (first + hit.lag - startFrame) / sr * 1000;
+        return ms >= 0 ? ms : null;
+      }
+
       async function runLatencyTest() {
         if (isRunning) return;
         isRunning = true;
@@ -1086,69 +1215,73 @@
         startBtn.disabled = true;
         testProgressContainer.classList.remove('d-none');
         testProgress.style.width = '0%';
-        updateStatus('info', 'Testing latency... Please wait.');
+        updateStatus('info', 'Measuring round-trip latency... keep the room quiet and your speaker volume up.');
+
+        let stream = null;
+        let ctx = null;
 
         try {
-          const deviceId = micSelect.value;
-          const constraints = { audio: deviceId ? { deviceId: { exact: deviceId } } : true };
-
-          const stream = await navigator.mediaDevices.getUserMedia(constraints);
-          audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-          // Get the reported latency
-          const track = stream.getAudioTracks()[0];
-          const settings = track.getSettings();
-          let reportedLatency = settings.latency ? settings.latency * 1000 : null;
-
-          // Measure actual latency using AudioContext
-          const sourceNode = audioContext.createMediaStreamSource(stream);
-          const analyser = audioContext.createAnalyser();
-          sourceNode.connect(analyser);
-          analyser.fftSize = 256;
-
-          // Simulate latency test with progress
-          let progress = 0;
-          const progressInterval = setInterval(() => {
-            progress += 10;
-            testProgress.style.width = `${progress}%`;
-            if (progress >= 100) clearInterval(progressInterval);
-          }, 100);
-
-          // Calculate estimated latency
-          await new Promise(resolve => setTimeout(resolve, 1000));
-
-          // Base latency from AudioContext
-          const baseLatency = audioContext.baseLatency * 1000 || 0;
-          const outputLatency = audioContext.outputLatency * 1000 || 0;
-
-          // Estimate total round-trip latency
-          let estimatedLatency = baseLatency + outputLatency;
-
-          // Add some variance for browser processing
-          estimatedLatency += Math.random() * 10 + 5;
-
-          // If browser reports latency, factor it in
-          if (reportedLatency) {
-            estimatedLatency = (estimatedLatency + reportedLatency) / 2;
+          if (!window.AudioWorkletNode) {
+            throw new Error('This browser does not support AudioWorklet, which the latency test needs.');
           }
 
-          // Ensure reasonable range
-          estimatedLatency = Math.max(5, Math.min(estimatedLatency, 200));
+          const deviceId = micSelect.value;
+          const audio = { echoCancellation: false, noiseSuppression: false, autoGainControl: false, latency: 0 };
+          if (deviceId) audio.deviceId = { exact: deviceId };
+          const constraints = { audio };
 
-          // Cleanup
-          stream.getTracks().forEach(track => track.stop());
-          audioContext.close();
+          stream = await navigator.mediaDevices.getUserMedia(constraints);
+          getAudioDevices(true);
 
-          updateDisplay(estimatedLatency);
-          updateStatus('success', `Latency test complete: ${Math.round(estimatedLatency)} ms`);
+          const settings = stream.getAudioTracks()[0].getSettings();
+          const processed = settings.echoCancellation === true;
+
+          ctx = new (window.AudioContext || window.webkitAudioContext)({ latencyHint: 'interactive' });
+          const url = URL.createObjectURL(new Blob([WORKLET_SRC], { type: 'application/javascript' }));
+          try {
+            await ctx.audioWorklet.addModule(url);
+          } finally {
+            URL.revokeObjectURL(url);
+          }
+          if (ctx.state === 'suspended') await ctx.resume();
+
+          const node = new AudioWorkletNode(ctx, 'loopback-recorder', {
+            numberOfInputs: 1, numberOfOutputs: 1, channelCount: 1, channelCountMode: 'explicit'
+          });
+          const silent = ctx.createGain();
+          silent.gain.value = 0;
+          ctx.createMediaStreamSource(stream).connect(node);
+          node.connect(silent);
+          silent.connect(ctx.destination);
+
+          const chirp = makeChirp(ctx.sampleRate);
+          const values = [];
+          for (let i = 0; i < TRIALS; i++) {
+            const ms = await runTrial(ctx, node, chirp);
+            if (ms !== null) values.push(ms);
+            testProgress.style.width = `${((i + 1) / TRIALS) * 100}%`;
+            await new Promise(resolve => setTimeout(resolve, 150));
+          }
+
+          if (values.length < MIN_GOOD_TRIALS) {
+            updateStatus('danger', `Could not hear the test sound clearly (${values.length} of ${TRIALS} runs detected). Turn your speaker volume up, play it through speakers rather than headphones, keep the room quiet, then try again.` +
+              (processed ? ' Your browser also kept echo cancellation on for this microphone, which can hide the sound.' : ''));
+          } else {
+            values.sort((a, b) => a - b);
+            const median = values.length % 2 ? values[(values.length - 1) / 2] : (values[values.length / 2 - 1] + values[values.length / 2]) / 2;
+            updateDisplay(median);
+            updateStatus('success', `Measured round-trip latency: ${Math.round(median)} ms (median of ${values.length} runs, range ${Math.round(values[0])}–${Math.round(values[values.length - 1])} ms)`);
+          }
 
         } catch (error) {
           updateStatus('danger', 'Error: ' + error.message);
+        } finally {
+          if (stream) stream.getTracks().forEach(track => track.stop());
+          if (ctx) ctx.close();
+          startBtn.disabled = false;
+          testProgressContainer.classList.add('d-none');
+          isRunning = false;
         }
-
-        startBtn.disabled = false;
-        testProgressContainer.classList.add('d-none');
-        isRunning = false;
       }
 
       function clearHistory() {
