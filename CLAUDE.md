@@ -63,7 +63,7 @@ Single source of truth, modeled on the passwordhive/hexcalculator pattern:
 - **`src/content/pages/<slug>.json`** — same idea for the 4 simpler info pages (`about`, `contact`, `troubleshooting`, `sitemap`).
 - **`src/template.html`** — shared template for the 15 tool pages (rail nav, mobile drawer, footer, theme toggle, comments widget, and all base/component CSS — edited **once**, not copy-pasted per page).
 - **`src/template-page.html`** — shared template for the 4 info pages + `404.html`. Keep its component CSS (`.btn-*`, `.status-message`, `.alert-*`, forms, etc.) in sync with `src/template.html`'s — it's easy for one to drift ahead of the other since they're two separate `<style>` blocks, not a shared stylesheet.
-- **`src/static/`** — binary/opaque assets that can't be derived from `site.json`: `favicon.ico`, `icon.png`, `icon.svg`, the Google Search Console verification file (`googlecb346f17d96186ee.html` — do not modify), and `ads.txt` (Mediavine-managed, hand-maintained — see Mediavine section). Copied verbatim into `public/` by `generate.py`.
+- **`src/static/`** — binary/opaque assets that can't be derived from `site.json`: `favicon.ico`, `icon.png`, `icon.svg`, the Google Search Console verification file (`googlecb346f17d96186ee.html` — do not modify), `ads.txt` (Mediavine-managed, hand-maintained — see Mediavine section), and `lame.min.js` + `lame.LICENSE.txt` (lamejs 1.2.1, LGPL — see External Dependencies). Copied verbatim into `public/` by `generate.py`.
 - **`src/build_data.py`** — assembles `src/data/{tools,pages,site}.json` from `src/content/`. Site-wide constants (`SITE_NAME`, `DOMAIN`, `HOME_SLUG`, `ADSENSE_PUBLISHER_ID`) live at the top of this file.
 - **`src/generate.py`** — renders `src/data/*.json` + the two templates into `public/*.html`, plus generates `public/robots.txt`, `public/sitemap.xml`, and `public/CNAME` (all derived from `site.json`, never hand-edited), plus `public/404.html` (built from a dedicated `render_404()` — there's no `src/content/pages/404.json`, since the 404 page isn't part of the tools/pages content model).
 - **`public/`** — generated output, committed. Never hand-edit anything here — edit `src/content/<slug>.json` (or the template/generator) and rerun the build (see Deployment above).
@@ -111,6 +111,7 @@ As of 2026-10-31 the site is set up for **Mediavine (Journey)**, and all Google 
 | Bootstrap Icons | 1.11.1 | Icon set |
 | Google Fonts | — | JetBrains Mono + IBM Plex Sans |
 | Mediavine (Journey) | — | Monetization — `scriptwrapper.com` ads script in each template's `<head>`; `ads.txt` is static in `src/static/` |
+| lamejs (self-hosted) | 1.2.1 | MP3 encoder for the mic recorder's "Download MP3" (128 kbps, encoded in the browser). Not a CDN dependency: `src/static/lame.min.js` is copied to `public/` and lazy-loaded from `/lame.min.js` only on the first MP3 export. LGPL — keep `lame.LICENSE.txt` next to it. SHA-256 `15d285e2…6df4`, identical to the file in the official npm tarball. |
 
 Bootstrap (CSS framework, not the icon set) and DM Sans/Syne fonts are only used by the archived `legacy-bootstrap-site/` — not loaded by the current pipeline.
 

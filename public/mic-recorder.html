@@ -940,6 +940,9 @@
       let mediaRecorder = null;
       let audioChunks = [];
       let audioBlob = null;
+      let wavBlob = null;
+      let mp3Blob = null;
+      let lameLoading = null;
       let audioStream = null;
       let audioContext = null;
       let analyser = null;
@@ -1066,7 +1069,10 @@
           };
 
           mediaRecorder.onstop = () => {
-            audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+            // Keep the recorder's real container type (WebM/Opus in Chrome, MP4 in Safari)
+            audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType || 'audio/webm' });
+            wavBlob = null;
+            mp3Blob = null;
             const audioUrl = URL.createObjectURL(audioBlob);
             audioPlayback.src = audioUrl;
             playbackSection.classList.remove('d-none');
@@ -1114,28 +1120,139 @@
         micSelect.disabled = false;
       }
 
-      // Download as WAV
-      function downloadWav() {
-        if (!audioBlob) return;
-        const url = URL.createObjectURL(audioBlob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `recording_${Date.now()}.wav`;
-        a.click();
-        URL.revokeObjectURL(url);
+      // Encode decoded audio as a real 16-bit PCM WAV file
+      function encodeWav(buffer) {
+        const numCh = buffer.numberOfChannels;
+        const sr = buffer.sampleRate;
+        const len = buffer.length;
+        const dataBytes = len * numCh * 2;
+        const ab = new ArrayBuffer(44 + dataBytes);
+        const v = new DataView(ab);
+        const writeStr = (offset, str) => { for (let i = 0; i < str.length; i++) v.setUint8(offset + i, str.charCodeAt(i)); };
+
+        writeStr(0, 'RIFF');
+        v.setUint32(4, 36 + dataBytes, true);
+        writeStr(8, 'WAVE');
+        writeStr(12, 'fmt ');
+        v.setUint32(16, 16, true);
+        v.setUint16(20, 1, true);
+        v.setUint16(22, numCh, true);
+        v.setUint32(24, sr, true);
+        v.setUint32(28, sr * numCh * 2, true);
+        v.setUint16(32, numCh * 2, true);
+        v.setUint16(34, 16, true);
+        writeStr(36, 'data');
+        v.setUint32(40, dataBytes, true);
+
+        const channels = [];
+        for (let c = 0; c < numCh; c++) channels.push(buffer.getChannelData(c));
+        let offset = 44;
+        for (let i = 0; i < len; i++) {
+          for (let c = 0; c < numCh; c++) {
+            const x = Math.max(-1, Math.min(1, channels[c][i]));
+            v.setInt16(offset, x < 0 ? x * 0x8000 : x * 0x7FFF, true);
+            offset += 2;
+          }
+        }
+        return new Blob([ab], { type: 'audio/wav' });
       }
 
-      // Download as MP3 (using WAV for now - MP3 encoding requires additional library)
-      function downloadMp3() {
-        // For simplicity, downloading as WAV (MP3 encoding would require lamejs or similar)
-        if (!audioBlob) return;
-        const url = URL.createObjectURL(audioBlob);
+      async function decodeRecording() {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        try {
+          return await ctx.decodeAudioData(await audioBlob.arrayBuffer());
+        } finally {
+          ctx.close();
+        }
+      }
+
+      function saveBlob(blob, filename) {
+        const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `recording_${Date.now()}.wav`;
+        a.download = filename;
+        document.body.appendChild(a);
         a.click();
-        URL.revokeObjectURL(url);
-        updateStatus('info', 'Downloaded as WAV format. MP3 conversion requires additional processing.');
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 10000);
+      }
+
+      // Download as WAV
+      async function downloadWav() {
+        if (!audioBlob) return;
+        try {
+          if (!wavBlob) {
+            updateStatus('info', 'Preparing WAV file...');
+            wavBlob = encodeWav(await decodeRecording());
+          }
+          saveBlob(wavBlob, `recording_${Date.now()}.wav`);
+          updateStatus('success', 'WAV file downloaded.');
+        } catch (error) {
+          updateStatus('danger', 'Could not create the WAV file: ' + error.message);
+        }
+      }
+
+      // Load the self-hosted MP3 encoder (lamejs) only when MP3 export is first used
+      function loadLame() {
+        if (window.lamejs && window.lamejs.Mp3Encoder) return Promise.resolve();
+        if (!lameLoading) {
+          lameLoading = new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = '/lame.min.js';
+            script.onload = resolve;
+            script.onerror = () => { lameLoading = null; reject(new Error('Could not load the MP3 encoder.')); };
+            document.head.appendChild(script);
+          });
+        }
+        return lameLoading;
+      }
+
+      function floatToInt16(floats) {
+        const out = new Int16Array(floats.length);
+        for (let i = 0; i < floats.length; i++) {
+          const x = Math.max(-1, Math.min(1, floats[i]));
+          out[i] = x < 0 ? x * 0x8000 : x * 0x7FFF;
+        }
+        return out;
+      }
+
+      // Encode decoded audio as a 128 kbps MP3, yielding to the UI as it goes
+      async function encodeMp3(buffer) {
+        await loadLame();
+        const numCh = Math.min(2, buffer.numberOfChannels);
+        const encoder = new window.lamejs.Mp3Encoder(numCh, buffer.sampleRate, 128);
+        const left = floatToInt16(buffer.getChannelData(0));
+        const right = numCh === 2 ? floatToInt16(buffer.getChannelData(1)) : null;
+        const block = 1152;
+        const parts = [];
+
+        for (let i = 0, n = 0; i < left.length; i += block, n++) {
+          const l = left.subarray(i, i + block);
+          const chunk = numCh === 2 ? encoder.encodeBuffer(l, right.subarray(i, i + block)) : encoder.encodeBuffer(l);
+          if (chunk.length) parts.push(chunk);
+          if (n % 400 === 0) {
+            updateStatus('info', `Encoding MP3... ${Math.round(i / left.length * 100)}%`);
+            await new Promise(resolve => setTimeout(resolve, 0));
+          }
+        }
+        const tail = encoder.flush();
+        if (tail.length) parts.push(tail);
+        return new Blob(parts, { type: 'audio/mpeg' });
+      }
+
+      // Download as MP3 (128 kbps, encoded locally in the browser)
+      async function downloadMp3() {
+        if (!audioBlob) return;
+        try {
+          if (!mp3Blob) {
+            updateStatus('info', 'Encoding MP3...');
+            mp3Blob = await encodeMp3(await decodeRecording());
+          }
+          saveBlob(mp3Blob, `recording_${Date.now()}.mp3`);
+          updateStatus('success', 'MP3 file downloaded.');
+        } catch (error) {
+          updateStatus('danger', 'Could not create the MP3 file: ' + error.message);
+        }
       }
 
       // New recording
@@ -1144,6 +1261,8 @@
         recordingTime.textContent = '00:00';
         audioPlayback.src = '';
         audioBlob = null;
+        wavBlob = null;
+        mp3Blob = null;
         audioChunks = [];
         updateStatus('info', 'Click the record button to start a new recording.');
 

@@ -48,6 +48,7 @@ STATIC_FILES = [
     "favicon.ico", "icon.png", "icon.svg",
     "googlecb346f17d96186ee.html",
     "ads.txt",  # Mediavine-managed; hand-maintained in src/static/, not generated
+    "lame.min.js", "lame.LICENSE.txt",  # lamejs 1.2.1 (LGPL), self-hosted; lazy-loaded by mic-recorder for MP3 export
 ]
 
 

@@ -1071,12 +1071,13 @@
         // Calculate levels
         const calculateBandLevel = (start, end) => {
           let sum = 0;
-          const startIdx = Math.floor(start / 22050 * bufferLength);
-          const endIdx = Math.floor(end / 22050 * bufferLength);
-          for (let i = startIdx; i < endIdx && i < bufferLength; i++) {
+          const nyquist = audioContext.sampleRate / 2;
+          const startIdx = Math.floor(start / nyquist * bufferLength);
+          const endIdx = Math.min(bufferLength, Math.floor(end / nyquist * bufferLength));
+          for (let i = startIdx; i < endIdx; i++) {
             sum += dataArray[i];
           }
-          return Math.round(sum / (endIdx - startIdx));
+          return endIdx > startIdx ? Math.round(sum / (endIdx - startIdx)) : 0;
         };
 
         const low = calculateBandLevel(20, 250);
@@ -1089,13 +1090,15 @@
         midHighFreq.textContent = midHigh;
         highFreq.textContent = high;
 
-        // Overall level
-        let sum = 0;
-        for (let i = 0; i < bufferLength; i++) {
-          sum += dataArray[i];
-        }
-        const avgValue = sum / bufferLength;
-        const db = Math.round((avgValue / 255) * 100);
+        // Overall level: RMS of the full-precision time-domain signal in dBFS, shown on the
+        // same dBFS + 100 scale as the sound level meter (0-100).
+        const timeData = new Float32Array(analyser.fftSize);
+        analyser.getFloatTimeDomainData(timeData);
+        let squares = 0;
+        for (let i = 0; i < timeData.length; i++) squares += timeData[i] * timeData[i];
+        const rms = Math.sqrt(squares / timeData.length);
+        const dbfs = 20 * Math.log10(rms + 1e-8);
+        const db = Math.round(Math.max(0, Math.min(100, dbfs + 100)));
 
         currentLevel.textContent = db;
         readings.push(db);
@@ -1168,9 +1171,11 @@
 
         try {
           const deviceId = micSelect.value;
-          const constraints = {
-            audio: deviceId ? { deviceId: { exact: deviceId } } : true
-          };
+          // Measure the room as it is: browser noise suppression / auto gain / echo
+          // cancellation would remove or level the very noise we are trying to read.
+          const audio = { echoCancellation: false, noiseSuppression: false, autoGainControl: false };
+          if (deviceId) audio.deviceId = { exact: deviceId };
+          const constraints = { audio };
 
           audioStream = await navigator.mediaDevices.getUserMedia(constraints);
 
